@@ -1,0 +1,82 @@
+@mixin flipProperty($ltr-property, $rtl-property, $value) {
+  [dir=ltr] & {
+    #{$ltr-property}: $value;
+  }
+
+  [dir=rtl] & {
+    #{$rtl-property}: $value;
+  }
+}
+
+@mixin margin-left($value) {
+  @include flipProperty('margin-left', 'margin-right', $value)
+}
+
+@mixin margin-right($value) {
+  @include flipProperty('margin-right', 'margin-left', $value)
+}
+
+@mixin padding-left($value) {
+  @include flipProperty('padding-left', 'padding-right', $value)
+}
+
+@mixin padding-right($value) {
+  @include flipProperty('padding-right', 'padding-left', $value)
+}
+
+@mixin left($value) {
+  @include flipProperty('left', 'right', $value)
+}
+
+@mixin right($value) {
+  @include flipProperty('right', 'left', $value)
+}
+
+@mixin text-align($direction) {
+  [dir=ltr] & {
+    text-align: $direction;
+  }
+
+  [dir=rtl] & {
+    @if $direction == left {
+      text-align: right;
+    } @else if $direction == right {
+      text-align: left;
+    } @else {
+      text-align: $direction
+    }
+  }
+}
+
+@mixin transformX($value) {
+  [dir=ltr] & {
+    transform: translateX($value);
+  }
+
+  [dir=rtl] & {
+    transform: translateX(-$value);
+
+  }
+}
+
+@mixin float($direction) {
+  [dir=ltr] & {
+    float: $direction;
+  }
+
+  [dir=rtl] & {
+    @if $direction == left {
+      float: right;
+    } @else if $direction == right {
+      float: left;
+    } @else {
+      float: $direction
+    }
+  }
+}
+
+@mixin font-bold {
+  [dir=rtl] & {
+    font-weight: bold
+  }
+}

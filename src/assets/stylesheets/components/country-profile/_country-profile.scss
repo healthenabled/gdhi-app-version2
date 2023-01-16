@@ -1,0 +1,217 @@
+@import './../../rtl-support';
+
+$width-of-scoreCard-en: 150px;
+$width-of-scoreCard-es: 200px;
+
+.country-detail {
+  .copy-blue {
+    margin-top: 20px;
+  }
+
+  .overall-card {
+    display: flex;
+    vertical-align: middle;
+
+    div:nth-of-type(1) {
+      flex-grow: 1;
+      flex-basis: 1px;
+    }
+  }
+
+  .sub-header {
+    text-transform: uppercase;
+  }
+
+  .overall-score {
+    width: $width-of-scoreCard-es;
+    flex-grow: 0;
+    flex-shrink: 0;
+    text-align: center;
+
+    &.en, &.pt, &.ar {
+      width: $width-of-scoreCard-en;
+    }
+  }
+
+  .score, .indicator-score {
+    padding: 10px;
+    color: $white;
+    text-align: center;
+    min-width: 20px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .indicator {
+    margin-bottom: 10px;
+    border-bottom: 1px solid $border-color;
+
+    &:last-child {
+      border: none;
+    }
+  }
+
+  .indicator-desc, .indicator-name {
+    vertical-align: middle;
+    padding: 10px 0;
+    @include margin-right(10px);
+    width: 1px;
+    text-align: justify;
+    flex-grow: 1;
+  }
+
+  .score-container, .indicator-score-heading {
+    flex-grow: 0;
+    flex-shrink: 0;
+    width: $width-of-scoreCard-es;
+    text-align: center;
+
+    &.en, &.pt, &.ar {
+      width: $width-of-scoreCard-en;
+    }
+
+  }
+
+  .indicator-id {
+    align-self: flex-start;
+    padding: 10px 0;
+  }
+
+  .heading-row {
+    display: flex;
+
+    div {
+      padding: 10px 0;
+      border-bottom: 2px solid $border-color;
+      margin-bottom: 10px;
+
+      &:first-child {
+        @include margin-left(0);
+      }
+    }
+  }
+
+  .header-bold {
+    text-transform: capitalize;
+  }
+
+  .country-summary-text {
+    list-style: none;
+    white-space: pre-wrap;
+  }
+
+  .country-text {
+    list-style: none;
+  }
+
+  .header-section {
+    position: relative;
+  }
+
+  #collected-date {
+    position: absolute;
+    bottom: 20px;
+    @include left(80px);
+    font-size: 1.2em;
+  }
+
+  .accordion-content {
+    .indicator {
+      display: flex;
+      align-items: center;
+    }
+  }
+}
+
+//development indicators
+.development-indicators {
+  .row {
+    flex-wrap: wrap;
+  }
+
+  .indicator {
+    width: 50%;
+    border: none;
+    margin-top: 10px;
+    padding: 0 5px;
+    box-sizing: border-box;
+  }
+}
+
+// benchmark
+.benchmark {
+  text-transform: uppercase;
+  margin-top: 10px;
+}
+
+.benchmarkCompare {
+  margin-top: 5px;
+
+  &:before {
+    display: inline-block;
+    @include margin-right(5px);
+    border: 8px solid transparent;
+  }
+
+  &.at {
+    color: $font-grey;
+
+  }
+
+  &.above {
+    color: $positive;
+    margin-top: 0px;
+
+    &:before {
+      content: " ";
+      vertical-align: baseline;
+      border-bottom: 8px solid $positive;
+    }
+  }
+
+  &.below {
+    color: $negative;
+
+    &:before {
+      vertical-align: top;
+      content: " ";
+      border-top: 8px solid $negative;
+    }
+  }
+}
+
+
+//To print the appropriate content
+@media print {
+  .country-detail {
+
+    #collected-date {
+      display: block;
+      position: unset;
+    }
+
+    .button-container {
+      display: none;
+      margin-top: 0;
+    }
+
+    .country-name {
+      margin-bottom: 0;
+      display: block;
+    }
+  }
+  .box-shadow {
+    -webkit-box-shadow: unset;
+    box-shadow: unset;
+    border: 1px solid $border-color;
+  }
+  .development-indicators {
+    .indicator {
+      width: unset;
+    }
+  }
+
+  .accordion.expanded:after {
+    content: '';
+  }
+}

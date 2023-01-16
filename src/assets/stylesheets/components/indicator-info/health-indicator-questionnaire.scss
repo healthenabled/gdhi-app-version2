@@ -1,0 +1,270 @@
+.indicator-items {
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid $border-color;
+}
+
+.indicator-definition {
+  color: $font-grey;
+}
+
+.scores {
+  margin: 10px 0;
+
+  .score-info {
+    display: inline-block;
+    max-width: 90%;
+  }
+
+  * {
+    vertical-align: top;
+  }
+}
+
+.header-bold {
+  margin: 20px 0;
+}
+
+.button-container {
+  margin-top: 40px;
+
+  .btn {
+    margin-right: 10px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
+
+.description_container {
+  flex-wrap: wrap;
+
+  label {
+    display: block;
+  }
+}
+
+.health-indicator-questionnaire {
+
+  .radio-container {
+    display: block;
+    position: relative;
+    @include padding-left(30px);
+    margin-bottom: 12px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    &:hover {
+      input ~ .checkmark {
+        background-color: darken($radio-bg, 10%);
+      }
+
+      input:disabled ~ .checkmark {
+        background-color: $white;
+      }
+    }
+
+    input {
+      position: absolute;
+      opacity: 0;
+
+      &:checked ~ .checkmark {
+        background-color: $logo-blue !important;
+
+        &:after {
+          display: block;
+        }
+      }
+    }
+  }
+
+  .sub-content {
+    margin-top: 120px;
+  }
+
+  .questionnaire-title {
+    position: absolute;
+    bottom: 20px;
+    @include left(80px);
+    font-size: 1.2em;
+  }
+
+  /* Create a custom radio button */
+  .checkmark {
+    position: absolute;
+    top: 0;
+    @include left(0);
+    height: 18px;
+    width: 18px;
+    // background-color: $radio-bg;
+    border: 1px solid $radio-bg;
+    border-radius: 50%;
+
+    &:after {
+      content: "";
+      position: absolute;
+      display: none;
+    }
+
+    &:after {
+      @include left(7px);
+      top: 2px;
+      width: 4px;
+      height: 9px;
+      border: solid white;
+      border-width: 0 2px 2px 0;
+      -webkit-transform: rotate(45deg);
+      transform: rotate(45deg);
+    }
+  }
+
+  .fixed-sub-header {
+    position: fixed;
+    top: 70px;
+    width: 90%;
+    background: $body-bg;
+    z-index: 2;
+  }
+
+  .pdf-title, .pdf-resource, .pdf-rationale-or-supporting-text {
+    display: none;
+  }
+
+  .column-50percent {
+    width: 50%;
+    @include margin-right(20px);
+
+    &:last-child {
+      @include margin-right(0);
+      flex-shrink: 0;
+    }
+
+    @media all and (max-width: 1024px) {
+      width: 100%;
+      @include margin-right(0);
+      margin-top: 5px;
+    }
+  }
+
+  .column-33percent {
+    width: 33.33%;
+    @include margin-right(20px);
+
+    &:last-child {
+      margin-right: 0px;
+      flex-shrink: 0;
+    }
+
+    @media all and (max-width: 1024px) {
+      width: 100%;
+      @include margin-right(0);
+      margin-top: 5px;
+    }
+  }
+
+  .column-66percent {
+    width: 66.67%;
+    @include margin-right(20px);
+
+    .column-50percent {
+      flex-shrink: 1;
+
+      &:last-child {
+        @include margin-right(20px);
+        @media all and (max-width: 1024px) {
+          @include margin-right(0);
+        }
+      }
+    }
+
+    @media all and (max-width: 1024px) {
+      width: 100%;
+      @include margin-right(0);
+      margin-top: 5px;
+    }
+  }
+
+}
+
+@media print {
+  .health-indicator-questionnaire {
+    input[type='text'], input[type='email'], input[type='date'], textarea {
+      border: unset !important;
+      background: unset !important;
+      opacity: 1 !important;
+    }
+
+    .pdf-rationale-or-supporting-text {
+      display: inline;
+      text-align: justify;
+    }
+
+    textarea {
+      resize: none;
+      min-height: 35px;
+    }
+
+    .description_container {
+      textarea {
+        display: none;
+        height: 0;
+      }
+    }
+
+    .description_container label {
+      display: inline;
+    }
+
+    &-contact-info-description {
+      display: none;
+    }
+
+    .pdf-title {
+      display: block;
+      margin-top: 20px;
+      font-family: 'RobotoSlabBold', 'sans-serif';
+      font-size: 2.14em;
+    }
+
+    .pdf-resource {
+      display: block;
+    }
+
+    .resources {
+      .row {
+        display: none;
+      }
+    }
+
+    .fixed-sub-header {
+      position: unset;
+      background: unset;
+    }
+
+    .page-title {
+      display: none;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    .questionnaire-title, .note, .button-container, .fa-eye-slash:before, .fa-eye:before {
+      display: none;
+    }
+
+    .sub-content {
+      margin-top: 0;
+    }
+
+    .contact-info label {
+      font-size: 1.1em;
+      font-weight: bold
+    }
+  }
+  .fa-chevron-circle-up:before {
+    content: '';
+  }
+}

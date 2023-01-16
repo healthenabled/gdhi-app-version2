@@ -1,0 +1,26 @@
+.footer {
+  width: 100%;
+  background: $logo-blue;
+  color: $white;
+  padding: 15px 0;
+  box-sizing: border-box;
+  z-index: 3;
+  .footer-width {
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+  }
+  .ft-element-pipe {
+      padding: 0 20px;
+  }
+  .contact {
+    @extend .copy-italics;
+  }
+}
+
+@media print {
+  .footer {
+    display: none;
+  }
+}

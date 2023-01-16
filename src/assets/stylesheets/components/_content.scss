@@ -1,0 +1,91 @@
+.content-container {
+  padding-top: 85px;
+  min-height: calc(100% - 135px);
+  .content-width {
+    width: 90%;
+    margin: 0 auto;
+    height: 100%;
+  }
+  .content-centered {
+    width: 90%;
+    padding-bottom: 30px;
+    margin: 0 auto;
+  }
+  .export {
+    margin-left: auto;
+    color: $white;
+    @extend .copy;
+    display: inline-block;
+    &.home {
+      position: absolute;
+      z-index: 3;
+      left: 19%;
+      padding: 10px 0px;
+      margin: 5px 0 0 0px;
+    }
+    .pipe {
+      margin: 0px 20px;
+      display: inline-block;
+    }
+  }
+
+  .hero-image {
+    position: relative;
+    img{
+      margin: 20px 0;
+      width: 100%;
+    }
+    .hero-title {
+      background-color: rgba($logo-blue, 0.75);
+      color: $white;
+      position: absolute;
+      font-size: 2.5rem;
+      text-align: center;
+      padding: 10px;
+      left: 0;
+      height: 80px;
+      bottom: 20px;
+      right: 0px;
+      line-height: 1.2em;
+      @media screen and (max-width: 1024px) {
+        font-size: 2em;
+      }
+    }
+  }
+  .page-description {
+    line-height: 1.2em;
+    .link-blue {
+      width: auto;
+      vertical-align: bottom;
+    }
+  }
+
+  .inline-links {
+    a {
+      display: inline-flex;
+      width: 120px;
+      background: $logo-blue;
+      color: $white;
+      padding: 20px;
+      height: 100px;
+      vertical-align: middle;
+      margin: 20px;
+      border-radius: 10px;
+      font-size: 1.25em;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+  //TODO: Hacky fix
+  @media screen and (min-width: 1200px) and (max-width: 1400px) {
+    .export.home {
+      left: 18%;
+    }
+  }
+}
+
+@media print {
+  .content-container {
+    padding-top: 5px;
+  }
+}

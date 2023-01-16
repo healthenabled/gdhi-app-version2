@@ -1,0 +1,142 @@
+@import './../rtl-support';
+
+.header {
+  width: 100%;
+  background: $white;
+  position: fixed;
+  top: 0;
+  @extend .box-shadow;
+  z-index: 3;
+  line-height: 1;
+
+  .header-width {
+    margin: 0 auto;
+    padding: 0 70px;
+  }
+
+  .hd-element {
+    padding: 15px 0px;
+    display: inline-block;
+    min-width: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-sizing: border-box;
+  }
+
+  a {
+    @extend .header-regular;
+  }
+
+  .hide {
+    display: none;
+  }
+}
+
+.header-elements {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+
+  .left-aligned-headers {
+    display: flex;
+  }
+
+  .right-aligned-headers {
+    display: flex;
+  }
+
+  .logo-name {
+    max-width: 190px;
+    color: $logo-blue;
+    text-transform: uppercase;
+    letter-spacing: -0.1px;
+    cursor: pointer;
+    @extend .logo-font;
+    @include margin-right(20px);
+  }
+
+  .search-box {
+    width: 240px;
+    @extend .copy;
+
+    &-container {
+      width: 100%;
+      background-image: url('./assets/img/search.svg');
+      background-repeat: no-repeat;
+      background-size: 14px;
+
+      [dir=ltr] & {
+        background-position: right 10px center;
+      }
+      [dir=rtl] & {
+        background-position: left 10px center;
+      }
+    }
+
+    input {
+      padding: 5px;
+      max-width: 90%;
+      margin-top: 0px;
+    }
+
+    .autocomplete__icon {
+      display: none;
+    }
+
+    .autocomplete__results__item:hover {
+      background: $autocomplete-highlight;
+    }
+  }
+
+  a {
+    border-bottom: 4px solid transparent;
+  }
+
+  .router-link-exact-active {
+    border-bottom: 4px solid $logo-blue;
+    background: $selected-menu;
+  }
+
+  .language-selector {
+    @extend .copy;
+    height: 31px;
+    color: #555;
+    background-color: white;
+    width: 100px;
+    @include padding-left(5px);
+    border: $table-border;
+    -webkit-appearance: none;
+    appearance: none;
+    -moz-appearance: none;
+  }
+
+  .drop-down {
+    @include margin-left(5px);
+    min-width: 100px;
+  }
+
+
+  .drop-down:after {
+    content: '\F078';
+    font: normal normal normal 12px/1 FontAwesome;
+    color: #555;
+    position: relative;
+    pointer-events: none;
+    width: 0;
+    @include right(20px);
+  }
+
+}
+
+.header-elements__right {
+  display: inline-flex;
+  width: 15%;
+}
+
+@media print {
+  .header {
+    display: none;
+  }
+}

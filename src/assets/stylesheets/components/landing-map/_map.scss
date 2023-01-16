@@ -1,0 +1,174 @@
+@import "./../../rtl-support";
+
+.map-layer {
+  font-family: 'RobotoBold';
+  background: $bg-beige;
+}
+.map-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.filter-section {
+  position: absolute;
+  z-index: 2;
+  @include right(0);
+  height: 34px;
+  display: flex;
+  font-size: 12px;
+  margin-top: 5px;
+
+  .filter-indicator, .phase-indicator {
+    height: 34px;
+    display: flex;
+  }
+
+  .filter-1 {
+    color: #555;
+    width: 218px;
+    @include padding-left(5px);
+    border: $table-border;
+    -webkit-appearance: none;
+    appearance: none;
+    -moz-appearance: none;
+  }
+
+  .filter-2 {
+    @extend .filter-1;
+    width: 75px;
+  }
+
+  /* IE11 hide native button */
+  select::-ms-expand {
+    display: none;
+  }
+}
+
+.filter-indicator:after {
+  @include margin-right(5px);
+  content: '\F078';
+  font: normal normal normal 12px/1 FontAwesome;
+  color: #555;
+  pointer-events: none;
+  position: relative;
+  top: 12px;
+  width: 0;
+  @include right(20px);
+}
+
+.phase-indicator:after {
+  @extend .filter-indicator, :after;
+  @include margin-right(0);
+}
+
+#map {
+  height: calc(100vh - 136px);
+  background: $bg-beige;
+}
+.legend {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  @include right(0px);
+  bottom: 30px;
+  color: $white;
+  z-index: 3;
+  cursor: default;
+  list-style: none;
+  #phase0, .phase0,
+  #phase1, .phase1,
+  #phase2, .phase2,
+  #phase3, .phase3,
+  #phase4, .phase4,
+  #phase5, .phase5,
+  #phasenull, .phasenull {
+    border-radius: 0px;
+  }
+  .l-box {
+    text-align: center;
+    height: 23px;
+    width: 23px;
+    line-height: 1.75;
+    font-size: 12px;
+    font-family: 'RobotoRegular';
+  }
+  .legend-desc {
+    color: $font-grey-dark;
+    display: inline-block;
+    padding: 5px 0;
+    @include margin-left( -10px);
+  }
+}
+
+div#reset-btn {
+  height: 17px;
+  min-width: 57px;
+  padding: 5px;
+  background: $white;
+  display: inline-block;
+  text-align: center;
+  font-size: 14px;
+  margin-top: 4px;
+  border: 1px solid $black;
+  line-height: 1;
+  text-transform: capitalize;
+}
+
+
+@media screen and (min-width: 1200px) and (max-width: 1400px) {
+  .leaflet-overlay-pane {
+    transform: translate3d(60px,0, 0) scale(0.9);
+  }
+}
+
+@media screen and (min-width: 1500px) {
+  .leaflet-overlay-pane {
+    transform: translate3d(-190px, -83px, 0) scale(1.25);
+  }
+}
+
+.leaflet-left .leaflet-control {
+  @include margin-left(351px);
+  top: 3px;
+  margin-top: 0;
+  &.leaflet-control-attribution {
+    @include margin-left(0);
+  }
+}
+
+.leaflet-left {
+ left: auto;
+}
+
+.leaflet-bar {
+  border-radius: 0;
+}
+
+@media screen and (min-width: 1640px) {
+  .leaflet-top .leaflet-control {
+    top: 40px;
+  }
+}
+
+.leaflet-pane {
+  z-index: 1;
+}
+.leaflet-map-pane svg {
+  z-index: 2;
+}
+.leaflet-top, .leaflet-bottom {
+  z-index: 1;
+}
+.leaflet-control-container .leaflet-bar a {
+  display: inline-block;
+  margin-right: 5px;
+  border: 1px solid $black;
+  line-height: 1.2;
+  border-radius: 0;
+}
+.leaflet-control-container .leaflet-bar {
+  border: none;
+  box-shadow: none;
+}

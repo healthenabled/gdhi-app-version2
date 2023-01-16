@@ -1,0 +1,73 @@
+@import "./../../rtl-support";
+
+.indicators {
+  width: 100%;
+  div {
+    position: relative;
+  }
+  .internal_anchor {
+    position: absolute;
+    top: -100px;
+  }
+  .accordion{
+    margin-top: 20px;
+    &:after {
+      z-index: 2;
+      color: $white;
+     @include right(20px);
+    }
+    .sub-header {
+      background-color: $logo-blue;
+      color: $white;
+      margin: 0;
+    }
+  }
+  .score {
+    max-width: 90%;
+    margin: 10px auto;
+    background: #FFF;
+    box-shadow: 0px 0px 1px 1.5px rgba($shadow-grey, 0.3);
+    span {
+      display: table-cell;
+      vertical-align: middle;
+      padding: 10px;
+    }
+    span[class^="phase"] {
+      min-width: 30px;
+      border-radius: 0;
+      color: $white;
+      text-align: center;
+    }
+  }
+}
+.indicator-details {
+  margin-bottom: 20px;
+}
+.indicator-info {
+  padding: 10px;
+  font-size: 1.25em;
+  // border: 1px solid $shadow-grey;
+  border-radius: 5px;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+.indicator-id, .indicator-name {
+  display: inline-block;
+  vertical-align: top;
+  color: $logo-blue;
+}
+.indicator-id {
+  min-width: 32px;
+}
+.indicator-name {
+  max-width: calc(100% - 40px);
+}
+.table-header {
+  border-bottom: 1px solid $border-color;
+  padding-bottom: 10px;
+}
+.indicators-info {
+  .accordion-content {
+    border-top: 0px;
+  }
+}

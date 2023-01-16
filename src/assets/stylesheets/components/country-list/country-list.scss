@@ -1,0 +1,28 @@
+@import './../../rtl-support';
+
+.countries-list-details {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin-top: 20px;
+  .country-name{
+    width: 240px;
+    display: inline-block;
+    cursor: pointer;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  .country-score {
+    display: inline-block;
+    margin: 5px 0;
+    @include margin-right(10px);
+    padding: 10px;
+    color: $white;
+    min-width: 20px;
+    text-align: center;
+  }
+}
+.countries-list-section-export {
+  margin-top: 30px;
+}
