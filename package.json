@@ -14,12 +14,25 @@
     "npm": ">= 6.0.0"
   },
   "dependencies": {
-    "@pdf-lib/fontkit": "^1.1.1",
+    "axios": "^1.2.2",
+    "blob-stream": "^0.1.3",
+    "date-input-polyfill": "^2.14.0",
+    "dateformat": "^3.0.3",
     "downloadjs": "^1.4.7",
-    "pdf-lib": "^1.17.1",
+    "font-awesome": "^4.7.0",
+    "leaflet": "^1.2.0",
+    "lodash": "^4.17.4",
+    "pdfkit": "^0.8.3",
     "vue": "^2.7.7",
-    "vue-i18n": "^9.2.2",
-    "vue-router": "^3.5.4"
+    "vee-validate": "2.0.0-rc.22",
+    "vue-body-class": "^2.0.0-beta.2",
+    "vue-cookies": "^1.5.13",
+    "vue-i18n": "^8.15.1",
+    "vue-js-modal": "^1.3.12",
+  "vue-notification": "^1.3.7",
+    "vue-router": "^3.5.4",
+    "vuejs-auto-complete": "^0.9.0",
+    "vuejs-dialog": "^0.9.0"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.1.0",
