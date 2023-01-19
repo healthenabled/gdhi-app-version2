@@ -1,27 +1,113 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
-import HomeView from "../views/HomeView.vue";
+import Vue from 'vue';
+import Router from 'vue-router';
+import content from '@/components/container/container.vue';
+import indicatorsInfoComp from '@/components/indicatorsInfo/indicators-info.vue';
+import headerComp from '@/components/header/header.vue';
+import autoSearch from '@/components/auto-search/auto-search.vue';
+import languageSelector from '@/components/language-selector/language-selector.vue';
+import footerComp from '@/components/footer/footer.vue';
+import countryProfile from '@/components/countryProfile/country-profile.vue';
+import landingMap from '@/components/landing-map/map.vue';
+import methodologyComp from '@/components/methodology/methodology.vue';
+import healthIndicatorQuestionnaire from '@/components/healthIndicatorQuestionnaire/health-indicator-questionnare.vue';
+import countryListComp from '@/components/countryList/countryList.vue';
+import ErrorComp from '@/components/error-handler/404-error.vue';
+import adminPageComp from '@/components/adminPage/admin-page.vue';
 
-Vue.use(VueRouter);
+Vue.use(Router);
 
-const router = new VueRouter({
-  mode: "history",
-  base: import.meta.env.BASE_URL,
+export default new Router({
+  mode: 'history',
   routes: [
     {
-      path: "/",
-      name: "home",
-      component: HomeView,
-    },
-    {
-      path: "/about",
-      name: "about",
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import("../views/AboutView.vue"),
+      path: '',
+      components: {
+        container: content,
+        header: headerComp,
+        footer: footerComp,
+      },
+      children: [
+        {
+          path: '/',
+          redirect: "/map"
+        },
+        {
+          path: 'map',
+          components: {
+            routecontent: landingMap,
+            search: autoSearch,
+            languageSelect: languageSelector
+          },
+          children: [
+            {
+              path: ':foo',
+            },
+          ],
+        },
+        {
+          path: 'country_profile/:countryCode',
+          components: {
+            routecontent: countryProfile,
+            languageSelect: languageSelector,
+          },
+        },
+        {
+          path: '/indicators_info',
+          components: {
+            routecontent: indicatorsInfoComp,
+            languageSelect: languageSelector,
+
+          },
+        },
+        {
+          path: '/methodology',
+          components: {
+            routecontent: methodologyComp,
+            languageSelect: languageSelector,
+          },
+        },
+        {
+          path: '/health_indicator_questionnaire/:countryUUID',
+          components: {
+            routecontent: healthIndicatorQuestionnaire,
+            languageSelect: languageSelector,
+          },
+        },
+        {
+          path: '/admin',
+          components: {
+            routecontent: adminPageComp,
+            languageSelect: languageSelector,
+          },
+        },
+        {
+          path: '/country_list',
+          components: {
+            routecontent: countryListComp,
+            languageSelect: languageSelector,
+          },
+        },
+        {
+          path: '/admin/health_indicator_questionnaire/:countryUUID/review',
+          components: {
+            routecontent: healthIndicatorQuestionnaire,
+            languageSelect: languageSelector,
+          },
+        },
+        {
+          path: '/admin/health_indicator_questionnaire/:countryUUID/viewPublished',
+          components: {
+            routecontent: healthIndicatorQuestionnaire,
+            languageSelect: languageSelector,
+          },
+        },
+        {
+          path: '*',
+          components: {
+            routecontent: ErrorComp,
+          },
+        },
+      ],
     },
   ],
 });
-
-export default router;
