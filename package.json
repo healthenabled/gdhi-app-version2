@@ -6,7 +6,7 @@
     "dev": "vite --config build/vite.dev.config.js",
     "build": "vite build --config build/vite.prod.config.js",
     "preview": "vite preview --port 4173 --config build/vite.prod.config.js",
-    "test:unit": "vitest --environment jsdom",
+    "test:unit": "vitest --environment jsdom --config build/vite.prod.config.js",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
   },
   "engines": {
