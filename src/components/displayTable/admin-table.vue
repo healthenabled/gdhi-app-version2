@@ -1,10 +1,9 @@
 <script>
-   import Vue from "vue";
-
+import Vue from "vue";
 
 export default Vue.extend({
-  props:{
-    columns:{
+  props: {
+    columns: {
       type: Array,
       default() {
         return [];
@@ -19,7 +18,7 @@ export default Vue.extend({
     action: {
       type: String,
       default() {
-        return '';
+        return "";
       },
     },
     actionHandler: {
@@ -31,36 +30,43 @@ export default Vue.extend({
     noRecordsMessage: {
       type: String,
       default() {
-        return '';
-      }
-    }
+        return "";
+      },
+    },
   },
-  name: 'AdminTable',
-  
+  name: "AdminTable",
 });
-
 </script>
 
 <template>
-     <div>
-  <div class="error-info text-center subheader" v-if="!rows.length">
-    {{noRecordsMessage}}
+  <div>
+    <div class="error-info text-center subheader" v-if="!rows.length">
+      {{ noRecordsMessage }}
+    </div>
+    <table id="fifthTable" v-if="rows.length">
+      <thead>
+        <tr>
+          <th v-for="col in columns">{{ col.displayName }}</th>
+          <th v-if="rows.length > 0">
+            <span v-if="action !== 'View Data'">Action</span
+            ><span v-else>URL</span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="row in rows">
+          <td v-for="col in columns">{{ row[col.propName] }}</td>
+          <td v-if="action !== 'View Data'">
+            <button
+              class="btn btn-primary"
+              @click="actionHandler(action, row.countryUUID)"
+            >
+              {{ action }}
+            </button>
+          </td>
+          <td v-else>{{ row.url }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
-  <table id="fifthTable" v-if="rows.length">
-    <thead>
-    <tr>
-      <th v-for="col in columns">{{col.displayName}}</th>
-      <th v-if="rows.length>0"><span v-if="action !== 'View Data'">Action</span><span v-else>URL</span></th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr v-for="row in rows">
-      <td v-for="col in columns">{{row[col.propName]}}</td>
-      <td v-if="action !== 'View Data'"><button class="btn btn-primary" @click="actionHandler(action, row.countryUUID)">{{action}}</button></td>
-      <td v-else>{{row.url}}</td>
-    </tr>
-    </tbody>
-  </table>
-</div>
-
 </template>

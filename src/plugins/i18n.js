@@ -1,6 +1,6 @@
-import Vue from 'vue';
-import VueI18n from 'vue-i18n';
-import {ar, en, es, fr, pt} from '../static-content/index';
+import Vue from "vue";
+import VueI18n from "vue-i18n";
+import { ar, en, es, fr, pt } from "../static-content/index";
 
 Vue.use(VueI18n);
 const messages = {
@@ -11,15 +11,15 @@ const messages = {
   ar,
 };
 
-const english = 'en';
+const english = "en";
 export const i18n = new VueI18n({
-  locale: 'en',
+  locale: "en",
   fallbackLocale: english,
   messages,
 });
 
-const LTR = 'ltr';
-const RTL = 'rtl';
+const LTR = "ltr";
+const RTL = "rtl";
 
 export const LayoutDirectionConfig = {
   en: LTR,

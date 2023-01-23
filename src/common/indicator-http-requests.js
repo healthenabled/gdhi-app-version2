@@ -1,22 +1,23 @@
-import axios from 'axios';
+import axios from "axios";
 
-export default ({
-
+export default {
   getGNIPerCapitaInKilo(gniPerCapita) {
-    return gniPerCapita ? `${gniPerCapita / 1000}K` : 'NA';
+    return gniPerCapita ? `${gniPerCapita / 1000}K` : "NA";
   },
 
   getTotalPopulationInMillion(population) {
-    const populationInMillion = population ? Number((population / 1000000).toFixed(2)) : null;
-    return populationInMillion ? `${populationInMillion}M` : 'NA';
+    const populationInMillion = population
+      ? Number((population / 1000000).toFixed(2))
+      : null;
+    return populationInMillion ? `${populationInMillion}M` : "NA";
   },
 
-  getInPercenatge (value) {
-    return value ? `${Number((value).toFixed(1))}%` : 'NA';
+  getInPercenatge(value) {
+    return value ? `${Number(value.toFixed(1))}%` : "NA";
   },
 
-  getValue (value) {
-    return  !value ? 'NA' : value;
+  getValue(value) {
+    return !value ? "NA" : value;
   },
 
   getMinimalDevelopmentIndicatorsData(response) {
@@ -25,7 +26,9 @@ export default ({
       {
         CONTEXT: {
           gniPerCapita: self.getGNIPerCapitaInKilo(response.gniPerCapita),
-          totalPopulation: self.getTotalPopulationInMillion(response.totalPopulation),
+          totalPopulation: self.getTotalPopulationInMillion(
+            response.totalPopulation
+          ),
         },
       },
       {
@@ -44,9 +47,10 @@ export default ({
       {
         CONTEXT: {
           gniPerCapita: self.getGNIPerCapitaInKilo(response.gniPerCapita),
-          totalPopulation: self.getTotalPopulationInMillion(response.totalPopulation),
-          adultLiteracyRate:
-            this.getInPercenatge(response.adultLiteracy),
+          totalPopulation: self.getTotalPopulationInMillion(
+            response.totalPopulation
+          ),
+          adultLiteracyRate: this.getInPercenatge(response.adultLiteracy),
           easeOfDoingBusinessIndex: self.getValue(response.doingBusinessIndex),
         },
       },
@@ -54,8 +58,7 @@ export default ({
         HEALTH: {
           lifeExpectancy: self.getValue(response.lifeExpectancy),
           healthExpenditure: self.getInPercenatge(response.healthExpenditure),
-          causeOfDeath:
-            self.getInPercenatge(response.totalNcdDeathsPerCapita),
+          causeOfDeath: self.getInPercenatge(response.totalNcdDeathsPerCapita),
           mortalityRate: self.getValue(response.under5Mortality),
         },
       },
@@ -66,12 +69,15 @@ export default ({
   getDevelopmentIndicators(countryId, isMinimal) {
     const developmentIndicatorsUrl = `/api/countries/${countryId}/development_indicators`;
     const self = this;
-    return (axios.get(developmentIndicatorsUrl)
-      .then(response => {
-        return (isMinimal ? self.getMinimalDevelopmentIndicatorsData(response.data)
-          : self.getDevelopmentIndicatorsData(response.data));
-      }).catch((e) => {
+    return axios
+      .get(developmentIndicatorsUrl)
+      .then((response) => {
+        return isMinimal
+          ? self.getMinimalDevelopmentIndicatorsData(response.data)
+          : self.getDevelopmentIndicatorsData(response.data);
+      })
+      .catch((e) => {
         return e;
-      }));
+      });
   },
-});
+};
