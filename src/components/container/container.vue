@@ -1,18 +1,13 @@
 <script>
-import Vue from 'vue';
-
+import Vue from "vue";
 
 export default Vue.extend({
-  name: 'Mappage',
+  name: "Mappage",
 });
-
 </script>
 
 <template>
-    <div class="content-container">
-
-<router-view name="routecontent"></router-view>
-
-</div>
-
+  <div class="content-container">
+    <router-view name="routecontent"></router-view>
+  </div>
 </template>

@@ -1,45 +1,47 @@
 <template>
-
   <div class="content-centered">
     <div class="methodology">
-      <div class="methodology-title page-title">{{ $t('methodology.text') }}</div>
+      <div class="methodology-title page-title">
+        {{ $t("methodology.text") }}
+      </div>
       <div class="content">
-        <p class="header-bold"> {{ $t('methodology.title1') }} </p>
-        <p>{{ $t('methodology.paragraph1') }}</p>
-        <br>
-        <p class="sub-header"> {{ $t('methodology.bulletin.title') }} </p>
+        <p class="header-bold">{{ $t("methodology.title1") }}</p>
+        <p>{{ $t("methodology.paragraph1") }}</p>
+        <br />
+        <p class="sub-header">{{ $t("methodology.bulletin.title") }}</p>
         <ul class="list-with-bullets">
           <li>
-            {{ $t('methodology.bulletin.line1') }}
+            {{ $t("methodology.bulletin.line1") }}
           </li>
           <li>
-            {{ $t('methodology.bulletin.line2') }}
+            {{ $t("methodology.bulletin.line2") }}
           </li>
           <li>
-            {{ $t('methodology.bulletin.line3') }}
+            {{ $t("methodology.bulletin.line3") }}
           </li>
         </ul>
         <p>
-          {{ $t('methodology.paragraph2') }}
-          <a
-            href="/indicators_info"
-            class="link link-blue"> {{ $t('methodology.seeHere') }} </a>
+          {{ $t("methodology.paragraph2") }}
+          <a href="/indicators_info" class="link link-blue">
+            {{ $t("methodology.seeHere") }}
+          </a>
         </p>
-        <p class="header-bold"> {{ $t('methodology.title2') }} </p>
+        <p class="header-bold">{{ $t("methodology.title2") }}</p>
         <p>
-          {{ $t('methodology.paragraph3Start') }}
+          {{ $t("methodology.paragraph3Start") }}
           <a
             href="http://wdi.worldbank.org/tables"
             target="_blank"
-            class="link-blue">
-            {{ $t('methodology.paragraph3Link') }}
+            class="link-blue"
+          >
+            {{ $t("methodology.paragraph3Link") }}
           </a>
-          {{ $t('methodology.paragraph3End') }}
+          {{ $t("methodology.paragraph3End") }}
         </p>
 
-        <p class="header-bold"> {{ $t('methodology.title3') }} </p>
+        <p class="header-bold">{{ $t("methodology.title3") }}</p>
         <p>
-          {{ $t('methodology.paragraph4') }}
+          {{ $t("methodology.paragraph4") }}
         </p>
       </div>
     </div>
@@ -47,12 +49,12 @@
 </template>
 
 <script>
-  import common from '../../common/common';
+import common from "../../common/common";
 
-  export default {
-    name: 'Methodology',
-    mounted() {
-      common.hideLoading();
-    }
-  };
+export default {
+  name: "Methodology",
+  mounted() {
+    common.hideLoading();
+  },
+};
 </script>
