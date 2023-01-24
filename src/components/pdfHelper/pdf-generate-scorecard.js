@@ -1,5 +1,4 @@
 import { PDFDocument, StandardFonts, rgb, LineCapStyle } from "pdf-lib";
-import Fontkit from "@pdf-lib/fontkit";
 import colorObj from "../common/color-codes.js";
 import common from "../../common/common";
 
@@ -23,7 +22,7 @@ export async function generateScorecard(
   i18n
 ) {
   const pdfDoc = await PDFDocument.create();
-  pdfDoc.registerFontkit(Fontkit);
+
   // TODO: check how to add a margin of 50
   const helveticaBoldFont = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
   const helveticaFont = await pdfDoc.embedFont(StandardFonts.Helvetica);

@@ -1,5 +1,4 @@
 import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
-import Fontkit from "@pdf-lib/fontkit";
 
 export async function generateFormPDF(
   countrySummary,
@@ -8,7 +7,6 @@ export async function generateFormPDF(
   i18n
 ) {
   const pdfDoc = await PDFDocument.create();
-  pdfDoc.registerFontkit(Fontkit);
 
   const helveticaBoldFont = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
   const helveticaFont = await pdfDoc.embedFont(StandardFonts.Helvetica);
