@@ -14,13 +14,14 @@
     "yarn": ">= 1.22.19"
   },
   "dependencies": {
+    "@pdf-lib/fontkit": "^1.1.1",
     "axios": "^1.2.2",
     "blob-stream": "^0.1.3",
     "dateformat": "^3.0.3",
     "downloadjs": "^1.4.7",
     "leaflet": "^1.2.0",
     "lodash": "^4.17.4",
-    "pdfkit": "^0.8.3",
+    "pdf-lib": "^1.17.1",
     "vee-validate": "2.0.0-rc.22",
     "vue": "^2.7.7",
     "vue-body-class": "^2.0.0-beta.2",
