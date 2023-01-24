@@ -779,7 +779,7 @@ import VeeValidate from "vee-validate";
 import VuejsDialog from "vuejs-dialog";
 import common from "../../common/common";
 import dateFormat from "dateformat";
-// import {generateFormPDF} from "../pdfHelper/pdf-generate-form.js";
+import { generateFormPDF } from "../pdfHelper/pdf-generate-form.js";
 
 const config = {
   fieldsBagName: "fieldBags",

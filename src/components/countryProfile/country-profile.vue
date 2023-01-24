@@ -3,7 +3,7 @@ import Vue from "vue";
 import developmentIndicators from "../developmentIndicators/development-indicators.vue";
 import countrySummary from "../countrySummary/country-summary.vue";
 import axios from "axios";
-// import {generateScorecard} from '../pdfHelper/pdf-generate-scorecard';
+import { generateScorecard } from "../pdfHelper/pdf-generate-scorecard";
 import { isEmpty } from "lodash";
 import Notifications from "vue-notification";
 import common from "../../common/common";
