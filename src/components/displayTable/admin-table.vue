@@ -46,7 +46,7 @@ export default Vue.extend({
     <table id="fifthTable" v-if="rows.length">
       <thead>
         <tr>
-          <th v-for="col in columns">{{ col.displayName }}</th>
+          <th v-for="(col, id) in columns" :key="id">{{ col.displayName }}</th>
           <th v-if="rows.length > 0">
             <span v-if="action !== 'View Data'">Action</span
             ><span v-else>URL</span>
@@ -54,8 +54,10 @@ export default Vue.extend({
         </tr>
       </thead>
       <tbody>
-        <tr v-for="row in rows">
-          <td v-for="col in columns">{{ row[col.propName] }}</td>
+        <tr v-for="(row, id) in rows" :key="id">
+          <td v-for="(col, id) in columns" :key="id">
+            {{ row[col.propName] }}
+          </td>
           <td v-if="action !== 'View Data'">
             <button
               class="btn btn-primary"

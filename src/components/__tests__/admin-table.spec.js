@@ -1,6 +1,6 @@
 import { mount } from "@vue/test-utils";
+import { describe, it, expect, vi } from "vitest";
 import AdminTable from "../displayTable/admin-table.vue";
-import sinon from "sinon";
 
 describe("Admin Table", () => {
   let wrapper;
@@ -26,7 +26,8 @@ describe("Admin Table", () => {
   ];
   const action = "View Data";
   const noRecordsMessage = "No Records Found";
-  const actionHandler = sinon.spy();
+  const actionHandler = vi.fn();
+
   it("should set the default values if the props are not set", () => {
     wrapper = mount(AdminTable);
     expect(wrapper.props().columns).to.deep.equal([]);
@@ -34,6 +35,7 @@ describe("Admin Table", () => {
     expect(wrapper.props().action).to.deep.equal("");
     expect(wrapper.props().noRecordsMessage).to.deep.equal("");
   });
+
   it("Should render the table when the values are passed to the component", () => {
     const wrapper = mount(AdminTable, {
       propsData: {
@@ -67,8 +69,8 @@ describe("Admin Table", () => {
         noRecordsMessage: noRecordsMessage,
       },
     });
-    expect(wrapper.contains("#fifthTable")).to.equal(false);
-    expect(wrapper.contains(".error-info")).to.equal(true);
+    expect(wrapper.findAll("#fifthTable").exists()).to.equal(false);
+    expect(wrapper.findAll(".error-info").exists()).to.equal(true);
     expect(wrapper.find(".error-info").text()).to.equal(noRecordsMessage);
   });
 });

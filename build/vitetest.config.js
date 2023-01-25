@@ -10,6 +10,9 @@ import vue2Jsx from "@vitejs/plugin-vue2-jsx";
 export default defineConfig({
   test: {
     globals: true,
+    sequence: {
+      shuffle: true,
+    },
   },
   build: {
     assetsDir: "static",

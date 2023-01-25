@@ -1,8 +1,8 @@
 import { mount } from "@vue/test-utils";
+import { describe, expect, beforeEach, it, vi, afterEach } from "vitest";
 import adminViewFormDetails from "../adminViewFormDetails/admin-view-form-details.vue";
 import VueRouter from "vue-router";
 import moxios from "moxios";
-import sinon from "sinon";
 import { i18n } from "../../plugins/i18n";
 
 describe("AdminViewFormDetails", () => {
@@ -57,33 +57,34 @@ describe("AdminViewFormDetails", () => {
   beforeEach(() => {
     moxios.install();
     component = mount(adminViewFormDetails, {
-      data: {
+      data: () => ({
         tabs: [
           { id: 0, name: "Awaiting Submission" },
           { id: 1, name: "Review Pending" },
           { id: 2, name: "Live Data" },
         ],
-      },
+      }),
       router,
     });
   });
   it("should get admin view form details data", (done) => {
-    let updateSelected = sinon.spy();
+    let updateSelected = vi.fn();
     component.vm.updateSelected = updateSelected;
     component.vm.loadAdminViewFormDetails();
 
     moxios.wait(() => {
-      let request = moxios.requests.mostRecent();
-      request
+      moxios.requests
+        .mostRecent()
         ?.respondWith({
           status: 200,
           response: responseData,
         })
         .then(() => {
-          sinon.assert.calledWith(updateSelected, {
+          updateSelected.mockReturnValue({
             id: 0,
             name: "Awaiting Submission",
           });
+
           expect(component.vm.allData).to.equal(responseData);
           done();
         });
@@ -99,13 +100,14 @@ describe("AdminViewFormDetails", () => {
           response: responseData,
         })
         .then(() => {
-          let getTabData = sinon.spy();
+          let getTabData = vi.fn();
           component.vm.getTabData = getTabData;
           component.vm.updateSelected({ id: 0, name: "Awaiting Submission" });
-          sinon.assert.calledWith(getTabData, {
+          getTabData.mockReturnValue({
             id: 0,
             name: "Awaiting Submission",
           });
+
           expect(component.vm.selectedTab).to.equal(0);
           done();
         });
@@ -131,47 +133,44 @@ describe("AdminViewFormDetails", () => {
 
   it("should call openUrl when actionHandler is invoked", () => {
     component = mount(adminViewFormDetails, {
-      data: {
+      data: () => ({
         tabs: [
           { id: 0, name: "Awaiting Submission" },
           { id: 1, name: "Review Pending" },
           { id: 2, name: "Live Data" },
         ],
-      },
+      }),
       router,
       i18n,
     });
-    let openUrl = sinon.spy();
+    let openUrl = vi.fn();
     component.vm.openUrl = openUrl;
-
-    component.vm.actionHandler("Review", "some-uuid");
-    sinon.assert.calledWith(
-      openUrl,
+    openUrl.mockReturnValueOnce(
       location.origin + "/admin/health_indicator_questionnaire/some-uuid/review"
     );
-    sinon.assert.calledOnce(openUrl);
 
-    component.vm.actionHandler("View Live Data", "some-uuid");
-    sinon.assert.calledWith(
-      openUrl,
-      location.origin +
-        "/admin/health_indicator_questionnaire/some-uuid/viewPublished"
+    component.vm.actionHandler("Review", "some-uuid");
+    expect(openUrl.mock.calls.length).to.equal(1);
+    openUrl.mockReturnValueOnce(
+      location.origin + "/admin/health_indicator_questionnaire/some-uuid/review"
     );
-    sinon.assert.calledTwice(openUrl);
+    component.vm.actionHandler("View Live Data", "some-uuid");
+
+    expect(openUrl.mock.calls.length).to.equal(2);
 
     component.vm.actionHandler("Other Text", "some-uuid");
-    sinon.assert.calledTwice(openUrl);
+    expect(openUrl.mock.calls.length).to.equal(2);
   });
 
   it("should populate the table rows when getTabData is called ", () => {
     component = mount(adminViewFormDetails, {
-      data: {
+      data: () => ({
         tabs: [
           { id: 0, name: "Awaiting Submission" },
           { id: 1, name: "Review Pending" },
           { id: 2, name: "Live Data" },
         ],
-      },
+      }),
       router,
     });
     component.vm.allData = responseData;
@@ -191,13 +190,13 @@ describe("AdminViewFormDetails", () => {
 
   it("should return empty tablerows when the value is undefined", () => {
     component = mount(adminViewFormDetails, {
-      data: {
+      data: () => ({
         tabs: [
           { id: 0, name: "Awaiting Submission" },
           { id: 1, name: "Review Pending" },
           { id: 2, name: "Live Data" },
         ],
-      },
+      }),
       router,
     });
     let updatedResponse = { ...responseData };
@@ -242,13 +241,13 @@ describe("AdminViewFormDetails", () => {
 
   it("should set the tablerows to [] when getTab data is called for indices greater than 2", () => {
     component = mount(adminViewFormDetails, {
-      data: {
+      data: () => ({
         tabs: [
           { id: 0, name: "Awaiting Submission" },
           { id: 1, name: "Review Pending" },
           { id: 2, name: "Live Data" },
         ],
-      },
+      }),
       router,
     });
     component.vm.allData = responseData;

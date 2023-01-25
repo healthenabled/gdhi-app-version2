@@ -1,5 +1,5 @@
 import { mount } from "@vue/test-utils";
-
+import { describe, beforeEach, it, expect } from "vitest";
 import ErrorComp from "../error-handler/404-error.vue";
 
 describe("Error Page", () => {
