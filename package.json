@@ -6,7 +6,9 @@
     "dev": "vite --config build/vite.dev.config.js",
     "build": "vite build --config build/vite.prod.config.js",
     "preview": "vite preview --port 4173 --config build/vite.prod.config.js",
-    "test:unit": "vitest --environment jsdom --config build/vitetest.config.js --reporter=\"verbose\"",
+    "test": "vitest --environment=jsdom --config=build/vitetest.config.js ",
+    "test:coverage": "vitest --environment=jsdom --config=build/vitetest.config.js --coverage",
+    "test:file": "vitest --environment=jsdom --config=build/vitetest.config.js -t=src/components/__tests__/${0}",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
   },
   "engines": {
@@ -39,6 +41,7 @@
     "@vue/eslint-config-prettier": "^7.0.0",
     "@vue/test-utils": "^1.3.0",
     "autoprefixer": "^10.4.13",
+    "c8": "^7.12.0",
     "chalk": "^5.2.0",
     "eslint": "^8.5.0",
     "eslint-plugin-vue": "^9.0.0",
