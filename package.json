@@ -9,7 +9,7 @@
     "test": "vitest --environment=jsdom --config=build/vitetest.config.js",
     "test:ui": "vitest --environment=jsdom --config=build/vitetest.config.js --ui",
     "test:coverage": "vitest --environment=jsdom --config=build/vitetest.config.js --coverage",
-    "test:file": "vitest run ${0} --environment=jsdom --config=build/vitetest.config.js",
+    "test:file": "vitest run ${0} --environment=jsdom --config=build/vitetest.config.js --reporter=\"verbose\"",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
   },
   "engines": {
@@ -48,6 +48,7 @@
     "eslint": "^8.5.0",
     "eslint-plugin-vue": "^9.0.0",
     "execa": "^6.1.0",
+    "flush-promises": "^1.0.2",
     "jsdom": "^20.0.0",
     "moxios": "^0.4.0",
     "prettier": "^2.5.1",
