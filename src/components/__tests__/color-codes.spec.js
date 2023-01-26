@@ -1,3 +1,4 @@
+import { describe, it, expect } from "vitest";
 import colorCodes from "../common/color-codes";
 
 describe("color codes", () => {

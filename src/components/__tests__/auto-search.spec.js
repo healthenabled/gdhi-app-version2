@@ -1,8 +1,9 @@
 import { mount } from "@vue/test-utils";
+import { describe, beforeEach, it, expect, afterEach } from "vitest";
 import AutoSearch from "../auto-search/auto-search.vue";
 import Autocomplete from "vuejs-auto-complete";
 import moxios from "moxios";
-import { sortBy } from "lodash";
+import sortBy from "lodash/sortBy";
 import { i18n } from "../../plugins/i18n";
 
 describe("AutoSearch", () => {
