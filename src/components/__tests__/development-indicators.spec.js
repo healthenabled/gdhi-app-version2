@@ -1,4 +1,5 @@
 import { mount, createLocalVue } from "@vue/test-utils";
+import { describe, beforeEach, it, expect, afterEach } from "vitest";
 import VueRouter from "vue-router";
 import moxios from "moxios";
 import DevelopmentIndicators from "../developmentIndicators/development-indicators.vue";
