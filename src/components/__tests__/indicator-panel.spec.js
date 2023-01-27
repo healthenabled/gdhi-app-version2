@@ -1,4 +1,4 @@
-import { shallow, createLocalVue } from "@vue/test-utils";
+import { shallowMount, createLocalVue } from "@vue/test-utils";
 import VueRouter from "vue-router";
 import IndicatorPanel from "../indicatorPanel/indicator-panel.vue";
 import moxios from "moxios";
@@ -6,6 +6,7 @@ import sinon from "sinon";
 import Obj from "../../common/indicator-http-requests.js";
 import { i18n } from "../../plugins/i18n";
 import { en, es } from "../../static-content/index";
+import { describe, it, expect, beforeEach, afterEach } from "vitest";
 
 describe("Indicator Panel", () => {
   let wrapper;
@@ -89,7 +90,7 @@ describe("Indicator Panel", () => {
       status: 200,
       response: overallScoreData,
     });
-    wrapper = shallow(IndicatorPanel, {
+    wrapper = shallowMount(IndicatorPanel, {
       localVue,
       router,
       i18n,

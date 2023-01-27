@@ -1,4 +1,5 @@
 import { mount } from "@vue/test-utils";
+import { describe, it, expect, beforeEach } from "vitest";
 import MapLegend from "../legend/legend.vue";
 import colorCodes from "../common/color-codes.js";
 import { i18n } from "../../plugins/i18n";

@@ -1,5 +1,6 @@
 import Obj from "../../common/indicator-http-requests.js";
 import moxios from "moxios";
+import { describe, expect, it } from "vitest";
 
 describe("Indicator HTTP Requests and Helper methods", () => {
   const response = {

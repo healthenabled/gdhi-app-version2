@@ -1,4 +1,5 @@
 import { i18n } from "../../plugins/i18n";
+import { describe, it, expect } from "vitest";
 
 describe("i18n", () => {
   it("should have default locale as en", () => {

@@ -1,5 +1,6 @@
 import { mount } from "@vue/test-utils";
 import IndicatorsInfo from "../indicatorsInfo/indicators-info.vue";
+import { describe, it, expect, beforeEach, afterEach } from "vitest";
 import moxios from "moxios";
 import { uniq } from "lodash";
 import { i18n } from "../../plugins/i18n";

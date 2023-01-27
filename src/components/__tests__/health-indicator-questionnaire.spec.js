@@ -1,4 +1,5 @@
-import { createLocalVue, shallow } from "@vue/test-utils";
+import { createLocalVue, shallowMount } from "@vue/test-utils";
+import { describe, it, expect, beforeEach, afterEach } from "vitest";
 import HealthIndicatorQuestionnaire from "../healthIndicatorQuestionnaire/health-indicator-questionnare.vue";
 import moxios from "moxios";
 import VueRouter from "vue-router";
@@ -162,7 +163,7 @@ describe("Health Indicator Questionnaire", () => {
         status: 200,
         response: healthIndicatorOptions,
       });
-      wrapper = shallow(HealthIndicatorQuestionnaire, {
+      wrapper = shallowMount(HealthIndicatorQuestionnaire, {
         localVue,
         router,
         i18n,
@@ -202,7 +203,7 @@ describe("Health Indicator Questionnaire", () => {
         status: 200,
         response: healthIndicatorOptions,
       });
-      wrapper = shallow(HealthIndicatorQuestionnaire, {
+      wrapper = shallowMount(HealthIndicatorQuestionnaire, {
         localVue,
         router,
         i18n,
@@ -247,7 +248,7 @@ describe("Health Indicator Questionnaire", () => {
         status: 200,
         response: healthIndicatorOptions,
       });
-      wrapper = shallow(HealthIndicatorQuestionnaire, {
+      wrapper = shallowMount(HealthIndicatorQuestionnaire, {
         localVue,
         router,
         i18n,
