@@ -7,9 +7,12 @@
           class="flag"
           :style="{
             backgroundImage:
-              'url(/static/img/flags/' +
-              countrySummary.countryAlpha2Code.toLowerCase() +
-              '.svg)',
+              'url(' +
+              new URL(
+                `../../assets/img/flags/${countrySummary.countryAlpha2Code.toLowerCase()}.svg`,
+                import.meta.url
+              ).href +
+              ')',
           }"
         ></div>
         {{ countrySummary.countryName }}
