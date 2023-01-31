@@ -20,6 +20,7 @@
     "axios": "^1.2.2",
     "dateformat": "^3.0.3",
     "downloadjs": "^1.4.7",
+    "font-awesome": "^4.7.0",
     "leaflet": "^1.2.0",
     "lodash": "^4.17.4",
     "pdf-lib": "^1.17.1",
