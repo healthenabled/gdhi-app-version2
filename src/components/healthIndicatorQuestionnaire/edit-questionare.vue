@@ -1034,3 +1034,14 @@ export default Vue.extend({
   },
 });
 </script>
+
+<style>
+.mandatory-field {
+  margin-left: 3px;
+  margin-right: 3px;
+}
+.score-content {
+  margin-left: 2px;
+  margin-right: 2px;
+}
+</style>
