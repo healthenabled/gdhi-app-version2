@@ -5,12 +5,7 @@
         <div
           v-if="countrySummary.countryAlpha2Code"
           class="flag"
-          :style="{
-            backgroundImage:
-              'url(/static/img/flags/' +
-              countrySummary.countryAlpha2Code.toLowerCase() +
-              '.svg)',
-          }"
+          :style="{ backgroundImage: 'url(' + flagSrc + ')' }"
         ></div>
         {{ countrySummary.countryName }}
       </div>
@@ -841,12 +836,19 @@ export default Vue.extend({
       countries: [],
       locale: "en",
       successMessages: this.getSuccessMessages(),
+      flagSrc: "",
     };
   },
   updated() {
     if (this.locale !== this.$i18n.locale) {
       this.successMessages = this.getSuccessMessages();
       this.locale = this.$i18n.locale;
+    }
+    if (this?.countrySummary?.countryAlpha2Code) {
+      this.flagSrc = new URL(
+        `../../assets/img/flags/${this.countrySummary.countryAlpha2Code.toLowerCase()}.svg`,
+        import.meta.url
+      ).href;
     }
   },
   methods: {

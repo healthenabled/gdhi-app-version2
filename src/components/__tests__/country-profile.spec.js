@@ -112,7 +112,7 @@ describe("Country Profile ", () => {
       JSON.stringify(healthIndicatorData)
     );
     expect(wrapper.vm.flagSrc).to.deep.equal(
-      `/static/img/flags/${healthIndicatorData.countryAlpha2Code.toLowerCase()}.svg`
+      `http://localhost:3000/src/assets/img/flags/${healthIndicatorData.countryAlpha2Code.toLowerCase()}.svg`
     );
     wrapper.vm.initialise();
     wrapper.vm.healthIndicatorData.categories.forEach((category) => {
