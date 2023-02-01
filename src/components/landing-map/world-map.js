@@ -107,12 +107,24 @@ export default {
         }
         layer.on({
           mousemove(e) {
+            const li = document.getElementsByClassName("leaflet-interactive");
+            for (let i = 0; i < li.length; i++) {
+              li[i].setAttribute("style", "outline:none;");
+            }
             eventHandler.onMouseMove(e.target, self.lastMouseOverCountry);
           },
           mouseout(e) {
+            const li = document.getElementsByClassName("leaflet-interactive");
+            for (let i = 0; i < li.length; i++) {
+              li[i].setAttribute("style", "outline:none;");
+            }
             eventHandler.onMouseOut(e.target, self.lastMouseOverCountry);
           },
           click(e) {
+            const li = document.getElementsByClassName("leaflet-interactive");
+            for (let i = 0; i < li.length; i++) {
+              li[i].setAttribute("style", "outline:none;");
+            }
             self.handleClick(
               e.target,
               feature.properties.BRK_A3,
