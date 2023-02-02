@@ -22,8 +22,7 @@ jobs:
       - run: source ~/.bashrc
       - name: Install dependencies of GDHI-app
         shell: bash -l {0}
-        run: nvm install 16.19.0
-      - run: nvm use
+        run: nvm install 16.19.0 | nvm use
       - run: yarn install
       - run: yarn test
       - run: yarn build
