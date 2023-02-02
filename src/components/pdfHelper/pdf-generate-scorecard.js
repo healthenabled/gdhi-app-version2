@@ -427,7 +427,7 @@ export async function generateScorecard(
             page.drawLine({
               start: { x: page.getX(), y: page.getY() },
               end: { x: 480, y: page.getY() + 7 },
-              color: hexToRgb("#92b35a"),
+              color: hexToRgb("#a92b35a"),
             });
             page.drawLine({
               start: { x: page.getX(), y: page.getY() },
