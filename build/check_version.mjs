@@ -1,13 +1,14 @@
 import chalk from "chalk";
 import semver from "semver";
-import shelljs from "shelljs";
 import { readFile } from "fs/promises";
-import { execa, execaCommand, execaNode } from "execa";
+import { execa } from "execa";
 
 const checkVersions = async () => {
-  console.log(`Running predev script \n Checking versions\n`)
+  console.log(
+    chalk.yellow(`Running predev script \nChecking versions of Node and Yarn\n`)
+  );
   const { engines } = JSON.parse(
-    await readFile(new URL("../package.json", import.meta.url)),
+    await readFile(new URL("../package.json", import.meta.url))
   );
   const versionRequirements = [
     {
@@ -15,38 +16,45 @@ const checkVersions = async () => {
       currentVersion: semver.clean(process.version),
       versionRequirement: engines.node,
     },
-  ]; 
-  const { stdout:yarnPath } = await execa("which", ["yarn"]);
+  ];
+  const { stdout: yarnPath } = await execa("which", ["yarn"]);
   if (!!yarnPath) {
     const { stdout } = await execa("yarn", ["--version"]);
     versionRequirements.push({
       name: "yarn",
-      currentVersion:stdout,
+      currentVersion: stdout,
       versionRequirement: engines.yarn,
     });
   }
-  const warnings = []
+  const warnings = [];
   for (let i = 0; i < versionRequirements.length; i++) {
-    const mod = versionRequirements[i]
+    const mod = versionRequirements[i];
     if (!semver.satisfies(mod.currentVersion, mod.versionRequirement)) {
-      warnings.push(mod.name + ': ' +
-        chalk.red(mod.currentVersion) + ' should be ' +
-        chalk.green(mod.versionRequirement)
-      )
+      warnings.push(
+        mod.name +
+          ": " +
+          chalk.red(mod.currentVersion) +
+          " should be " +
+          chalk.green(mod.versionRequirement)
+      );
     }
   }
 
   if (warnings.length) {
-    console.log('')
-    console.log(chalk.yellow('To use this template, you must update following to modules:'))
-    console.log()
+    console.log("");
+    console.log(
+      chalk.yellow("For the app to work well, please update the below:")
+    );
+    console.log();
     for (let i = 0; i < warnings.length; i++) {
-      const warning = warnings[i]
-      console.log('  ' + warning)
+      const warning = warnings[i];
+      console.log("  " + warning);
     }
-    console.log()
-    process.exit(1)
+    console.log();
+    process.exit(1);
   }
+
+  console.log(chalk.yellow(`Versions look good`));
 };
 
 await checkVersions();
