@@ -2,7 +2,7 @@
   "name": "gdhi-app-clone",
   "version": "0.0.0",
   "scripts": {
-    "preinstall": "node build/pre_install.mjs",
+    "postinstall": "node build/pre_install.mjs",
     "predev": "node build/check_version.mjs",
     "dev": "vite --config build/vite.dev.config.js",
     "build": "vite build --config build/vite.prod.config.js",
