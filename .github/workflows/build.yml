@@ -16,10 +16,9 @@ jobs:
       - name: Install curl
         run: sudo apt install curl
       - name: Install nvm
-        run: curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
-      - run: export NVM_DIR="$HOME/.nvm" 
-      - run: [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" 
-      - run: [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+        run: curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh
+      - run: export NVM_DIR="$HOME/.nvm"
+      - run: source $NVM_DIR/nvm.sh
       - run: source ~/.bashrc
       - run: nvm install 16.19.0
       - run: nvm use
