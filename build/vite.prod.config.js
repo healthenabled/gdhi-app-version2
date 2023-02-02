@@ -8,6 +8,7 @@ import vue2Jsx from "@vitejs/plugin-vue2-jsx";
 import { uglify } from "rollup-plugin-uglify";
 import { visualizer } from "rollup-plugin-visualizer";
 import { dependencies } from "../package.json";
+import { viteStaticCopy } from "vite-plugin-static-copy";
 
 const renderChunks = (deps) => {
   let chunks = {};
@@ -42,6 +43,14 @@ export default defineConfig({
     legacy({
       targets: ["ie >= 11"],
       additionalLegacyPolyfills: ["regenerator-runtime/runtime"],
+    }),
+    viteStaticCopy({
+      targets: [
+        {
+          src: "./src/assets/countries_modified.json",
+          dest: "data/",
+        },
+      ],
     }),
   ],
   resolve: {

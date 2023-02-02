@@ -1,8 +1,9 @@
 import L from "leaflet";
-import countriesModifiedData from "../../assets/countries_mega.json";
+// import countriesData from '../../../public/countries_mega.json';
 import helper from "./map-helper";
 import eventHandler from "./map-event-handler";
 import { filter } from "lodash";
+import axios from "axios";
 import { LayoutDirectionConfig } from "../../plugins/i18n";
 
 export default {
@@ -63,15 +64,17 @@ export default {
       .addTo(this.map);
     this.map.addControl(new ResetButton());
     if (!self.countriesData) {
-      self.countriesData = countriesModifiedData;
-      const mapLoader = document.querySelector(".loader");
-      if (mapLoader) mapLoader.style.display = "none";
-      return self.addMapToLeaflet(
-        self,
-        countriesModifiedData,
-        healthData,
-        postClickCallBack
-      );
+      axios.get("/data/countries_modified.json").then(function (response) {
+        self.countriesData = response.data;
+        const mapLoader = document.querySelector(".loader");
+        if (mapLoader) mapLoader.style.display = "none";
+        return self.addMapToLeaflet(
+          self,
+          response.data,
+          healthData,
+          postClickCallBack
+        );
+      });
     } else {
       const mapLoader = document.querySelector(".loader");
       if (mapLoader) mapLoader.style.display = "none";
