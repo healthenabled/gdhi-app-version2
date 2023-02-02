@@ -20,7 +20,9 @@ jobs:
       - run: export NVM_DIR="$HOME/.nvm"
       - run: source $NVM_DIR/nvm.sh
       - run: source ~/.bashrc
-      - run: nvm install 16.19.0
+      - name: Install dependencies of GDHI-app
+        shell: bash -l {0}
+        run: nvm install 16.19.0
       - run: nvm use
       - run: yarn install
       - run: yarn test
