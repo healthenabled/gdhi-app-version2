@@ -47,10 +47,6 @@ export default defineConfig({
     viteStaticCopy({
       targets: [
         {
-          src: "./src/assets/img/*",
-          dest: "img/",
-        },
-        {
           src: "./src/assets/countries_modified.json",
           dest: "data/",
         },
