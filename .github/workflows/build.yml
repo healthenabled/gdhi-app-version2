@@ -1,0 +1,29 @@
+name: GDHI-Frontend
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  build:
+    name: Build GDHI-App
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.x, 16.x, 18.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+    steps:
+      - name: Checkout code from Github
+        uses: actions/checkout@v3
+      - name: Install curl
+        run: sudo apt install curl
+      - name: Install nvm
+        run: curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
+      - run: source ~/.bashrc
+      - run: nvm install 16.19.0
+      - run: nvm use
+      - run: yarn install
+      - run: yarn test
+      - run: yarn build
