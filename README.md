@@ -1,6 +1,6 @@
 # gdhi-app-clone
 
-This template should help get you started developing with Vue 3 in Vite.
+This app uses template that should help get you started developing with Vue 2 in Vite.
 
 ## Recommended IDE Setup
 
@@ -37,7 +37,7 @@ yarn build
 ### Run Unit Tests with [Vitest](https://vitest.dev/)
 
 ```sh
-yarn test:unit
+yarn test
 ```
 
 ### Lint with [ESLint](https://eslint.org/)
