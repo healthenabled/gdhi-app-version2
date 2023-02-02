@@ -71,10 +71,7 @@ export default Vue.extend({
     healthIndicatorCallback(response) {
       this.healthIndicatorData = response.data;
       this.updateCollectedDate(this.healthIndicatorData.collectedDate);
-      this.flagSrc = new URL(
-        `../../assets/img/flags/${response.data.countryAlpha2Code.toLowerCase()}.svg`,
-        import.meta.url
-      ).href;
+      this.flagSrc = `/img/flags/${response.data.countryAlpha2Code.toLowerCase()}.svg`;
       this.initialise();
     },
     onCategoryExpand(category) {
