@@ -76,7 +76,7 @@ describe("Generate URL ", () => {
     expect(wrapper.find(".btn-primary").classes()).to.include("disabled");
   });
 
-  it.only("On success of the generate_url API call notifier to be displayed", async () => {
+  it("On success of the generate_url API call notifier to be displayed", async () => {
     let notifier = sinon.spy();
 
     wrapper.vm.notifier = notifier;
@@ -111,7 +111,7 @@ describe("Generate URL ", () => {
       type: "success",
     });
   });
-  it.only("should set the warning message if existing status = PUBLISHED", async () => {
+  it("should set the warning message if existing status = PUBLISHED", async () => {
     let notifier = sinon.spy();
 
     wrapper.vm.notifier = notifier;
@@ -134,7 +134,7 @@ describe("Generate URL ", () => {
     );
     expect(wrapper.vm.warningMessage).to.equal("Already Published");
   });
-  it.only("should set the warning message if sucess == false and exisiting status = NEW", async () => {
+  it("should set the warning message if sucess == false and exisiting status = NEW", async () => {
     let notifier = sinon.spy();
 
     wrapper.vm.notifier = notifier;
@@ -158,84 +158,78 @@ describe("Generate URL ", () => {
     expect(wrapper.vm.warningMessage).to.equal("Submission under process");
   });
   it("should set the warning message if sucess == false and exisiting status = DRAFT", async () => {
+    let notifier = sinon.spy();
+
+    wrapper.vm.notifier = notifier;
+    axiosPostSpy.mockResolvedValue({
+      data: { success: false, existingStatus: "DRAFT" },
+    });
     wrapper.vm.onCountrySelect({
       value: "AUS",
       display: "Australia",
       selectedObject: countryData[3],
     });
+    await flushPromises();
     wrapper.find(".btn-primary").trigger("click");
     expect(wrapper.vm.generatedURL).to.equal(
       location.origin +
         "/health_indicator_questionnaire/" +
         wrapper.vm.countryUUID
     );
-    moxios.wait(() => {
-      let request = moxios.requests.mostRecent();
-      request.resolve({
-        countryId: wrapper.vm.countryUUID,
-        status: 200,
-        data: { success: false, existingStatus: "DRAFT" },
-      });
-      moxios.wait(() => {
-        expect(wrapper.vm.warningMessage).to.equal("Submission under process");
-        done();
-      });
-    });
+    await flushPromises();
+
+    expect(wrapper.vm.warningMessage).to.equal("Submission under process");
   });
   it("should set the warning message if sucess == false and exisiting status = REVIEW", async () => {
+    let notifier = sinon.spy();
+
+    wrapper.vm.notifier = notifier;
+    axiosPostSpy.mockResolvedValue({
+      data: { success: false, existingStatus: "REVIEW" },
+    });
     wrapper.vm.onCountrySelect({
       value: "AUS",
       display: "Australia",
       selectedObject: countryData[3],
     });
+    await flushPromises();
     wrapper.find(".btn-primary").trigger("click");
     expect(wrapper.vm.generatedURL).to.equal(
       location.origin +
         "/health_indicator_questionnaire/" +
         wrapper.vm.countryUUID
     );
-    moxios.wait(() => {
-      let request = moxios.requests.mostRecent();
-      request.resolve({
-        countryId: wrapper.vm.countryUUID,
-        status: 200,
-        data: { success: false, existingStatus: "REVIEW" },
-      });
-      moxios.wait(() => {
-        expect(wrapper.vm.warningMessage).to.equal("Review Pending");
-        done();
-      });
-    });
+    await flushPromises();
+
+    expect(wrapper.vm.warningMessage).to.equal("Review Pending");
   });
   it("should set the warning message failure", async () => {
     let notifier = sinon.spy();
     wrapper.vm.notifier = notifier;
+    axiosPostSpy.mockResolvedValue({});
     wrapper.vm.onCountrySelect({
       value: "AUS",
       display: "Australia",
       selectedObject: countryData[3],
     });
+    await flushPromises();
+
     wrapper.find(".btn-primary").trigger("click");
     expect(wrapper.vm.generatedURL).to.equal(
       location.origin +
         "/health_indicator_questionnaire/" +
         wrapper.vm.countryUUID
     );
-    moxios.wait(() => {
-      let request = moxios.requests.mostRecent();
-      request.reject({ countryId: wrapper.vm.countryUUID, status: 500 });
-      moxios.wait(() => {
-        expect(wrapper.vm.message).to.equal(
-          "Error While Generating URL for Country"
-        );
-        sinon.assert.calledWith(notifier, {
-          group: "custom-template",
-          title: "Error",
-          text: wrapper.vm.message,
-          type: "error",
-        });
-        done();
-      });
+    await flushPromises();
+
+    expect(wrapper.vm.message).to.equal(
+      "Error While Generating URL for Country"
+    );
+    sinon.assert.calledWith(notifier, {
+      group: "custom-template",
+      title: "Error",
+      text: wrapper.vm.message,
+      type: "error",
     });
   });
 });
