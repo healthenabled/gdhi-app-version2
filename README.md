@@ -1,5 +1,8 @@
 # gdhi-app-clone
 
+[![GDHI-Frontend](https://github.com/healthenabled/gdhi-app-version2/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/healthenabled/gdhi-app-version2/actions/workflows/build.yml)
+
+
 This app uses template that should help get you started developing with Vue 2 in Vite.
 
 ## Pre-requisites
