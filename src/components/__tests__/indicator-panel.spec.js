@@ -1,12 +1,15 @@
 import { shallowMount, createLocalVue } from "@vue/test-utils";
 import VueRouter from "vue-router";
 import IndicatorPanel from "../indicatorPanel/indicator-panel.vue";
-import moxios from "moxios";
 import sinon from "sinon";
 import Obj from "../../common/indicator-http-requests.js";
 import { i18n } from "../../plugins/i18n";
 import { en, es } from "../../static-content/index";
-import { describe, it, expect, beforeEach, afterEach } from "vitest";
+import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
+import axios from "axios";
+import flushPromises from "flush-promises";
+
+const axiosGetSpy = vi.spyOn(axios, "get");
 
 describe("Indicator Panel", () => {
   let wrapper;
@@ -84,162 +87,133 @@ describe("Indicator Panel", () => {
       return "";
     },
   };
-  beforeEach(() => {
-    moxios.install();
-    moxios.stubRequest("/api/global_health_indicators?categoryId=&phase=", {
-      status: 200,
-      response: overallScoreData,
-    });
+  beforeEach(async () => {
+    axiosGetSpy.mockResolvedValue({ data: overallScoreData });
+
     wrapper = shallowMount(IndicatorPanel, {
       localVue,
       router,
       i18n,
     });
+    await flushPromises();
   });
-  it("should update the variables with indicator data for the global", (done) => {
-    moxios.wait(() => {
-      let outputData = {
-        overallCountryScore: overallScoreData.overAllScore,
-        categories: overallScoreData.categories,
-      };
-      expect(wrapper.vm.globalHealthIndicators).to.deep.equal(outputData);
-      expect(wrapper.vm.showCountryDetail).to.equal(false);
-      expect(wrapper.vm.isNoGlobalHealthIndicators).to.equal(false);
-      done();
-    });
+  it("should update the variables with indicator data for the global", () => {
+    let outputData = {
+      overallCountryScore: overallScoreData.overAllScore,
+      categories: overallScoreData.categories,
+    };
+    expect(wrapper.vm.globalHealthIndicators).to.deep.equal(outputData);
+    expect(wrapper.vm.showCountryDetail).to.equal(false);
+    expect(wrapper.vm.isNoGlobalHealthIndicators).to.equal(false);
   });
 
-  it("should update the variables with indicator data for the country data", (done) => {
+  it("should update the variables with indicator data for the country data", async () => {
+    axiosGetSpy.mockResolvedValue({ data: countryData });
+
     wrapper.vm.getHealthIndicators("", "1");
-    moxios.wait(() => {
-      let request = moxios.requests.mostRecent();
-      request
-        .respondWith({
-          status: 200,
-          response: countryData,
-        })
-        .then(() => {
-          const healthIndicatorsData = {
-            countryId: countryData.countryId,
-            countryName: countryData.countryName,
-            categories: countryData.categories,
-            countryPhase: countryData.countryPhase,
-          };
+    await flushPromises();
+    const healthIndicatorsData = {
+      countryId: countryData.countryId,
+      countryName: countryData.countryName,
+      categories: countryData.categories,
+      countryPhase: countryData.countryPhase,
+    };
 
-          expect(wrapper.vm.healthIndicators).to.deep.equal(
-            healthIndicatorsData
-          );
-          expect(wrapper.vm.showCountryDetail).to.equal(true);
-          expect(wrapper.vm.isNoGlobalHealthIndicators).to.equal(true);
-          done();
-        });
+    expect(wrapper.vm.healthIndicators).to.deep.equal(healthIndicatorsData);
+    expect(wrapper.vm.showCountryDetail).to.equal(true);
+    expect(wrapper.vm.isNoGlobalHealthIndicators).to.equal(true);
+  });
+
+  it("should return title based on the filter ", async () => {
+    let returnStr = wrapper.vm.getIndicatorContainerName();
+    expect(returnStr).to.deep.equal(
+      "State of Digital Health around the world today"
+    );
+
+    wrapper.vm.phaseFilter = true;
+    returnStr = wrapper.vm.getIndicatorContainerName();
+    expect(returnStr).to.deep.equal("Overall");
+
+    wrapper.vm.categoryFilter = true;
+    returnStr = wrapper.vm.getIndicatorContainerName();
+    expect(returnStr).to.deep.equal(overallScoreData.categories[0].name);
+
+    wrapper.vm.globalHealthIndicators = {
+      overAllScore: null,
+      categories: [],
+    };
+    returnStr = wrapper.vm.getIndicatorContainerName();
+    expect(returnStr).to.deep.equal(
+      "No countries available for the selected criteria"
+    );
+  });
+
+  it("should return phase title based on the filter ", async () => {
+    wrapper.vm.categoryFilter = true;
+    let returnStr = wrapper.vm.getPhaseTitle();
+    expect(returnStr).to.deep.equal("Global Average");
+
+    wrapper.vm.phaseFilter = 5;
+    returnStr = wrapper.vm.getPhaseTitle();
+    expect(returnStr).to.deep.equal("Phase 5");
+  });
+
+  it("should push the url when showcountrydetails is called ", async () => {
+    let mockFn = vi.spyOn(router, "push").mockReturnValue({});
+    wrapper.vm.showCountryDetails("IND");
+    await flushPromises();
+    expect(mockFn.mock.calls[0][0]).to.deep.equal({
+      path: `/country_profile/IND`,
+    });
+    router.push.restore();
+  });
+
+  it("should push the url when showlistofcountries is called ", async () => {
+    let mockFn = vi.spyOn(router, "push").mockReturnValue({});
+
+    wrapper.vm.showListOfCountries();
+    await flushPromises();
+
+    expect(mockFn.mock.calls[0][0]).to.deep.equal({
+      path: "/country_list",
     });
   });
 
-  it("should return title based on the filter ", (done) => {
-    moxios.wait(() => {
-      let returnStr = wrapper.vm.getIndicatorContainerName();
-      expect(returnStr).to.deep.equal(
-        "State of Digital Health around the world today"
-      );
-
-      wrapper.vm.phaseFilter = true;
-      returnStr = wrapper.vm.getIndicatorContainerName();
-      expect(returnStr).to.deep.equal("Overall");
-
-      wrapper.vm.categoryFilter = true;
-      returnStr = wrapper.vm.getIndicatorContainerName();
-      expect(returnStr).to.deep.equal(overallScoreData.categories[0].name);
-
-      wrapper.vm.globalHealthIndicators = {
-        overAllScore: null,
-        categories: [],
-      };
-      returnStr = wrapper.vm.getIndicatorContainerName();
-      expect(returnStr).to.deep.equal(
-        "No countries available for the selected criteria"
-      );
-      done();
-    });
-  });
-
-  it("should return phase title based on the filter ", (done) => {
-    moxios.wait(() => {
-      wrapper.vm.categoryFilter = true;
-      let returnStr = wrapper.vm.getPhaseTitle();
-      expect(returnStr).to.deep.equal("Global Average");
-
-      wrapper.vm.phaseFilter = 5;
-      returnStr = wrapper.vm.getPhaseTitle();
-      expect(returnStr).to.deep.equal("Phase 5");
-      done();
-    });
-  });
-
-  it("should push the url when showcountrydetails is called ", (done) => {
-    moxios.wait(() => {
-      let mockFn = sinon.stub(router, "push").callsFake(() => {});
-      wrapper.vm.showCountryDetails("IND");
-      expect(mockFn.getCall(0).args[0]).to.deep.equal({
-        path: `/country_profile/IND`,
-      });
-      router.push.restore();
-      done();
-    });
-  });
-
-  it("should push the url when showlistofcountries is called ", (done) => {
-    moxios.wait(() => {
-      let mockFn = sinon.stub(router, "push").callsFake(() => {});
-      wrapper.vm.showListOfCountries();
-      expect(mockFn.getCall(0).args[0]).to.deep.equal({
-        path: "/country_list",
-      });
-      done();
-    });
-  });
-
-  it(" should respond with development indicators for the selected country", (done) => {
+  it(" should respond with development indicators for the selected country", async () => {
+    let responseData = {
+      gniPerCapita: 1000,
+      totalPopulation: 1000000,
+      adultLiteracy: 70.22,
+      doingBusinessIndex: 22.22,
+      lifeExpectancy: 60,
+      healthExpenditure: 22.23,
+      totalNcdDeathsPerCapita: 22.2,
+      under5Mortality: 22,
+    };
+    const developmentIndicatorsData = [
+      {
+        CONTEXT: {
+          gniPerCapita: Obj.getGNIPerCapitaInKilo(responseData.gniPerCapita),
+          totalPopulation: Obj.getTotalPopulationInMillion(
+            responseData.totalPopulation
+          ),
+        },
+      },
+      {
+        HEALTH: {
+          lifeExpectancy: Obj.getValue(responseData.lifeExpectancy),
+          healthExpenditure: Obj.getInPercenatge(
+            responseData.healthExpenditure
+          ),
+        },
+      },
+    ];
+    axiosGetSpy.mockResolvedValue({ data: responseData });
     wrapper.vm.getIndicators("", "1");
-    moxios.wait(() => {
-      let request = moxios.requests.mostRecent();
-      let responseData = {
-        gniPerCapita: 1000,
-        totalPopulation: 1000000,
-        adultLiteracy: 70.22,
-        doingBusinessIndex: 22.22,
-        lifeExpectancy: 60,
-        healthExpenditure: 22.23,
-        totalNcdDeathsPerCapita: 22.2,
-        under5Mortality: 22,
-      };
-      const developmentIndicatorsData = [
-        {
-          CONTEXT: {
-            gniPerCapita: Obj.getGNIPerCapitaInKilo(responseData.gniPerCapita),
-            totalPopulation: Obj.getTotalPopulationInMillion(
-              responseData.totalPopulation
-            ),
-          },
-        },
-        {
-          HEALTH: {
-            lifeExpectancy: Obj.getValue(responseData.lifeExpectancy),
-            healthExpenditure: Obj.getInPercenatge(
-              responseData.healthExpenditure
-            ),
-          },
-        },
-      ];
-      request.respondWith({ status: 200, response: responseData }).then(() => {
-        expect(wrapper.vm.developmentIndicators).to.deep.equal(
-          developmentIndicatorsData
-        );
-        done();
-      });
-    });
-  });
-  afterEach(() => {
-    moxios.uninstall();
+
+    await flushPromises();
+    expect(wrapper.vm.developmentIndicators).to.deep.equal(
+      developmentIndicatorsData
+    );
   });
 });
