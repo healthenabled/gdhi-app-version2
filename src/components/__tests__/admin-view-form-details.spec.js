@@ -2,8 +2,11 @@ import { mount } from "@vue/test-utils";
 import { describe, expect, beforeEach, it, vi, afterEach } from "vitest";
 import adminViewFormDetails from "../adminViewFormDetails/admin-view-form-details.vue";
 import VueRouter from "vue-router";
-import moxios from "moxios";
 import { i18n } from "../../plugins/i18n";
+import axios from "axios";
+import flushPromises from "flush-promises";
+
+const axiosGetSpy = vi.spyOn(axios, "get");
 
 describe("AdminViewFormDetails", () => {
   let component;
@@ -54,8 +57,9 @@ describe("AdminViewFormDetails", () => {
       },
     ],
   };
-  beforeEach(() => {
-    moxios.install();
+  it("should get admin view form details data", async () => {
+    axiosGetSpy.mockResolvedValue({ data: responseData });
+
     component = mount(adminViewFormDetails, {
       data: () => ({
         tabs: [
@@ -66,72 +70,71 @@ describe("AdminViewFormDetails", () => {
       }),
       router,
     });
-  });
-  it("should get admin view form details data", (done) => {
+    await flushPromises();
+
     let updateSelected = vi.fn();
     component.vm.updateSelected = updateSelected;
     component.vm.loadAdminViewFormDetails();
 
-    moxios.wait(() => {
-      moxios.requests
-        .mostRecent()
-        ?.respondWith({
-          status: 200,
-          response: responseData,
-        })
-        .then(() => {
-          updateSelected.mockReturnValue({
-            id: 0,
-            name: "Awaiting Submission",
-          });
+    await flushPromises();
 
-          expect(component.vm.allData).to.equal(responseData);
-          done();
-        });
+    updateSelected.mockReturnValue({
+      id: 0,
+      name: "Awaiting Submission",
     });
+
+    expect(component.vm.allData).to.equal(responseData);
   });
 
-  it("should call getTabData when updateSelected is called", (done) => {
-    moxios.wait(() => {
-      let request = moxios.requests.mostRecent();
-      request
-        ?.respondWith({
-          status: 200,
-          response: responseData,
-        })
-        .then(() => {
-          let getTabData = vi.fn();
-          component.vm.getTabData = getTabData;
-          component.vm.updateSelected({ id: 0, name: "Awaiting Submission" });
-          getTabData.mockReturnValue({
-            id: 0,
-            name: "Awaiting Submission",
-          });
+  it("should call getTabData when updateSelected is called", async () => {
+    axiosGetSpy.mockResolvedValue({ data: responseData });
 
-          expect(component.vm.selectedTab).to.equal(0);
-          done();
-        });
+    component = mount(adminViewFormDetails, {
+      data: () => ({
+        tabs: [
+          { id: 0, name: "Awaiting Submission" },
+          { id: 1, name: "Review Pending" },
+          { id: 2, name: "Live Data" },
+        ],
+      }),
+      router,
     });
-    moxios.uninstall();
+    await flushPromises();
+
+    let getTabData = vi.fn();
+    component.vm.getTabData = getTabData;
+    component.vm.updateSelected({ id: 0, name: "Awaiting Submission" });
+    getTabData.mockReturnValue({
+      id: 0,
+      name: "Awaiting Submission",
+    });
+
+    expect(component.vm.selectedTab).to.equal(0);
   });
 
-  it("should set error value when the API call is failed", (done) => {
-    let errResp = {
-      status: 500,
+  it("should set error value when the API call is failed", async () => {
+    const errResp = {
       response: { message: "problem" },
     };
-    moxios.wait(() => {
-      let request = moxios.requests.mostRecent();
-      request.reject(errResp);
-      moxios.wait(() => {
-        expect(component.vm.error).to.equal(errResp.response.message);
-        done();
-      });
+    axiosGetSpy.mockRejectedValue(errResp);
+    component = mount(adminViewFormDetails, {
+      data: () => ({
+        tabs: [
+          { id: 0, name: "Awaiting Submission" },
+          { id: 1, name: "Review Pending" },
+          { id: 2, name: "Live Data" },
+        ],
+      }),
+      router,
     });
-    moxios.uninstall();
+    await flushPromises();
+
+    expect(component.vm.error).to.equal(errResp.response.message);
   });
 
-  it("should call openUrl when actionHandler is invoked", () => {
+  it("should call openUrl when actionHandler is invoked", async () => {
+    axiosGetSpy.mockResolvedValue({ data: responseData });
+
     component = mount(adminViewFormDetails, {
       data: () => ({
         tabs: [
@@ -143,6 +146,7 @@ describe("AdminViewFormDetails", () => {
       router,
       i18n,
     });
+    await flushPromises();
     let openUrl = vi.fn();
     component.vm.openUrl = openUrl;
     openUrl.mockReturnValueOnce(
@@ -162,7 +166,9 @@ describe("AdminViewFormDetails", () => {
     expect(openUrl.mock.calls.length).to.equal(2);
   });
 
-  it("should populate the table rows when getTabData is called ", () => {
+  it("should populate the table rows when getTabData is called ", async () => {
+    axiosGetSpy.mockResolvedValue({ data: responseData });
+
     component = mount(adminViewFormDetails, {
       data: () => ({
         tabs: [
@@ -173,6 +179,8 @@ describe("AdminViewFormDetails", () => {
       }),
       router,
     });
+    await flushPromises();
+
     component.vm.allData = responseData;
     component.vm.getTabData(component.vm.tabs[0]);
     expect(component.vm.tableRows).to.deep.equal([
@@ -188,7 +196,9 @@ describe("AdminViewFormDetails", () => {
     expect(component.vm.noRecordsMessage).to.equal("");
   });
 
-  it("should return empty tablerows when the value is undefined", () => {
+  it("should return empty tablerows when the value is undefined", async () => {
+    axiosGetSpy.mockResolvedValue({ data: responseData });
+
     component = mount(adminViewFormDetails, {
       data: () => ({
         tabs: [
@@ -199,6 +209,8 @@ describe("AdminViewFormDetails", () => {
       }),
       router,
     });
+    await flushPromises();
+
     let updatedResponse = { ...responseData };
     updatedResponse.NEW = undefined;
     component.vm.allData = updatedResponse;
@@ -239,7 +251,9 @@ describe("AdminViewFormDetails", () => {
     expect(component.vm.noRecordsMessage).to.equal("No Records Found");
   });
 
-  it("should set the tablerows to [] when getTab data is called for indices greater than 2", () => {
+  it("should set the tablerows to [] when getTab data is called for indices greater than 2", async () => {
+    axiosGetSpy.mockResolvedValue({ data: responseData });
+
     component = mount(adminViewFormDetails, {
       data: () => ({
         tabs: [
@@ -250,13 +264,11 @@ describe("AdminViewFormDetails", () => {
       }),
       router,
     });
+    await flushPromises();
+
     component.vm.allData = responseData;
     component.vm.getTabData(component.vm.tabs[3]);
     expect(component.vm.tableRows).to.deep.equal([]);
     expect(component.vm.tableColumns).to.deep.equal([]);
-  });
-
-  afterEach(() => {
-    moxios.uninstall();
   });
 });
