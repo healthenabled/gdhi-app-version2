@@ -2606,7 +2606,6 @@ __metadata:
     jsdom: ^20.0.0
     leaflet: ^1.9.3
     lodash: ^4.17.4
-    moxios: ^0.4.0
     pdf-lib: ^1.17.1
     prettier: ^2.5.1
     rollup-plugin-uglify: ^6.0.4
@@ -3772,15 +3771,6 @@ __metadata:
   bin:
     mkdirp: bin/cmd.js
   checksum: a96865108c6c3b1b8e1d5e9f11843de1e077e57737602de1b82030815f311be11f96f09cce59bd5b903d0b29834733e5313f9301e3ed6d6f6fba2eae0df4298f
-  languageName: node
-  linkType: hard
-
-"moxios@npm:^0.4.0":
-  version: 0.4.0
-  resolution: "moxios@npm:0.4.0"
-  peerDependencies:
-    axios: ">= 0.13.0"
-  checksum: 51a221b8b2197f8553911e279464a05d1dd80407b40a552e0aa5fb1de490b46088b18d2699d2f849ace356d0dd9adaddb9df4abeeadb1fe490695360d128d28b
   languageName: node
   linkType: hard
 

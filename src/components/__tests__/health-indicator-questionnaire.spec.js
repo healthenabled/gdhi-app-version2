@@ -1,9 +1,12 @@
 import { createLocalVue, shallowMount } from "@vue/test-utils";
-import { describe, it, expect, beforeEach, afterEach } from "vitest";
+import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import HealthIndicatorQuestionnaire from "../healthIndicatorQuestionnaire/health-indicator-questionnare.vue";
-import moxios from "moxios";
 import VueRouter from "vue-router";
 import { i18n } from "../../plugins/i18n";
+import axios from "axios";
+import flushPromises from "flush-promises";
+
+const axiosGetSpy = vi.spyOn(axios, "get");
 
 describe("Health Indicator Questionnaire", () => {
   let wrapper;
@@ -152,117 +155,123 @@ describe("Health Indicator Questionnaire", () => {
     ],
   };
   describe(" New Form Data", () => {
-    beforeEach(() => {
-      moxios.install();
-      moxios.stubRequest(/\/api\/countries\/*/, {
-        status: 200,
-        response: countryData,
+    beforeEach(async () => {
+      axiosGetSpy.mockImplementation(async (url) => {
+        if (url.includes("countries")) {
+          return new Promise((resolve) => {
+            resolve({ data: countryData });
+          });
+        }
+        if (url.includes("health_indicator_options")) {
+          return new Promise((resolve) => {
+            resolve({ data: healthIndicatorOptions });
+          });
+        }
       });
 
-      moxios.stubRequest("/api/health_indicator_options", {
-        status: 200,
-        response: healthIndicatorOptions,
-      });
       wrapper = shallowMount(HealthIndicatorQuestionnaire, {
         localVue,
         router,
         i18n,
       });
+      await flushPromises();
     });
 
-    it("should load all data for new form", (done) => {
-      moxios.wait(() => {
-        expect(wrapper.vm.status).to.equal(countryData.status);
-        expect(wrapper.vm.questionnaire).to.deep.equal(healthIndicatorOptions);
-        expect(wrapper.vm.countrySummary).to.deep.equal(
-          countryData.countrySummary
-        );
-        expect(Object.keys(wrapper.vm.healthIndicators).length).to.deep.equal(
-          healthIndicatorOptions[0].indicators.length
-        );
-        healthIndicatorOptions.forEach((category) => {
-          expect(category.showCategory).to.be.equal(false);
-        });
-        done();
-      });
-    });
     afterEach(() => {
-      moxios.uninstall();
+      axiosGetSpy.mockReset();
+    });
+
+    it("should load all data for new form", () => {
+      expect(wrapper.vm.status).to.equal(countryData.status);
+      expect(wrapper.vm.questionnaire).to.deep.equal(healthIndicatorOptions);
+      expect(wrapper.vm.countrySummary).to.deep.equal(
+        countryData.countrySummary
+      );
+      expect(Object.keys(wrapper.vm.healthIndicators).length).to.deep.equal(
+        healthIndicatorOptions[0].indicators.length
+      );
+      healthIndicatorOptions.forEach((category) => {
+        expect(category.showCategory).to.be.equal(false);
+      });
     });
   });
 
   describe(" Draft Form Data", () => {
-    beforeEach(() => {
-      moxios.install();
-      moxios.stubRequest(/\/api\/countries\/*/, {
-        status: 200,
-        response: draftCountryData,
+    beforeEach(async () => {
+      axiosGetSpy.mockImplementation(async (url) => {
+        if (url.includes("countries")) {
+          return new Promise((resolve) => {
+            resolve({ data: draftCountryData });
+          });
+        }
+        if (url.includes("health_indicator_options")) {
+          return new Promise((resolve) => {
+            resolve({ data: healthIndicatorOptions });
+          });
+        }
       });
-
-      moxios.stubRequest("/api/health_indicator_options", {
-        status: 200,
-        response: healthIndicatorOptions,
-      });
+    });
+    afterEach(() => {
+      axiosGetSpy.mockReset();
+    });
+    it("should load all data for new form", async () => {
       wrapper = shallowMount(HealthIndicatorQuestionnaire, {
         localVue,
         router,
         i18n,
       });
-    });
-    it("should load all data for new form", (done) => {
-      moxios.wait(() => {
-        expect(wrapper.vm.status).to.equal(countryData.status);
-        expect(wrapper.vm.questionnaire).to.deep.equal(healthIndicatorOptions);
-        expect(wrapper.vm.countrySummary).to.deep.equal(
-          countryData.countrySummary
-        );
-        healthIndicatorOptions.forEach((category) => {
-          expect(category.showCategory).to.be.equal(false);
-        });
-        done();
+      await flushPromises();
+      expect(wrapper.vm.status).to.equal(draftCountryData.status);
+      expect(wrapper.vm.questionnaire).to.deep.equal(healthIndicatorOptions);
+      expect(wrapper.vm.countrySummary).to.deep.equal(
+        draftCountryData.countrySummary
+      );
+      healthIndicatorOptions.forEach((category) => {
+        expect(category.showCategory).to.be.equal(false);
       });
     });
 
-    it("should set showEdit based on isViewPublish", (done) => {
-      wrapper.vm.isViewPublish = true;
-      moxios.wait(() => {
-        expect(wrapper.vm.showEdit).to.equal(false);
-        done();
+    it("should set showEdit based on isViewPublish", async () => {
+      wrapper = shallowMount(HealthIndicatorQuestionnaire, {
+        localVue,
+        router,
+        i18n,
       });
-    });
-    afterEach(() => {
-      moxios.uninstall();
+      wrapper.vm.isViewPublish = true;
+      await flushPromises();
+      expect(wrapper.vm.showEdit).to.equal(false);
     });
   });
 
   describe(" REVIEW_PENDING Form Data", () => {
-    beforeEach(() => {
+    beforeEach(async () => {
       draftCountryData.status = "REVIEW_PENDING";
-      moxios.install();
-      moxios.stubRequest(/\/api\/countries\/*/, {
-        status: 200,
-        response: draftCountryData,
+      axiosGetSpy.mockImplementation(async (url) => {
+        if (url.includes("countries")) {
+          return new Promise((resolve) => {
+            resolve({ data: draftCountryData });
+          });
+        }
+        if (url.includes("health_indicator_options")) {
+          return new Promise((resolve) => {
+            resolve({ data: healthIndicatorOptions });
+          });
+        }
       });
 
-      moxios.stubRequest("/api/health_indicator_options", {
-        status: 200,
-        response: healthIndicatorOptions,
-      });
       wrapper = shallowMount(HealthIndicatorQuestionnaire, {
         localVue,
         router,
         i18n,
       });
-    });
-
-    it("should set showEdit", (done) => {
-      moxios.wait(() => {
-        expect(wrapper.vm.showEdit).to.equal(false);
-        done();
-      });
+      await flushPromises();
     });
     afterEach(() => {
-      moxios.uninstall();
+      axiosGetSpy.mockReset();
+    });
+
+    it("should set showEdit", () => {
+      expect(wrapper.vm.showEdit).to.equal(false);
     });
   });
 });

@@ -1,11 +1,13 @@
 import { shallowMount } from "@vue/test-utils";
 import Map from "../landing-map/map.vue";
-import moxios from "moxios";
 import sinon from "sinon";
 import worldMap from "../landing-map/world-map.js";
 import { describe, it, expect, beforeEach, vi } from "vitest";
-
+import axios from "axios";
 import { i18n } from "../../plugins/i18n";
+import flushPromises from "flush-promises";
+
+const axiosGetSpy = vi.spyOn(axios, "get");
 
 describe("Map ", () => {
   let wrapper;
@@ -151,112 +153,120 @@ describe("Map ", () => {
       ],
     },
   ];
+  let phaseData = [
+    {
+      phaseName: "phase1",
+      phaseValue: 1,
+    },
+    {
+      phaseName: "phase2",
+      phaseValue: 2,
+    },
+  ];
   beforeEach(() => {
-    moxios.install();
-    moxios.stubRequest(/\/api\/countries_health_indicator_scores.*/, {
-      status: 200,
-      response: globalData,
-    });
-    moxios.stubRequest(/\/api\/health_indicator_options/, {
-      status: 200,
-      response: healthIndicatorData,
+    axiosGetSpy.mockImplementation(async (url) => {
+      if (url.includes("countries_health_indicator_scores")) {
+        return new Promise((resolve) => {
+          resolve({ data: globalData });
+        });
+      }
+      if (url.includes("health_indicator_options")) {
+        return new Promise((resolve) => {
+          resolve({ data: healthIndicatorData });
+        });
+      }
+      if (url.includes("phases")) {
+        return new Promise((resolve) => {
+          resolve({ data: phaseData });
+        });
+      }
     });
   });
 
-  it(" should fetch phases", (done) => {
-    let phaseData = [
-      {
-        phaseName: "phase1",
-        phaseValue: 1,
-      },
-      {
-        phaseName: "phase2",
-        phaseValue: 2,
-      },
-    ];
-    moxios.install();
-    moxios.stubRequest("/api/phases", {
-      status: 200,
-      response: phaseData,
-    });
-    wrapper = shallowMount(Map, { i18n });
+  it(" should fetch phases", async () => {
     vi.spyOn(worldMap, "drawMap").mockReturnValue({});
+
+    wrapper = shallowMount(Map, { i18n });
+    await flushPromises();
+
     wrapper.vm.fetchPhases();
-    moxios.wait(() => {
-      expect(wrapper.vm.phases).to.deep.equal(phaseData);
-      worldMap.drawMap.restore();
-      done();
-    });
+    await flushPromises();
+    expect(wrapper.vm.phases).to.deep.equal(phaseData);
+    worldMap.drawMap.restore();
   });
 
-  it(" should set the window properties when the filter method is called and fetch the fetchGlobalIndices", (done) => {
-    wrapper = shallowMount(Map, { i18n });
+  it(" should set the window properties when the filter method is called and fetch the fetchGlobalIndices", async () => {
     vi.spyOn(worldMap, "drawMap").mockReturnValue({});
+
+    wrapper = shallowMount(Map, { i18n });
+    await flushPromises();
 
     wrapper.vm.categoryValue = 1;
     wrapper.vm.phaseValue = 1;
     wrapper.vm.filter();
     sinon.assert.calledWith(setCategoryFilterMock, { categoryId: 1 });
     sinon.assert.calledWith(setPhaseFilterMock, { phaseId: 1 });
-    moxios.wait(() => {
-      expect(wrapper.vm.globalHealthIndicators).to.deep.equal(
-        globalData.countryHealthScores
-      );
-      worldMap.drawMap.restore();
-      done();
-    });
+    await flushPromises();
+    expect(wrapper.vm.globalHealthIndicators).to.deep.equal(
+      globalData.countryHealthScores
+    );
+    worldMap.drawMap.restore();
   });
 
-  it(" should reset the local values when the reset method is called", (done) => {
-    wrapper = shallowMount(Map, { i18n });
+  it(" should reset the local values when the reset method is called", async () => {
     vi.spyOn(worldMap, "drawMap").mockReturnValue({});
 
+    wrapper = shallowMount(Map, { i18n });
+    await flushPromises();
     wrapper.vm.resetFilters();
     sinon.assert.calledWith(setCategoryFilterMock, { categoryId: "" });
     sinon.assert.calledWith(setPhaseFilterMock, { phaseId: "" });
+    await flushPromises();
+
     expect(wrapper.vm.categoryValue).to.equal("");
     expect(wrapper.vm.phaseValue).to.equal("");
-    moxios.wait(() => {
-      worldMap.drawMap.restore();
-      done();
-    });
+    worldMap.drawMap.restore();
   });
-  it("should update the value for categories when fetchCategoricalIndicators is called ", (done) => {
-    wrapper = shallowMount(Map, { i18n });
+  it("should update the value for categories when fetchCategoricalIndicators is called ", async () => {
     vi.spyOn(worldMap, "drawMap").mockReturnValue({});
+
+    wrapper = shallowMount(Map, { i18n });
+    await flushPromises();
 
     wrapper.vm.fetchCategoricalIndicators();
-    moxios.wait(() => {
-      expect(wrapper.vm.categories).to.deep.equal(healthIndicatorData);
-      worldMap.drawMap.restore();
-      done();
-    });
+    await flushPromises();
+
+    expect(wrapper.vm.categories).to.deep.equal(healthIndicatorData);
+    worldMap.drawMap.restore();
   });
 
-  it("should emit map clicked event when onCountrySelection is called", (done) => {
-    wrapper = shallowMount(Map, { i18n });
+  it("should emit map clicked event when onCountrySelection is called", async () => {
     vi.spyOn(worldMap, "drawMap").mockReturnValue({});
+
+    wrapper = shallowMount(Map, { i18n });
+    await flushPromises();
 
     wrapper.vm.onCountrySelection("IND");
+    await flushPromises();
+
     expect(wrapper.emitted("Map:Clicked").length).to.equal(1);
     expect(wrapper.emitted("Map:Clicked")[0]).to.deep.equal(["IND"]);
-    moxios.wait(() => {
-      worldMap.drawMap.restore();
-      done();
-    });
+    worldMap.drawMap.restore();
   });
 
-  it("should call worldMap handleSearch when onSearchTriggered is called", (done) => {
-    wrapper = shallowMount(Map, { i18n });
+  it("should call worldMap handleSearch when onSearchTriggered is called", async () => {
     vi.spyOn(worldMap, "drawMap").mockReturnValue({});
+
+    wrapper = shallowMount(Map, { i18n });
+
+    await flushPromises();
 
     let mockFn1 = sinon.stub(worldMap, "handleSearch").callsFake(() => {});
     wrapper.vm.onSearchTriggered("IND");
+    await flushPromises();
+
     expect(mockFn1.getCall(0).args[0]).to.deep.equal("IND");
-    moxios.wait(() => {
-      worldMap.handleSearch.restore();
-      worldMap.drawMap.restore();
-      done();
-    });
+    worldMap.handleSearch.restore();
+    worldMap.drawMap.restore();
   });
 });

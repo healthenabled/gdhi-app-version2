@@ -1,9 +1,12 @@
 import { mount } from "@vue/test-utils";
 import IndicatorsInfo from "../indicatorsInfo/indicators-info.vue";
-import { describe, it, expect, beforeEach, afterEach } from "vitest";
-import moxios from "moxios";
+import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { uniq } from "lodash";
 import { i18n } from "../../plugins/i18n";
+import axios from "axios";
+import flushPromises from "flush-promises";
+
+const axiosGetSpy = vi.spyOn(axios, "get");
 
 describe("Indicator Info ", () => {
   let wrapper;
@@ -1200,109 +1203,83 @@ describe("Indicator Info ", () => {
       ],
     },
   ];
-  beforeEach(() => {
-    moxios.install();
+  beforeEach(async () => {
+    axiosGetSpy.mockResolvedValue({ data: responseData });
+
     wrapper = mount(IndicatorsInfo, { i18n });
+    await flushPromises();
   });
-  it("should call the API and update the local varaibles with correct data", (done) => {
-    moxios.wait(() => {
-      let request = moxios.requests.mostRecent();
-      request.respondWith({ statues: 200, response: responseData }).then(() => {
-        expect(wrapper.vm.categoricalIndicators).to.deep.equal(responseData);
-        wrapper.vm.categoricalIndicators.forEach((category) => {
-          expect(category["showCategory"]).to.equal(true);
-        });
-        const uniqCategories = uniq(
-          responseData.map((category) => {
-            return category.categoryName;
-          })
-        );
-        expect(wrapper.vm.categoryNames).to.deep.equal(uniqCategories);
-        done();
-      });
+  it("should call the API and update the local varaibles with correct data", () => {
+    expect(wrapper.vm.categoricalIndicators).to.deep.equal(responseData);
+    wrapper.vm.categoricalIndicators.forEach((category) => {
+      expect(category["showCategory"]).to.equal(true);
     });
+    const uniqCategories = uniq(
+      responseData.map((category) => {
+        return category.categoryName;
+      })
+    );
+    expect(wrapper.vm.categoryNames).to.deep.equal(uniqCategories);
   });
-  it("should render the html elements based on the data", (done) => {
-    moxios.wait(() => {
-      let request = moxios.requests.mostRecent();
-      request.respondWith({ statues: 200, response: responseData }).then(() => {
-        expect(wrapper.findAll(".indicator-details").length).to.deep.equal(
-          responseData.length
-        );
-        const firstIndicatorElement = wrapper
-          .findAll(".indicator-details")
-          .at(0);
-        expect(firstIndicatorElement.find(".sub-header").text()).to.equal(
-          responseData[0].categoryName
-        );
-        expect(firstIndicatorElement.findAll(".indicator").length).to.equal(
-          responseData[0].indicators.length
-        );
-        expect(
-          firstIndicatorElement
-            .findAll(".indicator")
-            .at(0)
-            .find(".indicator-id")
-            .text()
-        ).to.contain(responseData[0].indicators[0].indicatorId.toString());
-        expect(
-          firstIndicatorElement
-            .findAll(".indicator")
-            .at(0)
-            .find(".indicator-name")
-            .text()
-        ).to.equal(responseData[0].indicators[0].indicatorName);
-        expect(
-          firstIndicatorElement
-            .findAll(".indicator")
-            .at(0)
-            .find(".indicator-def")
-            .text()
-        ).to.equal(responseData[0].indicators[0].indicatorDefinition);
-        expect(
-          firstIndicatorElement.findAll(".indicator").at(0).findAll(".score")
-            .length
-        ).to.equal(responseData[0].indicators[0].scores.length - 1);
-        expect(
-          firstIndicatorElement
-            .findAll(".indicator")
-            .at(0)
-            .findAll(".score")
-            .at(0)
-            .findAll("span")
-            .at(0)
-            .text()
-        ).to.equal(responseData[0].indicators[0].scores[0].score.toString());
-        expect(
-          firstIndicatorElement
-            .findAll(".indicator")
-            .at(0)
-            .findAll(".score")
-            .at(0)
-            .findAll("span")
-            .at(1)
-            .text()
-        ).to.equal(responseData[0].indicators[0].scores[0].scoreDefinition);
-        done();
-      });
-    });
+  it("should render the html elements based on the data", async () => {
+    expect(wrapper.findAll(".indicator-details").length).to.deep.equal(
+      responseData.length
+    );
+    const firstIndicatorElement = wrapper.findAll(".indicator-details").at(0);
+    expect(firstIndicatorElement.find(".sub-header").text()).to.equal(
+      responseData[0].categoryName
+    );
+    expect(firstIndicatorElement.findAll(".indicator").length).to.equal(
+      responseData[0].indicators.length
+    );
+    expect(
+      firstIndicatorElement
+        .findAll(".indicator")
+        .at(0)
+        .find(".indicator-id")
+        .text()
+    ).to.contain(responseData[0].indicators[0].indicatorId.toString());
+    expect(
+      firstIndicatorElement
+        .findAll(".indicator")
+        .at(0)
+        .find(".indicator-name")
+        .text()
+    ).to.equal(responseData[0].indicators[0].indicatorName);
+    expect(
+      firstIndicatorElement
+        .findAll(".indicator")
+        .at(0)
+        .find(".indicator-def")
+        .text()
+    ).to.equal(responseData[0].indicators[0].indicatorDefinition);
+    expect(
+      firstIndicatorElement.findAll(".indicator").at(0).findAll(".score").length
+    ).to.equal(responseData[0].indicators[0].scores.length - 1);
+    expect(
+      firstIndicatorElement
+        .findAll(".indicator")
+        .at(0)
+        .findAll(".score")
+        .at(0)
+        .findAll("span")
+        .at(0)
+        .text()
+    ).to.equal(responseData[0].indicators[0].scores[0].score.toString());
+    expect(
+      firstIndicatorElement
+        .findAll(".indicator")
+        .at(0)
+        .findAll(".score")
+        .at(0)
+        .findAll("span")
+        .at(1)
+        .text()
+    ).to.equal(responseData[0].indicators[0].scores[0].scoreDefinition);
   });
-  it("should update the showCategory variable of the category when the category name is clicked", (done) => {
-    moxios.wait(() => {
-      let request = moxios.requests.mostRecent();
-      request.respondWith({ statues: 200, response: responseData }).then(() => {
-        const firstIndicatorElement = wrapper
-          .findAll(".indicator-details")
-          .at(0);
-        firstIndicatorElement.find(".sub-header").trigger("click");
-        expect(wrapper.vm.categoricalIndicators[0]["showCategory"]).to.equal(
-          false
-        );
-        done();
-      });
-    });
-  });
-  afterEach(() => {
-    moxios.uninstall();
+  it("should update the showCategory variable of the category when the category name is clicked", () => {
+    const firstIndicatorElement = wrapper.findAll(".indicator-details").at(0);
+    firstIndicatorElement.find(".sub-header").trigger("click");
+    expect(wrapper.vm.categoricalIndicators[0]["showCategory"]).to.equal(false);
   });
 });

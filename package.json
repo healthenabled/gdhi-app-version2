@@ -51,7 +51,6 @@
     "execa": "^6.1.0",
     "flush-promises": "^1.0.2",
     "jsdom": "^20.0.0",
-    "moxios": "^0.4.0",
     "prettier": "^2.5.1",
     "rollup-plugin-uglify": "^6.0.4",
     "rollup-plugin-visualizer": "^5.9.0",
