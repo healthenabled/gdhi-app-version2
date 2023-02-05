@@ -1,9 +1,12 @@
 import { createLocalVue, mount } from "@vue/test-utils";
-import { describe, expect, it, beforeEach, afterEach } from "vitest";
+import { describe, expect, it, beforeEach, afterEach, vi } from "vitest";
 import VueRouter from "vue-router";
-import CountryList from "../countryList/countryList.vue";
-import moxios from "moxios";
+import CountryList from "../countryList/country-list.vue";
 import { i18n } from "../../plugins/i18n";
+import axios from "axios";
+import flushPromises from "flush-promises";
+
+const axiosGetSpy = vi.spyOn(axios, "get");
 
 describe("Country List", () => {
   let wrapper;
@@ -39,101 +42,79 @@ describe("Country List", () => {
       },
     ],
   };
-  beforeEach(() => {
-    moxios.install();
+  beforeEach(async () => {
+    axiosGetSpy.mockResolvedValue({ data: responseData });
     wrapper = mount(CountryList, {
       localVue,
       router,
       i18n,
     });
-    moxios.stubRequest(
-      "/api/countries_health_indicator_scores?categoryId=&phase=",
-      {
-        status: 200,
-        response: responseData,
-      }
+    await flushPromises();
+  });
+  it(" should render one li for each country", () => {
+    expect(wrapper.vm.globalHealthIndicators).to.deep.equal(
+      responseData.countryHealthScores
+    );
+    expect(wrapper.findAll(".countries-list-details-country").length).to.equal(
+      responseData.countryHealthScores.length
     );
   });
-  it(" should render one li for each country", (done) => {
-    moxios.wait(() => {
-      expect(wrapper.vm.globalHealthIndicators).to.deep.equal(
-        responseData.countryHealthScores
-      );
-      expect(
-        wrapper.findAll(".countries-list-details-country").length
-      ).to.equal(responseData.countryHealthScores.length);
-      done();
-    });
-  });
 
-  it(" should display the correct country score and name", (done) => {
-    moxios.wait(() => {
-      expect(
-        wrapper
-          .findAll(".countries-list-details-country")
-          .at(0)
-          .find(".country-score")
-          .text()
-      ).to.equal(responseData.countryHealthScores[0].countryPhase.toString());
-      expect(
-        wrapper
-          .findAll(".countries-list-details-country")
-          .at(0)
-          .find(".country-name")
-          .text()
-      ).to.equal(responseData.countryHealthScores[0].countryName);
-      expect(
-        wrapper
-          .findAll(".countries-list-details-country")
-          .at(1)
-          .find(".country-score")
-          .text()
-      ).to.equal("NA");
-      done();
-    });
-  });
-
-  it(" should navigate to correct country url when clicking on the country name", (done) => {
-    moxios.wait(() => {
+  it(" should display the correct country score and name", () => {
+    expect(
+      wrapper
+        .findAll(".countries-list-details-country")
+        .at(0)
+        .find(".country-score")
+        .text()
+    ).to.equal(responseData.countryHealthScores[0].countryPhase.toString());
+    expect(
       wrapper
         .findAll(".countries-list-details-country")
         .at(0)
         .find(".country-name")
-        .trigger("click");
-      expect(wrapper.vm.$route.path).to.equal(
-        `/country_profile/${responseData.countryHealthScores[0].countryId}`
-      );
-      done();
-    });
+        .text()
+    ).to.equal(responseData.countryHealthScores[0].countryName);
+    expect(
+      wrapper
+        .findAll(".countries-list-details-country")
+        .at(1)
+        .find(".country-score")
+        .text()
+    ).to.equal("NA");
   });
 
-  it("should render localization texts properly", (done) => {
-    moxios.wait(() => {
-      expect(wrapper.find(".page-title").text()).equal(
-        i18n.messages.en.countryList.title
-      );
-      expect(wrapper.find(".export-button").text()).equal(
-        i18n.messages.en.countryList.exportButtonText
-      );
-      expect(
-        wrapper
-          .find(".countries-list-section-description")
-          .findAll("p")
-          .at(0)
-          .text()
-      ).equal(i18n.messages.en.countryList.line1);
-      expect(
-        wrapper
-          .find(".countries-list-section-description")
-          .findAll("p")
-          .at(1)
-          .text()
-      ).equal(i18n.messages.en.countryList.line2);
-      done();
-    });
+  it(" should navigate to correct country url when clicking on the country name", () => {
+    wrapper
+      .findAll(".countries-list-details-country")
+      .at(0)
+      .find(".country-name")
+      .trigger("click");
+    expect(wrapper.vm.$route.path).to.equal(
+      `/country_profile/${responseData.countryHealthScores[0].countryId}`
+    );
   });
 
-  afterEach(() => {
-    moxios.uninstall();
+  it("should render localization texts properly", () => {
+    expect(wrapper.find(".page-title").text()).equal(
+      i18n.messages.en.countryList.title
+    );
+    expect(wrapper.find(".export-button").text()).equal(
+      i18n.messages.en.countryList.exportButtonText
+    );
+    expect(
+      wrapper
+        .find(".countries-list-section-description")
+        .findAll("p")
+        .at(0)
+        .text()
+    ).equal(i18n.messages.en.countryList.line1);
+    expect(
+      wrapper
+        .find(".countries-list-section-description")
+        .findAll("p")
+        .at(1)
+        .text()
+    ).equal(i18n.messages.en.countryList.line2);
   });
 });

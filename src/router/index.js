@@ -10,7 +10,7 @@ import countryProfile from "@/components/countryProfile/country-profile.vue";
 import landingMap from "@/components/landing-map/map.vue";
 import methodologyComp from "@/components/methodology/methodology.vue";
 import healthIndicatorQuestionnaire from "@/components/healthIndicatorQuestionnaire/health-indicator-questionnare.vue";
-import countryListComp from "@/components/countryList/countryList.vue";
+import countryListComp from "@/components/countryList/country-list.vue";
 import ErrorComp from "@/components/error-handler/404-error.vue";
 import adminPageComp from "@/components/adminPage/admin-page.vue";
 
