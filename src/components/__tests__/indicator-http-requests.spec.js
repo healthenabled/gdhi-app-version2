@@ -1,6 +1,9 @@
 import Obj from "../../common/indicator-http-requests.js";
-import moxios from "moxios";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
+import axios from "axios";
+import flushPromises from "flush-promises";
+
+const axiosGetSpy = vi.spyOn(axios, "get");
 
 describe("Indicator HTTP Requests and Helper methods", () => {
   const response = {
@@ -87,52 +90,34 @@ describe("Indicator HTTP Requests and Helper methods", () => {
       developmentIndicatorsData
     );
   });
-  it("should set the developmentIndicators data when getDevelopmentIndicators is called", (done) => {
-    moxios.install();
-    moxios.stubRequest("/api/countries/IND/development_indicators", {
-      status: 200,
-      response: response,
-    });
+  it("should set the developmentIndicators data when getDevelopmentIndicators is called", async () => {
+    axiosGetSpy.mockResolvedValue({ data: response });
+
     const returnPromise = Obj.getDevelopmentIndicators("IND", false);
 
-    moxios.wait(() => {
-      returnPromise.then((value) => {
-        expect(value).to.deep.equal(developmentIndicatorsData);
-      });
-      done();
-      moxios.uninstall();
+    returnPromise.then((value) => {
+      expect(value).to.deep.equal(developmentIndicatorsData);
     });
   });
-  it("should set the developmentIndicators data when getDevelopmentIndicators is called for minimal indicators", (done) => {
-    moxios.install();
-    moxios.stubRequest("/api/countries/IND/development_indicators", {
-      status: 200,
-      response: response,
-    });
+  it("should set the developmentIndicators data when getDevelopmentIndicators is called for minimal indicators", async () => {
+    axiosGetSpy.mockResolvedValue({ data: response });
     const returnPromise = Obj.getDevelopmentIndicators("IND", true);
 
-    moxios.wait(() => {
-      returnPromise.then((value) => {
-        expect(value).to.deep.equal(minimalDevelopmentIndicatorsData);
-      });
-      done();
-      moxios.uninstall();
+    returnPromise.then((value) => {
+      expect(value).to.deep.equal(minimalDevelopmentIndicatorsData);
     });
   });
 
-  it("should set the developmentIndicators data when getDevelopmentIndicators is called for minimal indicators", (done) => {
-    moxios.install();
+  it("should set the developmentIndicators data when getDevelopmentIndicators is called for minimal indicators", async () => {
     let errResp = {
-      status: 500,
       response: { message: "problem" },
     };
+    axiosGetSpy.mockRejectedValue(errResp);
     const returnPromise = Obj.getDevelopmentIndicators("IND", true);
 
-    moxios.wait(() => {
-      let request = moxios.requests.mostRecent();
-      request.reject(errResp);
-      done();
-      moxios.uninstall();
+    await flushPromises();
+    returnPromise.then().catch((e) => {
+      expect(e).to.equal(errResp);
     });
   });
 });
