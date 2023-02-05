@@ -1,10 +1,13 @@
 import { mount, createLocalVue } from "@vue/test-utils";
-import { describe, beforeEach, it, expect, afterEach } from "vitest";
+import { describe, beforeEach, it, expect, afterEach, vi } from "vitest";
 import VueRouter from "vue-router";
-import moxios from "moxios";
 import DevelopmentIndicators from "../developmentIndicators/development-indicators.vue";
 import Obj from "../../common/indicator-http-requests.js";
 import { i18n } from "../../plugins/i18n";
+import axios from "axios";
+import flushPromises from "flush-promises";
+
+const axiosGetSpy = vi.spyOn(axios, "get");
 
 describe("Development Indicators", () => {
   let wrapper;
@@ -42,44 +45,35 @@ describe("Development Indicators", () => {
       },
     },
   ];
-  beforeEach(() => {
-    moxios.install();
+  it(" should set the local variable development indicators after the successful api call", async () => {
+    axiosGetSpy.mockResolvedValue({ data: responseData });
     wrapper = mount(DevelopmentIndicators, {
       localVue,
       router,
       i18n,
     });
+    await flushPromises();
+    expect(wrapper.vm.developmentIndicators).to.deep.equal(
+      developmentIndicatorsData
+    );
   });
-  it(" should set the local variable development indicators after the successful api call", (done) => {
-    moxios.wait(() => {
-      let request = moxios.requests.mostRecent();
-      request.respondWith({ status: 200, response: responseData }).then(() => {
-        expect(wrapper.vm.developmentIndicators).to.deep.equal(
-          developmentIndicatorsData
-        );
-        done();
-      });
+  it(" should render the html elements based on the response ", async () => {
+    axiosGetSpy.mockResolvedValue({ data: responseData });
+    wrapper = mount(DevelopmentIndicators, {
+      localVue,
+      router,
+      i18n,
     });
-  });
-  it(" should render the html elements based on the response ", (done) => {
-    moxios.wait(() => {
-      let request = moxios.requests.mostRecent();
-      request.respondWith({ status: 200, response: responseData }).then(() => {
-        expect(wrapper.findAll(".category").length).to.equal(
-          developmentIndicatorsData.length
-        );
-        const firstElement = wrapper.findAll(".category").at(0);
-        expect(firstElement.find(".header-bold").text().toLowerCase()).to.equal(
-          Object.keys(developmentIndicatorsData[0])[0].toLowerCase()
-        );
-        expect(firstElement.findAll(".indicator").length).to.equal(
-          Object.keys(developmentIndicatorsData[0]["CONTEXT"]).length
-        );
-        done();
-      });
-    });
-  });
-  afterEach(() => {
-    moxios.uninstall();
+    await flushPromises();
+    expect(wrapper.findAll(".category").length).to.equal(
+      developmentIndicatorsData.length
+    );
+    const firstElement = wrapper.findAll(".category").at(0);
+    expect(firstElement.find(".header-bold").text().toLowerCase()).to.equal(
+      Object.keys(developmentIndicatorsData[0])[0].toLowerCase()
+    );
+    expect(firstElement.findAll(".indicator").length).to.equal(
+      Object.keys(developmentIndicatorsData[0]["CONTEXT"]).length
+    );
   });
 });
