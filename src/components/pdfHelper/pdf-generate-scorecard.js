@@ -603,7 +603,7 @@ export async function generateScorecard(
   if (window.navigator.msSaveOrOpenBlob) {
     window.navigator.msSaveOrOpenBlob(
       blob,
-      `${countrySummary.countryName} - Digital Health Questionnaire.pdf`
+      `${healthIndicatorData.countryName} - Scorecard.pdf`
     );
   } else {
     let a = document.createElement("a");
@@ -611,7 +611,7 @@ export async function generateScorecard(
     a.style = "display: none";
     let url = window.URL.createObjectURL(blob);
     a.href = url;
-    a.download = `${countrySummary.countryName} - Digital Health Questionnaire.pdf`;
+    a.download = `${healthIndicatorData.countryName} - Scorecard.pdf`;
     a.click();
     window.URL.revokeObjectURL(url);
   }
