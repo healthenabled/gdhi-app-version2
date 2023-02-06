@@ -484,7 +484,7 @@ export async function generateScorecard(
       //   .fill(getColorCodeForPhase(colorCodes, indicatorScore));
 
       page.drawText(indicatorScore, {
-        x: 512,
+        x: indicatorScore.length > 1 ? 507 : 512,
         y: page.getY() + 30,
         size: 14,
         font: helveticaBoldFont,
