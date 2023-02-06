@@ -2,7 +2,30 @@ import { PDFDocument, StandardFonts, rgb, LineCapStyle } from "pdf-lib";
 import colorObj from "../common/color-codes.js";
 import common from "../../common/common";
 
-function hexToRgb(h) {
+// Primitive line break algorithm
+const breakTextIntoLines = (text, size, font, maxWidth) => {
+  const lines = [];
+  let textIdx = 0;
+  while (textIdx < text.length) {
+    let line = "";
+    while (textIdx < text.length) {
+      if (text.charAt(textIdx) === "\n") {
+        lines.push(line);
+        textIdx += 1;
+        line = "";
+        continue;
+      }
+      const newLine = line + text.charAt(textIdx);
+      if (font.widthOfTextAtSize(newLine, size) > maxWidth) break;
+      line = newLine;
+      textIdx += 1;
+    }
+    lines.push(line);
+  }
+  return lines;
+};
+
+const hexToRgb = (h) => {
   let r = 0,
     g = 0,
     b = 0;
@@ -21,7 +44,7 @@ function hexToRgb(h) {
   }
 
   return rgb(+r / 255, +g / 255, +b / 255);
-}
+};
 
 export async function generateScorecard(
   healthIndicatorData,
@@ -54,9 +77,11 @@ export async function generateScorecard(
   page.drawText(title, {
     font: helveticaBoldFont,
     size: 20,
+    lineHeight: 20,
+    maxWidth: 480,
   });
 
-  page.moveDown(20);
+  page.moveDown(20 + Math.ceil(title.length / 50) * 10);
 
   // Write Collected Data in the document
   page.drawText(
@@ -65,6 +90,7 @@ export async function generateScorecard(
       font: helveticaBoldObliqueFont,
       size: 14,
       color: hexToRgb("#666"),
+      lineHeight: 14,
     }
   );
 
@@ -75,6 +101,7 @@ export async function generateScorecard(
     color: rgb(0, 0, 0),
     font: helveticaBoldFont,
     wordBreaks: [],
+    lineHeight: 14,
   });
 
   // Write country Summary in a Paginated way
@@ -85,25 +112,79 @@ export async function generateScorecard(
   let splittedChar = countrySummary.match(/\.\n|\. |\.|;/g);
 
   if (countrySummary) {
-    for (let i = 0; i < countrySummaryArray.length - 1; i++) {
-      if (
-        countrySummaryArray[i].charAt(0).indexOf("\n") > -1 ||
-        countrySummaryArray[i].charAt(0).indexOf("\r") > -1
-      ) {
-        page.drawText("", { x: 50, y: page.getY() });
-        page.moveDown(20);
-      }
-      page.drawText(countrySummaryArray[i] + (splittedChar[i] || ""), {
+    // for (let i = 0; i < countrySummaryArray.length - 1; i++) {
+    //   if (
+    //     countrySummaryArray[i].charAt(0).indexOf("\n") > -1 ||
+    //     countrySummaryArray[i].charAt(0).indexOf("\r") > -1
+    //   ) {
+    //     page.drawText("", { x: 50, y: page.getY() });
+    //     page.moveDown(20);
+    //   }
+    //   page.drawText(countrySummaryArray[i] + (splittedChar[i] || ""), {
+    //     size: 14,
+    //     font: helveticaFont,
+    //     color: hexToRgb("#000"),
+    //     x: page.getX(),
+    //     y: page.getY(),
+    //     maxWidth: 480,
+    //     lineHeight: 14,
+    //   });
+    //   page.moveDown(30);
+    // }
+    const currentY = page.getY();
+    const maxY = 30;
+    const heightOfOneLine = helveticaFont.heightAtSize(14);
+    const numberOfLinesThatCanFit = Math.ceil(
+      (currentY - maxY) / heightOfOneLine
+    );
+    const linesToWrite = breakTextIntoLines(
+      countrySummary,
+      14,
+      helveticaFont,
+      480
+    );
+
+    if (linesToWrite.length < numberOfLinesThatCanFit) {
+      page.drawText(countrySummary, {
         size: 14,
         font: helveticaFont,
         color: hexToRgb("#000"),
-        x: page.getX(),
-        y: page.getY(),
         maxWidth: 480,
-        lineHeight: 15,
+        lineHeight: 14,
       });
-      page.moveDown(30);
+    } else {
+      const delimiter =
+        countrySummary[numberOfLinesThatCanFit * 75] === " " ? null : "-";
+
+      page.drawText(
+        countrySummary.slice(0, numberOfLinesThatCanFit * 75) + delimiter,
+        {
+          size: 14,
+          font: helveticaFont,
+          color: hexToRgb("#000"),
+          maxWidth: 480,
+          lineHeight: 14,
+        }
+      );
+      page = pdfDoc.addPage();
+      page.moveTo(50, page.getHeight() - 30);
+      page.drawText(
+        delimiter +
+          countrySummary.slice(
+            numberOfLinesThatCanFit * 75,
+            countrySummary.length
+          ),
+        {
+          size: 14,
+          font: helveticaFont,
+          color: hexToRgb("#000"),
+          maxWidth: 480,
+          lineHeight: 14,
+        }
+      );
     }
+    page = pdfDoc.addPage();
+    page.moveTo(50, page.getHeight() - 30);
   } else {
     page.drawText("-", {
       size: 14,
@@ -112,6 +193,7 @@ export async function generateScorecard(
       x: 50,
       y: page.getY(),
       maxWidth: 480,
+      lineHeight: 14,
     });
   }
 
@@ -122,7 +204,10 @@ export async function generateScorecard(
         : i18n.t("scoreCardPDF.benchMarkPhaseValue", {
             benchmarkPhase: benchmarkPhase,
           });
-
+    if (page.getY() <= 30) {
+      page = pdfDoc.addPage();
+      page.moveTo(50, page.getHeight() - 30);
+    }
     page.moveDown(20);
     page.drawText(
       i18n.t("scoreCardPDF.benchmarkAgainstBenchmarkValue", {
@@ -135,9 +220,13 @@ export async function generateScorecard(
         x: 50,
         y: page.getY(),
         maxWidth: 500,
+        lineHeight: 14,
       }
     );
-
+    if (page.getY() <= 30) {
+      page = pdfDoc.addPage();
+      page.moveTo(50, page.getHeight() - 30);
+    }
     page.moveDown(20);
     page.drawText(i18n.t("scoreCardPDF.noteForBenchmark"), {
       size: 12,
@@ -145,9 +234,14 @@ export async function generateScorecard(
       font: helveticaBoldObliqueFont,
       x: 50,
       y: page.getY(),
+      lineHeight: 12,
     });
 
     if (!hasBenchmarkData) {
+      if (page.getY() <= 30) {
+        page = pdfDoc.addPage();
+        page.moveTo(50, page.getHeight() - 30);
+      }
       page.moveDown(20);
       page.drawText(
         i18n.t("countryProfile.benchmark.benchmarkNoCountryForSelectedPhase"),
@@ -157,11 +251,16 @@ export async function generateScorecard(
           font: helveticaBoldObliqueFont,
           x: 50,
           y: page.getY(),
+          lineHeight: 12,
         }
       );
     }
   }
 
+  if (page.getY() <= 30) {
+    page = pdfDoc.addPage();
+    page.moveTo(50, page.getHeight() - 30);
+  }
   // Write overall digital health phase in the doc
   page.moveDown(20);
   page.drawText(i18n.t("countryProfile.overallDigitalHealthPhase"), {
@@ -171,6 +270,7 @@ export async function generateScorecard(
     font: helveticaBoldFont,
     x: 50,
     y: page.getY(),
+    lineHeight: 14,
   });
 
   const countryPhase = healthIndicatorData.countryPhase
@@ -195,6 +295,7 @@ export async function generateScorecard(
     y: page.getY() - 5,
     maxWidth: 32,
     color: hexToRgb("#FFF"),
+    lineHeight: 14,
   });
 
   // Draw seperator between overall phase score and rest
@@ -226,6 +327,7 @@ export async function generateScorecard(
       x: 50,
       y: page.getY() + 5,
       maxWidth: 500,
+      lineHeight: 14,
     });
 
     if (page.getY() <= 120) {
@@ -254,6 +356,7 @@ export async function generateScorecard(
         x: 60,
         y: page.getY() + 5,
         maxWidth: 560,
+        lineHeight: 12,
       });
     } else {
       // total width is 560px, 60 is the starting point
@@ -273,6 +376,7 @@ export async function generateScorecard(
         size: 12,
         x: progressFillWidth - 50,
         y: page.getY() + 5,
+        lineHeight: 12,
       });
     }
 
@@ -294,7 +398,7 @@ export async function generateScorecard(
         x: 50,
         y: page.getY() + 5,
         maxWidth: 420,
-        lineHeight: 15,
+        lineHeight: 12,
       });
 
       if (
@@ -315,7 +419,7 @@ export async function generateScorecard(
         x: 50,
         y: page.getY() + 5,
         maxWidth: 420,
-        lineHeight: 15,
+        lineHeight: 12,
       });
 
       if (
@@ -337,7 +441,7 @@ export async function generateScorecard(
         maxWidth: 420,
         color: hexToRgb("#4A90E2"),
         size: 12,
-        lineHeight: 15,
+        lineHeight: 12,
       });
 
       if (page.getY() <= 80) {
@@ -386,6 +490,7 @@ export async function generateScorecard(
         font: helveticaBoldFont,
         maxWidth: 32,
         color: hexToRgb("#FFF"),
+        lineHeight: 14,
       });
 
       if (page.getY() <= 80) {
@@ -405,6 +510,7 @@ export async function generateScorecard(
             color: hexToRgb("#000"),
             x: 480,
             y: page.getY(),
+            lineHeight: 10,
           }
         );
 
@@ -418,6 +524,7 @@ export async function generateScorecard(
                 color: hexToRgb("#999999"),
                 x: 480,
                 y: page.getY(),
+                lineHeight: 10,
               }
             );
 
@@ -448,6 +555,7 @@ export async function generateScorecard(
                 x: 490,
                 y: page.getY(),
                 maxWidth: 60,
+                lineHeight: 10,
               }
             );
 
@@ -478,6 +586,7 @@ export async function generateScorecard(
                 x: 490,
                 y: page.getY(),
                 maxWidth: 60,
+                lineHeight: 10,
               }
             );
             break;
