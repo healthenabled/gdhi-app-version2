@@ -2,6 +2,65 @@ import { PDFDocument, StandardFonts, rgb, LineCapStyle } from "pdf-lib";
 import colorObj from "../common/color-codes.js";
 import common from "../../common/common";
 
+/**
+ * Get path data for a rounded rectangle. Allows for different radius on each corner.
+ * @param  {Number} w   Width of rounded rectangle
+ * @param  {Number} h   Height of rounded rectangle
+ * @param  {Number} tlr Top left corner radius
+ * @param  {Number} trr Top right corner radius
+ * @param  {Number} brr Bottom right corner radius
+ * @param  {Number} blr Bottom left corner radius
+ * @return {String}     Rounded rectangle SVG path data
+ */
+
+const roundedRectData = function (w, h, tlr, trr, brr, blr) {
+  return (
+    "M 0 " +
+    tlr +
+    " A " +
+    tlr +
+    " " +
+    tlr +
+    " 0 0 1 " +
+    tlr +
+    " 0" +
+    " L " +
+    (w - trr) +
+    " 0" +
+    " A " +
+    trr +
+    " " +
+    trr +
+    " 0 0 1 " +
+    w +
+    " " +
+    trr +
+    " L " +
+    w +
+    " " +
+    (h - brr) +
+    " A " +
+    brr +
+    " " +
+    brr +
+    " 0 0 1 " +
+    (w - brr) +
+    " " +
+    h +
+    " L " +
+    blr +
+    " " +
+    h +
+    " A " +
+    blr +
+    " " +
+    blr +
+    " 0 0 1 0 " +
+    (h - blr) +
+    " Z"
+  );
+};
+
 // Primitive line break algorithm
 const breakTextIntoLines = (text, size, font, maxWidth) => {
   const lines = [];
@@ -278,12 +337,10 @@ export async function generateScorecard(
     : "NA";
 
   // Draw rectangle parallel to the overall health indicator and fill the score
-  // TODO: Check roundedness
-  page.drawRectangle({
+  page.drawSvgPath(roundedRectData(32, 32, 5, 5, 5, 5), {
     x: 500,
-    y: page.getY() - 16,
-    width: 32,
-    height: 32,
+    y: page.getY() + 16,
+    borderLineCap: LineCapStyle.Round,
     color: hexToRgb(getColorCodeForPhase(colorCodes, countryPhase)),
   });
 
@@ -472,13 +529,21 @@ export async function generateScorecard(
       // }
       let indicatorScore =
         indicator.score > 0 ? indicator.score.toString() : "NA";
-      page.drawRectangle({
+
+      page.drawSvgPath(roundedRectData(32, 32, 5, 5, 5, 5), {
         x: 500,
-        y: page.getY() + 20,
-        width: 32,
-        height: 32,
+        y: page.getY() + 50,
+        borderLineCap: LineCapStyle.Round,
         color: hexToRgb(getColorCodeForPhase(colorCodes, indicatorScore)),
       });
+
+      // page.drawRectangle({
+      //   x: 500,
+      //   y: page.getY() + 20,
+      //   width: 32,
+      //   height: 32,
+      //   color: hexToRgb(getColorCodeForPhase(colorCodes, indicatorScore)),
+      // });
       // doc
       //   .roundedRect(500, scoreYVal, 32, 32, 5)
       //   .fill(getColorCodeForPhase(colorCodes, indicatorScore));
