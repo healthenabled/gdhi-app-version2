@@ -13,6 +13,13 @@ export default defineConfig({
     sequence: {
       shuffle: true,
     },
+    coverage: {
+      all: true,
+      lines: 80,
+      functions: 80,
+      branches: 80,
+      statements: 80,
+    },
   },
   build: {
     assetsDir: "static",
