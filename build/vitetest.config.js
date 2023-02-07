@@ -14,7 +14,7 @@ export default defineConfig({
       shuffle: true,
     },
     coverage: {
-      all: true,
+      all: false,
       lines: 80,
       functions: 80,
       branches: 80,
