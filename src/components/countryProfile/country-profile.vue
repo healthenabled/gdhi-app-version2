@@ -4,7 +4,7 @@ import developmentIndicators from "../developmentIndicators/development-indicato
 import countrySummary from "../countrySummary/country-summary.vue";
 import axios from "axios";
 import { generateScorecard } from "../pdfHelper/pdf-generate-scorecard";
-import { isEmpty } from "lodash";
+import isEmpty from "lodash/isEmpty";
 import Notifications from "vue-notification";
 import common from "../../common/common";
 

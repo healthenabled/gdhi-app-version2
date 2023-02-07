@@ -46,7 +46,7 @@ import Vue from "vue";
 import common from "../../common/common";
 import Autocomplete from "vuejs-auto-complete";
 import axios from "axios";
-import { sortBy } from "lodash";
+import sortBy from "lodash/sortBy";
 import Notifications from "vue-notification";
 
 Vue.use(Notifications);

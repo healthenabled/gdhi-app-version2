@@ -417,13 +417,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fortawesome/fontawesome-free@npm:^6.2.1":
-  version: 6.2.1
-  resolution: "@fortawesome/fontawesome-free@npm:6.2.1"
-  checksum: c77b7c8b0965e5c17f4ca45667885b6273e26af97a9e83db343fc756c159b5acd35cf420e73e1b916af1d275179290ccfb1900af48631749e30f36464f339bd3
-  languageName: node
-  linkType: hard
-
 "@gar/promisify@npm:^1.1.3":
   version: 1.1.3
   resolution: "@gar/promisify@npm:1.1.3"
@@ -2586,7 +2579,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "gdhi-app-clone@workspace:."
   dependencies:
-    "@fortawesome/fontawesome-free": ^6.2.1
     "@rushstack/eslint-patch": ^1.1.0
     "@vitejs/plugin-legacy": ^2.0.0
     "@vitejs/plugin-vue2": ^1.1.2

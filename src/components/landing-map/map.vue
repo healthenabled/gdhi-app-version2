@@ -7,7 +7,7 @@ import MapLegend from "../legend/legend.vue";
 import axios from "axios";
 import worldMap from "./world-map";
 import helper from "./map-helper";
-import { merge } from "lodash";
+import merge from "lodash/merge";
 import common from "../../common/common";
 
 export default Vue.extend({

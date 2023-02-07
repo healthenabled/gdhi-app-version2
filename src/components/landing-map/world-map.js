@@ -2,7 +2,7 @@ import L from "leaflet";
 // import countriesData from '../../../public/countries_mega.json';
 import helper from "./map-helper";
 import eventHandler from "./map-event-handler";
-import { filter } from "lodash";
+import filter from "lodash/filter";
 import axios from "axios";
 import { LayoutDirectionConfig } from "../../plugins/i18n";
 

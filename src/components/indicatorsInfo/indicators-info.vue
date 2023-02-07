@@ -2,7 +2,7 @@
 import Vue from "vue";
 
 import axios from "axios";
-import { uniq } from "lodash";
+import uniq from "lodash/uniq";
 import common from "../../common/common";
 
 export default Vue.extend({

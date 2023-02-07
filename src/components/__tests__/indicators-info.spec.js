@@ -1,7 +1,7 @@
 import { mount } from "@vue/test-utils";
 import IndicatorsInfo from "../indicatorsInfo/indicators-info.vue";
-import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
-import { uniq } from "lodash";
+import { describe, it, expect, beforeEach, vi } from "vitest";
+import uniq from "lodash/uniq";
 import { i18n } from "../../plugins/i18n";
 import axios from "axios";
 import flushPromises from "flush-promises";

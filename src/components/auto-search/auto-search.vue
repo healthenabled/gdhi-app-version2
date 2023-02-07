@@ -3,7 +3,7 @@ import Vue from "vue";
 import axios from "axios";
 import { EventBus } from "../common/event-bus";
 import Autocomplete from "vuejs-auto-complete";
-import { sortBy } from "lodash";
+import sortBy from "lodash/sortBy";
 import common from "../../common/common";
 
 export default Vue.extend({

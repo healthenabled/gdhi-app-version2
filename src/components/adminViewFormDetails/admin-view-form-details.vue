@@ -3,7 +3,7 @@ import Vue from "vue";
 
 import AdminTable from "../displayTable/admin-table.vue";
 import axios from "axios";
-import { isEmpty } from "lodash";
+import isEmpty from "lodash/isEmpty";
 
 export default Vue.extend({
   name: "AdminViewFormDetails",
