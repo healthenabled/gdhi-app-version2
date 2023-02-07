@@ -23,7 +23,7 @@ jobs:
         run: yarn install
 
       - name: Run test cases for the GDHI-app
-        run: yarn test
+        run: yarn test:coverage
         continue-on-error: true
 
       - name: Build GDHI-app
