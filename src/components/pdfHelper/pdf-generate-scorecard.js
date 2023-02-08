@@ -164,32 +164,9 @@ export async function generateScorecard(
   });
 
   // Write country Summary in a Paginated way
-  // TODO: Explore if this can be made better
   page.moveDown(20);
-  // split each line into an array as PDFKIT having problems in writing huge content
-  let countrySummaryArray = countrySummary.split(/\.\n|\. |\.|;/);
-  let splittedChar = countrySummary.match(/\.\n|\. |\.|;/g);
 
   if (countrySummary) {
-    // for (let i = 0; i < countrySummaryArray.length - 1; i++) {
-    //   if (
-    //     countrySummaryArray[i].charAt(0).indexOf("\n") > -1 ||
-    //     countrySummaryArray[i].charAt(0).indexOf("\r") > -1
-    //   ) {
-    //     page.drawText("", { x: 50, y: page.getY() });
-    //     page.moveDown(20);
-    //   }
-    //   page.drawText(countrySummaryArray[i] + (splittedChar[i] || ""), {
-    //     size: 14,
-    //     font: helveticaFont,
-    //     color: hexToRgb("#000"),
-    //     x: page.getX(),
-    //     y: page.getY(),
-    //     maxWidth: 480,
-    //     lineHeight: 14,
-    //   });
-    //   page.moveDown(30);
-    // }
     const currentY = page.getY();
     const maxY = 30;
     const heightOfOneLine = helveticaFont.heightAtSize(14);
@@ -294,14 +271,17 @@ export async function generateScorecard(
       x: 50,
       y: page.getY(),
       lineHeight: 12,
+      maxWidth: 500,
     });
+
+    page.moveDown(40);
 
     if (!hasBenchmarkData) {
       if (page.getY() <= 30) {
         page = pdfDoc.addPage();
         page.moveTo(50, page.getHeight() - 30);
       }
-      page.moveDown(20);
+      page.moveDown(40);
       page.drawText(
         i18n.t("countryProfile.benchmark.benchmarkNoCountryForSelectedPhase"),
         {
@@ -437,9 +417,6 @@ export async function generateScorecard(
       });
     }
 
-    let initialYVal = 0;
-    let scoreYVal = 0;
-    let endYVal = 0;
     category.indicators.forEach((indicator, index) => {
       if (page.getY() <= 120) {
         page = pdfDoc.addPage();
@@ -588,60 +565,40 @@ export async function generateScorecard(
                 size: 10,
                 color: hexToRgb("#999999"),
                 x: 480,
-                y: page.getY(),
+                y: page.getY() - 10,
                 lineHeight: 10,
+                font: helveticaBoldFont,
               }
             );
 
             break;
           case "above":
-            page.moveTo(480, page.getY() + 7);
-            page.drawLine({
-              start: { x: page.getX(), y: page.getY() },
-              end: { x: 480, y: page.getY() + 7 },
-              color: hexToRgb("#a92b35a"),
-            });
-            page.drawLine({
-              start: { x: page.getX(), y: page.getY() },
-              end: { x: 485, y: page.getY() },
+            page.drawSvgPath("M 3 9 L 9 9 L 6 3 z", {
+              x: 480,
+              y: page.getY(),
               color: hexToRgb("#92b35a"),
             });
-            // TODI: Add fill color
-            // doc
-            //
-            //   .lineTo(490, doc.y + 7)
-            //   .lineTo(485, doc.y)
-            //   .fill("#92b35a");
+
             page.drawText(
               i18n.t("countryProfile.benchmark.benchmarkValues.aboveAvg"),
               {
                 size: 10,
                 color: hexToRgb("#92b35a"),
                 x: 490,
-                y: page.getY(),
+                y: page.getY() - 10,
                 maxWidth: 60,
                 lineHeight: 10,
+                font: helveticaBoldFont,
               }
             );
 
             break;
           case "below":
-            page.drawLine({
-              start: { x: 480, y: page.getY() },
-              end: { x: 490, y: page.getY() },
+            page.drawSvgPath("M 3 3 L 9 3 L 6 9 z", {
+              x: 480,
+              y: page.getY(),
               color: hexToRgb("#ed4c57"),
             });
-            page.drawLine({
-              start: { x: 490, y: page.getY() },
-              end: { x: 485, y: page.getY() + 7 },
-              color: hexToRgb("#ed4c57"),
-            });
-            // TODO: Add fill color for below
-            // doc
-            //   .moveTo(480, doc.y)
-            //   .lineTo(490, doc.y)
-            //   .lineTo(485, doc.y + 7)
-            //   .fill("#ed4c57");
 
             page.drawText(
               i18n.t("countryProfile.benchmark.benchmarkValues.belowAvg"),
@@ -649,9 +606,10 @@ export async function generateScorecard(
                 size: 10,
                 color: hexToRgb("#ed4c57"),
                 x: 490,
-                y: page.getY(),
+                y: page.getY() - 10,
                 maxWidth: 60,
                 lineHeight: 10,
+                font: helveticaBoldFont,
               }
             );
             break;
