@@ -16,7 +16,7 @@ export default {
     const self = this;
     const ResetButton = L.Control.extend({
       options: {
-        position: "topleft",
+        position: "bottomright",
       },
       onAdd() {
         const container = L.DomUtil.create(
@@ -58,6 +58,7 @@ export default {
 
     L.control
       .zoom({
+        position: "bottomright",
         zoomInTitle: i18n.t("worldMap.zoomIn"),
         zoomOutTitle: i18n.t("worldMap.zoomOut"),
       })
