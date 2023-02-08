@@ -1,7 +1,7 @@
 @import "./../../rtl-support";
 
 .map-layer {
-  font-family: 'RobotoBold';
+  font-family: "RobotoBold";
   background: $bg-beige;
 }
 .map-container {
@@ -19,7 +19,8 @@
   font-size: 12px;
   margin-top: 5px;
 
-  .filter-indicator, .phase-indicator {
+  .filter-indicator,
+  .phase-indicator {
     height: 34px;
     display: flex;
   }
@@ -47,7 +48,7 @@
 
 .filter-indicator:after {
   @include margin-right(5px);
-  content: '\F078';
+  content: "\F078";
   font: normal normal normal 12px/1 FontAwesome;
   color: #555;
   pointer-events: none;
@@ -73,17 +74,24 @@
   position: absolute;
   @include right(0px);
   bottom: 30px;
-  color: $white;
+  color: $black;
   z-index: 3;
   cursor: default;
   list-style: none;
-  #phase0, .phase0,
-  #phase1, .phase1,
-  #phase2, .phase2,
-  #phase3, .phase3,
-  #phase4, .phase4,
-  #phase5, .phase5,
-  #phasenull, .phasenull {
+  #phase0,
+  .phase0,
+  #phase1,
+  .phase1,
+  #phase2,
+  .phase2,
+  #phase3,
+  .phase3,
+  #phase4,
+  .phase4,
+  #phase5,
+  .phase5,
+  #phasenull,
+  .phasenull {
     border-radius: 0px;
   }
   .l-box {
@@ -92,13 +100,13 @@
     width: 23px;
     line-height: 1.75;
     font-size: 12px;
-    font-family: 'RobotoRegular';
+    font-family: "RobotoRegular";
   }
   .legend-desc {
     color: $font-grey-dark;
     display: inline-block;
     padding: 5px 0;
-    @include margin-left( -10px);
+    @include margin-left(-10px);
   }
 }
 
@@ -116,10 +124,9 @@ div#reset-btn {
   text-transform: capitalize;
 }
 
-
 @media screen and (min-width: 1200px) and (max-width: 1400px) {
   .leaflet-overlay-pane {
-    transform: translate3d(60px,0, 0) scale(0.9);
+    transform: translate3d(60px, 0, 0) scale(0.9);
   }
 }
 
@@ -139,7 +146,7 @@ div#reset-btn {
 }
 
 .leaflet-left {
- left: auto;
+  left: auto;
 }
 
 .leaflet-bar {
@@ -158,7 +165,8 @@ div#reset-btn {
 .leaflet-map-pane svg {
   z-index: 2;
 }
-.leaflet-top, .leaflet-bottom {
+.leaflet-top,
+.leaflet-bottom {
   z-index: 1;
 }
 .leaflet-control-container .leaflet-bar a {

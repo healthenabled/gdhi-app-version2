@@ -264,13 +264,9 @@ export async function generateScorecard(
       page.moveTo(50, page.getHeight() - 30);
     }
     page.moveDown(20);
-    // const title = i18n.t("scoreCardPDF.title", {
-    //   country: healthIndicatorData.countryName,
-    // });
+
     const noteForBenchmark = i18n.t("scoreCardPDF.noteForBenchmark");
     const noteForBenchmarkLength = noteForBenchmark.length;
-    // console.log("Printing the length-->");
-    console.log(noteForBenchmarkLength);
     page.drawText(i18n.t("scoreCardPDF.noteForBenchmark"), {
       size: 12,
       color: hexToRgb("#666"),
@@ -279,7 +275,6 @@ export async function generateScorecard(
       x: 50,
       y: page.getY(),
       lineHeight: 12,
-      maxWidth: 500,
     });
     page.moveDown(20 + Math.ceil(noteForBenchmarkLength / 104) * 12);
     if (!hasBenchmarkData) {
@@ -557,7 +552,7 @@ export async function generateScorecard(
             font: helveticaBoldFont,
             color: hexToRgb("#000"),
             x: 480,
-            y: page.getY()+70,
+            y: page.getY() + 70,
             lineHeight: 10,
           }
         );
@@ -571,7 +566,7 @@ export async function generateScorecard(
                 size: 10,
                 color: hexToRgb("#999999"),
                 x: 500,
-                y: page.getY()+57,
+                y: page.getY() + 57,
                 lineHeight: 10,
                 font: helveticaBoldFont,
               }
@@ -581,7 +576,7 @@ export async function generateScorecard(
           case "above":
             page.drawSvgPath("M 3 9 L 9 9 L 6 3 z", {
               x: 480,
-              y: page.getY()+66,
+              y: page.getY() + 66,
               color: hexToRgb("#92b35a"),
             });
 
@@ -591,7 +586,7 @@ export async function generateScorecard(
                 size: 10,
                 color: hexToRgb("#92b35a"),
                 x: 490,
-                y: page.getY()+57,
+                y: page.getY() + 57,
                 maxWidth: 60,
                 lineHeight: 10,
                 font: helveticaBoldFont,
@@ -602,7 +597,7 @@ export async function generateScorecard(
           case "below":
             page.drawSvgPath("M 3 3 L 9 3 L 6 9 z", {
               x: 480,
-              y: page.getY()+66,
+              y: page.getY() + 66,
               color: hexToRgb("#ed4c57"),
             });
 
@@ -612,7 +607,7 @@ export async function generateScorecard(
                 size: 10,
                 color: hexToRgb("#ed4c57"),
                 x: 490,
-                y: page.getY()+57,
+                y: page.getY() + 57,
                 maxWidth: 60,
                 lineHeight: 10,
                 font: helveticaBoldFont,
@@ -650,5 +645,5 @@ export function getColorCodeForPhase(colorCodes, phaseValue) {
   let filteredValue = colorCodes.filter(
     (colorVal) => colorVal.score === phaseValue
   );
-  return filteredValue.length > 0 ? filteredValue[0].color : "#606060";
+  return filteredValue.length > 0 ? filteredValue[0].color : "#6C757D";
 }

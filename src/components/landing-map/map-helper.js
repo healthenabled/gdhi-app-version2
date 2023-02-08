@@ -8,11 +8,11 @@ export default {
     const colorHashArray = colorCodes.filter(
       (colorVal) => colorVal.score === scoreValue
     );
-    return colorHashArray.length !== 0 ? colorHashArray[0].color : "#606060";
+    return colorHashArray.length !== 0 ? colorHashArray[0].color : "#6C757D";
   },
   getColorCodeOf(country, countryIndices) {
     const matchedCountry = this.getMatchedCountry(country, countryIndices);
-    return matchedCountry ? matchedCountry.colorCode : "#606060";
+    return matchedCountry ? matchedCountry.colorCode : "#6C757D";
   },
   getMatchedCountry(countryCode, countryIndices) {
     const matchedCountry = countryIndices.filter(
