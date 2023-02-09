@@ -7,7 +7,7 @@ export default Vue.extend({
     showCountryDetail: {
       type: Boolean,
       default() {
-        return true;
+        return false;
       },
     },
     countryName: {
@@ -33,9 +33,9 @@ export default Vue.extend({
       default() {
         return "";
       },
-    }
+    },
   },
-    components: {
+  components: {
     MapLegend,
   },
   name: "IndicatorPanelHeader",
@@ -43,24 +43,24 @@ export default Vue.extend({
 </script>
 
 <template>
-   <div class="indicatorPanelHeader">
+  <div class="indicatorPanelHeader">
     <div v-if="!showCountryDetail">
       <p>{{ indicatorPanelTitle }}</p>
       <p>{{ phaseTitle }}</p>
-      <p>{{$t (indicatorDescription) }}</p>
+      <p>{{ $t(indicatorDescription) }}</p>
     </div>
     <div v-else>
       {{ countryName }}
     </div>
     <MapLegend></MapLegend>
-   </div> 
+  </div>
 </template>
 <style>
 .indicatorPanelHeader {
-    display: flex;
-    flex-direction: row;
-    height: 100px;
-    width: 100%;
-    background-color: #6C757D;
+  display: flex;
+  flex-direction: row;
+  height: 100px;
+  width: 100%;
+  background-color: #6c757d;
 }
 </style>

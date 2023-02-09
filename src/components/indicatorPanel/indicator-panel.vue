@@ -46,7 +46,6 @@ export default Vue.extend({
     }
   },
   updated() {
-    console.log(this.phaseTitle," " ,this.indicatorPanelTitle);
     this.indicatorPanelTitle = this.getIndicatorContainerName();
     if (this.locale !== this.$i18n.locale) {
       this.getGlobalHealthIndicators();
@@ -191,12 +190,12 @@ export default Vue.extend({
 <template>
   <div class="indicator-panel">
     <IndicatorPanelHeader
-      :indicatorPanelTitle = "indicatorPanelTitle"
-      :phaseTitle = "phaseTitle"
-      :countryName = "this.country.countryName"
-      :showCountryDetail = "showCountryDetail"
-      indicatorDescription = "worldMap.indicatorPanel.description"
-      />
+      :indicatorPanelTitle="indicatorPanelTitle"
+      :phaseTitle="phaseTitle"
+      :countryName="this.country.countryName"
+      :showCountryDetail="showCountryDetail"
+      indicatorDescription="worldMap.indicatorPanel.description"
+    />
     <div class="indicator-panel-container" v-if="!showCountryDetail">
       <div
         class="indicator-panel-container-category"
