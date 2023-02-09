@@ -36,10 +36,10 @@
   .drop-down:after {
     content: "\F078";
     font: normal normal normal 12px/1 FontAwesome;
-    color: #555;
     position: relative;
     pointer-events: none;
     width: 0;
+    color: $white;
     @include right(20px);
   }
 }
