@@ -143,7 +143,7 @@ export default Vue.extend({
 
 <template>
   <div class="map-layer">
-    <div class="map-container content-width">
+    <div class="map-container">
       <div class="loader">
         <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
       </div>
