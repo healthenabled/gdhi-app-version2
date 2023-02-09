@@ -1,4 +1,4 @@
-@import './../rtl-support';
+@import "./../rtl-support";
 
 .header {
   width: 100%;
@@ -63,14 +63,14 @@
 
     &-container {
       width: 100%;
-      background-image: url('./assets/img/search.svg');
+      background-image: url("./assets/img/search.svg");
       background-repeat: no-repeat;
       background-size: 14px;
 
-      [dir=ltr] & {
+      [dir="ltr"] & {
         background-position: right 10px center;
       }
-      [dir=rtl] & {
+      [dir="rtl"] & {
         background-position: left 10px center;
       }
     }
@@ -98,36 +98,6 @@
     border-bottom: 4px solid $logo-blue;
     background: $selected-menu;
   }
-
-  .language-selector {
-    @extend .copy;
-    height: 31px;
-    color: #555;
-    background-color: white;
-    width: 100px;
-    @include padding-left(5px);
-    border: $table-border;
-    -webkit-appearance: none;
-    appearance: none;
-    -moz-appearance: none;
-  }
-
-  .drop-down {
-    @include margin-left(5px);
-    min-width: 100px;
-  }
-
-
-  .drop-down:after {
-    content: '\F078';
-    font: normal normal normal 12px/1 FontAwesome;
-    color: #555;
-    position: relative;
-    pointer-events: none;
-    width: 0;
-    @include right(20px);
-  }
-
 }
 
 .header-elements__right {

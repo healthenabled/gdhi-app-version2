@@ -34,7 +34,7 @@ describe("Header ", () => {
       },
       i18n,
     });
-    expect(wrapper.findAll(".hd-element").length).to.equal(6);
-    expect(wrapper.findAll(autoSearch).length).to.equal(2);
+    expect(wrapper.findAll(".hd-element").length).to.equal(5);
+    expect(wrapper.findAll(autoSearch).length).to.equal(1);
   });
 });

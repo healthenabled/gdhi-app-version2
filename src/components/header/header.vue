@@ -41,7 +41,6 @@ export default Vue.extend({
 
         <div class="right-aligned-headers">
           <router-view name="search"></router-view>
-          <router-view name="languageSelect"></router-view>
         </div>
       </div>
     </div>
