@@ -32,6 +32,11 @@ export default Vue.extend({
             class="hd-element xl-length"
             ><span>{{ $t("headers.indicators") }}</span></router-link
           >
+          <router-link
+            :to="{ path: '/methodology' }"
+            class="hd-element xl-length"
+            ><span>{{ $t("methodology.text") }}</span></router-link
+          >
         </div>
 
         <div class="right-aligned-headers">
