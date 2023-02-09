@@ -98,7 +98,7 @@ export default {
           weight: 0.7,
           color: self.WHITE_COLOR_CODE,
           fillColor: fillColorCode,
-          fillOpacity: 0.95,
+          fillOpacity: 1,
           id: feature.id,
         };
       },

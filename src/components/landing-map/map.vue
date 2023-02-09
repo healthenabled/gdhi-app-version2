@@ -3,17 +3,17 @@ import Vue from "vue";
 
 import { EventBus } from "../common/event-bus";
 import indicatorPanel from "../indicatorPanel/indicator-panel.vue";
-import MapLegend from "../legend/legend.vue";
+import MapHeader from "../mapHeader/mapHeader.vue";
 import axios from "axios";
 import worldMap from "./world-map";
 import helper from "./map-helper";
-import merge from "lodash/merge";
+import { merge } from "lodash";
 import common from "../../common/common";
 
 export default Vue.extend({
   components: {
     indicatorPanel,
-    MapLegend,
+    MapHeader,
   },
   data() {
     return {
@@ -148,7 +148,7 @@ export default Vue.extend({
         <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
       </div>
       <indicator-panel></indicator-panel>
-      <MapLegend></MapLegend>
+      <MapHeader></MapHeader>
 
       <div class="filter-section">
         <div class="filter-indicator">
