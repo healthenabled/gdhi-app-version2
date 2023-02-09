@@ -2,9 +2,13 @@
 import Vue from "vue";
 import axios from "axios";
 import httpRequests from "../../common/indicator-http-requests";
+import IndicatorPanelHeader from "../indicatorPanelHeader/indicatorPanelHeader.vue";
 import common from "../../common/common";
 
 export default Vue.extend({
+  components: {
+    IndicatorPanelHeader,
+  },
   name: "IndicatorPanel",
 
   data() {
@@ -42,6 +46,7 @@ export default Vue.extend({
     }
   },
   updated() {
+    console.log(this.phaseTitle," " ,this.indicatorPanelTitle);
     this.indicatorPanelTitle = this.getIndicatorContainerName();
     if (this.locale !== this.$i18n.locale) {
       this.getGlobalHealthIndicators();
@@ -183,19 +188,16 @@ export default Vue.extend({
   },
 });
 </script>
-
 <template>
   <div class="indicator-panel">
+    <IndicatorPanelHeader
+      :indicatorPanelTitle = "indicatorPanelTitle"
+      :phaseTitle = "phaseTitle"
+      :countryName = "this.country.countryName"
+      :showCountryDetail = "showCountryDetail"
+      indicatorDescription = "worldMap.indicatorPanel.description"
+      />
     <div class="indicator-panel-container" v-if="!showCountryDetail">
-      <div class="indicator-panel-container-name">
-        {{ indicatorPanelTitle }}
-        <div>
-          {{ phaseTitle }}
-        </div>
-      </div>
-      <div class="indicator-panel-container-desc">
-        {{ $t("worldMap.indicatorPanel.description") }}
-      </div>
       <div
         class="indicator-panel-container-category"
         v-if="globalHealthIndicators.overallCountryScore"
@@ -247,10 +249,6 @@ export default Vue.extend({
       </div>
     </div>
     <div class="indicator-panel-container" v-else>
-      <div class="indicator-panel-container-name">
-        {{ healthIndicators.countryName }}
-      </div>
-
       <div
         class="indicator-panel-container-category"
         v-if="healthIndicators.countryPhase"
