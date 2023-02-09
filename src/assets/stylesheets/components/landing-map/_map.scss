@@ -69,11 +69,9 @@
 }
 .legend {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  position: absolute;
   @include right(0px);
-  bottom: 30px;
   color: $black;
   z-index: 3;
   cursor: default;

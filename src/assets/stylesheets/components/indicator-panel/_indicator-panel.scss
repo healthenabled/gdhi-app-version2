@@ -2,9 +2,9 @@
 
 .indicator-panel {
   background: white;
-  position: absolute;
-  top:3px;
-  width: 350px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
   @extend .box-shadow, .copy;
   border-radius: 5px;
   z-index: 2;
