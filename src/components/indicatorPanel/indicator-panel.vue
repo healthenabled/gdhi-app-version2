@@ -2,13 +2,9 @@
 import Vue from "vue";
 import axios from "axios";
 import httpRequests from "../../common/indicator-http-requests";
-import IndicatorPanelHeader from "../indicatorPanelHeader/indicatorPanelHeader.vue";
 import common from "../../common/common";
 
 export default Vue.extend({
-  components: {
-    IndicatorPanelHeader,
-  },
   name: "IndicatorPanel",
 
   data() {
@@ -189,13 +185,6 @@ export default Vue.extend({
 </script>
 <template>
   <div class="indicator-panel">
-    <IndicatorPanelHeader
-      :indicatorPanelTitle="indicatorPanelTitle"
-      :phaseTitle="phaseTitle"
-      :countryName="this.country.countryName"
-      :showCountryDetail="showCountryDetail"
-      indicatorDescription="worldMap.indicatorPanel.description"
-    />
     <div class="indicator-panel-container" v-if="!showCountryDetail">
       <div
         class="indicator-panel-container-category"

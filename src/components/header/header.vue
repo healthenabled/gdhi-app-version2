@@ -1,7 +1,11 @@
 <script>
 import Vue from "vue";
+import MapLegend from "../legend/legend.vue";
 
 export default Vue.extend({
+  components: {
+    MapLegend,
+  },
   name: "Header",
 
   data() {
@@ -42,6 +46,20 @@ export default Vue.extend({
         <div class="right-aligned-headers">
           <router-view name="search"></router-view>
         </div>
+      </div>
+    </div>
+
+    <div class="sub-header">
+      <div class="sub-header-title-and-description">
+        <p class="sub-header-title">
+          {{ $t("worldMap.indicatorPanel.indicatorPanelTitle") }}
+        </p>
+        <p class="sub-header-description">
+          {{ $t("worldMap.indicatorPanel.description") }}
+        </p>
+      </div>
+      <div class="sub-header-map-legend">
+        <MapLegend />
       </div>
     </div>
   </div>

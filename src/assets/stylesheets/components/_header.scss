@@ -9,6 +9,42 @@
   z-index: 3;
   line-height: 1;
 
+  .sub-header {
+    background: $cool-gray;
+    height: 100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .sub-header-title-and-description {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .sub-header-title {
+    max-width: 320px;
+    height: auto;
+    @include margin-left(20px);
+    font-weight: 700;
+    font-size: 24px;
+    color: $white;
+  }
+
+  .sub-header-description {
+    max-width: 500px;
+    height: auto;
+    @include margin-left(60px);
+    font-weight: 400;
+    font-size: 14px;
+    color: $white;
+  }
+
+  .sub-header-map-legend {
+    @include margin-right(20px);
+  }
+
   .header-width {
     margin: 0 auto;
     padding: 0 70px;
