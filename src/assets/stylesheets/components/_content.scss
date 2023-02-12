@@ -1,6 +1,6 @@
 .content-container {
-  padding-top: 85px;
-  min-height: calc(100% - 135px);
+  margin-top: 184px;
+  height: auto;
   .content-width {
     width: 90%;
     margin: 0 auto;
@@ -31,7 +31,7 @@
 
   .hero-image {
     position: relative;
-    img{
+    img {
       margin: 20px 0;
       width: 100%;
     }
