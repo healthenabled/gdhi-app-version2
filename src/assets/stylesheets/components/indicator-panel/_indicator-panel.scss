@@ -59,7 +59,7 @@
         min-width: 320px;
         margin-top: 15px;
 
-        &-name {
+        &-name-phase-and-icon {
           text-transform: uppercase;
           @include margin-left(10px);
           @extend .sub-header;
@@ -69,6 +69,34 @@
           align-items: center;
           :first-child {
             @include margin-right(10px);
+          }
+          .indicator-panel-container-category-section-name-and-phase {
+            display: flex;
+            flex-direction: column;
+            font-weight: 700;
+            font-size: 14px;
+            .indicator-panel-container-category-section-name-and-phase-phaseN {
+              font-weight: 400;
+              font-size: 12px;
+              margin-top: 2px;
+              text-transform: none;
+              &[value="1"]::before {
+                content: attr(data-phase);
+                @include transformX(-7px);
+              }
+              &[value="2"]::before {
+                content: attr(data-phase);
+              }
+              &[value="3"]::before {
+                content: attr(data-phase);
+              }
+              &[value="4"]::before {
+                content: attr(data-phase);
+              }
+              &[value="5"]::before {
+                content: attr(data-phase);
+              }
+            }
           }
         }
         &-phase {

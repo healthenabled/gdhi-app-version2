@@ -194,9 +194,24 @@ export default Vue.extend({
           class="indicator-panel-container-category-section"
           v-if="globalHealthIndicators.overallCountryScore && !categoryFilter"
         >
-          <span class="indicator-panel-container-category-section-name">
+          <span
+            class="indicator-panel-container-category-section-name-phase-and-icon"
+          >
             <img src="/indicator-icons/overAll.svg" />
-            {{ $t("mixed.textOverAll") }}
+            <div
+              class="indicator-panel-container-category-section-name-and-phase"
+            >
+              {{ $t("mixed.textOverAll") }}
+              <div
+                :class="'indicator-panel-container-category-section-name-and-phase-phaseN'"
+                :value="globalHealthIndicators.overallCountryScore"
+                :data-phase="
+                  $t('mixed.phaseN', {
+                    number: globalHealthIndicators.overallCountryScore,
+                  })
+                "
+              ></div>
+            </div>
           </span>
           <div
             :class="
@@ -224,7 +239,9 @@ export default Vue.extend({
           :key="index"
           class="indicator-panel-container-category-section"
         >
-          <span class="indicator-panel-container-category-section-name">
+          <span
+            class="indicator-panel-container-category-section-name-phase-and-icon"
+          >
             <img :src="`/indicator-icons/${category.id}.svg`" />
             {{ category.name }}
           </span>
@@ -245,20 +262,23 @@ export default Vue.extend({
         v-if="healthIndicators.countryPhase"
       >
         <div class="indicator-panel-container-category-section">
-          <span class="indicator-panel-container-category-section-name">
+          <span
+            class="indicator-panel-container-category-section-name-phase-and-icon"
+          >
             <img src="/indicator-icons/overAll.svg" />
-            {{ $t("mixed.textOverAll") }}
+            <div
+              class="indicator-panel-container-category-section-name-and-phase"
+            >
+              {{ $t("mixed.textOverAll") }}
+              <div
+                :class="'indicator-panel-container-category-section-name-and-phase-phaseN'"
+                :value="healthIndicators.countryPhase"
+                :data-phase="
+                  $t('mixed.phaseN', { number: healthIndicators.countryPhase })
+                "
+              ></div>
+            </div>
           </span>
-          <div
-            :class="
-              'indicator-panel-container-category-section-phase phase' +
-              healthIndicators.countryPhase
-            "
-            :value="healthIndicators.countryPhase"
-            :data-phase="
-              $t('mixed.phaseN', { number: healthIndicators.countryPhase })
-            "
-          ></div>
         </div>
       </div>
       <div
@@ -278,7 +298,9 @@ export default Vue.extend({
           :key="index"
           class="indicator-panel-container-category-section"
         >
-          <span class="indicator-panel-container-category-section-name">
+          <span
+            class="indicator-panel-container-category-section-name-phase-and-icon"
+          >
             <img :src="`/indicator-icons/${category.id}.svg`" />
             {{ category.name }}
           </span>
