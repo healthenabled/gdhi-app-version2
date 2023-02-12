@@ -219,11 +219,6 @@ export default Vue.extend({
               globalHealthIndicators.overallCountryScore
             "
             :value="globalHealthIndicators.overallCountryScore"
-            :data-phase="
-              $t('mixed.phaseN', {
-                number: globalHealthIndicators.overallCountryScore,
-              })
-            "
           ></div>
         </div>
       </div>
@@ -243,7 +238,16 @@ export default Vue.extend({
             class="indicator-panel-container-category-section-name-phase-and-icon"
           >
             <img :src="`/indicator-icons/${category.id}.svg`" />
-            {{ category.name }}
+            <div
+              class="indicator-panel-container-category-section-name-and-phase"
+            >
+              {{ category.name }}
+              <div
+                :class="'indicator-panel-container-category-section-name-and-phase-phaseN'"
+                :value="category.phase"
+                :data-phase="$t('mixed.phaseN', { number: category.phase })"
+              ></div>
+            </div>
           </span>
           <div
             :class="
@@ -251,7 +255,6 @@ export default Vue.extend({
               category.phase
             "
             :value="category.phase"
-            :data-phase="$t('mixed.phaseN', { number: category.phase })"
           ></div>
         </div>
       </div>
@@ -279,6 +282,13 @@ export default Vue.extend({
               ></div>
             </div>
           </span>
+          <div
+            :class="
+              'indicator-panel-container-category-section-phase phase' +
+              healthIndicators.countryPhase
+            "
+            :value="healthIndicators.countryPhase"
+          ></div>
         </div>
       </div>
       <div
@@ -302,7 +312,16 @@ export default Vue.extend({
             class="indicator-panel-container-category-section-name-phase-and-icon"
           >
             <img :src="`/indicator-icons/${category.id}.svg`" />
-            {{ category.name }}
+            <div
+              class="indicator-panel-container-category-section-name-and-phase"
+            >
+              {{ category.name }}
+              <div
+                :class="'indicator-panel-container-category-section-name-and-phase-phaseN'"
+                :value="category.phase"
+                :data-phase="$t('mixed.phaseN', { number: category.phase })"
+              ></div>
+            </div>
           </span>
           <div
             :class="
@@ -310,7 +329,6 @@ export default Vue.extend({
               category.phase
             "
             :value="category.phase"
-            :data-phase="$t('mixed.phaseN', { number: category.phase })"
           ></div>
         </div>
       </div>
