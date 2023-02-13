@@ -29,6 +29,8 @@ export default Vue.extend({
     this.$on("Map:Clicked", ($clickedEl) => {
       if ($clickedEl.type === "GLOBAL") {
         this.resetFilters();
+        this.$emit("filtered");
+        this.fetchGlobalIndices();
         if (document.querySelector("#search-box input"))
           document.querySelector("#search-box input").value = "";
       } else {
@@ -108,7 +110,7 @@ export default Vue.extend({
         <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
       </div>
       <indicator-panel></indicator-panel>
-      <div id="map"></div>
+      <div id="map" style="max-height: 640px"></div>
     </div>
   </div>
 </template>
