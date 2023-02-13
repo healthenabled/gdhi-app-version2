@@ -1,12 +1,18 @@
 <script>
 import Vue from "vue";
+import { EventBus } from "../common/event-bus";
 import axios from "axios";
 import httpRequests from "../../common/indicator-http-requests";
 import common from "../../common/common";
+import indicatorFilter from "../indicatorFilter/indicatorFilter.vue";
+import phaseFilter from "../phaseFilter/phaseFilter.vue";
 
 export default Vue.extend({
   name: "IndicatorPanel",
-
+  components: {
+    indicatorFilter,
+    phaseFilter
+},
   data() {
     return {
       developmentIndicators: [],
@@ -37,6 +43,9 @@ export default Vue.extend({
       });
       this.$parent.$on("filtered", () => {
         this.getGlobalHealthIndicators();
+      });
+      EventBus.$on('Panel:filtered', () => {
+      this.getGlobalHealthIndicators();
       });
     }
   },
@@ -142,6 +151,7 @@ export default Vue.extend({
     },
 
     getGlobalHealthIndicators() {
+      console.log("I entered panel filter");
       const windowProperties = window.appProperties;
       const globalHealthIndicatorsUrl = `/api/global_health_indicators?categoryId=${windowProperties.getCategoryFilter()}&phase=${windowProperties.getPhaseFilter()}`;
       axios
@@ -333,5 +343,7 @@ export default Vue.extend({
         </div>
       </div>
     </div>
+    <indicatorFilter/>
+    <phaseFilter/>
   </div>
 </template>

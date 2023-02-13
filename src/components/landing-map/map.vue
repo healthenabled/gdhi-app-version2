@@ -18,19 +18,11 @@ export default Vue.extend({
       globalHealthIndices: [],
       lastSelectedCountry: "",
       globalHealthIndicators: [],
-      categoryValue: "",
-      phaseValue: "",
-      categories: [],
-      phases: [],
       locale: "en",
     };
   },
   created() {
-    this.categoryValue = window.appProperties.getCategoryFilter();
-    this.phaseValue = window.appProperties.getPhaseFilter();
     this.fetchGlobalIndices();
-    this.fetchCategoricalIndicators();
-    this.fetchPhases();
   },
   mounted: function () {
     EventBus.$on("Map:Searched", this.onSearchTriggered);
@@ -45,37 +37,27 @@ export default Vue.extend({
             $clickedEl.countryName;
       }
     });
+    EventBus.$on('Map:filtered', () => {
+      this.fetchGlobalIndices();
+    });
   },
   updated() {
     if (this.locale !== this.$i18n.locale) {
-      this.fetchCategoricalIndicators();
       this.fetchGlobalIndices();
       this.locale = this.$i18n.locale;
     }
   },
   beforeDestroy() {
     EventBus.$off("Map:Searched", this.onSearchTriggered);
+    EventBus.$off("Map:filtered");
   },
   methods: {
-    filter: function () {
-      window.appProperties.setCategoryFilter({
-        categoryId: this.categoryValue,
-      });
-      window.appProperties.setPhaseFilter({ phaseId: this.phaseValue });
-      this.$emit("filtered");
-      this.fetchGlobalIndices();
-    },
-
-    resetFilters: function () {
-      this.categoryValue = "";
-      this.phaseValue = "";
-      this.filter();
-    },
-
     fetchGlobalIndices: function () {
+      console.log("Helloworld");
       const self = this;
       common.showLoading();
       const windowProperties = window.appProperties;
+      console.log("windowProperties.getCategoryFilter() :" + windowProperties.getCategoryFilter());
       let url =
         "/api/countries_health_indicator_scores?categoryId=" +
         windowProperties.getCategoryFilter() +
@@ -98,23 +80,6 @@ export default Vue.extend({
           );
           common.hideLoading();
         });
-    },
-    fetchCategoricalIndicators: function () {
-      const self = this;
-      return axios
-        .get(
-          "/api/health_indicator_options",
-          common.configWithUserLanguageAndNoCacheHeader(this.$i18n.locale)
-        )
-        .then((categories) => {
-          self.categories = categories.data;
-        });
-    },
-    fetchPhases: function () {
-      const self = this;
-      axios.get("/api/phases").then((response) => {
-        self.phases = response.data;
-      });
     },
     mergeColorCodeToHealthIndicators: function (globalHealthIndices) {
       const globalHealthIndicesWithScores =
@@ -146,39 +111,6 @@ export default Vue.extend({
         <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
       </div>
       <indicator-panel></indicator-panel>
-
-      <div class="filter-section">
-        <div class="filter-indicator">
-          <select
-            class="filter-1"
-            v-model="categoryValue"
-            @change="filter()"
-            name="test_select1"
-          >
-            <option value="">{{ $t("mixed.textOverAll") }}</option>
-            <option
-              v-for="category in categories"
-              v-bind:value="category.categoryId"
-            >
-              {{ category.categoryName }}
-            </option>
-          </select>
-        </div>
-        <div class="phase-indicator">
-          <select
-            class="filter-2"
-            v-model="phaseValue"
-            @change="filter()"
-            name="test_select2"
-          >
-            <option value="">{{ $t("mixed.all") }}</option>
-            <option v-for="phase in phases" v-bind:value="phase.phaseValue">
-              {{ $t("mixed.phase") }} {{ phase.phaseValue }}
-            </option>
-          </select>
-        </div>
-      </div>
-
       <div id="map"></div>
     </div>
   </div>
