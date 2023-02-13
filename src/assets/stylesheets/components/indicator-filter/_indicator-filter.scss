@@ -1,0 +1,41 @@
+@import "./../../rtl-support";
+
+.filter-indicator {
+  height: 100%;
+  margin-left: 40px;
+  margin-right: 40px;
+
+  &-header {
+    margin-top: 20px;
+    padding-bottom: 10px;
+    font-weight: 700;
+    font-size: 16px;
+  }
+}
+
+.filter-indicator-select {
+  color: #555;
+  width: 320px;
+  height: 40px;
+  @include padding-left(5px);
+  border: $table-border;
+  -webkit-appearance: none;
+  appearance: none;
+  -moz-appearance: none;
+}
+
+/* IE11 hide native button */
+select::-ms-expand {
+  display: none;
+}
+
+.filter-indicator:after {
+  @include margin-right(5px);
+  content: "\F078";
+  font: normal normal normal 12px/1 FontAwesome;
+  color: #555;
+  pointer-events: none;
+  position: relative;
+  @include right(20px);
+  @include margin-right(0);
+}
