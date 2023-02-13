@@ -14,10 +14,11 @@
 }
 
 .phase-indicator-select {
-  color: #555;
+  color: $cool-gray;
+  background-color: $white;
   width: 320px;
   height: 40px;
-  @include padding-left(5px);
+  @include padding-left(20px);
   border: $table-border;
   -webkit-appearance: none;
   appearance: none;
@@ -39,4 +40,3 @@ select::-ms-expand {
   @include right(20px);
   @include margin-right(0);
 }
-

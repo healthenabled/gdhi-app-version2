@@ -1,0 +1,46 @@
+.search-box {
+  display: flex;
+  justify-content: space-between;
+  width: 320px;
+  flex-direction: column;
+  @extend .copy;
+
+  margin-left: 40px;
+  margin-right: 40px;
+
+  &-header {
+    margin-top: 20px;
+    padding-bottom: 10px;
+    font-weight: 700;
+    font-size: 16px;
+  }
+
+  .autocomplete__box {
+    background: url("/img/search.svg") no-repeat;
+    background-size: 20px;
+    height: 40px;
+    border-radius: 0;
+    [dir="ltr"] & {
+      background-position: right 10px center;
+    }
+    [dir="rtl"] & {
+      background-position: left 10px center;
+    }
+  }
+
+  input {
+    max-width: 90%;
+    height: 100%;
+    background: none;
+    margin-bottom: 4px;
+    align-self: center;
+  }
+
+  .autocomplete__icon {
+    display: none;
+  }
+
+  .autocomplete__results__item:hover {
+    background: $autocomplete-highlight;
+  }
+}

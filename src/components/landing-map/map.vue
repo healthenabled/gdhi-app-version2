@@ -37,7 +37,7 @@ export default Vue.extend({
             $clickedEl.countryName;
       }
     });
-    EventBus.$on('Map:filtered', () => {
+    EventBus.$on("Map:filtered", () => {
       this.fetchGlobalIndices();
     });
   },
@@ -49,15 +49,12 @@ export default Vue.extend({
   },
   beforeDestroy() {
     EventBus.$off("Map:Searched", this.onSearchTriggered);
-    EventBus.$off("Map:filtered");
   },
   methods: {
     fetchGlobalIndices: function () {
-      console.log("Helloworld");
       const self = this;
       common.showLoading();
       const windowProperties = window.appProperties;
-      console.log("windowProperties.getCategoryFilter() :" + windowProperties.getCategoryFilter());
       let url =
         "/api/countries_health_indicator_scores?categoryId=" +
         windowProperties.getCategoryFilter() +

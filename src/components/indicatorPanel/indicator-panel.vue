@@ -4,15 +4,17 @@ import { EventBus } from "../common/event-bus";
 import axios from "axios";
 import httpRequests from "../../common/indicator-http-requests";
 import common from "../../common/common";
-import indicatorFilter from "../indicatorFilter/indicatorFilter.vue";
-import phaseFilter from "../phaseFilter/phaseFilter.vue";
+import indicatorFilter from "../indicatorFilter/indicator-filter.vue";
+import phaseFilter from "../phaseFilter/phase-filter.vue";
+import autoSearch from "../auto-search/auto-search.vue";
 
 export default Vue.extend({
   name: "IndicatorPanel",
   components: {
     indicatorFilter,
-    phaseFilter
-},
+    phaseFilter,
+    autoSearch,
+  },
   data() {
     return {
       developmentIndicators: [],
@@ -44,8 +46,8 @@ export default Vue.extend({
       this.$parent.$on("filtered", () => {
         this.getGlobalHealthIndicators();
       });
-      EventBus.$on('Panel:filtered', () => {
-      this.getGlobalHealthIndicators();
+      EventBus.$on("Panel:filtered", () => {
+        this.getGlobalHealthIndicators();
       });
     }
   },
@@ -151,7 +153,6 @@ export default Vue.extend({
     },
 
     getGlobalHealthIndicators() {
-      console.log("I entered panel filter");
       const windowProperties = window.appProperties;
       const globalHealthIndicatorsUrl = `/api/global_health_indicators?categoryId=${windowProperties.getCategoryFilter()}&phase=${windowProperties.getPhaseFilter()}`;
       axios
@@ -195,6 +196,11 @@ export default Vue.extend({
 </script>
 <template>
   <div class="indicator-panel">
+    <div class="indicator-panel-filter-container">
+      <auto-search />
+      <indicatorFilter class="indicator-panel-filter-container-select" />
+      <phaseFilter class="indicator-panel-filter-container-select" />
+    </div>
     <div class="indicator-panel-container" v-if="!showCountryDetail">
       <div
         class="indicator-panel-container-category"
@@ -343,7 +349,5 @@ export default Vue.extend({
         </div>
       </div>
     </div>
-    <indicatorFilter/>
-    <phaseFilter/>
   </div>
 </template>

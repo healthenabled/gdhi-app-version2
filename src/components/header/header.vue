@@ -42,10 +42,6 @@ export default Vue.extend({
             ><span>{{ $t("methodology.text") }}</span></router-link
           >
         </div>
-
-        <div class="right-aligned-headers">
-          <router-view name="search"></router-view>
-        </div>
       </div>
     </div>
 
