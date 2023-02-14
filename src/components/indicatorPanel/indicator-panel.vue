@@ -204,7 +204,10 @@ export default Vue.extend({
     <div class="indicator-panel-container" v-if="!showCountryDetail">
       <div
         class="indicator-panel-container-category"
-        v-if="globalHealthIndicators.overallCountryScore"
+        v-if="
+          globalHealthIndicators.overallCountryScore ||
+          isListOfCategoriesApplicable
+        "
       >
         <div
           class="indicator-panel-container-category-section"
@@ -237,15 +240,8 @@ export default Vue.extend({
             :value="globalHealthIndicators.overallCountryScore"
           ></div>
         </div>
-      </div>
-      <div class="indicator-panel-error" v-else>
-        {{ $t("worldMap.indicatorPanel.noHealthIndicatorAvailable") }}
-      </div>
-      <div
-        class="indicator-panel-container-category"
-        v-if="isListOfCategoriesApplicable"
-      >
         <div
+          v-if="isListOfCategoriesApplicable"
           v-for="(category, index) in globalHealthIndicators.categories"
           :key="index"
           class="indicator-panel-container-category-section"
@@ -274,13 +270,19 @@ export default Vue.extend({
           ></div>
         </div>
       </div>
+      <div class="indicator-panel-error" v-else>
+        {{ $t("worldMap.indicatorPanel.noHealthIndicatorAvailable") }}
+      </div>
     </div>
     <div class="indicator-panel-container" v-else>
       <div
         class="indicator-panel-container-category"
-        v-if="healthIndicators.countryPhase"
+        v-if="healthIndicators.countryPhase || healthIndicators.categories"
       >
-        <div class="indicator-panel-container-category-section">
+        <div
+          class="indicator-panel-container-category-section"
+          v-if="healthIndicators.countryPhase"
+        >
           <span
             class="indicator-panel-container-category-section-name-phase-and-icon"
           >
@@ -306,20 +308,8 @@ export default Vue.extend({
             :value="healthIndicators.countryPhase"
           ></div>
         </div>
-      </div>
-      <div
-        class="indicator-panel-error"
-        v-else-if="
-          healthIndicators &&
-          healthIndicators.categories &&
-          healthIndicators.categories.length !== 0
-        "
-      ></div>
-      <div class="indicator-panel-error" v-else>
-        {{ $t("worldMap.indicatorPanel.noDigitalIndicatorAvailable") }}
-      </div>
-      <div class="indicator-panel-container-category">
         <div
+          v-if="healthIndicators.categories"
           v-for="(category, index) in healthIndicators.categories"
           :key="index"
           class="indicator-panel-container-category-section"
@@ -348,6 +338,18 @@ export default Vue.extend({
           ></div>
         </div>
       </div>
+      <div
+        class="indicator-panel-error"
+        v-if="
+          healthIndicators &&
+          healthIndicators.categories &&
+          healthIndicators.categories.length !== 0
+        "
+      ></div>
+      <div class="indicator-panel-error" v-else>
+        {{ $t("worldMap.indicatorPanel.noDigitalIndicatorAvailable") }}
+      </div>
+      <div class="indicator-panel-container-category"></div>
     </div>
   </div>
 </template>
