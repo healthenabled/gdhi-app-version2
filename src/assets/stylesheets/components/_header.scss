@@ -47,7 +47,7 @@
 
   .header-width {
     margin: 0 auto;
-    padding: 0 70px;
+    padding: 0 20px;
   }
 
   .hd-element {
@@ -86,7 +86,7 @@
     letter-spacing: -0.1px;
     cursor: pointer;
     @extend .logo-font;
-    @include margin-right(20px);
+    @include margin-right(180px);
   }
 
   a {
