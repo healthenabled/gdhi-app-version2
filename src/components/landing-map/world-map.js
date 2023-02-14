@@ -39,13 +39,13 @@ export default {
       this.map.remove();
     }
     //To adjust map according to RTL view
-    const xAxis = LayoutDirectionConfig[i18n.locale] === "rtl" ? 70 : -31;
+    const xAxis = LayoutDirectionConfig[i18n.locale] === "rtl" ? 0 : -10;
     const yAxis = 44;
 
     this.map = L.map("map", {
       attributionControl: false,
       zoomControl: false,
-    }).setView([yAxis, xAxis], 1);
+    }).setView([yAxis, xAxis], 0.5);
 
     this.map.setMinZoom(2);
     // L.control
@@ -101,6 +101,7 @@ export default {
           fillColor: fillColorCode,
           fillOpacity: 1,
           id: feature.id,
+
         };
       },
       onEachFeature(feature, layer) {
