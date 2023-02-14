@@ -1,6 +1,5 @@
 <script>
 import Vue from "vue";
-
 import { EventBus } from "../common/event-bus";
 import indicatorPanel from "../indicatorPanel/indicator-panel.vue";
 import axios from "axios";

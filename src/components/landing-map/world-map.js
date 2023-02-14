@@ -24,9 +24,9 @@ export default {
           "leaflet-bar leaflet-control " + "leaflet-control-custom"
         );
         container.type = "button";
-        container.title = i18n.t("worldMap.resetMapSelections");
         container.id = "reset-btn";
-        container.innerText = i18n.t("worldMap.reset");
+        container.innerHTML =
+          '<img src="/img/zoomReset.svg" height="30" width="30" />';
         container.onclick = function () {
           self.resetMap(postClickCallBack);
         };
@@ -45,21 +45,22 @@ export default {
     this.map = L.map("map", {
       attributionControl: false,
       zoomControl: false,
-    }).setView([yAxis, xAxis], 2);
+    }).setView([yAxis, xAxis], 1);
 
     this.map.setMinZoom(2);
-    L.control
-      .attribution({
-        position: "bottomleft",
-        prefix:
-          'Made with Natural Earth.<a href="https://github.com/datameet/maps/blob/master/Country/india-composite.geojson">India boundaries</a> by <a href="http://datameet.org/">DataMeet India community</a>',
-      })
-      .addTo(this.map);
+    // L.control
+    //   .attribution({
+    //     position: "bottomleft",
+    //     prefix:
+    //       'Made with Natural Earth.<a href="https://github.com/datameet/maps/blob/master/Country/india-composite.geojson">India boundaries</a> by <a href="http://datameet.org/">DataMeet India community</a>',
+    //   })
+    //   .addTo(this.map);
 
     L.control
       .zoom({
         position: "bottomright",
-        zoomInTitle: i18n.t("worldMap.zoomIn"),
+        zoomInText: '<img src="/img/zoomIn.svg" height="30" width="30"/>',
+        zoomOutText: '<img src="/img/zoomOut.svg" height="30" width="30"/>',
         zoomOutTitle: i18n.t("worldMap.zoomOut"),
       })
       .addTo(this.map);

@@ -3,7 +3,6 @@
 .indicator-panel {
   background: white;
   width: 100%;
-  @include margin-left(10px);
 
   @extend .box-shadow, .copy;
   border-radius: 5px;
@@ -67,10 +66,9 @@
       align-items: center;
 
       &-section {
-        min-width: 300px;
+        min-width: 320px;
         margin-top: 15px;
-        margin-right: 20px;
-        margin-left: 20px;
+        margin-right: 55px;
 
         &-name-phase-and-icon {
           text-transform: uppercase;
