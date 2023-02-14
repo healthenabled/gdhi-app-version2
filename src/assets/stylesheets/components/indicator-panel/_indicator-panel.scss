@@ -3,6 +3,7 @@
 .indicator-panel {
   background: white;
   width: 100%;
+  @include margin-left(10px);
 
   @extend .box-shadow, .copy;
   border-radius: 5px;

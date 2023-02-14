@@ -2,8 +2,7 @@
 
 .filter-indicator {
   height: 100%;
-  margin-left: 40px;
-  margin-right: 40px;
+  @include margin-left(10px);
 
   &-header {
     margin-top: 20px;
