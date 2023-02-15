@@ -3,6 +3,7 @@ import Vue from "vue";
 import axios from "axios";
 import common from "../../common/common";
 import { EventBus } from "../common/event-bus";
+import {EVENTS} from "../../constants";
 
 export default Vue.extend({
   name: "IndicatorFilter",
@@ -23,9 +24,8 @@ export default Vue.extend({
       window.appProperties.setCategoryFilter({
         categoryId: this.categoryValue,
       });
-      EventBus.$emit("Map:filtered");
-      EventBus.$emit("Panel:filtered");
-    },
+      EventBus.$emit(EVENTS.INDICATOR_FILTERED);
+  },
 
     resetFilters: function () {
       this.categoryValue = "";

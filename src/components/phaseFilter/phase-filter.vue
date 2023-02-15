@@ -2,6 +2,7 @@
 import Vue from "vue";
 import axios from "axios";
 import { EventBus } from "../common/event-bus";
+import {EVENTS} from "../../constants";
 
 export default Vue.extend({
   name: "phaseFilter",
@@ -20,8 +21,7 @@ export default Vue.extend({
   methods: {
     filter: function () {
       window.appProperties.setPhaseFilter({ phaseId: this.phaseValue });
-      EventBus.$emit("Map:filtered");
-      EventBus.$emit("Panel:filtered");
+      EventBus.$emit(EVENTS.PHASE_FILTERED);
     },
 
     resetFilters: function () {

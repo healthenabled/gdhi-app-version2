@@ -7,6 +7,7 @@ import common from "../../common/common";
 import indicatorFilter from "../indicatorFilter/indicator-filter.vue";
 import phaseFilter from "../phaseFilter/phase-filter.vue";
 import autoSearch from "../auto-search/auto-search.vue";
+import {EVENTS} from "../../constants";
 
 export default Vue.extend({
   name: "IndicatorPanel",
@@ -46,7 +47,7 @@ export default Vue.extend({
       this.$parent.$on("filtered", () => {
         this.getGlobalHealthIndicators();
       });
-      EventBus.$on("Panel:filtered", () => {
+      EventBus.$on(EVENTS.INDICATOR_PANEL_FILTERED, () => {
         this.getGlobalHealthIndicators();
       });
     }
