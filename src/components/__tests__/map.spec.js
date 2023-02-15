@@ -2,12 +2,14 @@ import { shallowMount } from "@vue/test-utils";
 import Map from "../landing-map/map.vue";
 import sinon from "sinon";
 import worldMap from "../landing-map/world-map.js";
+import { EventBus } from "../common/event-bus";
 import { describe, it, expect, beforeEach, vi } from "vitest";
 import axios from "axios";
 import { i18n } from "../../plugins/i18n";
 import flushPromises from "flush-promises";
 
 const axiosGetSpy = vi.spyOn(axios, "get");
+const eventBusSpy = vi.spyOn(EventBus, "$emit");
 
 describe("Map ", () => {
   let wrapper;
@@ -106,63 +108,6 @@ describe("Map ", () => {
       },
     ],
   };
-  let healthIndicatorData = [
-    {
-      categoryId: 1,
-      categoryName: "Leadership and Governance",
-      indicators: [
-        {
-          indicatorId: 1,
-          indicatorCode: "1",
-          indicatorName:
-            "Digital health prioritized at the national level through dedicated bodies / mechanisms for governance",
-          indicatorDefinition:
-            "Does the country have a separate department / agency / national working group for digital health?",
-          scores: [
-            {
-              score: -1,
-              scoreDefinition: "Not Available or Not Applicable",
-            },
-            {
-              score: 1,
-              scoreDefinition:
-                "No coordinating body exists and/or nascent governance structure for digital health is constituted on a case-by-case basis.",
-            },
-            {
-              score: 2,
-              scoreDefinition:
-                "Governance structure is formally constituted though not fully-functional or meeting regularly.",
-            },
-            {
-              score: 3,
-              scoreDefinition:
-                "Governance structure and any related working groups have a scope of work (SOW) and conduct regular meetings with stakeholder participation and/or consultation.",
-            },
-            {
-              score: 4,
-              scoreDefinition:
-                "Governance structure is fully-functional, government-led, consults with other ministries, and monitors implementation of digital health based on a work plan.",
-            },
-            {
-              score: 5,
-              scoreDefinition:
-                "The digital health governance structure is institutionalized, consults with other ministries, and monitors implementation of digital health. It is relatively protected from interference or organizational changes. It is nationally recognized as the lead for digital health.The governance structure and its technical working groups emphasize gender balance in membership.",
-            },
-          ],
-        },
-      ],
-    },
-  ];
-  let phaseData = [
-    {
-      phaseName: "phase1",
-      phaseValue: 1,
-    },
-    {
-      phaseName: "phase2",
-      phaseValue: 2,
-    },
-  ];
   beforeEach(() => {
     axiosGetSpy.mockImplementation(async (url) => {
       if (url.includes("countries_health_indicator_scores")) {
@@ -170,40 +115,12 @@ describe("Map ", () => {
           resolve({ data: globalData });
         });
       }
-      if (url.includes("health_indicator_options")) {
-        return new Promise((resolve) => {
-          resolve({ data: healthIndicatorData });
-        });
-      }
-      if (url.includes("phases")) {
-        return new Promise((resolve) => {
-          resolve({ data: phaseData });
-        });
-      }
     });
   });
 
-  it.skip(" should fetch phases", async () => {
+  it(" should fetch the fetchGlobalIndices", async () => {
     vi.spyOn(worldMap, "drawMap").mockReturnValue({});
-
     wrapper = shallowMount(Map, { i18n });
-    await flushPromises();
-
-    expect(wrapper.vm.phases).to.deep.equal(phaseData);
-    worldMap.drawMap.restore();
-  });
-
-  it.skip(" should set the window properties when the filter method is called and fetch the fetchGlobalIndices", async () => {
-    vi.spyOn(worldMap, "drawMap").mockReturnValue({});
-
-    wrapper = shallowMount(Map, { i18n });
-    await flushPromises();
-
-    wrapper.vm.categoryValue = 1;
-    wrapper.vm.phaseValue = 1;
-    wrapper.vm.filter();
-    sinon.assert.calledWith(setCategoryFilterMock, { categoryId: 1 });
-    sinon.assert.calledWith(setPhaseFilterMock, { phaseId: 1 });
     await flushPromises();
     expect(wrapper.vm.globalHealthIndicators).to.deep.equal(
       globalData.countryHealthScores
@@ -211,30 +128,16 @@ describe("Map ", () => {
     worldMap.drawMap.restore();
   });
 
-  it.skip(" should reset the local values when the reset method is called", async () => {
+  it(" should emit reset filter when resetFilter method is called", async () => {
     vi.spyOn(worldMap, "drawMap").mockReturnValue({});
 
     wrapper = shallowMount(Map, { i18n });
     await flushPromises();
+
     wrapper.vm.resetFilters();
-    sinon.assert.calledWith(setCategoryFilterMock, { categoryId: "" });
-    sinon.assert.calledWith(setPhaseFilterMock, { phaseId: "" });
     await flushPromises();
 
-    expect(wrapper.vm.categoryValue).to.equal("");
-    expect(wrapper.vm.phaseValue).to.equal("");
-    worldMap.drawMap.restore();
-  });
-  it.skip("should update the value for categories when fetchCategoricalIndicators is called ", async () => {
-    vi.spyOn(worldMap, "drawMap").mockReturnValue({});
-
-    wrapper = shallowMount(Map, { i18n });
-    await flushPromises();
-
-    wrapper.vm.fetchCategoricalIndicators();
-    await flushPromises();
-
-    expect(wrapper.vm.categories).to.deep.equal(healthIndicatorData);
+    expect(eventBusSpy.mock.calls[0][0]).toBe("Reset:Filters");
     worldMap.drawMap.restore();
   });
 
