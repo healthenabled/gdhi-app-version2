@@ -67,13 +67,7 @@ describe("indicator-filter", () => {
   ];
 
   beforeEach(async () => {
-    axiosGetSpy.mockImplementation(async (url) => {
-      if (url.includes("health_indicator_options")) {
-        return new Promise((resolve) => {
-          resolve({ data: healthIndicatorData });
-        });
-      }
-    });
+    axiosGetSpy.mockResolvedValue({ data: healthIndicatorData });
     wrapper = shallowMount(indicatorFilter, {
       i18n,
     });

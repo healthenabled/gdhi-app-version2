@@ -29,13 +29,7 @@ describe("phase-filter ", () => {
   ];
 
   beforeEach(async () => {
-    axiosGetSpy.mockImplementation(async (url) => {
-      if (url.includes("phases")) {
-        return new Promise((resolve) => {
-          resolve({ data: phaseData });
-        });
-      }
-    });
+    axiosGetSpy.mockResolvedValue({ data: phaseData });
     wrapper = shallowMount(phaseFilter, {
       i18n,
     });
