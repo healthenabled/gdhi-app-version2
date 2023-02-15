@@ -19,6 +19,12 @@ export default Vue.extend({
     this.fetchCategoricalIndicators();
   },
 
+  mounted: function () {
+    EventBus.$on("Reset:Filters", () => {
+      this.resetFilters();
+    })
+  },
+
   methods: {
     filter: function () {
       window.appProperties.setCategoryFilter({

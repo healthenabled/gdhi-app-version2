@@ -18,6 +18,12 @@ export default Vue.extend({
     this.fetchPhases();
   },
 
+  mounted: function () {
+    EventBus.$on("Reset:Filters", () => {
+      this.resetFilters();
+    })
+  },
+
   methods: {
     filter: function () {
       window.appProperties.setPhaseFilter({ phaseId: this.phaseValue });

@@ -28,6 +28,7 @@ export default Vue.extend({
     EventBus.$on("Map:Searched", this.onSearchTriggered);
     this.$on("Map:Clicked", ($clickedEl) => {
       if ($clickedEl.type === "GLOBAL") {
+        this.resetFilters();
         this.$emit("filtered");
         this.fetchGlobalIndices();
         if (document.querySelector("#search-box input"))
@@ -52,6 +53,9 @@ export default Vue.extend({
     EventBus.$off("Map:Searched", this.onSearchTriggered);
   },
   methods: {
+    resetFilters() {
+      EventBus.$emit("Reset:Filters");
+    },
     fetchGlobalIndices: function () {
       const self = this;
       common.showLoading();
