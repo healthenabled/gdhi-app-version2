@@ -10,70 +10,15 @@
   position: relative;
 }
 
-.filter-section {
-  position: absolute;
-  z-index: 2;
-  @include right(0);
-  height: 34px;
-  display: flex;
-  font-size: 12px;
-  margin-top: 5px;
-
-  .filter-indicator,
-  .phase-indicator {
-    height: 34px;
-    display: flex;
-  }
-
-  .filter-1 {
-    color: #555;
-    width: 218px;
-    @include padding-left(5px);
-    border: $table-border;
-    -webkit-appearance: none;
-    appearance: none;
-    -moz-appearance: none;
-  }
-
-  .filter-2 {
-    @extend .filter-1;
-    width: 75px;
-  }
-
-  /* IE11 hide native button */
-  select::-ms-expand {
-    display: none;
-  }
-}
-
-.filter-indicator:after {
-  @include margin-right(5px);
-  content: "\F078";
-  font: normal normal normal 12px/1 FontAwesome;
-  color: #555;
-  pointer-events: none;
-  position: relative;
-  top: 12px;
-  width: 0;
-  @include right(20px);
-}
-
-.phase-indicator:after {
-  @extend .filter-indicator, :after;
-  @include margin-right(0);
-}
-
 #map {
   height: calc(100vh - 136px);
-  background: $bg-beige;
+  background: $fine-gray;
 }
 .legend {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  position: absolute;
   @include right(0px);
-  bottom: 30px;
   color: $black;
   z-index: 3;
   cursor: default;
@@ -103,25 +48,15 @@
     font-family: "RobotoRegular";
   }
   .legend-desc {
-    color: $font-grey-dark;
+    color: $white;
     display: inline-block;
     padding: 5px 0;
-    @include margin-left(-10px);
+    @include padding-right(20px);
   }
 }
 
 div#reset-btn {
-  height: 17px;
-  min-width: 57px;
-  padding: 5px;
-  background: $white;
-  display: inline-block;
-  text-align: center;
-  font-size: 14px;
-  margin-top: 4px;
-  border: 1px solid $black;
-  line-height: 1;
-  text-transform: capitalize;
+  @include margin-left(-8px);
 }
 
 @media screen and (min-width: 1200px) and (max-width: 1400px) {
@@ -151,6 +86,7 @@ div#reset-btn {
 
 .leaflet-bar {
   border-radius: 0;
+  border-bottom: 0;
 }
 
 @media screen and (min-width: 1640px) {
@@ -168,11 +104,16 @@ div#reset-btn {
 .leaflet-top,
 .leaflet-bottom {
   z-index: 1;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  align-items: center;
+  @include margin-right(10px);
+  padding-bottom: 20px;
 }
 .leaflet-control-container .leaflet-bar a {
   display: inline-block;
   margin-right: 5px;
-  border: 1px solid $black;
   line-height: 1.2;
   border-radius: 0;
 }

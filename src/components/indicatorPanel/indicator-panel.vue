@@ -1,12 +1,21 @@
 <script>
 import Vue from "vue";
+import { EventBus } from "../common/event-bus";
 import axios from "axios";
 import httpRequests from "../../common/indicator-http-requests";
 import common from "../../common/common";
+import indicatorFilter from "../indicatorFilter/indicator-filter.vue";
+import phaseFilter from "../phaseFilter/phase-filter.vue";
+import autoSearch from "../auto-search/auto-search.vue";
+import {EVENTS} from "../../constants";
 
 export default Vue.extend({
   name: "IndicatorPanel",
-
+  components: {
+    indicatorFilter,
+    phaseFilter,
+    autoSearch,
+  },
   data() {
     return {
       developmentIndicators: [],
@@ -22,7 +31,6 @@ export default Vue.extend({
       locale: "en",
     };
   },
-
   mounted() {
     common.showLoading();
     this.getGlobalHealthIndicators();
@@ -39,6 +47,9 @@ export default Vue.extend({
       this.$parent.$on("filtered", () => {
         this.getGlobalHealthIndicators();
       });
+      EventBus.$on(EVENTS.INDICATOR_PANEL_FILTERED, () => {
+        this.getGlobalHealthIndicators();
+      });
     }
   },
   updated() {
@@ -51,7 +62,6 @@ export default Vue.extend({
       this.locale = this.$i18n.locale;
     }
   },
-
   methods: {
     setIndicatorTitleAndCategoryApplicability() {
       this.indicatorPanelTitle = this.getIndicatorContainerName();
@@ -127,6 +137,7 @@ export default Vue.extend({
         });
         */
     },
+
     getHealthIndicatorCallback(response) {
       const healthIndicatorsData = {
         countryId: response.data.countryId,
@@ -160,6 +171,7 @@ export default Vue.extend({
         });
         */
     },
+
     getGlobalHealthIndicatorCallback(response) {
       const globalHealthIndicatorsData = {
         overallCountryScore: response.data.overAllScore,
@@ -183,81 +195,111 @@ export default Vue.extend({
   },
 });
 </script>
-
 <template>
   <div class="indicator-panel">
+    <div class="indicator-panel-filter-container">
+      <auto-search />
+      <indicatorFilter class="indicator-panel-filter-container-select" />
+      <phaseFilter class="indicator-panel-filter-container-select" />
+    </div>
     <div class="indicator-panel-container" v-if="!showCountryDetail">
-      <div class="indicator-panel-container-name">
-        {{ indicatorPanelTitle }}
-        <div>
-          {{ phaseTitle }}
-        </div>
-      </div>
-      <div class="indicator-panel-container-desc">
-        {{ $t("worldMap.indicatorPanel.description") }}
-      </div>
       <div
         class="indicator-panel-container-category"
-        v-if="globalHealthIndicators.overallCountryScore"
+        v-if="
+          globalHealthIndicators.overallCountryScore ||
+          isListOfCategoriesApplicable
+        "
       >
         <div
           class="indicator-panel-container-category-section"
-          v-if="!categoryFilter"
+          v-if="globalHealthIndicators.overallCountryScore && !categoryFilter"
         >
-          <span class="indicator-panel-container-category-section-name">{{
-            $t("mixed.textOverAll")
-          }}</span>
+          <span
+            class="indicator-panel-container-category-section-name-phase-and-icon"
+          >
+            <img src="/indicator-icons/overAll.svg" />
+            <div
+              class="indicator-panel-container-category-section-name-and-phase"
+            >
+              {{ $t("mixed.textOverAll") }}
+              <div
+                :class="'indicator-panel-container-category-section-name-and-phase-phaseN'"
+                :value="globalHealthIndicators.overallCountryScore"
+                :data-phase="
+                  $t('mixed.phaseN', {
+                    number: globalHealthIndicators.overallCountryScore,
+                  })
+                "
+              ></div>
+            </div>
+          </span>
           <div
             :class="
               'indicator-panel-container-category-section-phase phase' +
               globalHealthIndicators.overallCountryScore
             "
             :value="globalHealthIndicators.overallCountryScore"
-            :data-phase="
-              $t('mixed.phaseN', {
-                number: globalHealthIndicators.overallCountryScore,
-              })
-            "
           ></div>
         </div>
-      </div>
-      <div class="indicator-panel-error" v-else>
-        {{ $t("worldMap.indicatorPanel.noHealthIndicatorAvailable") }}
-      </div>
-      <div
-        class="indicator-panel-container-category"
-        v-if="isListOfCategoriesApplicable"
-      >
         <div
+          v-if="isListOfCategoriesApplicable"
           v-for="(category, index) in globalHealthIndicators.categories"
+          :key="index"
           class="indicator-panel-container-category-section"
         >
-          <span class="indicator-panel-container-category-section-name">{{
-            category.name
-          }}</span>
+          <span
+            class="indicator-panel-container-category-section-name-phase-and-icon"
+          >
+            <img :src="`/indicator-icons/${category.id}.svg`" />
+            <div
+              class="indicator-panel-container-category-section-name-and-phase"
+            >
+              {{ category.name }}
+              <div
+                :class="'indicator-panel-container-category-section-name-and-phase-phaseN'"
+                :value="category.phase"
+                :data-phase="$t('mixed.phaseN', { number: category.phase })"
+              ></div>
+            </div>
+          </span>
           <div
             :class="
               'indicator-panel-container-category-section-phase phase' +
               category.phase
             "
             :value="category.phase"
-            :data-phase="$t('mixed.phaseN', { number: category.phase })"
           ></div>
         </div>
       </div>
+      <div class="indicator-panel-error" v-else>
+        {{ $t("worldMap.indicatorPanel.noHealthIndicatorAvailable") }}
+      </div>
     </div>
     <div class="indicator-panel-container" v-else>
-      <div class="indicator-panel-container-name">
-        {{ healthIndicators.countryName }}
-      </div>
-
       <div
         class="indicator-panel-container-category"
-        v-if="healthIndicators.countryPhase"
+        v-if="healthIndicators.countryPhase || healthIndicators.categories"
       >
-        <div class="indicator-panel-container-category-section">
-          <span class="indicator-panel-container-category-section-name"
-            >{{ $t("mixed.textOverAll") }}
+        <div
+          class="indicator-panel-container-category-section"
+          v-if="healthIndicators.countryPhase"
+        >
+          <span
+            class="indicator-panel-container-category-section-name-phase-and-icon"
+          >
+            <img src="/indicator-icons/overAll.svg" />
+            <div
+              class="indicator-panel-container-category-section-name-and-phase"
+            >
+              {{ $t("mixed.textOverAll") }}
+              <div
+                :class="'indicator-panel-container-category-section-name-and-phase-phaseN'"
+                :value="healthIndicators.countryPhase"
+                :data-phase="
+                  $t('mixed.phaseN', { number: healthIndicators.countryPhase })
+                "
+              ></div>
+            </div>
           </span>
           <div
             :class="
@@ -265,15 +307,41 @@ export default Vue.extend({
               healthIndicators.countryPhase
             "
             :value="healthIndicators.countryPhase"
-            :data-phase="
-              $t('mixed.phaseN', { number: healthIndicators.countryPhase })
+          ></div>
+        </div>
+        <div
+          v-if="healthIndicators.categories"
+          v-for="(category, index) in healthIndicators.categories"
+          :key="index"
+          class="indicator-panel-container-category-section"
+        >
+          <span
+            class="indicator-panel-container-category-section-name-phase-and-icon"
+          >
+            <img :src="`/indicator-icons/${category.id}.svg`" />
+            <div
+              class="indicator-panel-container-category-section-name-and-phase"
+            >
+              {{ category.name }}
+              <div
+                :class="'indicator-panel-container-category-section-name-and-phase-phaseN'"
+                :value="category.phase"
+                :data-phase="$t('mixed.phaseN', { number: category.phase })"
+              ></div>
+            </div>
+          </span>
+          <div
+            :class="
+              'indicator-panel-container-category-section-phase phase' +
+              category.phase
             "
+            :value="category.phase"
           ></div>
         </div>
       </div>
       <div
         class="indicator-panel-error"
-        v-else-if="
+        v-if="
           healthIndicators &&
           healthIndicators.categories &&
           healthIndicators.categories.length !== 0
@@ -282,90 +350,7 @@ export default Vue.extend({
       <div class="indicator-panel-error" v-else>
         {{ $t("worldMap.indicatorPanel.noDigitalIndicatorAvailable") }}
       </div>
-      <div class="indicator-panel-container-category">
-        <div
-          v-for="(category, index) in healthIndicators.categories"
-          class="indicator-panel-container-category-section"
-        >
-          <span class="indicator-panel-container-category-section-name">{{
-            category.name
-          }}</span>
-          <div
-            :class="
-              'indicator-panel-container-category-section-phase phase' +
-              category.phase
-            "
-            :value="category.phase"
-            :data-phase="$t('mixed.phaseN', { number: category.phase })"
-          ></div>
-        </div>
-      </div>
-      <div class="indicator-panel-container-context">
-        <div
-          v-for="indicatorCategory in developmentIndicators"
-          class="indicator-panel-container-context-section"
-        >
-          <span class="indicator-panel-container-context-name">{{
-            $t(
-              "worldMap.indicatorPanel." +
-                Object.keys(indicatorCategory)[0].toLowerCase() +
-                ".text"
-            )
-          }}</span>
-          <div
-            v-for="indicators in indicatorCategory"
-            class="indicator-panel-container-context-details"
-          >
-            <div
-              v-for="(indicator, key) in indicators"
-              class="indicator-panel-container-context-details-info"
-            >
-              <span
-                class="indicator-panel-container-context-details-info-score"
-                >{{ indicator }}</span
-              >
-              <span
-                class="indicator-panel-container-context-details-info-title"
-                >{{
-                  $t(
-                    "worldMap.indicatorPanel." +
-                      Object.keys(indicatorCategory)[0].toLowerCase() +
-                      "." +
-                      key
-                  )
-                }}</span
-              >
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      class="button-container"
-      v-if="!showCountryDetail && !isNoGlobalHealthIndicators"
-    >
-      <div
-        class="indicator-panel-button btn btn-primary"
-        @click="showListOfCountries()"
-      >
-        {{ $t("worldMap.indicatorPanel.viewCountries") }}
-      </div>
-    </div>
-    <div
-      class="button-container"
-      v-if="
-        healthIndicators &&
-        healthIndicators.categories &&
-        healthIndicators.categories.length !== 0 &&
-        isNoGlobalHealthIndicators
-      "
-    >
-      <div
-        class="indicator-panel-button btn btn-primary"
-        @click="showCountryDetails(healthIndicators.countryId)"
-      >
-        {{ $t("worldMap.indicatorPanel.viewDetails") }}
-      </div>
+      <div class="indicator-panel-container-category"></div>
     </div>
   </div>
 </template>

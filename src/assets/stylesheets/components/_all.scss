@@ -3,11 +3,14 @@
 @import "content";
 @import "footer";
 @import "score-colors";
-@import './landing-map/map';
-@import './indicator-panel/indicator-panel';
+@import "./landing-map/map";
+@import "./indicator-panel/indicator-panel";
 @import "./indicator-info/health-indicator-questionnaire";
 @import "./indicator-info/indicator-info";
 @import "./country-profile/country-profile";
 @import "./country-list/country-list";
 @import "./admin/admin";
 @import "methodology/methodology";
+@import "./indicator-filter/indicator-filter";
+@import "./phase-filter/phase-filter";
+@import "./auto-search/auto-search";

@@ -1,7 +1,6 @@
 import { shallowMount, mount, RouterLinkStub } from "@vue/test-utils";
 import { describe, expect, it, vi } from "vitest";
 import Header from "../header/header.vue";
-import autoSearch from "../auto-search/auto-search.vue";
 import { i18n } from "../../plugins/i18n";
 import axios from "axios";
 
@@ -28,13 +27,9 @@ describe("Header ", () => {
     wrapper = mount(Header, {
       stubs: {
         "router-link": RouterLinkStub,
-        "router-view": {
-          render: (h) => h(autoSearch),
-        },
       },
       i18n,
     });
-    expect(wrapper.findAll(".hd-element").length).to.equal(5);
-    expect(wrapper.findAll(autoSearch).length).to.equal(2);
+    expect(wrapper.findAll(".hd-element").length).to.equal(4);
   });
 });

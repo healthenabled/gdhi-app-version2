@@ -16,7 +16,7 @@ export default {
     const self = this;
     const ResetButton = L.Control.extend({
       options: {
-        position: "topleft",
+        position: "bottomright",
       },
       onAdd() {
         const container = L.DomUtil.create(
@@ -24,9 +24,9 @@ export default {
           "leaflet-bar leaflet-control " + "leaflet-control-custom"
         );
         container.type = "button";
-        container.title = i18n.t("worldMap.resetMapSelections");
         container.id = "reset-btn";
-        container.innerText = i18n.t("worldMap.reset");
+        container.innerHTML =
+          '<img src="/img/zoomReset.svg" height="30" width="30" />';
         container.onclick = function () {
           self.resetMap(postClickCallBack);
         };
@@ -39,26 +39,28 @@ export default {
       this.map.remove();
     }
     //To adjust map according to RTL view
-    const xAxis = LayoutDirectionConfig[i18n.locale] === "rtl" ? 70 : -31;
+    const xAxis = LayoutDirectionConfig[i18n.locale] === "rtl" ? 0 : -10;
     const yAxis = 44;
 
     this.map = L.map("map", {
       attributionControl: false,
       zoomControl: false,
-    }).setView([yAxis, xAxis], 2);
+    }).setView([yAxis, xAxis], 0.5);
 
     this.map.setMinZoom(2);
-    L.control
-      .attribution({
-        position: "bottomleft",
-        prefix:
-          'Made with Natural Earth.<a href="https://github.com/datameet/maps/blob/master/Country/india-composite.geojson">India boundaries</a> by <a href="http://datameet.org/">DataMeet India community</a>',
-      })
-      .addTo(this.map);
+    // L.control
+    //   .attribution({
+    //     position: "bottomleft",
+    //     prefix:
+    //       'Made with Natural Earth.<a href="https://github.com/datameet/maps/blob/master/Country/india-composite.geojson">India boundaries</a> by <a href="http://datameet.org/">DataMeet India community</a>',
+    //   })
+    //   .addTo(this.map);
 
     L.control
       .zoom({
-        zoomInTitle: i18n.t("worldMap.zoomIn"),
+        position: "bottomright",
+        zoomInText: '<img src="/img/zoomIn.svg" height="30" width="30"/>',
+        zoomOutText: '<img src="/img/zoomOut.svg" height="30" width="30"/>',
         zoomOutTitle: i18n.t("worldMap.zoomOut"),
       })
       .addTo(this.map);
@@ -94,11 +96,12 @@ export default {
           healthData
         );
         return {
-          weight: 1,
+          weight: 0.7,
           color: self.WHITE_COLOR_CODE,
           fillColor: fillColorCode,
-          fillOpacity: 0.95,
+          fillOpacity: 1,
           id: feature.id,
+
         };
       },
       onEachFeature(feature, layer) {

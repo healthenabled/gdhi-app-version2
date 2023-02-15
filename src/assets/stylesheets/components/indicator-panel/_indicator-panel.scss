@@ -2,15 +2,25 @@
 
 .indicator-panel {
   background: white;
-  position: absolute;
-  top:3px;
-  width: 350px;
+  width: 100%;
+
   @extend .box-shadow, .copy;
   border-radius: 5px;
   z-index: 2;
-  height: calc(100vh - 170px);
+  //height: auto;
   overflow-y: hidden;
   overflow-x: hidden;
+
+  &-filter-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    height: 90px;
+    @include padding-left(20px);
+    //z-index: 2;
+    //font-size: 12px;
+  }
   &-error {
     text-transform: capitalize;
     @extend .copy;
@@ -21,7 +31,7 @@
 
   &-container {
     display: flex;
-    flex-flow: column;
+    flex-direction: row;
     align-items: center;
     height: calc(100% - 90px);
     padding: 15px 15px;
@@ -38,8 +48,8 @@
       width: 100%;
       @extend .header-bold;
 
-      [dir=rtl] & {
-        font-weight: bold
+      [dir="rtl"] & {
+        font-weight: bold;
       }
     }
 
@@ -49,68 +59,67 @@
       @extend .copy;
     }
 
-    &-context {
-      width: 100%;
-      &-name {
-        @extend .header-bold;
-        text-transform: capitalize;
-        display: block;
-        border-bottom: 1px solid $border-color;
-        margin-bottom: 10px;
-        padding-bottom: 10px;
-        [dir=rtl] & {
-          font-weight: bold
-        }
-      }
-      &-details {
-        display: flex;
-        padding: 5px;
-        margin-top: 3px;
-        margin-bottom: 5px;
-        &-info {
-          display: inline-block;
-          width: 50%;
-          @include padding-right(15px);
-          &-score, &-title {
-            display: block;
-            text-align: center;
-          }
-          &-score {
-            @extend .header-regular;
-          }
-          &-title {
-            color: $font-grey;
-            text-transform: uppercase;
-            padding-top: 3px;
-            @extend .copy-small;
-          }
-        }
-      }
-
-      &-section {
-        padding-top: 11px;
-      }
-    }
-
     &-category {
-      width: 100%;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: center;
+
       &-section {
+        min-width: 320px;
         margin-top: 15px;
-        &-name {
+        margin-right: 55px;
+
+        &-name-phase-and-icon {
           text-transform: uppercase;
+          @include margin-left(10px);
           @extend .sub-header;
+          display: flex;
+          flex-direction: row;
+          justify-content: flex-start;
+          align-items: center;
+          :first-child {
+            @include margin-right(10px);
+          }
+          .indicator-panel-container-category-section-name-and-phase {
+            display: flex;
+            flex-direction: column;
+            font-weight: 700;
+            font-size: 14px;
+            .indicator-panel-container-category-section-name-and-phase-phaseN {
+              font-weight: 400;
+              font-size: 12px;
+              margin-top: 2px;
+              text-transform: none;
+              &[value="1"]::before {
+                content: attr(data-phase);
+                @include transformX(-7px);
+              }
+              &[value="2"]::before {
+                content: attr(data-phase);
+              }
+              &[value="3"]::before {
+                content: attr(data-phase);
+              }
+              &[value="4"]::before {
+                content: attr(data-phase);
+              }
+              &[value="5"]::before {
+                content: attr(data-phase);
+              }
+            }
+          }
         }
         &-phase {
           position: relative;
           background: $border-color;
-          border-radius: 15px;
           margin-top: 2px;
           width: 98%;
           text-transform: capitalize;
           @extend .copy-small;
           &:before {
-            content: '';
-            color: $white;
+            content: "";
+            color: $black;
             position: absolute;
             overflow: hidden;
             top: 1px;
@@ -120,35 +129,38 @@
           }
 
           &:after {
-            content: '';
+            content: "";
             display: block;
-            height: 16px;
+            height: 10px;
             width: 0;
-            border-radius: 15px;
             background-color: $na;
             position: relative;
             overflow: hidden;
           }
 
-          &[value="1"]::after, &[value="1"]::before {
+          &[value="1"]::after,
+          &[value="1"]::before {
             width: 20%;
           }
-          &[value="2"]::after, &[value="2"]::before {
+          &[value="2"]::after,
+          &[value="2"]::before {
             width: 40%;
           }
-          &[value="3"]::after, &[value="3"]::before {
+          &[value="3"]::after,
+          &[value="3"]::before {
             width: 60%;
           }
-          &[value="4"]::after, &[value="4"]::before {
+          &[value="4"]::after,
+          &[value="4"]::before {
             width: 80%;
           }
-          &[value="5"]::after, &[value="5"]::before {
+          &[value="5"]::after,
+          &[value="5"]::before {
             width: 100%;
           }
           &[value="1"]::before {
             content: attr(data-phase);
             @include transformX(-7px);
-
           }
           &[value="2"]::before {
             content: attr(data-phase);
@@ -179,27 +191,6 @@
           }
         }
       }
-    }
-  }
-
-  &-button {
-    margin-top: 10px;
-  }
-  .show {
-    width: 100%;
-  }
-  .button-container {
-    position: absolute;
-    bottom: 0;
-    background: $white;
-    width: 100%;
-    text-align: center;
-    padding: 10px;
-    box-sizing: border-box;
-    margin: 0px;
-    .btn {
-      display: inline-block;
-      margin: 0px;
     }
   }
 }

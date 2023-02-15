@@ -3,7 +3,6 @@ import Router from "vue-router";
 import content from "@/components/container/container.vue";
 import indicatorsInfoComp from "@/components/indicatorsInfo/indicators-info.vue";
 import headerComp from "@/components/header/header.vue";
-import autoSearch from "@/components/auto-search/auto-search.vue";
 import languageSelector from "@/components/language-selector/language-selector.vue";
 import footerComp from "@/components/footer/footer.vue";
 import countryProfile from "@/components/countryProfile/country-profile.vue";
@@ -35,7 +34,6 @@ export default new Router({
           path: "map",
           components: {
             routecontent: landingMap,
-            search: autoSearch,
             languageSelect: languageSelector,
           },
           children: [

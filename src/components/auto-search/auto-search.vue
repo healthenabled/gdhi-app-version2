@@ -46,7 +46,10 @@ export default Vue.extend({
 </script>
 
 <template>
-  <div class="search-box hd-element" ref="autocomplete">
+  <div class="search-box" ref="autocomplete">
+    <div class="search-box-header">
+      Search Country
+    </div>
     <autocomplete
       id="search-box"
       :source="countries"
