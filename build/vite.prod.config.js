@@ -44,14 +44,14 @@ export default defineConfig({
       targets: ["ie >= 11"],
       additionalLegacyPolyfills: ["regenerator-runtime/runtime"],
     }),
-    // viteStaticCopy({
-    //   targets: [
-    //     {
-    //       src: "./src/assets/countries_modified.json",
-    //       dest: "data/",
-    //     },
-    //   ],
-    // }),
+    viteStaticCopy({
+      targets: [
+        {
+          src: "./src/assets/countries_modified.json",
+          dest: "data/",
+        },
+      ],
+    }),
   ],
   resolve: {
     alias: {
