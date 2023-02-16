@@ -26,7 +26,7 @@ export default {
         container.type = "button";
         container.id = "reset-btn";
         container.innerHTML =
-          '<img src="/img/zoomReset.svg" height="30" width="30" />';
+          '<img src="/static/img/zoomReset.svg" height="30" width="30" />';
         container.onclick = function () {
           self.resetMap(postClickCallBack);
         };
@@ -59,14 +59,16 @@ export default {
     L.control
       .zoom({
         position: "bottomright",
-        zoomInText: '<img src="/img/zoomIn.svg" height="30" width="30"/>',
-        zoomOutText: '<img src="/img/zoomOut.svg" height="30" width="30"/>',
+        zoomInText:
+          '<img src="/static/img/zoomIn.svg" height="30" width="30"/>',
+        zoomOutText:
+          '<img src="/static/img/zoomOut.svg" height="30" width="30"/>',
         zoomOutTitle: i18n.t("worldMap.zoomOut"),
       })
       .addTo(this.map);
     this.map.addControl(new ResetButton());
     if (!self.countriesData) {
-      axios.get("/data/countries_modified.json").then(function (response) {
+      axios.get("/static/data/countries_modified.json").then(function (response) {
         self.countriesData = response.data;
         const mapLoader = document.querySelector(".loader");
         if (mapLoader) mapLoader.style.display = "none";
@@ -101,7 +103,6 @@ export default {
           fillColor: fillColorCode,
           fillOpacity: 1,
           id: feature.id,
-
         };
       },
       onEachFeature(feature, layer) {

@@ -7,7 +7,7 @@ import common from "../../common/common";
 import indicatorFilter from "../indicatorFilter/indicator-filter.vue";
 import phaseFilter from "../phaseFilter/phase-filter.vue";
 import autoSearch from "../auto-search/auto-search.vue";
-import {EVENTS} from "../../constants";
+import { EVENTS } from "../../constants";
 
 export default Vue.extend({
   name: "IndicatorPanel",
@@ -217,7 +217,7 @@ export default Vue.extend({
           <span
             class="indicator-panel-container-category-section-name-phase-and-icon"
           >
-            <img src="/indicator-icons/overAll.svg" />
+            <img src="/static/indicator-icons/overAll.svg" />
             <div
               class="indicator-panel-container-category-section-name-and-phase"
             >
@@ -250,7 +250,7 @@ export default Vue.extend({
           <span
             class="indicator-panel-container-category-section-name-phase-and-icon"
           >
-            <img :src="`/indicator-icons/${category.id}.svg`" />
+            <img :src="`/static/indicator-icons/${category.id}.svg`" />
             <div
               class="indicator-panel-container-category-section-name-and-phase"
             >
@@ -287,7 +287,7 @@ export default Vue.extend({
           <span
             class="indicator-panel-container-category-section-name-phase-and-icon"
           >
-            <img src="/indicator-icons/overAll.svg" />
+            <img src="/static/indicator-icons/overAll.svg" />
             <div
               class="indicator-panel-container-category-section-name-and-phase"
             >
@@ -318,7 +318,7 @@ export default Vue.extend({
           <span
             class="indicator-panel-container-category-section-name-phase-and-icon"
           >
-            <img :src="`/indicator-icons/${category.id}.svg`" />
+            <img :src="`/static/indicator-icons/${category.id}.svg`" />
             <div
               class="indicator-panel-container-category-section-name-and-phase"
             >

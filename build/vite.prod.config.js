@@ -48,7 +48,7 @@ export default defineConfig({
       targets: [
         {
           src: "./src/assets/countries_modified.json",
-          dest: "data/",
+          dest: "static/data/",
         },
       ],
     }),
