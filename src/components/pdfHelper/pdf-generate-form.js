@@ -1,6 +1,5 @@
 import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
 
-
 const hexToRgb = (h) => {
   let r = 0,
     g = 0,
@@ -36,15 +35,15 @@ export async function generateFormPDF(
   );
 
   let page = pdfDoc.addPage();
-  const handlePagination = () =>{
-    if (page.getY()<=70){
+  const handlePagination = () => {
+    if (page.getY() <= 70) {
       page = pdfDoc.addPage();
       page.moveTo(70, page.getHeight() - 60);
     }
-  }
+  };
   const title = i18n.t("healthIndicatorQuestionnaire.pdfTitle", {
-      country: countrySummary.countryName,
-    });
+    country: countrySummary.countryName,
+  });
   page.moveTo(70, page.getHeight() - 60);
 
   page.drawText(title, {
@@ -53,27 +52,29 @@ export async function generateFormPDF(
     lineHeight: 20,
     maxWidth: 480,
   });
-   page.moveDown(40);
-   const contact =i18n.t("healthIndicatorQuestionnaire.contactForm.contactInformation");
-   page.drawText(contact,{
+  page.moveDown(40);
+  const contact = i18n.t(
+    "healthIndicatorQuestionnaire.contactForm.contactInformation"
+  );
+  page.drawText(contact, {
     font: helveticaFont,
-    size : 16,
+    size: 16,
     lineHeight: 16,
-   });
-   page.moveDown(20);
-   
+  });
+  page.moveDown(20);
+
   const moveDownAndPopulateData = (i18nText, summaryData) => {
     page.moveDown(1);
     page.drawText(i18n.t(i18nText), {
       font: helveticaBoldFont,
       size: 12,
-      lineHeight:12,
+      lineHeight: 12,
     });
     page.moveDown(20);
     page.drawText(summaryData || "-", {
       font: helveticaFont,
       size: 12,
-      lineHeight:12,
+      lineHeight: 12,
     });
   };
   page.moveDown(20);
@@ -138,7 +139,7 @@ export async function generateFormPDF(
     i18n.t("healthIndicatorQuestionnaire.resourceForm.resourceInformation"),
     {
       size: 16,
-      lineHeight:16,
+      lineHeight: 16,
       font: helveticaBoldFont,
       // TODO: Explore adding of underline
     }
@@ -146,25 +147,26 @@ export async function generateFormPDF(
   page.moveDown(20);
 
   if (countrySummary.resources.length === 0)
-    page.drawText("-", { 
+    page.drawText("-", {
       size: 12,
-      lineHeight:12,
-      font: helveticaFont });
+      lineHeight: 12,
+      font: helveticaFont,
+    });
 
   for (let i = 0; i < countrySummary.resources.length; i++) {
     page.drawText(countrySummary.resources[i] || "-", {
       size: 12,
-      lineHeight:12,
+      lineHeight: 12,
       font: helveticaFont,
     });
   }
-  
-    page.moveDown(20);
-    page = pdfDoc.addPage();
-    page.moveTo(70, page.getHeight() - 80);
-    page.drawText(i18n.t("healthIndicatorQuestionnaire.indicatorDetails"), {
+
+  page.moveDown(20);
+  page = pdfDoc.addPage();
+  page.moveTo(70, page.getHeight() - 80);
+  page.drawText(i18n.t("healthIndicatorQuestionnaire.indicatorDetails"), {
     size: 16,
-    lineHeight:16,
+    lineHeight: 16,
     font: helveticaBoldFont,
     // TODO: Explore adding of underline
   });
@@ -173,7 +175,7 @@ export async function generateFormPDF(
     page.moveDown(30);
     page.drawText(category.categoryName, {
       size: 16,
-      lineHeight:16,
+      lineHeight: 16,
       font: helveticaBoldObliqueFont,
       // TODO: Explore adding of underline
     });
@@ -184,8 +186,8 @@ export async function generateFormPDF(
       page.drawText(`${indicator.indicatorCode}. ${indicator.indicatorName}`, {
         x: 72,
         size: 12,
-        maxWidth:500,
-        lineHeight:12,
+        maxWidth: 500,
+        lineHeight: 12,
         font: helveticaFont,
         color: hexToRgb("#666"),
       });
@@ -195,13 +197,13 @@ export async function generateFormPDF(
       handlePagination();
       page.drawText(indicator.indicatorDefinition, {
         size: 10,
-        maxWidth:420,
-        lineHeight:10,
+        maxWidth: 420,
+        lineHeight: 10,
         font: helveticaBoldObliqueFont,
         color: hexToRgb("#666"),
       });
       page.moveDown(20 + Math.ceil(indicatorDefinitionLength / 104) * 15);
-      
+
       handlePagination();
       indicator.scores.forEach((score) => {
         const fillColor =
@@ -222,11 +224,11 @@ export async function generateFormPDF(
         const scoreDefinitionLength = score.scoreDefinition.length;
         page.drawText(score.scoreDefinition, {
           font: helveticaFont,
-          x:page.getX()+20,
-          y:page.getY()-3,
-          size:12,
-          lineHeight:12,
-          maxWidth:420,
+          x: page.getX() + 20,
+          y: page.getY() - 3,
+          size: 12,
+          lineHeight: 12,
+          maxWidth: 420,
           color: hexToRgb("#000"),
         });
         handlePagination();
@@ -237,17 +239,18 @@ export async function generateFormPDF(
 
       page.drawText(
         i18n.t("healthIndicatorQuestionnaire.rationaleOrSupportingText"),
-        { 
-          size:12,
-          lineHeight:12,
-          font: helveticaBoldFont }
+        {
+          size: 12,
+          lineHeight: 12,
+          font: helveticaBoldFont,
+        }
       );
       page.moveDown(20);
       page.drawText(
         healthIndicators[indicator.indicatorId].supportingText || "-",
         {
-          size:12,
-          lineHeight:12,
+          size: 12,
+          lineHeight: 12,
           font: helveticaFont,
         }
       );
@@ -255,7 +258,7 @@ export async function generateFormPDF(
       handlePagination();
     });
   });
-  console.log("Indicators ended -!>")
+  console.log("Indicators ended -!>");
 
   const pdfBytes = await pdfDoc.save();
 

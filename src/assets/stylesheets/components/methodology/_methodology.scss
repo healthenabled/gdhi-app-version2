@@ -1,7 +1,8 @@
 @import "./../../rtl-support";
 
 .methodology {
-  .methodology-title, .header-bold {
-    @include font-bold
+  .methodology-title,
+  .header-bold {
+    @include font-bold;
   }
 }

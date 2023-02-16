@@ -68,17 +68,19 @@ export default {
       .addTo(this.map);
     this.map.addControl(new ResetButton());
     if (!self.countriesData) {
-      axios.get("/static/data/countries_modified.json").then(function (response) {
-        self.countriesData = response.data;
-        const mapLoader = document.querySelector(".loader");
-        if (mapLoader) mapLoader.style.display = "none";
-        return self.addMapToLeaflet(
-          self,
-          response.data,
-          healthData,
-          postClickCallBack
-        );
-      });
+      axios
+        .get("/static/data/countries_modified.json")
+        .then(function (response) {
+          self.countriesData = response.data;
+          const mapLoader = document.querySelector(".loader");
+          if (mapLoader) mapLoader.style.display = "none";
+          return self.addMapToLeaflet(
+            self,
+            response.data,
+            healthData,
+            postClickCallBack
+          );
+        });
     } else {
       const mapLoader = document.querySelector(".loader");
       if (mapLoader) mapLoader.style.display = "none";

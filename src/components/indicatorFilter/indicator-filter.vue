@@ -3,7 +3,7 @@ import Vue from "vue";
 import axios from "axios";
 import common from "../../common/common";
 import { EventBus } from "../common/event-bus";
-import {EVENTS} from "../../constants";
+import { EVENTS } from "../../constants";
 
 export default Vue.extend({
   name: "IndicatorFilter",
@@ -22,7 +22,7 @@ export default Vue.extend({
   mounted: function () {
     EventBus.$on("Reset:Filters", () => {
       this.resetFilters();
-    })
+    });
   },
 
   methods: {
@@ -31,7 +31,7 @@ export default Vue.extend({
         categoryId: this.categoryValue,
       });
       EventBus.$emit(EVENTS.INDICATOR_FILTERED);
-  },
+    },
 
     resetFilters: function () {
       this.categoryValue = "";

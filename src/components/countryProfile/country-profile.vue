@@ -19,7 +19,6 @@ export default Vue.extend({
         countryPhase: "NA",
         categories: [],
       },
-      flagSrc: "",
       url: "",
       benchmarkData: {},
       benchmarkPhase: "",
@@ -71,10 +70,7 @@ export default Vue.extend({
     healthIndicatorCallback(response) {
       this.healthIndicatorData = response.data;
       this.updateCollectedDate(this.healthIndicatorData.collectedDate);
-      this.flagSrc = new URL(
-        `../../assets/img/flags/${response.data.countryAlpha2Code.toLowerCase()}.svg`,
-        import.meta.url
-      ).href;
+
       this.initialise();
     },
     onCategoryExpand(category) {
@@ -173,7 +169,12 @@ export default Vue.extend({
         <div class="country-name page-title">
           <div
             class="flag"
-            :style="{ backgroundImage: 'url(' + flagSrc + ')' }"
+            :style="{
+              backgroundImage:
+                'url(' +
+                `/static/img/flags/${this.healthIndicatorData?.countryAlpha2Code?.toLowerCase()}.svg` +
+                ')',
+            }"
           ></div>
           {{ healthIndicatorData.countryName }}
         </div>

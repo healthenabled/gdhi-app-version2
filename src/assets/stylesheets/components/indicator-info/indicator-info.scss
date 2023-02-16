@@ -9,12 +9,12 @@
     position: absolute;
     top: -100px;
   }
-  .accordion{
+  .accordion {
     margin-top: 20px;
     &:after {
       z-index: 2;
       color: $white;
-     @include right(20px);
+      @include right(20px);
     }
     .sub-header {
       background-color: $logo-blue;
@@ -25,7 +25,7 @@
   .score {
     max-width: 90%;
     margin: 10px auto;
-    background: #FFF;
+    background: #fff;
     box-shadow: 0px 0px 1px 1.5px rgba($shadow-grey, 0.3);
     span {
       display: table-cell;
@@ -51,7 +51,8 @@
   line-height: 1.5;
   margin-bottom: 20px;
 }
-.indicator-id, .indicator-name {
+.indicator-id,
+.indicator-name {
   display: inline-block;
   vertical-align: top;
   color: $logo-blue;

@@ -2,7 +2,7 @@
 import Vue from "vue";
 import axios from "axios";
 import { EventBus } from "../common/event-bus";
-import {EVENTS} from "../../constants";
+import { EVENTS } from "../../constants";
 
 export default Vue.extend({
   name: "phaseFilter",
@@ -21,7 +21,7 @@ export default Vue.extend({
   mounted: function () {
     EventBus.$on("Reset:Filters", () => {
       this.resetFilters();
-    })
+    });
   },
 
   methods: {

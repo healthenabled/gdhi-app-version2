@@ -1,4 +1,4 @@
-@import './../../rtl-support';
+@import "./../../rtl-support";
 
 $width-of-scoreCard-en: 150px;
 $width-of-scoreCard-es: 200px;
@@ -28,12 +28,15 @@ $width-of-scoreCard-es: 200px;
     flex-shrink: 0;
     text-align: center;
 
-    &.en, &.pt, &.ar {
+    &.en,
+    &.pt,
+    &.ar {
       width: $width-of-scoreCard-en;
     }
   }
 
-  .score, .indicator-score {
+  .score,
+  .indicator-score {
     padding: 10px;
     color: $white;
     text-align: center;
@@ -51,7 +54,8 @@ $width-of-scoreCard-es: 200px;
     }
   }
 
-  .indicator-desc, .indicator-name {
+  .indicator-desc,
+  .indicator-name {
     vertical-align: middle;
     padding: 10px 0;
     @include margin-right(10px);
@@ -60,16 +64,18 @@ $width-of-scoreCard-es: 200px;
     flex-grow: 1;
   }
 
-  .score-container, .indicator-score-heading {
+  .score-container,
+  .indicator-score-heading {
     flex-grow: 0;
     flex-shrink: 0;
     width: $width-of-scoreCard-es;
     text-align: center;
 
-    &.en, &.pt, &.ar {
+    &.en,
+    &.pt,
+    &.ar {
       width: $width-of-scoreCard-en;
     }
-
   }
 
   .indicator-id {
@@ -155,7 +161,6 @@ $width-of-scoreCard-es: 200px;
 
   &.at {
     color: $font-grey;
-
   }
 
   &.above {
@@ -180,11 +185,9 @@ $width-of-scoreCard-es: 200px;
   }
 }
 
-
 //To print the appropriate content
 @media print {
   .country-detail {
-
     #collected-date {
       display: block;
       position: unset;
@@ -212,6 +215,6 @@ $width-of-scoreCard-es: 200px;
   }
 
   .accordion.expanded:after {
-    content: '';
+    content: "";
   }
 }

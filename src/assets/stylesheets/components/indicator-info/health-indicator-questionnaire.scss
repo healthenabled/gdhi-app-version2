@@ -46,7 +46,6 @@
 }
 
 .health-indicator-questionnaire {
-
   .radio-container {
     display: block;
     position: relative;
@@ -130,7 +129,9 @@
     z-index: 2;
   }
 
-  .pdf-title, .pdf-resource, .pdf-rationale-or-supporting-text {
+  .pdf-title,
+  .pdf-resource,
+  .pdf-rationale-or-supporting-text {
     display: none;
   }
 
@@ -187,12 +188,14 @@
       margin-top: 5px;
     }
   }
-
 }
 
 @media print {
   .health-indicator-questionnaire {
-    input[type='text'], input[type='email'], input[type='date'], textarea {
+    input[type="text"],
+    input[type="email"],
+    input[type="date"],
+    textarea {
       border: unset !important;
       background: unset !important;
       opacity: 1 !important;
@@ -226,7 +229,7 @@
     .pdf-title {
       display: block;
       margin-top: 20px;
-      font-family: 'RobotoSlabBold', 'sans-serif';
+      font-family: "RobotoSlabBold", "sans-serif";
       font-size: 2.14em;
     }
 
@@ -251,7 +254,11 @@
       margin-bottom: 0;
     }
 
-    .questionnaire-title, .note, .button-container, .fa-eye-slash:before, .fa-eye:before {
+    .questionnaire-title,
+    .note,
+    .button-container,
+    .fa-eye-slash:before,
+    .fa-eye:before {
       display: none;
     }
 
@@ -261,10 +268,10 @@
 
     .contact-info label {
       font-size: 1.1em;
-      font-weight: bold
+      font-weight: bold;
     }
   }
   .fa-chevron-circle-up:before {
-    content: '';
+    content: "";
   }
 }
