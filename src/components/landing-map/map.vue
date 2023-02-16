@@ -7,7 +7,7 @@ import worldMap from "./world-map";
 import helper from "./map-helper";
 import { merge } from "lodash";
 import common from "../../common/common";
-import {EVENTS} from "../../constants"
+import { EVENTS } from "../../constants";
 
 export default Vue.extend({
   components: {
