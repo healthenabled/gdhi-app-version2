@@ -2,6 +2,7 @@
   "name": "gdhi-app-clone",
   "version": "0.0.0",
   "scripts": {
+    "startmockserver": "node src/mocks/startWorker.mjs",
     "postinstall": "node build/pre_install.mjs",
     "predev": "node build/check_version.mjs",
     "dev": "vite --config build/vite.dev.config.js",
@@ -50,6 +51,7 @@
     "execa": "^6.1.0",
     "flush-promises": "^1.0.2",
     "jsdom": "^20.0.0",
+    "msw": "^1.0.1",
     "prettier": "^2.5.1",
     "rollup-plugin-uglify": "^6.0.4",
     "rollup-plugin-visualizer": "^5.9.0",
@@ -63,5 +65,8 @@
     "vitest": "^0.18.1",
     "vue-template-compiler": "^2.7.7"
   },
-  "packageManager": "yarn@3.4.1"
+  "packageManager": "yarn@3.4.1",
+  "msw": {
+    "workerDirectory": "public"
+  }
 }
