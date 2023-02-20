@@ -28,6 +28,8 @@ export const fr = {
     noData: "Aucune donnée",
     serverErrorTitle: "Erreur de serveur",
     loading: "Chargement",
+    selectYear:
+      "Sélectionnez l'année pour laquelle la date doit être affichée sur la page d'accueil",
   },
   footer: {
     contactEmail: "Contact: info@digitalhealthindex.org",

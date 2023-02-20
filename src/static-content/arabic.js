@@ -28,6 +28,7 @@ export const ar = {
     noData: "لايوجد بيانات",
     serverErrorTitle: "خطأ في خادم الكمبيوتر",
     loading: "جارٍ تحميل",
+    selectYear: "حدد السنة التي سيتم عرض التاريخ فيها على الصفحة الرئيسية",
   },
   footer: {
     contactEmail: "الاتصال: info@digitalhealthindex.org",
