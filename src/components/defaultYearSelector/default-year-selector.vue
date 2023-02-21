@@ -40,7 +40,7 @@ export default Vue.extend({
     setDefaultYear: function () {
       const self = this;
       axios
-        .post("/admin/default_year/submit", self.defaultYear)
+        .post("/api/default_year/submit", self.defaultYear)
         .then((response) => {
           window.appProperties.setDefaultYear({
             defaultYear: this.defaultYear,
