@@ -242,7 +242,7 @@ export default Vue.extend({
           ></div>
         </div>
         <div
-          v-if="isListOfCategoriesApplicable"
+          v-if="isListOfCategoriesApplicable && globalHealthIndicators.categories"
           v-for="(category, index) in globalHealthIndicators.categories"
           :key="index"
           class="indicator-panel-container-category-section"
