@@ -20,33 +20,29 @@ export default Vue.extend({
   },
 
   mounted() {
-    EventBus.$on(EVENTS.YEAR_FILTERED, (value) => {
-      this.defaultYear = value;
+    EventBus.$on(EVENTS.YEAR_FILTERED, (filteredYear) => {
+      this.defaultYear = filteredYear;
     });
   },
 
   methods: {
     fetchYears: function () {
       const self = this;
-      axios
-        .get("/bff/distinctYears")
-        .then((response) => {
-          self.years = response.data.years;
-          self.defaultYear = response.data.defaultYear;
-        })
-        .catch(() => {
-          self.years = ["Version 1", "2022", "2023"];
-          self.defaultYear = "Version 1";
-        });
+      axios.get("/bff/distinctYears").then(({ data }) => {
+        self.years = data.years;
+        self.defaultYear = data.defaultYear;
+      });
     },
 
-    setDefaultYear: () => {
-      axios.post("/api/phases", { data: this.defaultYear }).then((response) => {
-        window.appProperties.setDefaultYear({
-          defaultYear: response.data.defaultYear,
+    setDefaultYear: function () {
+      const self = this;
+      axios
+        .post("/api/phases", { defaultYear: self.defaultYear })
+        .then((response) => {
+          window.appProperties.setDefaultYear({
+            defaultYear: this.defaultYear,
+          });
         });
-        this.defaultYear = response.data.defaultYear;
-      });
     },
   },
 });
