@@ -56,7 +56,7 @@ describe("year-filter", () => {
     submitButton.trigger("click");
     await flushPromises();
     expect(axiosPostSpy.mock.calls[0][0]).to.equal(
-      "/admin/default_year/submit"
+      "/api/default_year/submit"
     );
     expect(axiosPostSpy.mock.calls[0][1]).to.equal("2022");
 
