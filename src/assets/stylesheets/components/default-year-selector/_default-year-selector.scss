@@ -2,8 +2,6 @@
 
 .year-indicator {
   height: 100%;
-  margin-left: 40px;
-  margin-right: 40px;
 
   &-header {
     margin-top: 20px;
@@ -11,34 +9,30 @@
     font-weight: 700;
     font-size: 16px;
   }
+}
 
-  .year-indicator-select {
-    color: $cool-gray;
-    background-color: $white;
-    width: 320px;
-    height: 40px;
-    display: flex;
-    @include padding-left(20px);
-    border: $table-border;
-    //direction: rtl;
-    -webkit-appearance: none;
-    appearance: none;
-    -moz-appearance: none;
-  }
+.year-indicator-select {
+  color: $cool-gray;
+  background-color: $white;
+  width: 320px;
+  height: 40px;
+  @include padding-left(20px);
+  border: $table-border;
+  -webkit-appearance: none;
+  appearance: none;
+  -moz-appearance: none;
+}
 
-  /* IE11 hide native button */
-  select::-ms-expand {
-    display: none;
-  }
+/* IE11 hide native button */
+select::-ms-expand {
+  display: none;
 }
 
 .year-indicator:after {
-  @include margin-right(5px);
   content: "\F078";
   font: normal normal normal 12px/1 FontAwesome;
   color: #555;
   pointer-events: none;
   position: relative;
-  @include right(20px);
-  @include margin-right(0);
+  right: 20px;
 }
