@@ -24,7 +24,6 @@ export default {
 
   methods: {
     filter: (event) => {
-      console.log("Bubu", event);
       EventBus.$emit(EVENTS.YEAR_FILTERED, event.target.value);
     },
   },

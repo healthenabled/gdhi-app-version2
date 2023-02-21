@@ -34,8 +34,9 @@ describe("year-filter", () => {
     expect(wrapper.vm.$el).toMatchSnapshot();
   });
 
-  it("should call fetch years on mount", async () => {
-    expect(axiosGetSpy.mock.calls[0][0]).to.equal("/bff/distinctYears");
+  it("should call fetch years on mount and populate windows object", async () => {
+    expect(axiosGetSpy.mock.calls[0][0]).to.equal("/bff/distinct_years");
+    expect(setDefaultYearSpy.mock.calls[0][0].defaultYear).to.equal("2022");
   });
 
   it("register a listener on EventBus", async () => {
@@ -48,7 +49,7 @@ describe("year-filter", () => {
     expect(wrapper.vm.defaultYear).to.equal("a_default_year");
   });
 
-  it("trigger post API for default Year Change", async () => {
+  it("trigger post API for default Year Change and populate windows object", async () => {
     axiosPostSpy.mockResolvedValue({});
     const submitButton = wrapper.find(".btn");
 

@@ -15,10 +15,10 @@ window.appProperties = {
     this.filter.phaseId = opts.phaseId;
   },
   getDefaultYear() {
-    const yearValue = this.filter.yearValue;
-    return yearValue === undefined ? "" : yearValue;
+    const defaultYear = this.filter.defaultYear;
+    return defaultYear === undefined ? "" : defaultYear;
   },
   setDefaultYear(opts) {
-    this.filter.yearValue = opts.yearValue;
+    this.filter.defaultYear = opts.defaultYear;
   },
 };

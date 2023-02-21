@@ -28,9 +28,12 @@ export default Vue.extend({
   methods: {
     fetchYears: function () {
       const self = this;
-      axios.get("/bff/distinctYears").then(({ data }) => {
+      axios.get("/bff/distinct_years").then(({ data }) => {
         self.years = data.years;
         self.defaultYear = data.defaultYear;
+        window.appProperties.setDefaultYear({
+          defaultYear: this.defaultYear,
+        });
       });
     },
 
@@ -49,13 +52,13 @@ export default Vue.extend({
 </script>
 
 <template>
-  <div class="year-indicator">
-    <div class="year-indicator-header">
-      {{ $t("mixed.selectYear") }}
+  <div>
+    <div class="year-indicator">
+      <div class="year-indicator-header">
+        Select year for which date is to be displayed on the Homepage
+      </div>
+      <yearFilter :defaultYear="defaultYear" :years="years" />
     </div>
-    <yearFilter :defaultYear="defaultYear" :years="years" />
-    <button class="btn btn-primary" @click="setDefaultYear">
-      {{ $t("healthIndicatorQuestionnaire.submit") }}
-    </button>
+    <button class="btn btn-primary" @click="setDefaultYear">SUBMIT</button>
   </div>
 </template>
