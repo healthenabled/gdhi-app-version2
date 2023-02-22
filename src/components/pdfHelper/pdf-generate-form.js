@@ -64,17 +64,20 @@ export async function generateFormPDF(
   page.moveDown(20);
 
   const moveDownAndPopulateData = (i18nText, summaryData) => {
+    handlePagination();
     page.moveDown(1);
     page.drawText(i18n.t(i18nText), {
       font: helveticaBoldFont,
       size: 12,
       lineHeight: 12,
+      maxWidth: 480,
     });
     page.moveDown(20);
     page.drawText(summaryData || "-", {
       font: helveticaFont,
       size: 12,
       lineHeight: 12,
+      maxWidth: 480,
     });
   };
   page.moveDown(20);
@@ -141,6 +144,7 @@ export async function generateFormPDF(
       size: 16,
       lineHeight: 16,
       font: helveticaBoldFont,
+      maxWidth: 480,
       // TODO: Explore adding of underline
     }
   );
@@ -152,12 +156,13 @@ export async function generateFormPDF(
       lineHeight: 12,
       font: helveticaFont,
     });
-
+  handlePagination();
   for (let i = 0; i < countrySummary.resources.length; i++) {
     page.drawText(countrySummary.resources[i] || "-", {
       size: 12,
       lineHeight: 12,
       font: helveticaFont,
+      maxWidth: 480,
     });
   }
 
@@ -168,6 +173,8 @@ export async function generateFormPDF(
     size: 16,
     lineHeight: 16,
     font: helveticaBoldFont,
+    maxWidth: 480,
+
     // TODO: Explore adding of underline
   });
   page.moveDown(20);
@@ -177,6 +184,8 @@ export async function generateFormPDF(
       size: 16,
       lineHeight: 16,
       font: helveticaBoldObliqueFont,
+      maxWidth: 480,
+
       // TODO: Explore adding of underline
     });
 
@@ -258,7 +267,6 @@ export async function generateFormPDF(
       handlePagination();
     });
   });
-  console.log("Indicators ended -!>");
 
   const pdfBytes = await pdfDoc.save();
 
