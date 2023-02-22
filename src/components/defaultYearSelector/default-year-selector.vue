@@ -10,7 +10,8 @@ export default Vue.extend({
   components: { yearFilter },
   data() {
     return {
-      defaultYear: "",
+      filteredYear: "",
+      defaultYear: window.appProperties.getDefaultYear(),
       years: [],
     };
   },
@@ -21,29 +22,43 @@ export default Vue.extend({
 
   mounted() {
     EventBus.$on(EVENTS.YEAR_FILTERED, (filteredYear) => {
-      this.defaultYear = filteredYear;
+      this.filteredYear = filteredYear;
     });
   },
 
   methods: {
     fetchYears: function () {
       const self = this;
-      axios.get("/bff/distinct_years").then(({ data }) => {
+      axios.get("/api/bff/distinct_year").then(({ data }) => {
         self.years = data.years;
-        self.defaultYear = data.defaultYear;
+        this.defaultYear = data.defaultYear;
         window.appProperties.setDefaultYear({
-          defaultYear: this.defaultYear,
+          defaultYear: data.defaultYear,
         });
       });
     },
 
     setDefaultYear: function () {
       const self = this;
+
+      let payload;
+      if (self.filteredYear) {
+        payload = self.filteredYear;
+      } else {
+        if (self.years.includes(this.defaultYear)) {
+          payload = this.defaultYear;
+        } else {
+          payload = self.years[0];
+        }
+      }
+
       axios
-        .post("/api/default_year/submit", self.defaultYear)
-        .then((response) => {
+        .post("/api/default_year/submit", payload, {
+          headers: { "Content-Type": "text/plain" },
+        })
+        .then(() => {
           window.appProperties.setDefaultYear({
-            defaultYear: this.defaultYear,
+            defaultYear: this.filteredYear,
           });
         });
     },
@@ -57,7 +72,7 @@ export default Vue.extend({
       <div class="year-indicator-header">
         Select year for which date is to be displayed on the Homepage
       </div>
-      <yearFilter :defaultYear="defaultYear" :years="years" />
+      <yearFilter :selected-year="defaultYear" :years="years" />
     </div>
     <button class="btn btn-primary" @click="setDefaultYear">SUBMIT</button>
   </div>

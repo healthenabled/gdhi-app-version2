@@ -3,7 +3,7 @@
     class="year-indicator-select"
     @change="filter"
     name="test_select3"
-    :value="defaultYearValue"
+    :value="selectedYear"
   >
     <option v-for="(year, index) in years" :key="index" :value="year">
       {{ year }}
@@ -19,7 +19,7 @@ export default {
   name: "yearFilter",
   props: {
     years: Array,
-    defaultYearValue: String,
+    selectedYear: String,
   },
 
   methods: {
