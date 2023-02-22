@@ -4,6 +4,7 @@ import axios from "axios";
 import common from "../../common/common";
 import { EventBus } from "../common/event-bus";
 import { EVENTS } from "../../constants";
+import { LayoutDirectionConfig } from "../../plugins/i18n";
 
 export default Vue.extend({
   name: "IndicatorFilter",
@@ -40,6 +41,10 @@ export default Vue.extend({
       EventBus.$emit(EVENTS.INDICATOR_FILTERED);
     },
 
+    getDirection: function () {
+      return LayoutDirectionConfig[this.locale];
+    },
+
     resetFilters: function () {
       this.categoryValue = "";
       this.filter();
@@ -70,9 +75,14 @@ export default Vue.extend({
       v-model="categoryValue"
       @change="filter()"
       name="test_select1"
+      :style="`direction: ${getDirection()}`"
     >
       <option value="">{{ $t("mixed.textOverAll") }}</option>
-      <option v-for="category in categories" v-bind:value="category.categoryId">
+      <option
+        v-for="(category, index) in categories"
+        :value="category.categoryId"
+        :key="index"
+      >
         {{ category.categoryName }}
       </option>
     </select>
