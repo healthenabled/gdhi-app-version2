@@ -10,7 +10,7 @@ describe("year-filter", () => {
     wrapper = shallowMount(yearFilter, {
       propsData: {
         years: ["Version 1", "2022", "2023"],
-        defaultYearValue: "2022",
+        selectedYear: "2022",
       },
     });
   });
