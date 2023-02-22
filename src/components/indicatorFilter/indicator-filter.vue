@@ -25,6 +25,13 @@ export default Vue.extend({
     });
   },
 
+  updated() {
+    if (this.locale !== this.$i18n.locale) {
+      this.fetchCategoricalIndicators();
+    }
+    this.locale = this.$i18n.locale;
+  },
+
   methods: {
     filter: function () {
       window.appProperties.setCategoryFilter({

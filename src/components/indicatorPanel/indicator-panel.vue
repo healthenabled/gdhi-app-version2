@@ -51,24 +51,6 @@ export default Vue.extend({
     }
   },
   updated() {
-    console.log("showCountryDetail", this.showCountryDetail);
-    console.log(
-      "globalHealthIndicators.overallCountryScore ||\n" +
-        "          isListOfCategoriesApplicable",
-      this.globalHealthIndicators.overallCountryScore ||
-        this.isListOfCategoriesApplicable
-    );
-    console.log(
-      "globalHealthIndicators.overallCountryScore && !categoryFilter",
-      this.globalHealthIndicators.overallCountryScore && !this.categoryFilter
-    );
-
-    console.log(
-      "isListOfCategoriesApplicable &&\n" +
-        "            globalHealthIndicators.categories.length",
-      this.isListOfCategoriesApplicable &&
-        this.globalHealthIndicators.categories.length
-    );
     if (this.locale !== this.$i18n.locale) {
       this.getGlobalHealthIndicators();
       if (this.country.countryCode) {

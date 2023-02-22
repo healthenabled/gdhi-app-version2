@@ -24,6 +24,13 @@ export default Vue.extend({
     });
   },
 
+  updated() {
+    if (this.locale !== this.$i18n.locale) {
+      this.fetchPhases();
+    }
+    this.locale = this.$i18n.locale;
+  },
+
   methods: {
     filter: function () {
       window.appProperties.setPhaseFilter({ phaseId: this.phaseValue });
