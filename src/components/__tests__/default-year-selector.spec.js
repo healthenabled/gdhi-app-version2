@@ -45,9 +45,9 @@ describe("year-filter", () => {
     expect(eventBusOnSpy.mock.calls[0][0]).to.equal("year:filtered");
   });
 
-  it.skip("register a listener on EventBus which sets default year", async () => {
+  it("register a listener on EventBus which sets default year", async () => {
     eventBusOnSpy.mock.calls[0][1]("a_default_year");
-    expect(wrapper.vm.defaultYear).to.equal("a_default_year");
+    expect(wrapper.vm.filteredYear).to.equal("a_default_year");
   });
 
   it("trigger post API for default Year Change and populate windows object", async () => {
