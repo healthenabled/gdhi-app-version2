@@ -17,7 +17,7 @@
     justify-content: flex-start;
     align-items: center;
     height: 90px;
-    @include padding-left(20px);
+    @include padding-left(0.8vw);
     //z-index: 2;
     //font-size: 12px;
   }
@@ -67,12 +67,14 @@
       align-items: center;
 
       &-section {
-        min-width: 320px;
+        width: 16vw;
         margin-top: 15px;
-        margin-right: 55px;
+        @include margin-right(2.5vw);
+        @include margin-left(0.5vw);
 
         &-name-phase-and-icon {
           text-transform: uppercase;
+          height: 50px;
           @include margin-left(10px);
           @extend .sub-header;
           display: flex;

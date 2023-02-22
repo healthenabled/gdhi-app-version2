@@ -2,7 +2,9 @@
 
 .filter-indicator {
   height: 100%;
-  @include margin-left(10px);
+  width: 16vw;
+  @include margin-right(2.5vw);
+  @include margin-left(0.5vw);
 
   &-header {
     margin-top: 20px;
@@ -15,7 +17,7 @@
 .filter-indicator-select {
   color: $cool-gray;
   background-color: $white;
-  width: 320px;
+  width: 100%;
   height: 40px;
   @include padding-left(20px);
   @include padding-right(20px);
