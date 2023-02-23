@@ -69,11 +69,18 @@ export default Vue.extend({
 <template>
   <div>
     <div class="year-indicator">
-      <div class="year-indicator-header">
+      <div class="header-bold">
         Select year for which date is to be displayed on the Homepage
       </div>
+
       <yearFilter :selected-year="defaultYear" :years="years" />
     </div>
-    <button class="btn btn-primary" @click="setDefaultYear">SUBMIT</button>
+    <button
+      class="btn btn-primary"
+      @click="setDefaultYear"
+      style="margin-left: 1vw"
+    >
+      SUBMIT
+    </button>
   </div>
 </template>

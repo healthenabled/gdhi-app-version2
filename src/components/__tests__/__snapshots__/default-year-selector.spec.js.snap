@@ -6,7 +6,7 @@ exports[`year-filter > should render default Year Selector 1`] = `
     class="year-indicator"
   >
     <div
-      class="year-indicator-header"
+      class="header-bold"
     >
        Select year for which date is to be displayed on the Homepage 
     </div>
@@ -17,8 +17,9 @@ exports[`year-filter > should render default Year Selector 1`] = `
   </div>
   <button
     class="btn btn-primary"
+    style="margin-left: 1vw;"
   >
-    SUBMIT
+     SUBMIT 
   </button>
 </div>
 `;
