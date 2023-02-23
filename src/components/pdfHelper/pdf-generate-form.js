@@ -34,6 +34,28 @@ export async function generateFormPDF(
     StandardFonts.HelveticaBoldOblique
   );
 
+  const breakTextIntoLines = (text, size, font, maxWidth) => {
+    const lines = [];
+    let textIdx = 0;
+    while (textIdx < text.length) {
+      let line = "";
+      while (textIdx < text.length) {
+        if (text.charAt(textIdx) === "\n") {
+          lines.push(line);
+          textIdx += 1;
+          line = "";
+          continue;
+        }
+        const newLine = line + text.charAt(textIdx);
+        if (font.widthOfTextAtSize(newLine, size) > maxWidth) break;
+        line = newLine;
+        textIdx += 1;
+      }
+      lines.push(line);
+    }
+    return lines.length;
+  };
+
   let page = pdfDoc.addPage();
   const handlePagination = () => {
     if (page.getY() <= 70) {
@@ -45,7 +67,6 @@ export async function generateFormPDF(
     country: countrySummary.countryName,
   });
   page.moveTo(70, page.getHeight() - 60);
-
   page.drawText(title, {
     font: helveticaBoldFont,
     size: 20,
@@ -60,6 +81,7 @@ export async function generateFormPDF(
     font: helveticaFont,
     size: 16,
     lineHeight: 16,
+    maxWidth:480,
   });
   page.moveDown(20);
 
@@ -131,23 +153,96 @@ export async function generateFormPDF(
     "healthIndicatorQuestionnaire.contactForm.organisationOfTheCountryContact",
     countrySummary.contactOrganization
   );
+  
   page.moveDown(20);
-  moveDownAndPopulateData(
-    "healthIndicatorQuestionnaire.contactForm.countrySummary",
-    countrySummary.summary
-  );
-
+  page.drawText(i18n.t("healthIndicatorQuestionnaire.contactForm.countrySummary"), {
+    font: helveticaBoldFont,
+    size: 12,
+    lineHeight: 12,
+    maxWidth: 480,
+  });
   page.moveDown(20);
+  const currentY = page.getY();
+    const maxY = 30;
+    const heightOfOneLine = helveticaFont.heightAtSize(14);
+    const numberOfLinesThatCanFit = Math.ceil(
+       (currentY - maxY) / heightOfOneLine
+     );
+  const firstPartOfLines = countrySummary.summary.slice(0, numberOfLinesThatCanFit*65);
+      const secondPartOfLines =countrySummary.summary.slice(numberOfLinesThatCanFit*65,countrySummary.summary.length);
+  if (countrySummary.summary) {
+    
+    const linesToWrite = breakTextIntoLines(
+      countrySummary.summary,
+      14,
+      helveticaFont,
+      480
+    );
+    if (linesToWrite.length < numberOfLinesThatCanFit) { //lines fit in one page
+      page.drawText(countrySummary.summary, {
+        size: 14,
+        font: helveticaFont,
+        color: hexToRgb("#000"),
+        maxWidth: 480,
+        lineHeight: 14,
+      });    
+    } 
+    else { //and lines will overflow in this case.Hence we need delimiters
+     const delimiter =
+        countrySummary.summary[numberOfLinesThatCanFit *65] === " " ? null : "-";
+      page.drawText(
+        firstPartOfLines+delimiter,
+        {
+          size: 14,
+          font: helveticaFont,
+          color: hexToRgb("#000"),
+          maxWidth: 480,
+          lineHeight: 14,
+        }
+      );
+      
+      page = pdfDoc.addPage();
+      page.moveTo(70, page.getHeight() - 60);
+      page.drawText(
+        delimiter +
+        secondPartOfLines,
+        {
+          size: 14,
+          font: helveticaFont,
+          color: hexToRgb("#000"),
+          maxWidth: 480,
+          lineHeight: 14,
+        }
+      );
+    }
+    const margin= secondPartOfLines.length/70;
+    page.moveDown(margin*14 + 40);
+  } else {
+    console.log("Here!")
+    page.drawText("-", {
+      size: 14,
+      font: helveticaFont,
+      color: hexToRgb("#000"),
+      x: 50,
+      y: page.getY(),
+      maxWidth: 480,
+      lineHeight: 14,
+    });
+    page.moveDown(20);
+  }
   page.drawText(
     i18n.t("healthIndicatorQuestionnaire.resourceForm.resourceInformation"),
     {
       size: 16,
+      x: 70,
+      y: page.getY(),
       lineHeight: 16,
       font: helveticaBoldFont,
       maxWidth: 480,
       // TODO: Explore adding of underline
     }
   );
+  console.log("Added new logic");
   page.moveDown(20);
 
   if (countrySummary.resources.length === 0)
@@ -198,7 +293,6 @@ export async function generateFormPDF(
         maxWidth: 500,
         lineHeight: 12,
         font: helveticaFont,
-        color: hexToRgb("#666"),
       });
       page.moveDown(40);
 
@@ -253,7 +347,7 @@ export async function generateFormPDF(
           lineHeight: 12,
           font: helveticaBoldFont,
         }
-      );
+    );
       page.moveDown(20);
       page.drawText(
         healthIndicators[indicator.indicatorId].supportingText || "-",
@@ -261,6 +355,7 @@ export async function generateFormPDF(
           size: 12,
           lineHeight: 12,
           font: helveticaFont,
+          maxWidth:480
         }
       );
       page.moveDown(20);
