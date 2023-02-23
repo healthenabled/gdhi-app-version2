@@ -44,7 +44,7 @@ export default Vue.extend({
 
     resetFilters: function () {
       this.phaseValue = "";
-      this.filter();
+      window.appProperties.setPhaseFilter({ phaseId: this.phaseValue });
     },
 
     fetchPhases: function () {

@@ -42,25 +42,18 @@ export default Vue.extend({
           this.getGlobalHealthIndicators();
         }
       });
-      this.$parent.$on("filtered", () => {
+      // this.$parent.$on("filtered", () => {
+      //   this.getGlobalHealthIndicators();
+      // });
+      EventBus.$on(EVENTS.INDICATOR_FILTERED, () => {
         this.getGlobalHealthIndicators();
       });
-      EventBus.$on(EVENTS.INDICATOR_PANEL_FILTERED, () => {
+      EventBus.$on(EVENTS.PHASE_FILTERED, () => {
         this.getGlobalHealthIndicators();
       });
     }
   },
   updated() {
-    console.log("showCountryDetail", this.showCountryDetail);
-    console.log(
-      "healthIndicators.countryPhase || healthIndicators.categories",
-      this.healthIndicators.countryPhase || this.healthIndicators.categories
-    );
-
-    console.log(
-      "healthIndicators.countryPhase",
-      this.healthIndicators.countryPhase
-    );
     if (this.locale !== this.$i18n.locale) {
       this.getGlobalHealthIndicators();
       if (this.country.countryCode) {

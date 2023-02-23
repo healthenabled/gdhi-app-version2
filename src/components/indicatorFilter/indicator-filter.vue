@@ -47,7 +47,9 @@ export default Vue.extend({
 
     resetFilters: function () {
       this.categoryValue = "";
-      this.filter();
+      window.appProperties.setCategoryFilter({
+        categoryId: this.categoryValue,
+      });
     },
 
     fetchCategoricalIndicators: function () {
