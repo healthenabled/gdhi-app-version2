@@ -6,12 +6,12 @@
   top: 0;
   @extend .box-shadow;
   z-index: 3;
-  max-height: 180px;
+  height: 160px;
   line-height: 1;
 
   .sub-header {
     background: $cool-gray;
-    height: 100px;
+    height: 80px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
