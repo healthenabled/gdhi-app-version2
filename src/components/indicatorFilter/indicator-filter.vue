@@ -41,8 +41,8 @@ export default Vue.extend({
       EventBus.$emit(EVENTS.INDICATOR_FILTERED);
     },
 
-    getDirection: function () {
-      return LayoutDirectionConfig[this.locale];
+    getBackgroundPositionX: function () {
+      return LayoutDirectionConfig[this.locale] === "ltr" ? "95%" : "5%";
     },
 
     resetFilters: function () {
@@ -77,7 +77,7 @@ export default Vue.extend({
       v-model="categoryValue"
       @change="filter()"
       name="test_select1"
-      :style="`direction: ${getDirection()}`"
+      :style="`background-position-x: ${getBackgroundPositionX()}`"
     >
       <option value="">{{ $t("mixed.textOverAll") }}</option>
       <option

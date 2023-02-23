@@ -38,8 +38,8 @@ export default Vue.extend({
       EventBus.$emit(EVENTS.PHASE_FILTERED);
     },
 
-    getDirection: function () {
-      return LayoutDirectionConfig[this.locale];
+    getBackgroundPositionX: function () {
+      return LayoutDirectionConfig[this.locale] === "ltr" ? "95%" : "5%";
     },
 
     resetFilters: function () {
@@ -66,7 +66,7 @@ export default Vue.extend({
       v-model="phaseValue"
       @change="filter()"
       name="test_select2"
-      :style="`direction: ${getDirection()}`"
+      :style="`background-position-x: ${getBackgroundPositionX()}`"
     >
       <option value="">{{ $t("mixed.all") }}</option>
       <option
