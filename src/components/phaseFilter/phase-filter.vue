@@ -3,6 +3,7 @@ import Vue from "vue";
 import axios from "axios";
 import { EventBus } from "../common/event-bus";
 import { EVENTS } from "../../constants";
+import { LayoutDirectionConfig } from "../../plugins/i18n";
 
 export default Vue.extend({
   name: "phaseFilter",
@@ -24,15 +25,26 @@ export default Vue.extend({
     });
   },
 
+  updated() {
+    if (this.locale !== this.$i18n.locale) {
+      this.fetchPhases();
+    }
+    this.locale = this.$i18n.locale;
+  },
+
   methods: {
     filter: function () {
       window.appProperties.setPhaseFilter({ phaseId: this.phaseValue });
       EventBus.$emit(EVENTS.PHASE_FILTERED);
     },
 
+    getDirection: function () {
+      return LayoutDirectionConfig[this.locale];
+    },
+
     resetFilters: function () {
       this.phaseValue = "";
-      this.filter();
+      window.appProperties.setPhaseFilter({ phaseId: this.phaseValue });
     },
 
     fetchPhases: function () {
@@ -54,12 +66,13 @@ export default Vue.extend({
       v-model="phaseValue"
       @change="filter()"
       name="test_select2"
+      :style="`direction: ${getDirection()}`"
     >
       <option value="">{{ $t("mixed.all") }}</option>
       <option
         v-for="(phase, index) in phases"
         :key="index"
-        v-bind:value="phase.phaseValue"
+        :value="phase.phaseValue"
       >
         {{ $t("mixed.phase") }} {{ phase.phaseValue }}
       </option>

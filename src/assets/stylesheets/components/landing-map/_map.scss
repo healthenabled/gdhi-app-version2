@@ -56,7 +56,7 @@
 }
 
 div#reset-btn {
-  @include margin-left(-8px);
+  //@include margin-left(-8px);
 }
 
 @media screen and (min-width: 1200px) and (max-width: 1400px) {
@@ -110,11 +110,11 @@ div#reset-btn {
   align-items: center;
   @include margin-right(10px);
   padding-bottom: 20px;
-  top: 45vh
+  top: 45vh;
 }
 .leaflet-control-container .leaflet-bar a {
   display: inline-block;
-  margin-right: 5px;
+  @include margin-right(5px);
   line-height: 1.2;
   border-radius: 0;
 }

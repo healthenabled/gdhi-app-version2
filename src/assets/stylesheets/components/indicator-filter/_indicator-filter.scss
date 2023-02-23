@@ -2,7 +2,9 @@
 
 .filter-indicator {
   height: 100%;
-  @include margin-left(10px);
+  width: 16vw;
+  @include margin-right(2.5vw);
+  @include margin-left(0.5vw);
 
   &-header {
     margin-top: 20px;
@@ -15,27 +17,9 @@
 .filter-indicator-select {
   color: $cool-gray;
   background-color: $white;
-  width: 320px;
+  width: 100%;
   height: 40px;
   @include padding-left(20px);
+  @include padding-right(20px);
   border: $table-border;
-  -webkit-appearance: none;
-  appearance: none;
-  -moz-appearance: none;
-}
-
-/* IE11 hide native button */
-select::-ms-expand {
-  display: none;
-}
-
-.filter-indicator:after {
-  @include margin-right(5px);
-  content: "\F078";
-  font: normal normal normal 12px/1 FontAwesome;
-  color: #555;
-  pointer-events: none;
-  position: relative;
-  @include right(20px);
-  @include margin-right(0);
 }

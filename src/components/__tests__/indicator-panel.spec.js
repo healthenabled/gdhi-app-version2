@@ -124,40 +124,6 @@ describe("Indicator Panel", () => {
     expect(wrapper.vm.isNoGlobalHealthIndicators).to.equal(true);
   });
 
-  it("should return title based on the filter ", async () => {
-    let returnStr = wrapper.vm.getIndicatorContainerName();
-    expect(returnStr).to.deep.equal(
-      "State of Digital Health around the world today"
-    );
-
-    wrapper.vm.phaseFilter = true;
-    returnStr = wrapper.vm.getIndicatorContainerName();
-    expect(returnStr).to.deep.equal("Overall");
-
-    wrapper.vm.categoryFilter = true;
-    returnStr = wrapper.vm.getIndicatorContainerName();
-    expect(returnStr).to.deep.equal(overallScoreData.categories[0].name);
-
-    wrapper.vm.globalHealthIndicators = {
-      overAllScore: null,
-      categories: [],
-    };
-    returnStr = wrapper.vm.getIndicatorContainerName();
-    expect(returnStr).to.deep.equal(
-      "No countries available for the selected criteria"
-    );
-  });
-
-  it("should return phase title based on the filter ", async () => {
-    wrapper.vm.categoryFilter = true;
-    let returnStr = wrapper.vm.getPhaseTitle();
-    expect(returnStr).to.deep.equal("Global Average");
-
-    wrapper.vm.phaseFilter = 5;
-    returnStr = wrapper.vm.getPhaseTitle();
-    expect(returnStr).to.deep.equal("Phase 5");
-  });
-
   it("should push the url when showcountrydetails is called ", async () => {
     let mockFn = vi.spyOn(router, "push").mockReturnValue({});
     wrapper.vm.showCountryDetails("IND");

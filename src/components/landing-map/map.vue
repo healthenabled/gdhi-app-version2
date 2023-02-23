@@ -29,7 +29,6 @@ export default Vue.extend({
     this.$on("Map:Clicked", ($clickedEl) => {
       if ($clickedEl.type === "GLOBAL") {
         this.resetFilters();
-        this.$emit("filtered");
         this.fetchGlobalIndices();
         if (document.querySelector("#search-box input"))
           document.querySelector("#search-box input").value = "";
@@ -39,7 +38,10 @@ export default Vue.extend({
             $clickedEl.countryName;
       }
     });
-    EventBus.$on(EVENTS.MAP_FILTERED, () => {
+    EventBus.$on(EVENTS.INDICATOR_FILTERED, () => {
+      this.fetchGlobalIndices();
+    });
+    EventBus.$on(EVENTS.PHASE_FILTERED, () => {
       this.fetchGlobalIndices();
     });
   },

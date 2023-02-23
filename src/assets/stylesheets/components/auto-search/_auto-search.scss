@@ -1,11 +1,14 @@
+@import "./../../rtl-support";
+
 .search-box {
   display: flex;
   justify-content: space-between;
-  width: 320px;
+  width: 16vw;
   flex-direction: column;
   @extend .copy;
 
-  margin-right: 40px;
+  @include margin-right(2.5vw);
+  @include margin-left(0.5vw);
 
   &-header {
     margin-top: 20px;
@@ -15,6 +18,7 @@
   }
 
   .autocomplete__box {
+    width: 100%;
     background: url("/static/img/search.svg") no-repeat;
     background-size: 20px;
     height: 40px;
@@ -41,5 +45,9 @@
 
   .autocomplete__results__item:hover {
     background: $autocomplete-highlight;
+  }
+
+  .autocomplete__results {
+    height: 15vh;
   }
 }

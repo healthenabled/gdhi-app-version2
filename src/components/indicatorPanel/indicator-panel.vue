@@ -24,8 +24,6 @@ export default Vue.extend({
       showCountryDetail: true,
       country: {},
       categoryFilter: window.appProperties.getCategoryFilter(),
-      indicatorPanelTitle: this.getIndicatorContainerName(),
-      phaseTitle: "",
       isListOfCategoriesApplicable: this.areCategoriesApplicable(),
       isNoGlobalHealthIndicators: false,
       locale: "en",
@@ -44,16 +42,18 @@ export default Vue.extend({
           this.getGlobalHealthIndicators();
         }
       });
-      this.$parent.$on("filtered", () => {
+      // this.$parent.$on("filtered", () => {
+      //   this.getGlobalHealthIndicators();
+      // });
+      EventBus.$on(EVENTS.INDICATOR_FILTERED, () => {
         this.getGlobalHealthIndicators();
       });
-      EventBus.$on(EVENTS.INDICATOR_PANEL_FILTERED, () => {
+      EventBus.$on(EVENTS.PHASE_FILTERED, () => {
         this.getGlobalHealthIndicators();
       });
     }
   },
   updated() {
-    this.indicatorPanelTitle = this.getIndicatorContainerName();
     if (this.locale !== this.$i18n.locale) {
       this.getGlobalHealthIndicators();
       if (this.country.countryCode) {
@@ -64,8 +64,6 @@ export default Vue.extend({
   },
   methods: {
     setIndicatorTitleAndCategoryApplicability() {
-      this.indicatorPanelTitle = this.getIndicatorContainerName();
-      this.phaseTitle = this.getPhaseTitle();
       this.isListOfCategoriesApplicable = this.areCategoriesApplicable();
       this.isNoGlobalHealthIndicators =
         this.isNoGlobalHealthIndicatorsPresent();
@@ -79,37 +77,8 @@ export default Vue.extend({
       return !this.categoryFilter && !this.phaseFilter;
     },
 
-    getIndicatorContainerName() {
-      let indicatorPanelTitle = "";
-      if (this.categoryFilter) {
-        indicatorPanelTitle = this.getCategoryAsTitle();
-      } else {
-        indicatorPanelTitle = this.phaseFilter
-          ? this.$i18n.t("mixed.textOverAll")
-          : this.$i18n.t("worldMap.indicatorPanel.indicatorPanelTitle");
-      }
-      return indicatorPanelTitle;
-    },
-
-    getCategoryAsTitle() {
-      const category = this.globalHealthIndicators.categories[0];
-      return category
-        ? category.name
-        : "No countries available for the selected criteria";
-    },
-
     isNoGlobalHealthIndicatorsPresent() {
       return this.globalHealthIndicators.categories.length === 0;
-    },
-
-    getPhaseTitle() {
-      const phaseTitle = this.phaseFilter
-        ? "Phase ".concat(this.phaseFilter)
-        : "Global Average";
-      return this.isNoGlobalHealthIndicatorsPresent() ||
-        this.isNoFilterPresent()
-        ? ""
-        : phaseTitle;
     },
 
     getIndicators(context, countryId) {
@@ -270,6 +239,12 @@ export default Vue.extend({
             :value="category.phase"
           ></div>
         </div>
+        <div
+          class="indicator-panel-error"
+          v-if="!globalHealthIndicators.categories.length"
+        >
+          {{ $t("worldMap.indicatorPanel.noHealthIndicatorAvailable") }}
+        </div>
       </div>
       <div class="indicator-panel-error" v-else>
         {{ $t("worldMap.indicatorPanel.noHealthIndicatorAvailable") }}
@@ -310,6 +285,17 @@ export default Vue.extend({
           ></div>
         </div>
         <div
+          class="indicator-panel-error"
+          v-else-if="
+            healthIndicators &&
+            healthIndicators.categories &&
+            healthIndicators.categories.length !== 0
+          "
+        ></div>
+        <div class="indicator-panel-error" v-else>
+          {{ $t("worldMap.indicatorPanel.noDigitalIndicatorAvailable") }}
+        </div>
+        <div
           v-if="healthIndicators.categories"
           v-for="(category, index) in healthIndicators.categories"
           :key="index"
@@ -339,18 +325,6 @@ export default Vue.extend({
           ></div>
         </div>
       </div>
-      <div
-        class="indicator-panel-error"
-        v-if="
-          healthIndicators &&
-          healthIndicators.categories &&
-          healthIndicators.categories.length !== 0
-        "
-      ></div>
-      <div class="indicator-panel-error" v-else>
-        {{ $t("worldMap.indicatorPanel.noDigitalIndicatorAvailable") }}
-      </div>
-      <div class="indicator-panel-container-category"></div>
     </div>
   </div>
 </template>
