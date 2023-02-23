@@ -51,6 +51,16 @@ export default Vue.extend({
     }
   },
   updated() {
+    console.log("showCountryDetail", this.showCountryDetail);
+    console.log(
+      "healthIndicators.countryPhase || healthIndicators.categories",
+      this.healthIndicators.countryPhase || this.healthIndicators.categories
+    );
+
+    console.log(
+      "healthIndicators.countryPhase",
+      this.healthIndicators.countryPhase
+    );
     if (this.locale !== this.$i18n.locale) {
       this.getGlobalHealthIndicators();
       if (this.country.countryCode) {
@@ -282,6 +292,17 @@ export default Vue.extend({
           ></div>
         </div>
         <div
+          class="indicator-panel-error"
+          v-else-if="
+            healthIndicators &&
+            healthIndicators.categories &&
+            healthIndicators.categories.length !== 0
+          "
+        ></div>
+        <div class="indicator-panel-error" v-else>
+          {{ $t("worldMap.indicatorPanel.noDigitalIndicatorAvailable") }}
+        </div>
+        <div
           v-if="healthIndicators.categories"
           v-for="(category, index) in healthIndicators.categories"
           :key="index"
@@ -311,18 +332,6 @@ export default Vue.extend({
           ></div>
         </div>
       </div>
-      <div
-        class="indicator-panel-error"
-        v-if="
-          healthIndicators &&
-          healthIndicators.categories &&
-          healthIndicators.categories.length !== 0
-        "
-      ></div>
-      <div class="indicator-panel-error" v-else>
-        {{ $t("worldMap.indicatorPanel.noDigitalIndicatorAvailable") }}
-      </div>
-      <div class="indicator-panel-container-category"></div>
     </div>
   </div>
 </template>
