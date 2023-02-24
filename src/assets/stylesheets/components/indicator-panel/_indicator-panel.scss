@@ -3,7 +3,6 @@
 .indicator-panel {
   background: white;
   width: 100%;
-  min-height: 25vh;
 
   @extend .box-shadow, .copy;
   border-radius: 5px;
@@ -18,8 +17,9 @@
     justify-content: flex-start;
     align-items: center;
     height: 90px;
+    position: absolute;
     @include padding-left(0.8vw);
-    //z-index: 2;
+    z-index: 2;
     //font-size: 12px;
   }
   &-error {
@@ -38,6 +38,7 @@
     padding: 0px 15px;
     overflow-y: auto;
     margin-bottom: 15px;
+    margin-top: 8vh;
     &-expand-btn {
       cursor: pointer;
       font-size: 35px;
