@@ -115,7 +115,7 @@ export default Vue.extend({
         <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
       </div>
       <indicator-panel></indicator-panel>
-      <div id="map" style="max-height: 640px"></div>
+      <div id="map" style="max-height: 70vh"></div>
     </div>
   </div>
 </template>
