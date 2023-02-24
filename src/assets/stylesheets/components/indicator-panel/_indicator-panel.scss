@@ -3,6 +3,7 @@
 .indicator-panel {
   background: white;
   width: 100%;
+  min-height: 25vh;
 
   @extend .box-shadow, .copy;
   border-radius: 5px;
