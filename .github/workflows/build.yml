@@ -43,9 +43,8 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Upload Artifact to s3
-        run: aws s3 cp dist s3://${{ secrets.AWS_S3_BUCKET_NAME }}/${{ secrets.AWS_S3_FOLDER }}/${{secrets.APPLICATION_NAME}}+${{secrets.APPLICATION_VERSION}} --recursive
-      # aws s3 cp dist s3://${{ secrets.AWS_S3_BUCKET_NAME }}/${{ secrets.AWS_S3_FOLDER }}/{{secrets.APPLICATION_NAME}}+{{secrets.APPLICATION_VERSION}} --recursive
-      # aws s3 cp scripts s3://$AWS_S3_BUCKET_NAME/$AWS_S3_FOLDER_FRONTEND/gdhi-app+$VERSION
+        run: aws s3 cp dist s3://${{ secrets.AWS_S3_BUCKET_NAME }}/${{ secrets.AWS_S3_FOLDER }}/${{secrets.APPLICATION_NAME}}${{secrets.APPLICATION_VERSION}} --recursive
+
       - name: Update the version number
         uses: gliech/create-github-secret-action@v1
         with:
