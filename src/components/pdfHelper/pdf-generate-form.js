@@ -57,7 +57,7 @@ export async function generateFormPDF(
   };
   const drawTextWithPagination = (payloadText, options) => {
     let currentY = page.getY();
-    const maxY = 30;
+    const maxY = 70;
     const heightOfOneLine = options.font.heightAtSize(options.size);
     const numberOfLinesThatCanFit = Math.ceil(
       (currentY - maxY) / heightOfOneLine
@@ -72,6 +72,7 @@ export async function generateFormPDF(
       //lines fit in one page
       page.drawText(payloadText, options);
       page.moveDown(15 + heightOfOneLine * numberOfLinesToWrite);
+      handlePagination();
     } else {
       //and lines will overflow in this case.Hence, we need delimiters
       const numberOfCharactersInOneLine =
@@ -91,6 +92,7 @@ export async function generateFormPDF(
           ? null
           : "-";
       page.drawText(firstPartOfLines + delimiter, options);
+      handlePagination();
 
       page = pdfDoc.addPage();
       page.moveTo(70, page.getHeight() - 60);
@@ -206,9 +208,9 @@ export async function generateFormPDF(
   if (countrySummary.summary) {
     drawTextWithPagination(countrySummary.summary, {
       font: helveticaFont,
-      size: 14,
+      size: 12,
       maxWidth: 480,
-      lineHeight: 14,
+      lineHeight: 12,
     });
   } else {
     page.drawText("-", {
