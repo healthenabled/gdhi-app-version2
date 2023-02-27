@@ -55,7 +55,7 @@ jobs:
   deploy-to-qa:
     runs-on: ubuntu-latest
     needs: [continuous-integration]
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/cicd'
     steps:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1-node16
@@ -78,7 +78,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: SHOWCASE
     needs: [deploy-to-qa]
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/cicd'
     steps:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1-node16
@@ -101,7 +101,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: PROD
     needs: [deploy-to-showcase]
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/cicd'
     steps:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1-node16
