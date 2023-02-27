@@ -33,7 +33,7 @@ export async function generateFormPDF(
   const helveticaBoldObliqueFont = await pdfDoc.embedFont(
     StandardFonts.HelveticaBoldOblique
   );
-
+ 
   const breakTextIntoLines = (text, size, font, maxWidth) => {
     const lines = [];
     let textIdx = 0;
@@ -53,8 +53,50 @@ export async function generateFormPDF(
       }
       lines.push(line);
     }
-    return lines.length;
+    return lines;
   };
+  const drawTextWithPagination= (payloadText, options) => {
+    let currentY =page.getY(); 
+    const maxY = 30;
+    const heightOfOneLine = options.font.heightAtSize(options.size);
+    const numberOfLinesThatCanFit = Math.ceil(
+   (currentY - maxY) / heightOfOneLine
+ );
+      const numberOfLinesToWrite = breakTextIntoLines(
+        payloadText,
+        options.size,
+        options.font,
+        options.maxWidth
+      ).length;
+        console.log("Payload",payloadText);
+        console.log("Height of one line:",heightOfOneLine);
+        console.log("Number of lines to write:",numberOfLinesToWrite);
+    if (numberOfLinesToWrite < numberOfLinesThatCanFit) { //lines fit in one page
+        page.drawText(payloadText,options); 
+        page.moveDown(15+heightOfOneLine*numberOfLinesToWrite)   
+      } 
+      else { //and lines will overflow in this case.Hence we need delimiters
+      const numberOfCharactersInOneLine= (payloadText.length/numberOfLinesToWrite);
+      const firstPartOfLines = payloadText.slice(0, numberOfLinesThatCanFit*numberOfCharactersInOneLine);
+      const secondPartOfLines =payloadText.slice(numberOfLinesThatCanFit*numberOfCharactersInOneLine,payloadText.length);
+      const delimiter =
+         payloadText[numberOfLinesThatCanFit *(payloadText.length/numberOfLinesToWrite)] === " " ? null : "-";
+       page.drawText(
+         firstPartOfLines+delimiter,
+           options
+       );
+       
+       page = pdfDoc.addPage();
+       page.moveTo(70, page.getHeight() - 60);
+       const numberOflinesInTheSecondPart = breakTextIntoLines(secondPartOfLines,options.size,options.font,options.maxWidth).length;
+       page.drawText(
+         delimiter +
+         secondPartOfLines,
+         options
+       );
+       page.moveDown(30+heightOfOneLine*numberOflinesInTheSecondPart);
+     }
+}
 
   let page = pdfDoc.addPage();
   const handlePagination = () => {
@@ -67,24 +109,20 @@ export async function generateFormPDF(
     country: countrySummary.countryName,
   });
   page.moveTo(70, page.getHeight() - 60);
-  page.drawText(title, {
-    font: helveticaBoldFont,
+  drawTextWithPagination(title,{font: helveticaBoldFont,
     size: 20,
     lineHeight: 20,
     maxWidth: 480,
-  });
-  page.moveDown(40);
+  })
   const contact = i18n.t(
     "healthIndicatorQuestionnaire.contactForm.contactInformation"
   );
-  page.drawText(contact, {
+  drawTextWithPagination(contact,{
     font: helveticaFont,
     size: 16,
     lineHeight: 16,
     maxWidth:480,
-  });
-  page.moveDown(20);
-
+  })
   const moveDownAndPopulateData = (i18nText, summaryData) => {
     handlePagination();
     page.moveDown(1);
@@ -102,8 +140,6 @@ export async function generateFormPDF(
       maxWidth: 480,
     });
   };
-  page.moveDown(20);
-
   moveDownAndPopulateData(
     "healthIndicatorQuestionnaire.contactForm.dateOnWhichDataWasCollected",
     countrySummary.collectedDate
@@ -113,6 +149,7 @@ export async function generateFormPDF(
     "healthIndicatorQuestionnaire.contactForm.nameOfPersonEnteringData",
     countrySummary.dataFeederName
   );
+  console.log(page.getY());
   page.moveDown(20);
   moveDownAndPopulateData(
     "healthIndicatorQuestionnaire.contactForm.emailOfThePersonEnteringData",
@@ -155,69 +192,14 @@ export async function generateFormPDF(
   );
   
   page.moveDown(20);
-  page.drawText(i18n.t("healthIndicatorQuestionnaire.contactForm.countrySummary"), {
-    font: helveticaBoldFont,
-    size: 12,
-    lineHeight: 12,
-    maxWidth: 480,
-  });
-  page.moveDown(20);
-  const currentY = page.getY();
-    const maxY = 30;
-    const heightOfOneLine = helveticaFont.heightAtSize(14);
-    const numberOfLinesThatCanFit = Math.ceil(
-       (currentY - maxY) / heightOfOneLine
-     );
-  const firstPartOfLines = countrySummary.summary.slice(0, numberOfLinesThatCanFit*65);
-      const secondPartOfLines =countrySummary.summary.slice(numberOfLinesThatCanFit*65,countrySummary.summary.length);
+  drawTextWithPagination(i18n.t("healthIndicatorQuestionnaire.contactForm.countrySummary"),{font: helveticaBoldFont,
+      size: 12,
+      lineHeight: 12,
+      maxWidth: 480})
   if (countrySummary.summary) {
-    
-    const linesToWrite = breakTextIntoLines(
-      countrySummary.summary,
-      14,
-      helveticaFont,
-      480
-    );
-    if (linesToWrite.length < numberOfLinesThatCanFit) { //lines fit in one page
-      page.drawText(countrySummary.summary, {
-        size: 14,
-        font: helveticaFont,
-        color: hexToRgb("#000"),
-        maxWidth: 480,
-        lineHeight: 14,
-      });    
-    } 
-    else { //and lines will overflow in this case.Hence we need delimiters
-     const delimiter =
-        countrySummary.summary[numberOfLinesThatCanFit *65] === " " ? null : "-";
-      page.drawText(
-        firstPartOfLines+delimiter,
-        {
-          size: 14,
-          font: helveticaFont,
-          color: hexToRgb("#000"),
-          maxWidth: 480,
-          lineHeight: 14,
-        }
-      );
-      
-      page = pdfDoc.addPage();
-      page.moveTo(70, page.getHeight() - 60);
-      page.drawText(
-        delimiter +
-        secondPartOfLines,
-        {
-          size: 14,
-          font: helveticaFont,
-          color: hexToRgb("#000"),
-          maxWidth: 480,
-          lineHeight: 14,
-        }
-      );
-    }
-    const margin= secondPartOfLines.length/70;
-    page.moveDown(margin*14 + 40);
-  } else {
+    drawTextWithPagination(countrySummary.summary,{font : helveticaFont,size:14,maxWidth:480,lineHeight:14})
+  } 
+  else {
     console.log("Here!")
     page.drawText("-", {
       size: 14,
@@ -230,21 +212,15 @@ export async function generateFormPDF(
     });
     page.moveDown(20);
   }
-  page.drawText(
-    i18n.t("healthIndicatorQuestionnaire.resourceForm.resourceInformation"),
-    {
-      size: 16,
-      x: 70,
-      y: page.getY(),
-      lineHeight: 16,
-      font: helveticaBoldFont,
-      maxWidth: 480,
-      // TODO: Explore adding of underline
-    }
-  );
-  console.log("Added new logic");
-  page.moveDown(20);
-
+  drawTextWithPagination(i18n.t("healthIndicatorQuestionnaire.resourceForm.resourceInformation"),
+  {
+    font:helveticaBoldFont,
+    size:16,
+    x:70,
+    y:page.getY(),
+    lineHeight:16,
+    maxWidth:480
+  });
   if (countrySummary.resources.length === 0)
     page.drawText("-", {
       size: 12,
@@ -253,60 +229,51 @@ export async function generateFormPDF(
     });
   handlePagination();
   for (let i = 0; i < countrySummary.resources.length; i++) {
-    page.drawText(countrySummary.resources[i] || "-", {
+    drawTextWithPagination(countrySummary.resources[i] || "-",
+    {
       size: 12,
       lineHeight: 12,
       font: helveticaFont,
       maxWidth: 480,
     });
   }
-
-  page.moveDown(20);
   page = pdfDoc.addPage();
   page.moveTo(70, page.getHeight() - 80);
-  page.drawText(i18n.t("healthIndicatorQuestionnaire.indicatorDetails"), {
+  drawTextWithPagination(i18n.t("healthIndicatorQuestionnaire.indicatorDetails"),
+  {
     size: 16,
     lineHeight: 16,
     font: helveticaBoldFont,
     maxWidth: 480,
 
-    // TODO: Explore adding of underline
-  });
-  page.moveDown(20);
+  })
   questionnaire.forEach((category) => {
-    page.moveDown(30);
-    page.drawText(category.categoryName, {
-      size: 16,
-      lineHeight: 16,
-      font: helveticaBoldObliqueFont,
-      maxWidth: 480,
-
-      // TODO: Explore adding of underline
-    });
-
-    page.moveDown(30);
+    drawTextWithPagination(category.categoryName, {
+        size: 16,
+        lineHeight: 16,
+        font: helveticaBoldObliqueFont,
+        maxWidth: 480
+      });
+    //   // TODO: Explore adding of underline
 
     category.indicators.forEach((indicator) => {
-      page.drawText(`${indicator.indicatorCode}. ${indicator.indicatorName}`, {
-        x: 72,
-        size: 12,
-        maxWidth: 500,
-        lineHeight: 12,
-        font: helveticaFont,
-      });
-      page.moveDown(40);
-
-      const indicatorDefinitionLength = indicator.indicatorDefinition.length;
+      drawTextWithPagination(`${indicator.indicatorCode}. ${indicator.indicatorName}`,
+      {
+          x: 72,
+          size: 12,
+          maxWidth: 500,
+          lineHeight: 12,
+          font: helveticaFont,
+      }
+      )
       handlePagination();
-      page.drawText(indicator.indicatorDefinition, {
+      drawTextWithPagination(indicator.indicatorDefinition, {
         size: 10,
         maxWidth: 420,
         lineHeight: 10,
         font: helveticaBoldObliqueFont,
         color: hexToRgb("#666"),
       });
-      page.moveDown(20 + Math.ceil(indicatorDefinitionLength / 104) * 15);
-
       handlePagination();
       indicator.scores.forEach((score) => {
         const fillColor =
@@ -324,8 +291,7 @@ export async function generateFormPDF(
           borderWidth: 2,
           color: fillColor,
         });
-        const scoreDefinitionLength = score.scoreDefinition.length;
-        page.drawText(score.scoreDefinition, {
+        drawTextWithPagination(score.scoreDefinition, {
           font: helveticaFont,
           x: page.getX() + 20,
           y: page.getY() - 3,
@@ -335,30 +301,25 @@ export async function generateFormPDF(
           color: hexToRgb("#000"),
         });
         handlePagination();
-        page.moveDown(15 + Math.ceil(scoreDefinitionLength / 98) * 15);
       });
 
       handlePagination();
-
-      page.drawText(
-        i18n.t("healthIndicatorQuestionnaire.rationaleOrSupportingText"),
-        {
-          size: 12,
-          lineHeight: 12,
-          font: helveticaBoldFont,
-        }
-    );
-      page.moveDown(20);
-      page.drawText(
-        healthIndicators[indicator.indicatorId].supportingText || "-",
-        {
-          size: 12,
-          lineHeight: 12,
-          font: helveticaFont,
-          maxWidth:480
-        }
-      );
-      page.moveDown(20);
+      drawTextWithPagination(i18n.t("healthIndicatorQuestionnaire.rationaleOrSupportingText"),
+          {
+            size: 12,
+            lineHeight: 12,
+            font: helveticaBoldFont,
+          });
+    let data = healthIndicators[indicator.indicatorId].supportingText;
+    data = data.replace("\n"," ");
+    drawTextWithPagination(healthIndicators[indicator.indicatorId].supportingText || "-",
+      {
+        font:helveticaFont,
+        size:12,
+        maxWidth:480,
+        lineHeight:12
+      });
+      page.moveDown(10);
       handlePagination();
     });
   });
