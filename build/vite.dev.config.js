@@ -7,6 +7,7 @@ import legacy from "@vitejs/plugin-legacy";
 import vue2 from "@vitejs/plugin-vue2";
 import vue2Jsx from "@vitejs/plugin-vue2-jsx";
 import { visualizer } from "rollup-plugin-visualizer";
+import { nodePolyfills } from "vite-plugin-node-polyfills";
 import { dependencies } from "../package.json";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 
@@ -20,6 +21,9 @@ const renderChunks = (deps) => {
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  define: {
+    "process.env": {},
+  },
   server: {
     open: true,
     proxy: {
@@ -35,7 +39,11 @@ export default defineConfig({
     cssCodeSplit: true,
     assetsDir: "static",
     rollupOptions: {
-      plugins: [uglify(), visualizer()],
+      plugins: [
+        uglify(),
+        visualizer(),
+        nodePolyfills({ protocolImports: true }),
+      ],
       output: {
         manualChunks: {
           ...renderChunks(dependencies),
