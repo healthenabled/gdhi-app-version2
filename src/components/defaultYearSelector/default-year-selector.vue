@@ -73,7 +73,7 @@ export default Vue.extend({
         Select year for which date is to be displayed on the Homepage
       </div>
 
-      <yearFilter :selected-year="defaultYear" :years="years" />
+      <yearFilter :selectedYear="defaultYear" :years="years" />
     </div>
     <button
       class="btn btn-primary"
