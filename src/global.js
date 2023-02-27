@@ -14,4 +14,11 @@ window.appProperties = {
   setPhaseFilter(opts) {
     this.filter.phaseId = opts.phaseId;
   },
+  getDefaultYear() {
+    const defaultYear = this.filter.defaultYear;
+    return defaultYear === undefined ? "" : defaultYear;
+  },
+  setDefaultYear(opts) {
+    this.filter.defaultYear = opts.defaultYear;
+  },
 };

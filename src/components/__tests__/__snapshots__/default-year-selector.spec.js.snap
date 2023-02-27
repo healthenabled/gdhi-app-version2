@@ -1,0 +1,25 @@
+// Vitest Snapshot v1
+
+exports[`year-filter > should render default Year Selector 1`] = `
+<div>
+  <div
+    class="year-indicator"
+  >
+    <div
+      class="header-bold"
+    >
+       Select year for which date is to be displayed on the Homepage 
+    </div>
+    <yearfilter-stub
+      selectedyear="2022"
+      years="Version 1,2022,2023"
+    />
+  </div>
+  <button
+    class="btn btn-primary"
+    style="margin-left: 1vw;"
+  >
+     SUBMIT 
+  </button>
+</div>
+`;

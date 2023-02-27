@@ -28,6 +28,7 @@ export const en = {
     noData: "No Data",
     serverErrorTitle: "Server Error",
     loading: "Loading",
+    selectYear: "Select year for which date is to be displayed on the Homepage",
   },
   footer: {
     contactEmail: "Contact : info@digitalhealthindex.org",
