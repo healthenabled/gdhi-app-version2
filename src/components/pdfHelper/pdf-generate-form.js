@@ -86,7 +86,7 @@ export async function generateFormPDF(
         payloadText.length
       );
 
-      let delimiter = null;
+      let delimiter;
       if (
         firstPartOfLines[firstPartOfLines.length - 1]?.match(/[a-z]/i) &&
         secondPartOfLines[0]?.match(/[a-z]/i)
