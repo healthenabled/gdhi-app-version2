@@ -85,15 +85,16 @@ export async function generateFormPDF(
         numberOfLinesThatCanFit * numberOfCharactersInOneLine,
         payloadText.length
       );
-      const delimiter =
-        payloadText[
-          numberOfLinesThatCanFit * (payloadText.length / numberOfLinesToWrite)
-        ] === " "
-          ? null
-          : "-";
-      page.drawText(firstPartOfLines + delimiter, options);
-      handlePagination();
 
+      let delimiter = null;
+      if (
+        firstPartOfLines[firstPartOfLines.length - 1].match(/[a-z]/i) &&
+        secondPartOfLines[0].match(/[a-z]/i)
+      ) {
+        delimiter = "-";
+      }
+
+      page.drawText(firstPartOfLines + delimiter, options);
       page = pdfDoc.addPage();
       page.moveTo(70, page.getHeight() - 60);
       const numberOfLinesInTheSecondPart = breakTextIntoLines(
