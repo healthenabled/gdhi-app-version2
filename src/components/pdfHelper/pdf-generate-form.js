@@ -96,14 +96,18 @@ export async function generateFormPDF(
 
       page = pdfDoc.addPage();
       page.moveTo(70, page.getHeight() - 60);
-      const numberOflinesInTheSecondPart = breakTextIntoLines(
+      const numberOfLinesInTheSecondPart = breakTextIntoLines(
         secondPartOfLines,
         options.size,
         options.font,
         options.maxWidth
       ).length;
-      page.drawText(delimiter + secondPartOfLines, options);
-      page.moveDown(30 + heightOfOneLine * numberOflinesInTheSecondPart);
+      page.drawText(delimiter + secondPartOfLines, {
+        ...options,
+        x: 70,
+        y: page.getHeight() - 60,
+      });
+      page.moveDown(30 + heightOfOneLine * numberOfLinesInTheSecondPart);
     }
   };
   const handlePagination = () => {
