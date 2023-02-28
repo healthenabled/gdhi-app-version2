@@ -88,8 +88,8 @@ export async function generateFormPDF(
 
       let delimiter = null;
       if (
-        firstPartOfLines[firstPartOfLines.length - 1].match(/[a-z]/i) &&
-        secondPartOfLines[0].match(/[a-z]/i)
+        firstPartOfLines[firstPartOfLines.length - 1]?.match(/[a-z]/i) &&
+        secondPartOfLines[0]?.match(/[a-z]/i)
       ) {
         delimiter = "-";
       }
