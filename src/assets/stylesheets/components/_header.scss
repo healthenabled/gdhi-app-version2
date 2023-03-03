@@ -110,6 +110,7 @@
     appearance: none;
     -moz-appearance: none;
   }
+
   .drop-down {
     @include margin-left(5px);
     min-width: 100px;
@@ -123,6 +124,10 @@
     width: 0;
     color: $black;
     @include right(20px);
+  }
+
+  .header-language-selector {
+    align-self: center;
   }
 }
 
