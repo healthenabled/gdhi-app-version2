@@ -42,6 +42,9 @@ export default Vue.extend({
             ><span>{{ $t("methodology.text") }}</span></router-link
           >
         </div>
+        <div>
+            <router-view name="languageSelect"></router-view>
+        </div>
       </div>
     </div>
 
