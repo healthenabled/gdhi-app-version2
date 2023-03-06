@@ -6,7 +6,6 @@
   top: 0;
   @extend .box-shadow;
   z-index: 3;
-  height: 160px;
   line-height: 1;
 
   .sub-header {
@@ -16,6 +15,48 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+
+    .legend {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      @include right(0px);
+      color: $black;
+      z-index: 3;
+      cursor: default;
+      list-style: none;
+      #phase0,
+      .phase0,
+      #phase1,
+      .phase1,
+      #phase2,
+      .phase2,
+      #phase3,
+      .phase3,
+      #phase4,
+      .phase4,
+      #phase5,
+      .phase5,
+      #phasenull,
+      .phasenull {
+        border-radius: 0px;
+      }
+      .l-box {
+        text-align: center;
+        height: 23px;
+        width: 23px;
+        line-height: 1.75;
+        font-size: 13px;
+        font-family: "InterRegular", sans-serif;
+      }
+      .legend-desc {
+        color: $white;
+        display: inline-block;
+        padding: 5px 0;
+        @include padding-right(20px);
+      }
+    }
   }
 
   .sub-header-title-and-description {
@@ -38,6 +79,7 @@
     @include margin-left(60px);
     font-weight: 400;
     font-size: 14px;
+    line-height: 17px;
     color: $white;
   }
 
