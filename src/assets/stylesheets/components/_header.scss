@@ -11,7 +11,7 @@
 
   .sub-header {
     background: $cool-gray;
-    height: 80px;
+    // height: 80px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -82,6 +82,7 @@
   .logo-name {
     max-width: 190px;
     color: $logo-blue;
+    font-weight:600;
     text-transform: uppercase;
     letter-spacing: -0.1px;
     cursor: pointer;
