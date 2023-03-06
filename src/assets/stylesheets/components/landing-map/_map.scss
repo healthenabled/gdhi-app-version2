@@ -1,7 +1,7 @@
 @import "./../../rtl-support";
 
 .map-layer {
-  font-family: "RobotoBold";
+  font-family: "InterBold", sans-serif;
   background: $bg-beige;
 }
 .map-container {
@@ -13,46 +13,6 @@
 #map {
   height: calc(100vh - 136px);
   background: $fine-gray;
-}
-.legend {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  @include right(0px);
-  color: $black;
-  z-index: 3;
-  cursor: default;
-  list-style: none;
-  #phase0,
-  .phase0,
-  #phase1,
-  .phase1,
-  #phase2,
-  .phase2,
-  #phase3,
-  .phase3,
-  #phase4,
-  .phase4,
-  #phase5,
-  .phase5,
-  #phasenull,
-  .phasenull {
-    border-radius: 0px;
-  }
-  .l-box {
-    text-align: center;
-    height: 23px;
-    width: 23px;
-    line-height: 1.75;
-    font-size: 12px;
-    font-family: "RobotoRegular";
-  }
-  .legend-desc {
-    color: $white;
-    display: inline-block;
-    padding: 5px 0;
-    @include padding-right(20px);
-  }
 }
 
 div#reset-btn {
