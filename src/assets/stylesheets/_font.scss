@@ -1,23 +1,31 @@
 @font-face {
-  font-family: "RobotoSlabBold";
-  src: url("@/assets/fonts/Inter-ExtraBold.ttf") format("ttf");
-  font-weight: bold;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "RobotoRegular";
+  font-family: "InterRegular";
   src: url("@/assets/fonts/Inter-Regular.ttf") format("ttf");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "RobotoBold";
-  src: url("@/assets/fonts/Inter-Regular.ttf") format("ttf");
+  font-family: "InterBold";
+  src: url("@/assets/fonts/Inter-Bold.ttf") format("ttf");
   font-weight: normal;
   font-style: normal;
 }
+
+@font-face {
+  font-family: "InterItalic";
+  src: url("@/assets/fonts/Inter-Regular.ttf") format("ttf");
+  font-weight: normal;
+  font-style: italic;
+}
+
+// Font Faces which might be used in the future
+//@font-face {
+//  font-family: "InterExtraBold";
+//  src: url("@/assets/fonts/Inter-ExtraBold.ttf") format("ttf");
+//  font-weight: bold;
+//  font-style: normal;
+//}
 
 //@font-face {
 //  font-family: "RobotoBoldItalic";
@@ -25,10 +33,3 @@
 //  font-weight: normal;
 //  font-style: normal;
 //}
-
-@font-face {
-  font-family: "RobotoItalic";
-  src: url("@/assets/fonts/Inter-Regular.ttf") format("ttf");
-  font-weight: normal;
-  font-style: italic;
-}
