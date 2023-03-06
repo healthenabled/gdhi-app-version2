@@ -80,12 +80,8 @@
   }
 
   .logo-name {
-    color: $logo-blue;
-    text-transform: uppercase;
-    letter-spacing: -0.1px;
     cursor: pointer;
-    @extend .logo-font;
-    @include margin-right(60px);
+    @include margin-right(11vw);
   }
 
   a {
