@@ -25,7 +25,7 @@ export default Vue.extend({
         <div class="left-aligned-headers">
           <a href="http://www.digitalhealthindex.org" target="_blank"
             ><span class="logo-name hd-element"
-              >Global Digital Health Index</span
+              >Global Digital <br />Health Index</span
             ></a
           >
           <router-link :to="{ path: '/map' }" class="hd-element xs-length"
