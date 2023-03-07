@@ -7,7 +7,7 @@
 
 body,
 html {
-  font-family: "RobotoRegular", sans-serif;
+  font-family: "InterRegular", sans-serif;
   width: 100%;
   height: 100%;
   margin: 0;
@@ -136,7 +136,7 @@ p {
 }
 
 .highlight-text {
-  font-family: "RobotoRegular", sans-serif;
+  font-family: "InterRegular", sans-serif;
   font-size: 1.5em;
   line-height: 1;
   margin-bottom: 10px;
@@ -145,51 +145,51 @@ p {
 .copy {
   font-size: 1em;
   font-weight: $regular;
-  font-family: "RobotoRegular", sans-serif;
+  font-family: "InterRegular", sans-serif;
 }
 
 .copy-italics {
   font-size: 1em;
   font-weight: $regular;
-  font-family: "RobotoItalic", sans-serif;
+  font-family: "InterItalic", sans-serif;
 }
 
 .header-regular {
   font-size: 1.15em;
-  font-family: "RobotoRegular", sans-serif;
+  font-family: "InterRegular", sans-serif;
   line-height: 1;
 }
 
 .header-bold {
   font-size: 1.15em;
-  font-family: "RobotoBold", sans-serif;
+  font-family: "InterBold", sans-serif;
   line-height: 1;
 }
 
 .sub-header {
   font-size: 1.07em;
-  font-family: "RobotoRegular", sans-serif;
+  font-family: "InterRegular", sans-serif;
   line-height: 1;
 }
 
 .copy-small {
   font-size: 0.93em;
   line-height: 1;
-  font-family: "RobotoRegular", sans-serif;
+  font-family: "InterRegular", sans-serif;
   margin: 5px 0;
 }
 
 .copy-small-bold {
   font-size: 0.93em;
   line-height: 1;
-  font-family: "RobotoBold", sans-serif;
+  font-family: "InterBold", sans-serif;
   margin: 5px 0;
 }
 
 .copy-small-italics {
   font-size: 0.93em;
   line-height: 1;
-  font-family: "RobotoItalic", sans-serif;
+  font-family: "InterItalic", sans-serif;
   margin: 5px 0;
 }
 
@@ -222,9 +222,9 @@ p {
 }
 
 .logo-font {
-  font-family: "RobotoSlabBold";
   font-size: 23px;
   line-height: 1.09em;
+  font-weight: 600;
 }
 
 .float-left {
