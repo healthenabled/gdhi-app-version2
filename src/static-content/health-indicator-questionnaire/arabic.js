@@ -4,8 +4,6 @@ export const healthIndicatorQuestionnaire = {
   note: "ملاحظة: سيكون عرض بيانات مؤشر الصحة الرقمية العالمية متاحا للعموم. وعلى هذا النحو، يرجى الحصول على موافقة لتقديمها من الوكالة الحكومية ذات الصلة (وزارة الصحة، وكالة الصحة الرقمية، إلخ) وتقديم معلومات الاتصال الخاصة بالجهة التي منحت الموافقة. سيؤدي ترك هذه الصفحة إلى تجاهل التغييرات غير المحفوظة.",
   contactForm: {
     contactInformation: "معلومات الاتصال",
-    dateOnWhichDataWasCollected: "تاريخ جمع البيانات (DD-MM-YYYY)",
-    dateFormat: "DD-MM-YYYY",
     nameOfPersonEnteringData: "اسم الشخص الذي يدخل البيانات",
     roleOfThePersonEnteringData: "دور الشخص الذي يدخل البيانات",
     emailOfThePersonEnteringData: "البريد الإلكتروني للشخص الذي يدخل البيانات",
@@ -18,7 +16,6 @@ export const healthIndicatorQuestionnaire = {
     countrySummary: "ملخص البلد",
     organisationOfTheCountryContact: "المنظمة التي يتبع لها جهة الاتصال بالبلد",
     error: {
-      wrongDate: "الرجاء إدخال تاريخ بين عام 2010 والتاريخ الحالي",
       nameOfPersonEnteringData: "اسم الشخص الذي يدخل البيانات مطلوب",
       roleOfThePersonEnteringData: "مطلوب دور الشخص الذي يدخل البيانات",
       email: "يرجى إدخال البريد الإلكتروني الصحيح",
@@ -30,7 +27,6 @@ export const healthIndicatorQuestionnaire = {
       organisationOfTheCountryContact: "يرجى إدخال المنظمة",
     },
     hoverText: {
-      date: "الرجاء إدخال تاريخ",
       nameOfPersonEnteringData: "الرجاء إدخال اسم الشخص الذي يدخل هذه البيانات",
       roleOfThePersonEnteringData: "يرجى إدخال دور الشخص الذي يدخل البيانات",
       email: "أدخل البريد الإلكتروني",
