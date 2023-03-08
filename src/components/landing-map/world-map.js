@@ -26,7 +26,7 @@ export default {
         container.type = "button";
         container.id = "reset-btn";
         container.innerHTML =
-          '<img src="/static/img/zoomReset.svg" height="30" width="30" />';
+          '<img src="/static/img/zoomReset.svg" height="26.67" width="26.67" />';
         container.onclick = function () {
           self.resetMap(postClickCallBack);
         };
@@ -60,9 +60,9 @@ export default {
       .zoom({
         position: "topright",
         zoomInText:
-          '<img src="/static/img/zoomIn.svg" height="30" width="30"/>',
+          '<img src="/static/img/zoomIn.svg" height="26.67" width="26.67"/>',
         zoomOutText:
-          '<img src="/static/img/zoomOut.svg" height="30" width="30"/>',
+          '<img src="/static/img/zoomOut.svg" height="26.67" width="26.67"/>',
       })
       .addTo(this.map);
     this.map.addControl(new ResetButton());

@@ -23,8 +23,8 @@ export default Vue.extend({
     <div class="header-width">
       <div class="header-elements">
         <div class="left-aligned-headers">
-          <a href="http://www.digitalhealthindex.org" target="_blank"
-            ><span class="logo-name hd-element">
+          <span class="logo-name hd-element">
+            <a href="http://www.digitalhealthindex.org" target="_blank">
               <svg
                 width="185"
                 height="40"
@@ -128,8 +128,8 @@ export default Vue.extend({
                   d="M159.6 39.9999H153.513V37.7225H155.031L159.006 32.3395L154.948 27.3705H153.83V25.0931H160.773V27.3705H159.572L162.25 30.8074L164.417 27.757C164.458 27.7018 164.472 27.6328 164.472 27.5914C164.472 27.4671 164.375 27.3567 164.141 27.3567H163.202V25.0793H169.165V27.3567H167.757L163.947 32.4775L168.047 37.7087H169.482V39.9861H162.333V37.7087H163.478L160.676 34.1338L158.357 37.2808C158.302 37.3636 158.275 37.4464 158.275 37.5016C158.275 37.6259 158.357 37.7087 158.606 37.7087H159.6V39.9999Z"
                   fill="#415BA3"
                 />
-              </svg> </span
-          ></a>
+              </svg> </a
+          ></span>
           <router-link :to="{ path: '/map' }" class="hd-element xs-length"
             ><span>{{ $t("headers.worldMap") }}</span></router-link
           >

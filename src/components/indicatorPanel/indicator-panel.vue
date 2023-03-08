@@ -39,6 +39,7 @@ export default Vue.extend({
           this.country.countryCode = $clickedEl.countryCode;
           this.getIndicators(this, this.country.countryCode);
         } else if ($clickedEl.type === "GLOBAL") {
+          EventBus.$emit("Reset:Filters");
           this.getGlobalHealthIndicators();
         }
       });

@@ -16,7 +16,7 @@
 }
 
 div#reset-btn {
-  top:0;
+  top: 0;
 }
 
 @media screen and (min-width: 1200px) and (max-width: 1400px) {
@@ -71,6 +71,15 @@ div#reset-btn {
   padding-bottom: 20px;
   .leaflet-control-zoom {
     top: 0;
+
+    .leaflet-control-zoom-in {
+      height: 26.67px;
+      width: 26.67px;
+    }
+    .leaflet-control-zoom-out {
+      height: 26.67px;
+      width: 26.67px;
+    }
   }
 }
 .leaflet-control-container .leaflet-bar a {
