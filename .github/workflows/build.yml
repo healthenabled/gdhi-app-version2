@@ -2,7 +2,7 @@ name: CI-CD Pipeline
 
 on:
   push:
-    branches: ["main", "cicd"]
+    branches: ["main"]
   pull_request:
     branches: ["main"]
 
@@ -23,7 +23,22 @@ jobs:
 
       - name: Run test cases for the GDHI-app
         run: yarn test:coverage
-        continue-on-error: true
+
+  upload-artifact-to-s3:
+    runs-on: ubuntu-latest
+    needs: [continuous-integration]
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout code from Github
+        uses: actions/checkout@v3
+
+      - name: Install node v16
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Install dependencies of GDHI-app
+        run: yarn install
 
       - name: Build GDHI-app
         run: yarn build
@@ -54,8 +69,8 @@ jobs:
 
   deploy-to-qa:
     runs-on: ubuntu-latest
-    needs: [continuous-integration]
-    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/cicd'
+    needs: [upload-artifact-to-s3]
+    if: github.ref == 'refs/heads/main'
     steps:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1-node16
@@ -78,7 +93,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: SHOWCASE
     needs: [deploy-to-qa]
-    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/cicd'
+    if: github.ref == 'refs/heads/main'
     steps:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1-node16
@@ -101,7 +116,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: PROD
     needs: [deploy-to-showcase]
-    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/cicd'
+    if: github.ref == 'refs/heads/main'
     steps:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1-node16
