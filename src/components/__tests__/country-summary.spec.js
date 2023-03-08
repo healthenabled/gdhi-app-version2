@@ -29,7 +29,6 @@ describe("Country Summary ", () => {
     dataApproverName: "k",
     dataApproverRole: "kkh",
     dataApproverEmail: "khk",
-    collectedDate: "2018-11-12",
     resources: ["sdfsd"],
   };
 

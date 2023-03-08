@@ -2,14 +2,8 @@
   <div v-if="countrySummary && questionnaire && healthIndicators">
     <span>{{ $t("") }}</span>
     <!-- Added intentionally as component does not re render on locale change if i18n library is not used in template -->
-    <edit-questionnaire
-      :showEdit="showEdit"
-      :countrySummary="countrySummary"
-      :questionnaire="questionnaire"
-      :healthIndicators="healthIndicators"
-      :status="status"
-      :isAdmin="isAdmin"
-    ></edit-questionnaire>
+    <edit-questionnaire :showEdit="showEdit" :countrySummary="countrySummary" :questionnaire="questionnaire"
+      :healthIndicators="healthIndicators" :status="status" :isAdmin="isAdmin"></edit-questionnaire>
   </div>
 </template>
 
@@ -38,7 +32,6 @@ export default Vue.extend({
       dataApproverName: "",
       dataApproverRole: "",
       dataApproverEmail: "",
-      collectedDate: "",
       summary: "",
       resources: [],
       contactName: "",

@@ -61,7 +61,7 @@ describe("Country Profile ", () => {
       },
     ],
     countryPhase: 4,
-    collectedDate: "January 2018",
+    updatedDate: "January 2018",
   };
 
   const benchmarkData = {
@@ -284,7 +284,7 @@ describe("Country Profile ", () => {
 
   it("should render collected on date", async () => {
     await flushPromises();
-    expect(wrapper.vm.collectedDate).to.equal("As on: January 2018");
+    expect(wrapper.vm.updatedDate).to.equal("As on: January 2018");
   });
 
   it("should render localization texts properly", async () => {

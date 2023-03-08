@@ -77,7 +77,7 @@ describe("Indicator Panel", () => {
       },
     ],
     countryPhase: 3,
-    collectedDate: "February 2015",
+    updatedDate: "February 2015",
   };
   window.appProperties = {
     getCategoryFilter: function () {

@@ -65,7 +65,7 @@ describe("Map ", () => {
           },
         ],
         countryPhase: 3,
-        collectedDate: "May 2018",
+        updatedDate: "May 2018",
       },
       {
         countryId: "MLI",
@@ -104,7 +104,7 @@ describe("Map ", () => {
           },
         ],
         countryPhase: 3,
-        collectedDate: "May 2018",
+        updatedDate: "May 2018",
       },
     ],
   };
@@ -162,7 +162,7 @@ describe("Map ", () => {
 
     await flushPromises();
 
-    let mockFn1 = sinon.stub(worldMap, "handleSearch").callsFake(() => {});
+    let mockFn1 = sinon.stub(worldMap, "handleSearch").callsFake(() => { });
     wrapper.vm.onSearchTriggered("IND");
     await flushPromises();
 

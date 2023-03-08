@@ -25,7 +25,7 @@ export default Vue.extend({
       phases: [],
       countrySummary: "",
       hasBenchmarkData: true,
-      collectedDate: "",
+      updatedDate: "",
       locale: "en",
     };
   },
@@ -38,8 +38,8 @@ export default Vue.extend({
   updated() {
     if (this.locale !== this.$i18n.locale) {
       this.getHealthIndicatorsFor(this.$route.params.countryCode);
-      if (this.healthIndicatorData && this.healthIndicatorData.collectedDate) {
-        this.updateCollectedDate(this.healthIndicatorData.collectedDate);
+      if (this.healthIndicatorData && this.healthIndicatorData.updatedDate) {
+        this.updateCollectedDate(this.healthIndicatorData.updatedDate);
       }
       this.locale = this.$i18n.locale;
     }
@@ -64,12 +64,12 @@ export default Vue.extend({
         });
     },
     updateCollectedDate(date) {
-      this.collectedDate = common.dateInLocaleFormat(date, this.$i18n);
+      this.updatedDate = common.dateInLocaleFormat(date, this.$i18n);
     },
 
     healthIndicatorCallback(response) {
       this.healthIndicatorData = response.data;
-      this.updateCollectedDate(this.healthIndicatorData.collectedDate);
+      this.updateCollectedDate(this.healthIndicatorData.updatedDate);
 
       this.initialise();
     },
@@ -167,32 +167,21 @@ export default Vue.extend({
     <div class="health-indicator-section">
       <div class="clearfix header-section">
         <div class="country-name page-title">
-          <div
-            class="flag"
-            :style="{
-              backgroundImage:
-                'url(' +
-                `/static/img/flags/${this.healthIndicatorData?.countryAlpha2Code?.toLowerCase()}.svg` +
-                ')',
-            }"
-          ></div>
+          <div class="flag" :style="{
+            backgroundImage:
+              'url(' +
+              `/static/img/flags/${this.healthIndicatorData?.countryAlpha2Code?.toLowerCase()}.svg` +
+              ')',
+          }"></div>
           {{ healthIndicatorData.countryName }}
         </div>
-        <span
-          id="collected-date"
-          v-if="healthIndicatorData.collectedDate !== ''"
-          class="copy-italics copy-grey"
-        >
-          {{ collectedDate }}
+        <span id="collected-date" v-if="healthIndicatorData.updatedDate !== ''" class="copy-italics copy-grey">
+          {{ updatedDate }}
         </span>
         <div class="button-container float-right">
           <div class="export">
-            <span
-              ><a v-bind:href="countryDataSheetUrl()" class="btn btn-primary"
-                ><i class="fa fa-file-excel-o fa-lg"></i
-                >{{ $t("countryProfile.exportCountryDataButton") }}</a
-              ></span
-            >
+            <span><a v-bind:href="countryDataSheetUrl()" class="btn btn-primary"><i
+                  class="fa fa-file-excel-o fa-lg"></i>{{ $t("countryProfile.exportCountryDataButton") }}</a></span>
           </div>
           <button class="download-btn btn btn-primary" @click="generatePDF()">
             <i class="fa fa-download" aria-hidden="true"></i>
@@ -216,13 +205,11 @@ export default Vue.extend({
               </div>
             </div>
             <div :class="'overall-score ' + locale">
-              <div
-                :class="'score ' + ' phase' + healthIndicatorData.countryPhase"
-              >
+              <div :class="'score ' + ' phase' + healthIndicatorData.countryPhase">
                 {{
                   healthIndicatorData.countryPhase
-                    ? healthIndicatorData.countryPhase
-                    : "NA"
+                  ? healthIndicatorData.countryPhase
+                  : "NA"
                 }}
               </div>
             </div>
@@ -233,12 +220,8 @@ export default Vue.extend({
                 $t("countryProfile.benchmark.text")
               }}</span>
               <div v-if="healthIndicatorData" class="float-right">
-                <select
-                  class="benchmarkDropDown"
-                  name="benchmarkDropDown"
-                  v-model="benchmarkPhase"
-                  @change="getBenchmarkData()"
-                >
+                <select class="benchmarkDropDown" name="benchmarkDropDown" v-model="benchmarkPhase"
+                  @change="getBenchmarkData()">
                   <option value="">-</option>
                   <option value="-1">
                     {{
@@ -247,10 +230,7 @@ export default Vue.extend({
                       )
                     }}
                   </option>
-                  <option
-                    v-for="phase in phases"
-                    v-bind:value="phase.phaseValue"
-                  >
+                  <option v-for="phase in phases" v-bind:value="phase.phaseValue">
                     {{ $t("mixed.phaseN", { number: phase.phaseValue }) }}
                   </option>
                 </select>
@@ -268,30 +248,20 @@ export default Vue.extend({
             </div>
           </div>
           <div v-if="healthIndicatorData" class="health-indicators">
-            <div
-              v-for="(category, index) in healthIndicatorData.categories"
-              class="indicator-panel-container-category-section"
-            >
+            <div v-for="(category, index) in healthIndicatorData.categories"
+              class="indicator-panel-container-category-section">
               <div class="category-bar box">
-                <div
-                  v-bind:class="
-                    category.showCategory ? 'accordion expanded' : 'accordion'
-                  "
-                >
-                  <div
-                    class="indicator-panel-container-category-section-name sub-header"
-                    @click="onCategoryExpand(category, index)"
-                  >
+                <div v-bind:class="
+                  category.showCategory ? 'accordion expanded' : 'accordion'
+                ">
+                  <div class="indicator-panel-container-category-section-name sub-header"
+                    @click="onCategoryExpand(category, index)">
                     {{ category.name }}
                   </div>
-                  <div
-                    :class="
-                      'indicator-panel-container-category-section-phase phase' +
-                      category.phase
-                    "
-                    :value="category.phase"
-                    :data-phase="$t('mixed.phaseN', { number: category.phase })"
-                  ></div>
+                  <div :class="
+                    'indicator-panel-container-category-section-phase phase' +
+                    category.phase
+                  " :value="category.phase" :data-phase="$t('mixed.phaseN', { number: category.phase })"></div>
                   <div class="accordion-content">
                     <div class="heading-row sub-header">
                       <div class="indicator-id">#</div>
@@ -302,40 +272,28 @@ export default Vue.extend({
                         {{ $t("countryProfile.score") }}
                       </div>
                     </div>
-                    <div
-                      v-for="(
-                        indicator, index_indicator
-                      ) in category.indicators"
-                      class="indicator"
-                    >
+                    <div v-for="(
+                          indicator, index_indicator
+                        ) in category.indicators" class="indicator">
                       <div class="indicator-id">{{ indicator.code }}</div>
                       <div class="indicator-desc">
                         <span class="indicator-name-value">{{
                           indicator.name
                         }}</span>
-                        <div
-                          class="indicator-score-desc copy-italics copy-grey"
-                        >
+                        <div class="indicator-score-desc copy-italics copy-grey">
                           {{ indicator.indicatorDescription }}
                         </div>
-                        <div
-                          class="indicator-score-desc copy-italics copy-blue"
-                        >
+                        <div class="indicator-score-desc copy-italics copy-blue">
                           {{ indicator.scoreDescription }}
                         </div>
                       </div>
                       <div :class="'text-center score-container ' + locale">
-                        <div
-                          :class="
-                            'indicator-score' + ' phase' + indicator.score
-                          "
-                        >
+                        <div :class="
+                          'indicator-score' + ' phase' + indicator.score
+                        ">
                           {{ indicator.score >= 0 ? indicator.score : "NA" }}
                         </div>
-                        <div
-                          v-if="benchmarkData[indicator.id.toString()]"
-                          class="benchmark copy-small"
-                        >
+                        <div v-if="benchmarkData[indicator.id.toString()]" class="benchmark copy-small">
                           <div class="benchmark-score">
                             <span>{{
                               $t("countryProfile.benchmark.textWithData", {
@@ -344,14 +302,12 @@ export default Vue.extend({
                               })
                             }}</span>
                           </div>
-                          <div
-                            :class="
-                              'benchmarkCompare ' +
-                              benchmarkData[
-                                indicator.id
-                              ].benchmarkValue.toLowerCase()
-                            "
-                          >
+                          <div :class="
+                            'benchmarkCompare ' +
+                            benchmarkData[
+                              indicator.id
+                            ].benchmarkValue.toLowerCase()
+                          ">
                             {{ getLocaleBenchmarkValue(indicator.id) }}
                           </div>
                         </div>
