@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Notifications from "vue-notification";
+import { createPinia, PiniaVuePlugin } from "pinia";
 import App from "./App.vue";
 import router from "./router";
 // noinspection ES6UnusedImports
@@ -7,12 +8,15 @@ import {} from "./global.js";
 import { i18n } from "./plugins/i18n";
 import VueCookies from "vue-cookies";
 
+const pinia = createPinia();
+
 Vue.use(VueCookies);
+Vue.use(PiniaVuePlugin);
+Vue.use(Notifications);
+
 VueCookies.config("7d");
 
 Vue.config.productionTip = false;
-
-Vue.use(Notifications);
 /* eslint-disable no-new */
 new Vue({
   el: "#app",
@@ -25,4 +29,5 @@ new Vue({
       this.$router.push("map");
     }
   },
+  pinia,
 }).$mount("#app");

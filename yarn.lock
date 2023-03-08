@@ -908,6 +908,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@vue/devtools-api@npm:^6.5.0":
+  version: 6.5.0
+  resolution: "@vue/devtools-api@npm:6.5.0"
+  checksum: ec819ef3a426e91d09e9cfefd2827e9ed8ec9d62bb3b3e0674f3da8c7e92a4b879c3b777dc7329172ca6fe2670b62dd5580d23160339208f0f5ae038f2e504ad
+  languageName: node
+  linkType: hard
+
 "@vue/eslint-config-prettier@npm:^7.0.0":
   version: 7.0.0
   resolution: "@vue/eslint-config-prettier@npm:7.0.0"
@@ -2599,6 +2606,7 @@ __metadata:
     leaflet: ^1.9.3
     lodash: ^4.17.4
     pdf-lib: ^1.17.1
+    pinia: ^2.0.33
     prettier: ^2.5.1
     rollup-plugin-uglify: ^6.0.4
     rollup-plugin-visualizer: ^5.9.0
@@ -4180,6 +4188,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"pinia@npm:^2.0.33":
+  version: 2.0.33
+  resolution: "pinia@npm:2.0.33"
+  dependencies:
+    "@vue/devtools-api": ^6.5.0
+    vue-demi: "*"
+  peerDependencies:
+    "@vue/composition-api": ^1.4.0
+    typescript: ">=4.4.4"
+    vue: ^2.6.14 || ^3.2.0
+  peerDependenciesMeta:
+    "@vue/composition-api":
+      optional: true
+    typescript:
+      optional: true
+  checksum: efd9cf1d61521ab2a4549f93ada6e2c1b9feeb6c8f2f482281a53c0079e0008f02adaebb07a782865ccfe896876ac60447ef4586fc6eeaeaf17d634767e22638
+  languageName: node
+  linkType: hard
+
 "postcss-media-query-parser@npm:^0.2.3":
   version: 0.2.3
   resolution: "postcss-media-query-parser@npm:0.2.3"
@@ -5412,6 +5439,22 @@ __metadata:
   version: 1.8.2
   resolution: "vue-cookies@npm:1.8.2"
   checksum: 467d4007829715b7de1930bb75f10bbf67393b84aa7e7cab51824623455448a3bbbb3d2b37a15d4d350dd526aa1fc72a04e35a5a9b435ae9cc8aef75e54d6770
+  languageName: node
+  linkType: hard
+
+"vue-demi@npm:*":
+  version: 0.13.11
+  resolution: "vue-demi@npm:0.13.11"
+  peerDependencies:
+    "@vue/composition-api": ^1.0.0-rc.1
+    vue: ^3.0.0-0 || ^2.6.0
+  peerDependenciesMeta:
+    "@vue/composition-api":
+      optional: true
+  bin:
+    vue-demi-fix: bin/vue-demi-fix.js
+    vue-demi-switch: bin/vue-demi-switch.js
+  checksum: 0fbe9bf8ab7fe498ffa2bbd0cfc8f6f43a6bbaa5eda3e20ef1b70dca7c8b0ddb216a7ff2f632b694fe0735805638975abb441c621ec0bd2e6d4656353f316c15
   languageName: node
   linkType: hard
 

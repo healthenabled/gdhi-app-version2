@@ -23,6 +23,7 @@
     "leaflet": "^1.9.3",
     "lodash": "^4.17.4",
     "pdf-lib": "^1.17.1",
+    "pinia": "^2.0.33",
     "vee-validate": "2.0.0-rc.22",
     "vue": "^2.7.7",
     "vue-body-class": "^2.0.0-beta.2",
