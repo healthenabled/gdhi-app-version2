@@ -222,7 +222,7 @@ export async function generateFormPDF(
       size: 14,
       font: helveticaFont,
       color: hexToRgb("#000"),
-      x: 50,
+      x: 70,
       y: page.getY(),
       maxWidth: 480,
       lineHeight: 14,
