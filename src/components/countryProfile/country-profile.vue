@@ -39,7 +39,7 @@ export default Vue.extend({
     if (this.locale !== this.$i18n.locale) {
       this.getHealthIndicatorsFor(this.$route.params.countryCode);
       if (this.healthIndicatorData && this.healthIndicatorData.updatedDate) {
-        this.updateCollectedDate(this.healthIndicatorData.updatedDate);
+        this.setUpdatedDate(this.healthIndicatorData.updatedDate);
       }
       this.locale = this.$i18n.locale;
     }
@@ -63,13 +63,13 @@ export default Vue.extend({
           this.healthIndicatorCallback(response);
         });
     },
-    updateCollectedDate(date) {
+    setUpdatedDate(date) {
       this.updatedDate = common.dateInLocaleFormat(date, this.$i18n);
     },
 
     healthIndicatorCallback(response) {
       this.healthIndicatorData = response.data;
-      this.updateCollectedDate(this.healthIndicatorData.updatedDate);
+      this.setUpdatedDate(this.healthIndicatorData.updatedDate);
 
       this.initialise();
     },
@@ -273,8 +273,8 @@ export default Vue.extend({
                       </div>
                     </div>
                     <div v-for="(
-                          indicator, index_indicator
-                        ) in category.indicators" class="indicator">
+                              indicator, index_indicator
+                            ) in category.indicators" class="indicator">
                       <div class="indicator-id">{{ indicator.code }}</div>
                       <div class="indicator-desc">
                         <span class="indicator-name-value">{{
