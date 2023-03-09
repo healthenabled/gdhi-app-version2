@@ -23,6 +23,15 @@ jobs:
 
       - name: Run test cases for the GDHI-app
         run: yarn test:coverage
+      
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: "17"
+          distribution: "temurin"
+
+      - name: grant permissions
+        run: chmod +x gradlew
 
       - name: Check out code from gdhi-automation-version2
         uses: actions/checkout@v3
