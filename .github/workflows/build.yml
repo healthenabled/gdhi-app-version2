@@ -24,6 +24,23 @@ jobs:
       - name: Run test cases for the GDHI-app
         run: yarn test:coverage
 
+      - name: Check out code from gdhi-automation-version2
+        uses: actions/checkout@v3
+        with:
+          repository: healthenabled/gdhi-automation-version2
+          ref: "master"
+          path: gdhi-automation-version2
+
+      - name: Install curl
+        run: sudo apt install curl
+
+      - name: Install Gauge
+        run: curl -SsL https://downloads.gauge.org/stable | sh
+
+      - name: Run test suite for backend
+        working-directory: gdhi-automation-version2
+        run: CHROME_HEADLESS=false ./gradlew clean gauge -Ptags='ui'
+
   upload-artifact-to-s3:
     runs-on: ubuntu-latest
     needs: [continuous-integration]
