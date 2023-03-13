@@ -45,6 +45,7 @@ export default Vue.extend({
       contactDesignation: "",
       contactOrganization: "",
       contactEmail: "",
+      govtApproved: "",
     };
     const healthIndicators = {};
     return {
