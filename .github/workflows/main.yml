@@ -19,7 +19,7 @@ jobs:
   deploy-to-showcase:
     runs-on: ubuntu-latest
     environment: SHOWCASE
-    needs: [ deploy-to-qa ]
+    needs: [ greet ]
     if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/GDHI-60'
     steps:
       - name: Configure AWS credentials
