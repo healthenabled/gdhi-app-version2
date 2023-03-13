@@ -15,10 +15,10 @@ if [ "$DEPLOYMENT_GROUP_NAME" == "GDHI-Backend-v2-QA" ]
 then
     source /opt/scripts/export_QA_env.sh
 fi
-# if [ "$DEPLOYMENT_GROUP_NAME" == "GDHI-Backend-v2-Showcase" ]
-# then
-#     source /opt/scripts/export_Showcase_env.sh
-# fi
+if [ "$DEPLOYMENT_GROUP_NAME" == "GDHI-Backend-v2-Showcase" ]
+then
+    source /opt/scripts/export_Showcase_env.sh
+fi
 # if [ "$DEPLOYMENT_GROUP_NAME" == "GDHI-Backend-v2-Prod" ]
 # then
 #     source /opt/scripts/export_Prod_env.sh

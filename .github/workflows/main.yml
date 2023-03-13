@@ -1,8 +1,6 @@
 name: Deployment to Showcase and Production
 
 on:
-  push:
-    branches: [ "main", "GDHI-60" ]
   workflow_dispatch:
     inputs:
       name:
@@ -12,13 +10,21 @@ on:
         type: string
 
 jobs:
-  greet:
+  set-build-number:
     runs-on: ubuntu-latest
     steps:
-      - name: print input
-        run: echo "Hello ${{ inputs.name }}"
-      - name: show input
-        run: echo "Hello${{github.event.inputs.name}}"
+      - name: Display the build number 
+        run: echo ${{ inputs.name }}
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1-node16
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}  
+
+      - name: Set the build number for GDHI-Frontend in AWS parameter store
+        run: aws ssm put-parameter --name "buildNumberForApp" --value ${{ inputs.name }} --overwrite
 
   deploy-to-showcase:
     runs-on: ubuntu-latest

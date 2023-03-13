@@ -92,7 +92,7 @@ jobs:
           pa_token: ${{ secrets.PA_TOKEN }}
 
       - name: Print build number
-        run: echo ${{ secrets.APPLICATION_VERSION }}
+        run: echo gdhi-app-2.0${{ secrets.APPLICATION_VERSION }}
         env:
           APPLICATION_VERSION: ${{ secrets.APPLICATION_VERSION }}
 
