@@ -92,14 +92,14 @@ jobs:
           pa_token: ${{ secrets.PA_TOKEN }}
 
       - name: Print build number 1
-        run: echo gdhi-app-2.0$APPLICATION_VERSION
+        run: echo ${{ secrets.APPLICATION_VERSION }}
         env:
-          APPLICATION_VERSION: ${{ secrets.APPLICATION_VERSION }}
+          APPLICATION_VERSION: gdhi-app-2.0${{ secrets.APPLICATION_VERSION }}
 
       - name: Print build number 2
         run: echo gdhi-app-2.0${{ secrets.APPLICATION_VERSION }}     
         env:
-          APPLICATION_VERSION: ${{ secrets.APPLICATION_VERSION }}             
+          APPLICATION_VERSION: gdhi-app-2.0${{ secrets.APPLICATION_VERSION }}
 
   deploy-to-qa:
     runs-on: ubuntu-latest
