@@ -64,6 +64,9 @@ jobs:
           echo "Log level: ${{ github.event.inputs.logLevel }}"
           echo "Tags: ${{ github.event.inputs.tags }}"
 
+      - name: Print build number
+        run: echo ${{secrets.APPLICATION_VERSION}} | sed 's/./& /g'
+
   upload-artifact-to-s3:
     runs-on: ubuntu-latest
     needs: [ continuous-integration ]
