@@ -1,6 +1,8 @@
 name: Deployment to Showcase and Production
 
 on:
+  push:
+    branches: [ "main", "GDHI-60" ]
   workflow_dispatch:
     inputs:
       name:
