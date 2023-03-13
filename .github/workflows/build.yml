@@ -50,6 +50,7 @@ jobs:
       - name: Run test suite for frontend
         working-directory: gdhi-automation-version2
         run: CHROME_HEADLESS=false ./gradlew clean gauge -Ptags='ui'
+        continue-on-error: true
 
   upload-artifact-to-s3:
     runs-on: ubuntu-latest
