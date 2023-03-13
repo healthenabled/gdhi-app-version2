@@ -1,0 +1,67 @@
+name: Deployment to Showcase and Production
+
+on:
+  push:
+    branches: [ "main", "GDHI-60" ]
+  workflow_dispatch:
+    inputs:
+      name:
+        description: 'Build Number'
+        default: '0'
+        required: true
+        type: string
+
+jobs:
+  greet:
+    runs-on: ubuntu-latest
+    steps:
+      - name: print input
+        run: echo "Hello ${{ inputs.name }}"
+      - name: show input
+        run: echo "Hello${{github.event.inputs.name}}"
+
+  deploy-to-showcase:
+    runs-on: ubuntu-latest
+    environment: SHOWCASE
+    needs: [ greet ]
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/GDHI-60'
+    steps:
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1-node16
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Create CodeDeploy Deployment for Showcase
+        id: deploy
+        run: |
+          aws deploy create-deployment \
+            --application-name ${{ secrets.AWS_APPLICATION_NAME }} \
+            --deployment-group-name ${{ secrets.AWS_SHOWCASE_DEPLOYMENT_GROUP }} \
+            --deployment-config-name CodeDeployDefault.OneAtATime \
+            --github-location repository=${{ github.repository }},commitId=${{ github.sha }} \
+            --ignore-application-stop-failures
+
+  deploy-to-prod:
+    runs-on: ubuntu-latest
+    environment: PROD
+    needs: [ deploy-to-showcase ]
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/GDHI-60'
+    steps:
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1-node16
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Create CodeDeploy Deployment for Prod
+        id: deploy
+        run: |
+          aws deploy create-deployment \
+            --application-name ${{ secrets.AWS_APPLICATION_NAME }} \
+            --deployment-group-name ${{ secrets.AWS_PROD_DEPLOYMENT_GROUP }} \
+            --deployment-config-name CodeDeployDefault.OneAtATime \
+            --github-location repository=${{ github.repository }},commitId=${{ github.sha }} \
+            --ignore-application-stop-failures
