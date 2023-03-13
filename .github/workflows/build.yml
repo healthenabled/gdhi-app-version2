@@ -2,9 +2,9 @@ name: CI-CD Pipeline
 
 on:
   push:
-    branches: ["main"]
+    branches: [ "main", "GDHI-60" ]
   pull_request:
-    branches: ["main"]
+    branches: [ "main" ]
 
 jobs:
   continuous-integration:
@@ -23,7 +23,7 @@ jobs:
 
       - name: Run test cases for the GDHI-app
         run: yarn test:coverage
-      
+
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
@@ -38,7 +38,7 @@ jobs:
           path: gdhi-automation-version2
 
       - name: grant permissions
-        working-directory: gdhi-automation-version2      
+        working-directory: gdhi-automation-version2
         run: chmod +x gradlew
 
       - name: Install curl
@@ -54,8 +54,8 @@ jobs:
 
   upload-artifact-to-s3:
     runs-on: ubuntu-latest
-    needs: [continuous-integration]
-    if: github.ref == 'refs/heads/main'
+    needs: [ continuous-integration ]
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/GDHI-60'
     steps:
       - name: Checkout code from Github
         uses: actions/checkout@v3
@@ -70,13 +70,6 @@ jobs:
 
       - name: Build GDHI-app
         run: yarn build
-
-      - name: Update the version number
-        uses: gliech/create-github-secret-action@v1
-        with:
-          name: APPLICATION_VERSION
-          value: $((${{ secrets.APPLICATION_VERSION }} + 1))
-          pa_token: ${{ secrets.PA_TOKEN }}
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1-node16
@@ -95,10 +88,15 @@ jobs:
           value: $((${{ secrets.APPLICATION_VERSION }} + 1))
           pa_token: ${{ secrets.PA_TOKEN }}
 
+      - name: Print build number
+        env:
+          BUILD_NUMBER: ${{ secrets.APPLICATION_VERSION }}
+        run: echo "BUILD NUMBER $BUILD_NUMBER"
+
   deploy-to-qa:
     runs-on: ubuntu-latest
-    needs: [upload-artifact-to-s3]
-    if: github.ref == 'refs/heads/main'
+    needs: [ upload-artifact-to-s3 ]
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/GDHI-60'
     steps:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1-node16
@@ -120,8 +118,8 @@ jobs:
   deploy-to-showcase:
     runs-on: ubuntu-latest
     environment: SHOWCASE
-    needs: [deploy-to-qa]
-    if: github.ref == 'refs/heads/main'
+    needs: [ deploy-to-qa ]
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/GDHI-60'
     steps:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1-node16
@@ -143,8 +141,8 @@ jobs:
   deploy-to-prod:
     runs-on: ubuntu-latest
     environment: PROD
-    needs: [deploy-to-showcase]
-    if: github.ref == 'refs/heads/main'
+    needs: [ deploy-to-showcase ]
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/GDHI-60'
     steps:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1-node16
