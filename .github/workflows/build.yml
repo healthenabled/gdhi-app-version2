@@ -61,8 +61,8 @@ jobs:
 
       - name: Print Inputs
         run: |
-          echo "Env: ${{ github.event.inputs.environment }}"
-          echo "Branch: ${{ github.event.inputs.branch }}"
+          echo "Log level: ${{ github.event.inputs.logLevel }}"
+          echo "Tags: ${{ github.event.inputs.tags }}"
 
   upload-artifact-to-s3:
     runs-on: ubuntu-latest
