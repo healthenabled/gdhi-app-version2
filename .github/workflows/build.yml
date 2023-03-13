@@ -5,18 +5,22 @@ on:
     branches: [ "main", "GDHI-60" ]
   pull_request:
     branches: [ "main" ]
-  workflow_dispatch:
-    inputs:
-      logLevel:
-        description: 'Log level'
-        required: true
-        default: 'warning'
-      tags:
-        description: 'Test scenario tags'
+
 jobs:
-  continuous-integration:
+  get_input_job:
     runs-on: ubuntu-latest
     steps:
+      - name: Get input from user
+        id: my_input
+        run: echo "::set-output name=my_output::${{ github.event.inputs.my_input }}"
+
+  continuous-integration:
+    needs: [ get_input_job ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Use input from previous job
+        run: echo "Input value is ${{ needs.get_input_job.outputs.my_output }}"
+
       - name: Checkout code from Github
         uses: actions/checkout@v3
 
@@ -59,11 +63,6 @@ jobs:
         run: CHROME_HEADLESS=false ./gradlew clean gauge -Ptags='ui'
         continue-on-error: true
 
-      - name: Print Inputs
-        run: |
-          echo "Log level: ${{ github.event.inputs.logLevel }}"
-          echo "Tags: ${{ github.event.inputs.tags }}"
-
       - name: Print build number
         run: echo ${{secrets.APPLICATION_VERSION}} | sed 's/./& /g'
 
@@ -104,9 +103,9 @@ jobs:
           pa_token: ${{ secrets.PA_TOKEN }}
 
       - name: Print build number
+        run: echo ${{ secrets.APPLICATION_VERSION }}
         env:
-          BUILD_NUMBER: ${{ secrets.APPLICATION_VERSION }}
-        run: echo "BUILD NUMBER $BUILD_NUMBER"
+          APPLICATION_VERSION: ${{ secrets.APPLICATION_VERSION }}
 
   deploy-to-qa:
     runs-on: ubuntu-latest
