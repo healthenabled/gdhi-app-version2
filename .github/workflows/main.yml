@@ -7,11 +7,14 @@ on:
         description: 'Build Number'
         default: '0'
         required: true
+        type: string
 
 jobs:
   greet:
     runs-on: ubuntu-latest
     steps:
+      - name: print input
+        run: echo "Hello ${{ inputs.name }}"
       - name: show input
         run: echo "Hello${{github.event.inputs.name}}"
 
