@@ -7,9 +7,6 @@ export const healthIndicatorQuestionnaire = {
     "persona encargada de la aprobación. Al salir de esta página se descartarán los cambios no guardados.",
   contactForm: {
     contactInformation: "Información de contacto",
-    dateOnWhichDataWasCollected:
-      "Fecha en la que se recopilaron los datos (DD-MM-AAAA)",
-    dateFormat: "DD-MM-AAAA",
     nameOfPersonEnteringData: "Nombre de la persona que introduce los datos",
     roleOfThePersonEnteringData: "Cargo de la persona que introduce los datos",
     emailOfThePersonEnteringData:
@@ -27,7 +24,6 @@ export const healthIndicatorQuestionnaire = {
     countrySummary: "Resumen del país ",
     organisationOfTheCountryContact: "Organización de contacto en el país",
     error: {
-      wrongDate: "Por favor, introduzca una fecha entre 2010 y la fecha actual",
       nameOfPersonEnteringData:
         "Nombre de la persona que introduce los datos es obligatorio",
       roleOfThePersonEnteringData:
@@ -44,7 +40,6 @@ export const healthIndicatorQuestionnaire = {
       organisationOfTheCountryContact: "Por favor, introduzca la organización",
     },
     hoverText: {
-      date: "Por favor, introduzca una fecha",
       nameOfPersonEnteringData:
         "Por favor, introduzca el nombre de la persona que introduce los datos",
       roleOfThePersonEnteringData:

@@ -117,7 +117,6 @@ describe("Health Indicator Questionnaire", () => {
       dataApproverName: null,
       dataApproverRole: null,
       dataApproverEmail: null,
-      collectedDate: null,
       resources: [],
     },
     healthIndicators: [],
@@ -141,7 +140,6 @@ describe("Health Indicator Questionnaire", () => {
       dataApproverName: null,
       dataApproverRole: null,
       dataApproverEmail: null,
-      collectedDate: null,
       resources: [],
     },
     healthIndicators: [

@@ -144,7 +144,7 @@ export async function generateScorecard(
 
   // Write Collected Data in the document
   page.drawText(
-    common.dateInLocaleFormat(healthIndicatorData.collectedDate, i18n),
+    common.dateInLocaleFormat(healthIndicatorData.updatedDate, i18n),
     {
       font: helveticaBoldObliqueFont,
       size: 14,

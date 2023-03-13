@@ -93,50 +93,6 @@
       </div>
       <div class="box contact-info">
         <div class="row">
-          <div class="collected-date column-33percent">
-            <label for="date">{{
-              $t(
-                "healthIndicatorQuestionnaire.contactForm.dateOnWhichDataWasCollected"
-              )
-            }}</label>
-            <span class="mandatory-field">*</span>
-            <span
-              class="fa fa-eye publish"
-              :title="$t('healthIndicatorQuestionnaire.note1')"
-            ></span>
-            <input
-              type="text"
-              :disabled="!showEdit"
-              :class="
-                errors.has('collectedDate')
-                  ? 'has-error form-control'
-                  : 'form-control'
-              "
-              name="collectedDate"
-              id="date"
-              :placeholder="
-                $t('healthIndicatorQuestionnaire.contactForm.dateFormat')
-              "
-              v-model="countrySummary.collectedDate"
-              v-validate.disable="
-                'required|date_format:DD-MM-YYYY|date_between:01-01-2010,' +
-                today +
-                ',true'
-              "
-              :title="
-                $t('healthIndicatorQuestionnaire.contactForm.hoverText.date')
-              "
-            />
-            <div v-if="errors.has('collectedDate')" class="error-info">
-              {{
-                $t("healthIndicatorQuestionnaire.contactForm.error.wrongDate")
-              }}
-            </div>
-          </div>
-          <div class="column-33percent"></div>
-          <div class="column-33percent"></div>
-        </div>
-        <div class="row">
           <div class="form-group column-33percent">
             <label for="nameofPersonEnteringData">{{
               $t(

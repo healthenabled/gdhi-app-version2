@@ -7,9 +7,6 @@ export const healthIndicatorQuestionnaire = {
     "coordonnées de l'approbateur. Si vous quittez cette page, les modifications non sauvegardées ne seront pas prises en compte.",
   contactForm: {
     contactInformation: "Coordonnées des personnes-ressources",
-    dateOnWhichDataWasCollected:
-      "Date à laquelle les données ont été recueillies (JJ-MM-AAAA)",
-    dateFormat: "JJ-MM-AAAA",
     nameOfPersonEnteringData: "Nom de la personne qui saisit les données",
     roleOfThePersonEnteringData: "Rôle de la personne qui saisit les données",
     emailOfThePersonEnteringData: "Email de la personne qui saisit les données",
@@ -22,7 +19,6 @@ export const healthIndicatorQuestionnaire = {
     countrySummary: "Résumé par pays",
     organisationOfTheCountryContact: "Organisation de l'interlocuteur pays",
     error: {
-      wrongDate: "Veuillez entrer une date entre 2010 et la date du jour",
       nameOfPersonEnteringData:
         "Le nom de la personne qui saisit les données est requis",
       roleOfThePersonEnteringData:
@@ -40,7 +36,6 @@ export const healthIndicatorQuestionnaire = {
         "Veuillez entrer le nom de l'organisation",
     },
     hoverText: {
-      date: "Veuillez entrer une date",
       nameOfPersonEnteringData:
         "Veuillez entrer le nom de la personne qui saisit les données",
       roleOfThePersonEnteringData:

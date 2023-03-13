@@ -7,9 +7,6 @@ export const healthIndicatorQuestionnaire = {
     "page will discard unsaved changes.",
   contactForm: {
     contactInformation: "Contact Information",
-    dateOnWhichDataWasCollected:
-      "Date on which data was collected (DD-MM-YYYY)",
-    dateFormat: "DD-MM-YYYY",
     nameOfPersonEnteringData: "Name of person entering data ",
     roleOfThePersonEnteringData: "Role of the person entering data",
     emailOfThePersonEnteringData: "Email of the person entering data",
@@ -22,7 +19,6 @@ export const healthIndicatorQuestionnaire = {
     countrySummary: "Country Summary",
     organisationOfTheCountryContact: "Organisation of the country contact",
     error: {
-      wrongDate: "Please enter a date between 2010 and current date",
       nameOfPersonEnteringData: "Name of person entering data is required",
       roleOfThePersonEnteringData:
         "Role of the person entering the data is required",
@@ -35,7 +31,6 @@ export const healthIndicatorQuestionnaire = {
       organisationOfTheCountryContact: "Please enter the organisation",
     },
     hoverText: {
-      date: "Please enter a date",
       nameOfPersonEnteringData:
         "Please enter the name of the person entering this data",
       roleOfThePersonEnteringData:

@@ -30,7 +30,7 @@ describe("Country List", () => {
         countryAlpha2Code: "IN",
         overallScore: 3.226190476190476,
         countryPhase: 4,
-        collectedDate: "January 2018",
+        updatedDate: "January 2018",
       },
       {
         countryId: "SGP",
@@ -38,7 +38,7 @@ describe("Country List", () => {
         countryAlpha2Code: "SG",
         overallScore: 3.619047619047619,
         countryPhase: null,
-        collectedDate: "November 2018",
+        updatedDate: "November 2018",
       },
     ],
   };

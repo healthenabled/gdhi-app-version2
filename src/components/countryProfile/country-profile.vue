@@ -25,7 +25,7 @@ export default Vue.extend({
       phases: [],
       countrySummary: "",
       hasBenchmarkData: true,
-      collectedDate: "",
+      updatedDate: "",
       locale: "en",
     };
   },
@@ -38,8 +38,8 @@ export default Vue.extend({
   updated() {
     if (this.locale !== this.$i18n.locale) {
       this.getHealthIndicatorsFor(this.$route.params.countryCode);
-      if (this.healthIndicatorData && this.healthIndicatorData.collectedDate) {
-        this.updateCollectedDate(this.healthIndicatorData.collectedDate);
+      if (this.healthIndicatorData && this.healthIndicatorData.updatedDate) {
+        this.setUpdatedDate(this.healthIndicatorData.updatedDate);
       }
       this.locale = this.$i18n.locale;
     }
@@ -63,13 +63,13 @@ export default Vue.extend({
           this.healthIndicatorCallback(response);
         });
     },
-    updateCollectedDate(date) {
-      this.collectedDate = common.dateInLocaleFormat(date, this.$i18n);
+    setUpdatedDate(date) {
+      this.updatedDate = common.dateInLocaleFormat(date, this.$i18n);
     },
 
     healthIndicatorCallback(response) {
       this.healthIndicatorData = response.data;
-      this.updateCollectedDate(this.healthIndicatorData.collectedDate);
+      this.setUpdatedDate(this.healthIndicatorData.updatedDate);
 
       this.initialise();
     },
@@ -180,10 +180,10 @@ export default Vue.extend({
         </div>
         <span
           id="collected-date"
-          v-if="healthIndicatorData.collectedDate !== ''"
+          v-if="healthIndicatorData.updatedDate !== ''"
           class="copy-italics copy-grey"
         >
-          {{ collectedDate }}
+          {{ updatedDate }}
         </span>
         <div class="button-container float-right">
           <div class="export">

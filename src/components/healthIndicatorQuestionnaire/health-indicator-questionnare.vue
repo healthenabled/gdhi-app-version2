@@ -38,7 +38,6 @@ export default Vue.extend({
       dataApproverName: "",
       dataApproverRole: "",
       dataApproverEmail: "",
-      collectedDate: "",
       summary: "",
       resources: [],
       contactName: "",

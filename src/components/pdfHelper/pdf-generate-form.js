@@ -156,11 +156,6 @@ export async function generateFormPDF(
     maxWidth: 480,
   });
   moveDownAndPopulateData(
-    "healthIndicatorQuestionnaire.contactForm.dateOnWhichDataWasCollected",
-    countrySummary.collectedDate
-  );
-  page.moveDown(20);
-  moveDownAndPopulateData(
     "healthIndicatorQuestionnaire.contactForm.nameOfPersonEnteringData",
     countrySummary.dataFeederName
   );
