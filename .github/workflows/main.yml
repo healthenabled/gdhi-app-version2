@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Display the build number
-        run: echo gdhi-app-2.0${{ inputs.name }}
+        run: echo gdhi-app-2.0${{ inputs.name }}.jar
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1-node16
