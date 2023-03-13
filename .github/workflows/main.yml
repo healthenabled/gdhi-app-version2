@@ -24,7 +24,7 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Set the build number for GDHI-Frontend in AWS parameter store
-        run: aws ssm put-parameter --name "buildNumberForApp" --value gdhi-app-2.0${{ inputs.name }} --overwrite
+        run: aws ssm put-parameter --name "buildNumberForService" --value gdhi-app-2.0${{ inputs.name }} --overwrite
 
   run-automation-testsuite:
     runs-on: ubuntu-latest
