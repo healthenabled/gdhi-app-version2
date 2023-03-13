@@ -206,10 +206,10 @@ export async function generateScorecard(
       page.moveTo(50, page.getHeight() - 30);
       page.drawText(
         delimiter +
-        countrySummary.slice(
-          numberOfLinesThatCanFit * 75,
-          countrySummary.length
-        ),
+          countrySummary.slice(
+            numberOfLinesThatCanFit * 75,
+            countrySummary.length
+          ),
         {
           size: 14,
           font: helveticaFont,
@@ -238,8 +238,8 @@ export async function generateScorecard(
       benchmarkPhase < 0
         ? i18n.t("countryProfile.benchmark.benchmarkValues.globalAverage")
         : i18n.t("scoreCardPDF.benchMarkPhaseValue", {
-          benchmarkPhase: benchmarkPhase,
-        });
+            benchmarkPhase: benchmarkPhase,
+          });
     if (page.getY() <= 30) {
       page = pdfDoc.addPage();
       page.moveTo(50, page.getHeight() - 30);
@@ -439,7 +439,7 @@ export async function generateScorecard(
       if (
         page.getY() <= 120 ||
         page.getY() + Math.floor(indicator.indicatorDescription.length / 83) <=
-        160
+          160
       ) {
         page = pdfDoc.addPage();
         page.moveTo(50, page.getHeight() - 30);

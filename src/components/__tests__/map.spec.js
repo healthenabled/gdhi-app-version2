@@ -162,7 +162,7 @@ describe("Map ", () => {
 
     await flushPromises();
 
-    let mockFn1 = sinon.stub(worldMap, "handleSearch").callsFake(() => { });
+    let mockFn1 = sinon.stub(worldMap, "handleSearch").callsFake(() => {});
     wrapper.vm.onSearchTriggered("IND");
     await flushPromises();
 
