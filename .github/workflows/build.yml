@@ -55,9 +55,6 @@ jobs:
         run: CHROME_HEADLESS=false ./gradlew clean gauge -Ptags='ui'
         continue-on-error: true
 
-      - name: Print build number
-        run: echo ${{secrets.APPLICATION_VERSION}} | sed 's/./& /g'
-
   upload-artifact-to-s3:
     runs-on: ubuntu-latest
     needs: [ continuous-integration ]
@@ -98,12 +95,6 @@ jobs:
         run: echo ${{ secrets.APPLICATION_VERSION }}
         env:
           APPLICATION_VERSION: ${{ secrets.APPLICATION_VERSION }}
-
-      - name: Print build number
-        run: echo ${{ secrets.APPLICATION_VERSION }} | echo $APPLICATION_VERSION
-        env:
-          APPLICATION_VERSION: ${{ secrets.APPLICATION_VERSION }}
-
 
   deploy-to-qa:
     runs-on: ubuntu-latest
