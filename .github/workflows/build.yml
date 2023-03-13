@@ -5,7 +5,14 @@ on:
     branches: [ "main", "GDHI-60" ]
   pull_request:
     branches: [ "main" ]
-
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
+      tags:
+        description: 'Test scenario tags'
 jobs:
   continuous-integration:
     runs-on: ubuntu-latest
@@ -51,6 +58,11 @@ jobs:
         working-directory: gdhi-automation-version2
         run: CHROME_HEADLESS=false ./gradlew clean gauge -Ptags='ui'
         continue-on-error: true
+
+      - name: Print Inputs
+        run: |
+          echo "Env: ${{ github.event.inputs.environment }}"
+          echo "Branch: ${{ github.event.inputs.branch }}"
 
   upload-artifact-to-s3:
     runs-on: ubuntu-latest
