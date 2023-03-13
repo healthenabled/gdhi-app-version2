@@ -13,7 +13,7 @@ jobs:
   set-build-number:
     runs-on: ubuntu-latest
     steps:
-      - name: Display the build number 
+      - name: Display the build number
         run: echo gdhi-app-2.0${{ inputs.name }}
 
       - name: Configure AWS credentials
@@ -21,7 +21,7 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}  
+          aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Set the build number for GDHI-Frontend in AWS parameter store
         run: aws ssm put-parameter --name "buildNumberForApp" --value gdhi-app-2.0${{ inputs.name }} --overwrite
@@ -29,7 +29,7 @@ jobs:
   deploy-to-showcase:
     runs-on: ubuntu-latest
     environment: SHOWCASE
-    needs: [ greet ]
+    needs: [ set-build-number ]
     if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/GDHI-60'
     steps:
       - name: Configure AWS credentials
