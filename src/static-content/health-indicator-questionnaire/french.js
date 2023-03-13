@@ -93,4 +93,6 @@ export const healthIndicatorQuestionnaire = {
     "Vous êtes sur le point de publier le formulaire de l'indice numérique de santé pour {country}. Cela ne peut pas être annulé. Voulez-vous continuer?",
   rejectConfirmation:
     "Vous êtes sur le point de rejeter le formulaire d'indice-santé pour {country}. Cela ne peut pas être annulé. Voulez-vous continuer?",
+  govtApprovedMessage:
+    "Les données sont-elles approuvées par le gouvernement ?",
 };

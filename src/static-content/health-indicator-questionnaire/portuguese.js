@@ -84,4 +84,5 @@ export const healthIndicatorQuestionnaire = {
     "Você está prestes a publicar o formulário de índice digital de saúde para {country}. Que não pode ser revertido. Você quer continuar?",
   rejectConfirmation:
     "Está prestes a rejeitar o formulário do índice de saúde para {country}. Que não pode ser revertido. Você quer continuar?",
+  govtApprovedMessage: "Os dados são aprovados pelo governo?",
 };
