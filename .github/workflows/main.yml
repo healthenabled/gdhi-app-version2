@@ -5,6 +5,7 @@ on:
     inputs:
       name:
         description: 'Build Number'
+        default: '0'
         required: true
 
 jobs:
