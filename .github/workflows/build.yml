@@ -10,9 +10,6 @@ jobs:
   continuous-integration:
     runs-on: ubuntu-latest
     steps:
-      - name: Use input from previous job
-        run: echo "Input value is ${{ needs.get_input_job.outputs.my_output }}"
-
       - name: Checkout code from Github
         uses: actions/checkout@v3
 
@@ -26,34 +23,6 @@ jobs:
 
       - name: Run test cases for the GDHI-app
         run: yarn test:coverage
-
-      - name: Set up JDK 17
-        uses: actions/setup-java@v3
-        with:
-          java-version: "17"
-          distribution: "temurin"
-
-      - name: Check out code from gdhi-automation-version2
-        uses: actions/checkout@v3
-        with:
-          repository: healthenabled/gdhi-automation-version2
-          ref: "master"
-          path: gdhi-automation-version2
-
-      - name: grant permissions
-        working-directory: gdhi-automation-version2
-        run: chmod +x gradlew
-
-      - name: Install curl
-        run: sudo apt install curl
-
-      - name: Install Gauge
-        run: curl -SsL https://downloads.gauge.org/stable | sh
-
-      - name: Run test suite for frontend
-        working-directory: gdhi-automation-version2
-        run: CHROME_HEADLESS=false ./gradlew clean gauge -Ptags='ui'
-        continue-on-error: true
 
   upload-artifact-to-s3:
     runs-on: ubuntu-latest
@@ -122,3 +91,34 @@ jobs:
             --deployment-config-name CodeDeployDefault.OneAtATime \
             --github-location repository=${{ github.repository }},commitId=${{ github.sha }} \
             --ignore-application-stop-failures
+
+  run-automation-testsuite:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: "17"
+          distribution: "temurin"
+
+      - name: Check out code from gdhi-automation-version2
+        uses: actions/checkout@v3
+        with:
+          repository: healthenabled/gdhi-automation-version2
+          ref: "master"
+          path: gdhi-automation-version2
+
+      - name: grant permissions
+        working-directory: gdhi-automation-version2
+        run: chmod +x gradlew
+
+      - name: Install curl
+        run: sudo apt install curl
+
+      - name: Install Gauge
+        run: curl -SsL https://downloads.gauge.org/stable | sh
+
+      - name: Run test suite for frontend
+        working-directory: gdhi-automation-version2
+        run: CHROME_HEADLESS=false ./gradlew clean gauge -Ptags='ui'
+        continue-on-error: true    
