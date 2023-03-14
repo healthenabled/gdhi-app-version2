@@ -240,6 +240,7 @@
         <div class="row">
           <input
             type="checkbox"
+            :disabled="!showEdit"
             v-model="countrySummary.govtApproved"
             id="govtApproved"
             class="form-check-input"
@@ -247,6 +248,10 @@
           <label class="form-check-label" for="govtApproved">
             {{ $t("healthIndicatorQuestionnaire.govtApprovedMessage") }}
           </label>
+          <span
+            class="fa fa-eye publish"
+            :title="$t('healthIndicatorQuestionnaire.note1')"
+          ></span>
         </div>
         <div class="row" v-show="countrySummary.govtApproved">
           <div class="form-group column-33percent">
