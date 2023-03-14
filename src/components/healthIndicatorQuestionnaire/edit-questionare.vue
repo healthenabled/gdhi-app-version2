@@ -204,7 +204,10 @@
           <label class="form-check-label" for="govtApproved">
             {{ $t("healthIndicatorQuestionnaire.govtApprovedMessage") }}
           </label>
-          <span class="fa fa-eye publish" />
+          <span
+            class="fa fa-eye publish"
+            :title="$t('healthIndicatorQuestionnaire.note1')"
+          />
         </div>
         <div class="row" v-show="countrySummary.govtApproved">
           <div class="form-group column-33percent">
