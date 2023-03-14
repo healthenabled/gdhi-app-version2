@@ -99,6 +99,88 @@ describe("EditQuestionaire", () => {
     });
   });
 
+  it("should send approver fields as empty when checkbox is set to false and the action is submit", async () => {
+    axiosPostSpy.mockResolvedValue({});
+    let notifier = sinon.spy();
+    component.vm.$notify = notifier;
+    await flushPromises();
+
+    const checkBoxInput = component.find('input[type="checkbox"]');
+    checkBoxInput.setChecked(true);
+    component.find("#nameofPersonApprovedData").setValue("hello");
+    component.vm.validate("submit");
+    expect(axiosPostSpy.mock.calls.length).to.equal(0);
+    await flushPromises();
+    sinon.assert.calledWith(notifier, {
+      group: "custom-template",
+      title: "Error",
+      text: "Please correct the highlighted fields.",
+      type: "error",
+    });
+
+    checkBoxInput.setChecked(false);
+    await flushPromises();
+
+    component.vm.saveData("submit");
+    expect(axiosPostSpy.mock.calls[0][0]).to.equal("/api/countries/submit");
+    expect(
+      axiosPostSpy.mock.calls[0][1].countrySummary.dataApproverName
+    ).to.equal("");
+  });
+
+  it("should send approver fields with respective data when checkbox is set to true and the action is submit", async () => {
+    axiosPostSpy.mockResolvedValue({});
+    let notifier = sinon.spy();
+    component.vm.$notify = notifier;
+    await flushPromises();
+
+    const checkBoxInput = component.find('input[type="checkbox"]');
+    checkBoxInput.setChecked(true);
+    component.find("#nameofPersonApprovedData").setValue("name");
+    component.find("#roleofPersonApprovedData").setValue("role");
+    component.find("#emailofPersonApprovedData").setValue("email");
+
+    await flushPromises();
+
+    component.vm.saveData("submit");
+    expect(axiosPostSpy.mock.calls[0][0]).to.equal("/api/countries/submit");
+    expect(
+      axiosPostSpy.mock.calls[0][1].countrySummary.dataApproverName
+    ).to.equal("name");
+    expect(
+      axiosPostSpy.mock.calls[0][1].countrySummary.dataApproverRole
+    ).to.equal("role");
+    expect(
+      axiosPostSpy.mock.calls[0][1].countrySummary.dataApproverEmail
+    ).to.equal("email");
+  });
+
+  it("should display approver fields when is government approved checkbox is set to true", async () => {
+    axiosPostSpy.mockResolvedValue({});
+    await flushPromises();
+    const checkBoxInput = component.find('input[type="checkbox"]');
+    checkBoxInput.setChecked(true);
+    await flushPromises();
+    expect(checkBoxInput.element.checked).toBeTruthy();
+    expect(component.find("#nameofPersonApprovedData").isVisible()).toBe(true);
+    expect(component.find("#roleofPersonApprovedData").isVisible()).toBe(true);
+    expect(component.find("#emailofPersonApprovedData").isVisible()).toBe(true);
+  });
+
+  it("should not display approver fields when is government approved checkbox is set to false", async () => {
+    axiosPostSpy.mockResolvedValue({});
+    await flushPromises();
+    const checkBoxInput = component.find('input[type="checkbox"]');
+    checkBoxInput.setChecked(false);
+    await flushPromises();
+    expect(checkBoxInput.element.checked).toBeFalsy();
+    expect(component.find("#nameofPersonApprovedData").isVisible()).toBe(false);
+    expect(component.find("#roleofPersonApprovedData").isVisible()).toBe(false);
+    expect(component.find("#emailofPersonApprovedData").isVisible()).toBe(
+      false
+    );
+  });
+
   it("should display error notifier  when save data call is failed with error 400", async () => {
     axiosPostSpy.mockRejectedValue({
       response: {

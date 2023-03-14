@@ -71,4 +71,5 @@ export const healthIndicatorQuestionnaire = {
     "أنت على وشك نشر نموذج فهرس الصحة الرقمية لـ {country}. هذا لا يمكن التراجع عنه. هل تريد الاستمرار؟",
   rejectConfirmation:
     "أنت على وشك رفض نموذج مؤشر الصحة لـ {country}. هذا لا يمكن التراجع عنه. هل تريد الاستمرار؟",
+  govtApprovedMessage: "هل البيانات معتمدة من الحكومة؟",
 };

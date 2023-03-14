@@ -194,6 +194,22 @@
           </div>
         </div>
         <div class="row">
+          <input
+            type="checkbox"
+            :disabled="!showEdit"
+            v-model="countrySummary.govtApproved"
+            id="govtApproved"
+            class="form-check-input"
+          />
+          <label class="form-check-label" for="govtApproved">
+            {{ $t("healthIndicatorQuestionnaire.govtApprovedMessage") }}
+          </label>
+          <span
+            class="fa fa-eye publish"
+            :title="$t('healthIndicatorQuestionnaire.note1')"
+          ></span>
+        </div>
+        <div class="row" v-show="countrySummary.govtApproved">
           <div class="form-group column-33percent">
             <label for="nameofPersonApprovedData">{{
               $t("healthIndicatorQuestionnaire.contactForm.nameOfTheApprover")
@@ -215,7 +231,7 @@
                   ? 'has-error form-control'
                   : 'form-control'
               "
-              v-validate.disable="'required'"
+              v-validate.disable="countrySummary.govtApproved ? 'required' : ''"
               :title="
                 errors.has('approvername')
                   ? $t(
@@ -248,7 +264,7 @@
                   ? 'has-error form-control'
                   : 'form-control'
               "
-              v-validate.disable="'required'"
+              v-validate.disable="countrySummary.govtApproved ? 'required' : ''"
               :title="
                 errors.has('approverrole')
                   ? $t(
@@ -281,7 +297,9 @@
                   ? 'has-error form-control'
                   : 'form-control'
               "
-              v-validate.disable="'required|email'"
+              v-validate.disable="
+                countrySummary.govtApproved ? 'required|email' : ''
+              "
               :title="
                 $t('healthIndicatorQuestionnaire.contactForm.hoverText.email')
               "
@@ -804,6 +822,14 @@ export default Vue.extend({
       this.successMessages = this.getSuccessMessages();
       this.locale = this.$i18n.locale;
     }
+    if (!this.countrySummary.govtApproved) {
+      if (this.countrySummary["dataApproverName"])
+        this.countrySummary["dataApproverName"] = "";
+      if (this.countrySummary["dataApproverRole"])
+        this.countrySummary["dataApproverRole"] = "";
+      if (this.countrySummary["dataApproverEmail"])
+        this.countrySummary["dataApproverEmail"] = "";
+    }
   },
   methods: {
     getSuccessMessages() {
@@ -994,6 +1020,7 @@ export default Vue.extend({
   margin-left: 3px;
   margin-right: 3px;
 }
+
 .score-content {
   margin-left: 2px;
   margin-right: 2px;
