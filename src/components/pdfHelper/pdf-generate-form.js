@@ -166,6 +166,11 @@ export async function generateFormPDF(
   );
   page.moveDown(20);
   moveDownAndPopulateData(
+    "healthIndicatorQuestionnaire.govtApprovedMessage",
+    String(countrySummary.govtApproved)
+  );
+  page.moveDown(20);
+  moveDownAndPopulateData(
     "healthIndicatorQuestionnaire.contactForm.nameOfTheApprover",
     countrySummary.dataApproverName
   );
