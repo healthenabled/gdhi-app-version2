@@ -822,14 +822,21 @@ export default Vue.extend({
       this.successMessages = this.getSuccessMessages();
       this.locale = this.$i18n.locale;
     }
-    if (!this.countrySummary.govtApproved) {
-      if (this.countrySummary["dataApproverName"])
-        this.countrySummary["dataApproverName"] = "";
-      if (this.countrySummary["dataApproverRole"])
-        this.countrySummary["dataApproverRole"] = "";
-      if (this.countrySummary["dataApproverEmail"])
-        this.countrySummary["dataApproverEmail"] = "";
-    }
+  },
+  watch: {
+    "countrySummary.govtApproved": {
+      handler() {
+        if (!this.countrySummary.govtApproved) {
+          if (this.countrySummary["dataApproverName"])
+            this.countrySummary["dataApproverName"] = "";
+          if (this.countrySummary["dataApproverRole"])
+            this.countrySummary["dataApproverRole"] = "";
+          if (this.countrySummary["dataApproverEmail"])
+            this.countrySummary["dataApproverEmail"] = "";
+        }
+      },
+      immediate: true,
+    },
   },
   methods: {
     getSuccessMessages() {
