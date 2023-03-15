@@ -349,8 +349,27 @@ input[type="date"] {
       width: 20px;
       margin-top: 10px;
       margin-bottom: 10px;
+      color: $white;
+      -webkit-appearance: none;
+      appearance: none;
+      -moz-appearance: none;
+      outline-color: $black;
+      outline-width: 1px;
+      outline-style: solid;
+      &:checked {
+        background: #035bc8;
+      }
+      &:checked::after {
+        font-family: "FontAwesome";
+        content: "\f00c";
+        font-size: 20px;
+      }
+      &:disabled {
+        background: $disabled-grey;
+        color: $disabled-grey-fg;
+      }
     }
-    
+
     .form-check-label {
       align-self: center;
       margin-left: 10px;
@@ -360,9 +379,9 @@ input[type="date"] {
     }
 
     .fa.fa-eye {
-        align-self: center;
+      align-self: center;
     }
-     
+
     &:first-child {
       margin-top: 0px;
     }
