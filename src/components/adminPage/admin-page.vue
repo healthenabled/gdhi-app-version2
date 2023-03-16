@@ -8,7 +8,6 @@
       <GenerateUrl></GenerateUrl>
     </div>
     <div class="clearfix box">
-      <div class="header-bold">Form Details</div>
       <AdminViewFormDetails></AdminViewFormDetails>
     </div>
   </div>

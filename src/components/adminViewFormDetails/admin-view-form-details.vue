@@ -129,12 +129,15 @@ export default Vue.extend({
 
 <template>
   <div>
+    <div class="header-bold">
+      Form Details for {{ this.allData.currentYear }}
+    </div>
     <div class="tabs">
       <ul class="tablist">
         <li
           v-for="tab in tabs"
           v-on:click="updateSelected(tab)"
-          v-bind:class="{ current: selectedTab == tab.id }"
+          :class="{ current: selectedTab == tab.id }"
         >
           {{ tab.name }}
         </li>
