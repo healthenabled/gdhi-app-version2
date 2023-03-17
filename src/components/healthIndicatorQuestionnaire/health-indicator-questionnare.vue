@@ -62,23 +62,32 @@ export default Vue.extend({
     this.showEdit = true;
     common.showLoading();
     this.isViewPublish = this.$route.path.match("viewPublished") != null;
-    this.prepareDataForViewForm(this.$route.params.countryUUID);
+    this.prepareDataForViewForm(
+      this.$route.params.countryUUID,
+      this.$route.params.currentYear
+    );
   },
   updated() {
     if (this.locale !== this.$i18n.locale) {
-      this.prepareDataForViewForm(this.$route.params.countryUUID);
+      this.prepareDataForViewForm(
+        this.$route.params.countryUUID,
+        this.$route.params.currentYear
+      );
       this.locale = this.$i18n.locale;
     }
   },
   methods: {
-    fetchHealthScoresFor(countryUUID) {
+    fetchHealthScoresFor(countryUUID, currentYear) {
       let config = common.configWithUserLanguageAndNoCacheHeader(
         this.$i18n.locale
       );
       if (!this.isViewPublish)
         return axios.get(`/api/countries/${countryUUID}`, config);
       else
-        return axios.get(`/api/countries/viewPublish/${countryUUID}`, config);
+        return axios.get(
+          `/api/countries/viewPublish/${countryUUID}/${currentYear}`,
+          config
+        );
     },
     setUpHealthIndicators(data, isExpanded) {
       data.forEach((category) => {
@@ -144,14 +153,14 @@ export default Vue.extend({
       }
       common.hideLoading();
     },
-    prepareDataForViewForm(countryUUID) {
+    prepareDataForViewForm(countryUUID, currentYear) {
       axios
         .all([
           axios.get(
             "/api/health_indicator_options",
             common.configWithUserLanguageAndNoCacheHeader(this.$i18n.locale)
           ),
-          this.fetchHealthScoresFor(countryUUID),
+          this.fetchHealthScoresFor(countryUUID, currentYear),
         ])
         .then(axios.spread(this.viewFormCallback.bind(this)))
         .catch(() => {
