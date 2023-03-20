@@ -166,20 +166,27 @@ export async function generateFormPDF(
   );
   page.moveDown(20);
   moveDownAndPopulateData(
-    "healthIndicatorQuestionnaire.contactForm.nameOfTheApprover",
-    countrySummary.dataApproverName
+    "healthIndicatorQuestionnaire.contactForm.govtApprovedMessage",
+    String(countrySummary.govtApproved)
   );
   page.moveDown(20);
-  moveDownAndPopulateData(
-    "healthIndicatorQuestionnaire.contactForm.roleOfTheApprover",
-    countrySummary.dataApproverRole
-  );
-  page.moveDown(20);
-  moveDownAndPopulateData(
-    "healthIndicatorQuestionnaire.contactForm.emailOfTheApprover",
-    countrySummary.dataApproverEmail
-  );
-  page.moveDown(20);
+  if (countrySummary.govtApproved) {
+    moveDownAndPopulateData(
+      "healthIndicatorQuestionnaire.contactForm.nameOfTheApprover",
+      countrySummary.dataApproverName
+    );
+    page.moveDown(20);
+    moveDownAndPopulateData(
+      "healthIndicatorQuestionnaire.contactForm.roleOfTheApprover",
+      countrySummary.dataApproverRole
+    );
+    page.moveDown(20);
+    moveDownAndPopulateData(
+      "healthIndicatorQuestionnaire.contactForm.emailOfTheApprover",
+      countrySummary.dataApproverEmail
+    );
+    page.moveDown(20);
+  }
   moveDownAndPopulateData(
     "healthIndicatorQuestionnaire.contactForm.nameOfTheCountryContact",
     countrySummary.contactName

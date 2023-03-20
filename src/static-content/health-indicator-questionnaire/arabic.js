@@ -15,6 +15,8 @@ export const healthIndicatorQuestionnaire = {
     emailOfTheCountryContact: "البريد الإلكتروني لجهة الاتصال بالبلد",
     countrySummary: "ملخص البلد",
     organisationOfTheCountryContact: "المنظمة التي يتبع لها جهة الاتصال بالبلد",
+    govtApprovedMessage: "هل البيانات معتمدة من الحكومة؟",
+
     error: {
       nameOfPersonEnteringData: "اسم الشخص الذي يدخل البيانات مطلوب",
       roleOfThePersonEnteringData: "مطلوب دور الشخص الذي يدخل البيانات",

@@ -23,6 +23,7 @@ export const healthIndicatorQuestionnaire = {
       "Correo electrónico de la persona de contacto en el país",
     countrySummary: "Resumen del país ",
     organisationOfTheCountryContact: "Organización de contacto en el país",
+    govtApprovedMessage: "¿Los datos están aprobados por el gobierno?",
     error: {
       nameOfPersonEnteringData:
         "Nombre de la persona que introduce los datos es obligatorio",
