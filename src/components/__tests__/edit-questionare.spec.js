@@ -340,7 +340,6 @@ describe("EditQuestionaire", () => {
   });
 
   it("should call delete api and redirect to admin page", async () => {
-    let routerPush = sinon.spy(router, "push");
     let notifier = sinon.spy();
     component.vm.$notify = notifier;
     axiosDeleteSpy.mockResolvedValue({});
@@ -353,6 +352,22 @@ describe("EditQuestionaire", () => {
     // TODO: Check the below
     // await flushPromises();
     // sinon.assert.calledWith(routerPush, { path: `/admin` });
+  });
+
+  it.only("should call publish api and redirect to admin page", async () => {
+    let notifier = sinon.spy();
+    const mockPush = vi.fn();
+    axiosPostSpy.mockResolvedValue({});
+    component.vm.$notify = notifier;
+    component.vm.$router = { push: mockPush };
+    component.vm.saveData("publish");
+
+    await flushPromises();
+
+    expect(axiosPostSpy.mock.calls[0][0]).to.equal(
+      `/api/countries/publish/2023`
+    );
+    expect(mockPush.mock.calls[0][0].path).to.equal("/admin");
   });
 
   it("should call delete api and notify with error message on server error", async () => {
