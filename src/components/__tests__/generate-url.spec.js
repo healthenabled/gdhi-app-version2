@@ -111,7 +111,7 @@ describe("Generate URL ", () => {
       type: "success",
     });
   });
-  it("should set the warning message if existing status = PUBLISHED", async () => {
+  it("should set the warning message if existing status = PUBLISHED and success=true", async () => {
     let notifier = sinon.spy();
 
     wrapper.vm.notifier = notifier;
@@ -132,7 +132,35 @@ describe("Generate URL ", () => {
         "/health_indicator_questionnaire/" +
         wrapper.vm.countryUUID
     );
-    expect(wrapper.vm.warningMessage).to.equal("Already Published");
+    expect(wrapper.vm.warningMessage).to.equal(
+      "Data has already been published"
+    );
+  });
+
+  it("should set the warning message if existing status = PUBLISHED and success=false", async () => {
+    let notifier = sinon.spy();
+
+    wrapper.vm.notifier = notifier;
+    axiosPostSpy.mockResolvedValue({
+      data: { success: false, existingStatus: "PUBLISHED" },
+    });
+    wrapper.vm.onCountrySelect({
+      value: "AUS",
+      display: "Australia",
+      selectedObject: countryData[3],
+    });
+    await flushPromises();
+    wrapper.find(".btn-primary").trigger("click");
+    await flushPromises();
+
+    expect(wrapper.vm.generatedURL).to.equal(
+      location.origin +
+        "/health_indicator_questionnaire/" +
+        wrapper.vm.countryUUID
+    );
+    expect(wrapper.vm.warningMessage).to.equal(
+      "Data has already been published"
+    );
   });
   it("should set the warning message if sucess == false and exisiting status = NEW", async () => {
     let notifier = sinon.spy();
