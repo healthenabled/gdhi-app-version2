@@ -19,7 +19,10 @@ describe("EditQuestionaire", () => {
   beforeEach(() => {
     axiosPostSpy.mockReset();
     Vue.use(VeeValidate);
-    const $route = { path: "test", params: { countryUUID: "random-uuid" } };
+    const $route = {
+      path: "test",
+      params: { countryUUID: "random-uuid", currentYear: "2023" },
+    };
     component = shallowMount(EditQuestionnaire, {
       propsData: {
         showEdit: true,
@@ -36,6 +39,7 @@ describe("EditQuestionaire", () => {
       router,
       i18n,
     });
+    component.vm.$route = $route;
   });
 
   it("should have default value when props are not there", () => {
@@ -343,9 +347,8 @@ describe("EditQuestionaire", () => {
     component.vm.deleteData();
 
     await flushPromises();
-    let expectedUUID = component.vm?.$route?.params?.countryUUID;
     expect(axiosDeleteSpy.mock.calls[0][0]).to.equal(
-      `/api/countries/${expectedUUID}/delete`
+      `/api/countries/random-uuid/delete/2023`
     );
     // TODO: Check the below
     // await flushPromises();
@@ -362,9 +365,8 @@ describe("EditQuestionaire", () => {
 
     await flushPromises();
 
-    let expectedUUID = component.vm?.$route?.params?.countryUUID;
     expect(axiosDeleteSpy.mock.calls[0][0]).to.equal(
-      `/api/countries/${expectedUUID}/delete`
+      `/api/countries/random-uuid/delete/2023`
     );
 
     await flushPromises();

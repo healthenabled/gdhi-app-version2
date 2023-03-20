@@ -866,7 +866,9 @@ export default Vue.extend({
       document.body.scrollTop = document.documentElement.scrollTop = 0;
 
       let url = "/api/countries/" + action;
-
+      if (action === "publish") {
+        url += "/" + this.$route.params.currentYear;
+      }
       axios
         .post(
           url,
@@ -913,7 +915,7 @@ export default Vue.extend({
     deleteData() {
       common.showLoading();
       document.body.scrollTop = document.documentElement.scrollTop = 0;
-      let url = `/api/countries/${this.$route?.params.countryUUID}/delete`;
+      let url = `/api/countries/${this.$route?.params.countryUUID}/delete/${this.$route?.params.currentYear}`;
 
       axios
         .delete(url)
