@@ -13,6 +13,7 @@ describe("AdminViewFormDetails", () => {
   const router = new VueRouter();
 
   let responseData = {
+    currentYear: "2023",
     NEW: [
       {
         countryName: "India",
@@ -84,6 +85,7 @@ describe("AdminViewFormDetails", () => {
     });
 
     expect(component.vm.allData).to.equal(responseData);
+    expect(component.vm.$el).toMatchSnapshot();
   });
 
   it("should call getTabData when updateSelected is called", async () => {

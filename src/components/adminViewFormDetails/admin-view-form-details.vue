@@ -137,7 +137,7 @@ export default Vue.extend({
 
 <template>
   <div>
-    <div class="header-bold">Form Details for {{ currentYear }}</div>
+    <div class="header-bold">Form Details for {{ currentYear }} year</div>
     <div class="tabs">
       <ul class="tablist">
         <li
