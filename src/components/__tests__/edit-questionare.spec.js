@@ -354,7 +354,7 @@ describe("EditQuestionaire", () => {
     // sinon.assert.calledWith(routerPush, { path: `/admin` });
   });
 
-  it.only("should call publish api and redirect to admin page", async () => {
+  it("should call publish api and redirect to admin page", async () => {
     let notifier = sinon.spy();
     const mockPush = vi.fn();
     axiosPostSpy.mockResolvedValue({});
