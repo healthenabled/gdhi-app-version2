@@ -968,14 +968,23 @@ export default Vue.extend({
       this.expandAllCategories();
       this.$validator.validateAll().then((isValid) => {
         if (isValid) {
-          if (action == "submit") {
-            this.saveData(action);
+          if (action === "submit") {
+            this.checkAndSubmit();
           } else {
             this.checkAndPublish();
           }
         } else {
           this.showValidationError();
         }
+      });
+    },
+    checkAndSubmit() {
+      this.getConfirmationDialog({
+        message: this.$i18n.t("healthIndicatorQuestionnaire.saveConfirmation", {
+          country: this.countrySummary.countryName,
+        }),
+        callBackMethod: this.saveData,
+        callBackArgs: ["submit"],
       });
     },
     checkAndPublish() {

@@ -291,9 +291,11 @@ describe("EditQuestionaire", () => {
     });
   });
 
-  it("should submit data when data is valid", async () => {
+  it("should show submit confirmation dialog when submit is pressed", async () => {
+    let getConfirmationDialog = sinon.spy();
     let saveData = sinon.spy();
     component.vm.saveData = saveData;
+    component.vm.getConfirmationDialog = getConfirmationDialog;
 
     sinon
       .stub(component.vm.$validator, "validateAll")
@@ -301,7 +303,12 @@ describe("EditQuestionaire", () => {
     component.vm.validate("submit");
     await flushPromises();
 
-    sinon.assert.calledOnce(saveData);
+    sinon.assert.calledWith(getConfirmationDialog, {
+      message:
+        "Are you sure you want to submit the data for India? Please check the options selected by you are reflecting Country's current year digital health maturity",
+      callBackMethod: saveData,
+      callBackArgs: ["submit"],
+    });
   });
 
   it("should not submit data when data is invalid", async () => {
