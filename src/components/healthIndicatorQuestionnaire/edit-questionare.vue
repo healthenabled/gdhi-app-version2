@@ -802,6 +802,12 @@ export default Vue.extend({
         return false;
       },
     },
+    updatedDate: {
+      type: String,
+      default() {
+        return "";
+      },
+    },
     today: {
       type: String,
       default() {
