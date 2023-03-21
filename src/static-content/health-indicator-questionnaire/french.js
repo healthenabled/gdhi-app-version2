@@ -19,7 +19,7 @@ export const healthIndicatorQuestionnaire = {
     countrySummary: "Résumé par pays",
     organisationOfTheCountryContact: "Organisation de l'interlocuteur pays",
     govtApprovedMessage:
-        "Les données sont-elles approuvées par le gouvernement ?",
+      "Les données sont-elles approuvées par le gouvernement ?",
     error: {
       nameOfPersonEnteringData:
         "Le nom de la personne qui saisit les données est requis",
@@ -88,6 +88,8 @@ export const healthIndicatorQuestionnaire = {
     "Somente a pontuação de cada indicador será exibida publicamente na plataforma GDHI.",
   publishConfirmation:
     "Vous êtes sur le point de publier le formulaire de l'indice numérique de santé pour {country}. Cela ne peut pas être annulé. Voulez-vous continuer?",
+  saveConfirmation:
+    "Voulez-vous vraiment envoyer les données pour {country}? Veuillez vérifier que les options que vous avez sélectionnées reflètent la maturité de la santé numérique du pays pour l'année en cours",
   rejectConfirmation:
     "Vous êtes sur le point de rejeter le formulaire d'indice-santé pour {country}. Cela ne peut pas être annulé. Voulez-vous continuer?",
   govtApprovedMessage:
