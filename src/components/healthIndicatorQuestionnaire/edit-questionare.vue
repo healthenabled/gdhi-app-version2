@@ -1,3 +1,5 @@
+<!-- eslint-disable vue/return-in-computed-property -->
+<!-- eslint-disable vue/return-in-computed-property -->
 <template>
   <div class="health-indicator-questionnaire content-centered">
     <div class="clearfix fixed-sub-header">
@@ -85,6 +87,9 @@
     >
       <div class="copy-small-italics copy-blue note">
         {{ $t("healthIndicatorQuestionnaire.note") }}
+      </div>
+      <div id="info-box" v-if="warningMessage.length">
+        <i class="fa fa-lg fa-exclamation-triangle" />{{ warningMessage }}
       </div>
       <div
         class="health-indicator-questionnaire-contact-info-heading header-bold"
@@ -802,6 +807,12 @@ export default Vue.extend({
         return false;
       },
     },
+    hasPreviousYearData: {
+      type: Boolean,
+      default() {
+        return false;
+      },
+    },
     updatedDate: {
       type: String,
       default() {
@@ -828,6 +839,36 @@ export default Vue.extend({
       this.successMessages = this.getSuccessMessages();
       this.locale = this.$i18n.locale;
     }
+  },
+  computed: {
+    warningMessage() {
+      if (this.hasPreviousYearData) {
+        return this.$i18n.t(
+          "healthIndicatorQuestionnaire.QuestionnaireStateMessage.hasPrefillData",
+          { updatedDate: this.updatedDate }
+        );
+      } else if (
+        this.status === "REVIEW_PENDING" &&
+        !this.hasPreviousYearData &&
+        !this.isAdmin
+      ) {
+        return this.$i18n.t(
+          "healthIndicatorQuestionnaire.QuestionnaireStateMessage.dataSubmittedAlready",
+          { updatedDate: this.updatedDate }
+        );
+      } else if (
+        this.status === "PUBLISHED" &&
+        !this.hasPreviousYearData &&
+        !this.isAdmin
+      ) {
+        return this.$i18n.t(
+          "healthIndicatorQuestionnaire.QuestionnaireStateMessage.dataPublishedAlready",
+          { updatedDate: this.updatedDate }
+        );
+      } else {
+        return "";
+      }
+    },
   },
   watch: {
     "countrySummary.govtApproved": {

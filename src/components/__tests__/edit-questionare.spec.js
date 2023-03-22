@@ -26,6 +26,8 @@ describe("EditQuestionaire", () => {
     component = shallowMount(EditQuestionnaire, {
       propsData: {
         showEdit: true,
+        hasPreviousYearData: false,
+        updatedDate: "March 2023",
         countrySummary: {
           countryName: "India",
           resources: [""],
@@ -53,6 +55,8 @@ describe("EditQuestionaire", () => {
     expect(component.vm.showEdit).to.deep.equal(true);
     expect(component.vm.status).to.deep.equal("");
     expect(component.vm.isAdmin).to.deep.equal(false);
+    expect(component.vm.hasPreviousYearData).to.deep.equal(false);
+    expect(component.vm.updatedDate).to.deep.equal("");
   });
 
   it("should contain the edit-questionnaire component", () => {
@@ -95,6 +99,26 @@ describe("EditQuestionaire", () => {
     await flushPromises();
 
     expect(component.vm.showEdit).to.equal(false);
+    sinon.assert.calledWith(notifier, {
+      group: "custom-template",
+      title: "Success",
+      text: component.vm.successMessages["submit"],
+      type: "success",
+    });
+  });
+
+  it("should set showEdit to false when save data is called with action submit and should not have previous data", async () => {
+    axiosPostSpy.mockResolvedValue({});
+    let notifier = sinon.spy();
+    await flushPromises();
+
+    component.vm.$notify = notifier;
+    component.vm.saveData("submit");
+
+    await flushPromises();
+
+    expect(component.vm.showEdit).to.equal(false);
+    expect(component.vm.hasPreviousYearData).to.equal(false);
     sinon.assert.calledWith(notifier, {
       group: "custom-template",
       title: "Success",
@@ -157,6 +181,34 @@ describe("EditQuestionaire", () => {
     expect(
       axiosPostSpy.mock.calls[0][1].countrySummary.dataApproverEmail
     ).to.equal("email");
+  });
+  it("should display warning message when the data is on review and isAdmin is false", async () => {
+    axiosPostSpy.mockResolvedValue({});
+    await flushPromises();
+    component.vm.status = "REVIEW_PENDING";
+    component.vm.isAdmin = false;
+    expect(component.vm.warningMessage).to.equal(
+      "Data is already submitted for the current year on March 2023"
+    );
+  });
+
+  it("should display warning message when the data is published and isAdmin is false", async () => {
+    axiosPostSpy.mockResolvedValue({});
+    await flushPromises();
+    component.vm.status = "PUBLISHED";
+    component.vm.isAdmin = false;
+    expect(component.vm.warningMessage).to.equal(
+      "Data for current year is already published on March 2023"
+    );
+  });
+
+  it("should display warning message when the data is prefilled for a questionnaire from a previous year", async () => {
+    axiosPostSpy.mockResolvedValue({});
+    await flushPromises();
+    component.vm.hasPreviousYearData = true;
+    expect(component.vm.warningMessage).to.equal(
+      "Data has been pre-populated in the questionnaire from year March 2023. Please update the data for current year and provide relevant justification"
+    );
   });
 
   it("should display approver fields when is government approved checkbox is set to true", async () => {

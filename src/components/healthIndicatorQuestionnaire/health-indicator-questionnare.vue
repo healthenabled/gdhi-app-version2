@@ -9,6 +9,7 @@
       :healthIndicators="healthIndicators"
       :status="status"
       :isAdmin="isAdmin"
+      :hasPreviousYearData="hasPreviousYearData"
       :updatedDate="updatedDate"
     ></edit-questionnaire>
   </div>
@@ -54,7 +55,8 @@ export default Vue.extend({
       healthIndicators,
       showEdit: true,
       status: "",
-      isAdmin: false,
+      hasPreviousYearData: false,
+      isAdmin: this.$route.path.match("admin") != null,
       updatedDate: "",
       isViewPublish: false,
       locale: "en",
@@ -81,9 +83,9 @@ export default Vue.extend({
   methods: {
     checkIfPreviousDataisAvailable(currentYear, dataAvaibleForYear) {
       if (currentYear === dataAvaibleForYear) {
-        this.hasPreviousData = false;
+        this.hasPreviousYearData = false;
       } else {
-        this.hasPreviousData = true;
+        this.hasPreviousYearData = true;
       }
     },
     fetchHealthScoresFor(countryUUID, currentYear) {
@@ -137,9 +139,9 @@ export default Vue.extend({
     },
     viewFormCallback(options, scores) {
       this.status = scores.data.status;
-      this.isAdmin = this.$route.path.match("review") != null;
+      // this.isAdmin = this.$route.path.match("admin") != null;
       this.updatedDate = scores.data.updatedDate;
-      const hasPreviousData = this.checkIfPreviousDataisAvailable(
+      this.checkIfPreviousDataisAvailable(
         scores.data.currentYear,
         scores.data.dataAvailableForYear
       );
@@ -148,11 +150,11 @@ export default Vue.extend({
       if (
         scores.data.status == "REVIEW_PENDING" &&
         !this.isAdmin &&
-        !hasPreviousData
+        !this.hasPreviousYearData
       ) {
         this.showEdit = false;
       }
-      if (this.isViewPublish && !hasPreviousData) {
+      if (this.isViewPublish && !this.hasPreviousYearData) {
         this.showEdit = false;
       }
       if (scores.data.healthIndicators.length == 0) {

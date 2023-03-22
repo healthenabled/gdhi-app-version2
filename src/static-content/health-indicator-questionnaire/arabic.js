@@ -76,4 +76,11 @@ export const healthIndicatorQuestionnaire = {
   rejectConfirmation:
     "أنت على وشك رفض نموذج مؤشر الصحة لـ {country}. هذا لا يمكن التراجع عنه. هل تريد الاستمرار؟",
   govtApprovedMessage: "هل البيانات معتمدة من الحكومة؟",
+  QuestionnaireStateMessage: {
+    hasPrefillData:
+      "تمت تعبئة البيانات مسبقًا في الاستبيان منذ عام {updatedDate}. يرجى تحديث بيانات العام الحالي وتقديم المبررات ذات الصلة",
+    dataSubmittedAlready:
+      "تم بالفعل إرسال البيانات الخاصة بالسنة الحالية بتاريخ {updatedDate}",
+    dataPublishedAlready: "تم نشر بيانات العام الحالي بالفعل في {updatedDate}",
+  },
 };

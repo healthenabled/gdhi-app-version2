@@ -86,4 +86,12 @@ export const healthIndicatorQuestionnaire = {
   rejectConfirmation:
     "You are about to reject digital health index form for {country}. This cannot be reverted. Do you want to continue?",
   govtApprovedMessage: "Is the data approved by the government?",
+  QuestionnaireStateMessage: {
+    hasPrefillData:
+      "Data has been pre-populated in the questionnaire from year {updatedDate}. Please update the data for current year and provide relevant justification",
+    dataSubmittedAlready:
+      "Data is already submitted for the current year on {updatedDate}",
+    dataPublishedAlready:
+      "Data for current year is already published on {updatedDate}",
+  },
 };

@@ -101,7 +101,10 @@ describe("Health Indicator Questionnaire", () => {
   ];
   let countryData = {
     countryId: "AFG",
+    currentYear: "2023",
+    dataAvailableForYear: "2018",
     status: "NEW",
+    updatedDate: "March 2018",
     countrySummary: {
       countryId: "AFG",
       countryName: "Afghanistan",
@@ -124,7 +127,10 @@ describe("Health Indicator Questionnaire", () => {
 
   let draftCountryData = {
     countryId: "AFG",
+    currentYear: "2023",
+    dataAvailableForYear: "2023",
     status: "NEW",
+    updatedDate: "March 2018",
     countrySummary: {
       countryId: "AFG",
       countryName: "Afghanistan",
@@ -229,15 +235,26 @@ describe("Health Indicator Questionnaire", () => {
       });
     });
 
-    it("should set showEdit based on isViewPublish", async () => {
+    it("should set showEdit based on isViewPublish and hasPreviousYearData", async () => {
       wrapper = shallowMount(HealthIndicatorQuestionnaire, {
         localVue,
         router,
         i18n,
       });
       wrapper.vm.isViewPublish = true;
+      wrapper.vm.hasPreviousYearData = false;
+      expect(wrapper.vm.hasPreviousYearData).to.equal(false);
       await flushPromises();
       expect(wrapper.vm.showEdit).to.equal(false);
+    });
+    it("should set hasPreviousYearData based on currentYear and dataAvailableForYear", async () => {
+      wrapper = shallowMount(HealthIndicatorQuestionnaire, {
+        localVue,
+        router,
+        i18n,
+      });
+      await flushPromises();
+      expect(wrapper.vm.hasPreviousYearData).to.equal(false);
     });
   });
 

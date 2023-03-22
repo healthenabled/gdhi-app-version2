@@ -85,4 +85,12 @@ export const healthIndicatorQuestionnaire = {
   rejectConfirmation:
     "Está prestes a rejeitar o formulário do índice de saúde para {country}. Que não pode ser revertido. Você quer continuar?",
   govtApprovedMessage: "Os dados são aprovados pelo governo?",
+  QuestionnaireStateMessage: {
+    hasPrefillData:
+      "Os dados foram preenchidos previamente no questionário do ano {updatedDate}. Atualize os dados do ano atual e forneça justificativa relevante",
+    dataSubmittedAlready:
+      "Os dados já foram enviados para o ano atual em {updatedDate}",
+    dataPublishedAlready:
+      "Os dados do ano atual já foram publicados em {updatedDate}",
+  },
 };
