@@ -154,7 +154,10 @@ export default Vue.extend({
       ) {
         this.showEdit = false;
       }
-      if (this.isViewPublish && !this.hasPreviousYearData) {
+      if (
+        (scores.data.status == "PUBLISHED" || this.isViewPublish) &&
+        !this.hasPreviousYearData
+      ) {
         this.showEdit = false;
       }
       if (scores.data.healthIndicators.length == 0) {
