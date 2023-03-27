@@ -145,7 +145,10 @@
             position: relative;
             overflow: hidden;
           }
-
+          &[value="N/A"]::after,
+          &[value="N/A"]::before {
+            width: 20%;
+          }
           &[value="1"]::after,
           &[value="1"]::before {
             width: 20%;
@@ -166,6 +169,9 @@
           &[value="5"]::before {
             width: 100%;
           }
+          &[value="N/A"]::before {
+            content: attr(data-phase);
+          }
           &[value="1"]::before {
             content: attr(data-phase);
             @include transformX(-7px);
@@ -181,6 +187,9 @@
           }
           &[value="5"]::before {
             content: attr(data-phase);
+          }
+          &.phaseNA::after {
+            background-color: transparent;
           }
           &.phase1::after {
             background-color: $score1;

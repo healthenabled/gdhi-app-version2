@@ -286,11 +286,17 @@ export default Vue.extend({
                   </div>
                   <div
                     :class="
-                      'indicator-panel-container-category-section-phase phase' +
-                      category.phase
+                      category.phase >= 0
+                        ? 'indicator-panel-container-category-section-phase phase' +
+                          category.phase
+                        : 'indicator-panel-container-category-section-phase phaseNA'
                     "
-                    :value="category.phase"
-                    :data-phase="$t('mixed.phaseN', { number: category.phase })"
+                    :value="category.phase >= 0 ? category.phase : 'N/A'"
+                    :data-phase="
+                      category.phase >= 0
+                        ? $t('mixed.phaseN', { number: category.phase })
+                        : 'N/A'
+                    "
                   ></div>
                   <div class="accordion-content">
                     <div class="heading-row sub-header">
