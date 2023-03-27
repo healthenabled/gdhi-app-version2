@@ -270,7 +270,7 @@ export default Vue.extend({
           <div v-if="healthIndicatorData" class="health-indicators">
             <div
               v-for="(category, index) in healthIndicatorData.categories"
-              class="indicator-panel-container-category-section"
+              class="country-profile-indicator-panel-container-category-section"
             >
               <div class="category-bar box">
                 <div
