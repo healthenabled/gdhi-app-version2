@@ -1,17 +1,25 @@
 import Vue from "vue";
 import Router from "vue-router";
-import content from "@/components/container/container.vue";
-import indicatorsInfoComp from "@/components/indicatorsInfo/indicators-info.vue";
-import headerComp from "@/components/header/header.vue";
-import languageSelector from "@/components/language-selector/language-selector.vue";
-import footerComp from "@/components/footer/footer.vue";
-import countryProfile from "@/components/countryProfile/country-profile.vue";
-import landingMap from "@/components/landing-map/map.vue";
-import methodologyComp from "@/components/methodology/methodology.vue";
-import healthIndicatorQuestionnaire from "@/components/healthIndicatorQuestionnaire/health-indicator-questionnare.vue";
-import countryListComp from "@/components/countryList/country-list.vue";
-import ErrorComp from "@/components/error-handler/404-error.vue";
-import adminPageComp from "@/components/adminPage/admin-page.vue";
+const content = () => import("@/components/container/container.vue");
+const indicatorsInfoComp = () =>
+  import("@/components/indicatorsInfo/indicators-info.vue");
+const headerComp = () => import("@/components/header/header.vue");
+const languageSelector = () =>
+  import("@/components/language-selector/language-selector.vue");
+const footerComp = () => import("@/components/footer/footer.vue");
+const countryProfile = () =>
+  import("@/components/countryProfile/country-profile.vue");
+const landingMap = () => import("@/components/landing-map/map.vue");
+const methodologyComp = () =>
+  import("@/components/methodology/methodology.vue");
+const healthIndicatorQuestionnaire = () =>
+  import(
+    "@/components/healthIndicatorQuestionnaire/health-indicator-questionnare.vue"
+  );
+const countryListComp = () =>
+  import("@/components/countryList/country-list.vue");
+const ErrorComp = () => import("@/components/error-handler/404-error.vue");
+const adminPageComp = () => import("@/components/adminPage/admin-page.vue");
 
 Vue.use(Router);
 
