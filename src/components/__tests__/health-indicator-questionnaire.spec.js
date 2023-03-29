@@ -6,7 +6,6 @@ import { i18n } from "../../plugins/i18n";
 import axios from "axios";
 import flushPromises from "flush-promises";
 import { EventBus } from "../common/event-bus";
-import { EVENTS } from "../../constants";
 
 const axiosGetSpy = vi.spyOn(axios, "get");
 const eventBusOnSpy = vi.spyOn(EventBus, "$on");

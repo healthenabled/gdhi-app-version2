@@ -1,5 +1,3 @@
-<!-- eslint-disable vue/return-in-computed-property -->
-<!-- eslint-disable vue/return-in-computed-property -->
 <template>
   <div class="health-indicator-questionnaire content-centered">
     <div class="clearfix fixed-sub-header">

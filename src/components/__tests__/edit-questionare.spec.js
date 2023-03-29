@@ -9,7 +9,6 @@ import VeeValidate from "vee-validate";
 import { i18n } from "../../plugins/i18n";
 import axios from "axios";
 import { EventBus } from "../common/event-bus";
-import { EVENTS } from "../../constants";
 
 describe("EditQuestionaire", () => {
   let component;
