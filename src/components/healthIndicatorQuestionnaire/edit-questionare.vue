@@ -210,7 +210,7 @@
           <span
             class="fa fa-eye publish"
             :title="$t('healthIndicatorQuestionnaire.note1')"
-          />
+          ></span>
         </div>
         <div class="row" v-show="countrySummary.govtApproved">
           <div class="form-group column-33percent">
@@ -320,7 +320,7 @@
               )
             }}</label>
             <span
-              class="fa fa-eye-slash publish"
+              class="fa fa-eye-slash publish even-margin"
               :title="$t('healthIndicatorQuestionnaire.note1')"
             ></span>
             <input
@@ -352,7 +352,7 @@
               )
             }}</label>
             <span
-              class="fa fa-eye-slash publish"
+              class="fa fa-eye-slash publish even-margin"
               :title="$t('healthIndicatorQuestionnaire.note1')"
             ></span>
             <input
@@ -384,7 +384,7 @@
               )
             }}</label>
             <span
-              class="fa fa-eye-slash publish"
+              class="fa fa-eye-slash publish even-margin"
               :title="$t('healthIndicatorQuestionnaire.note1')"
             ></span>
             <input
@@ -448,7 +448,7 @@
               )
             }}</label>
             <span
-              class="fa fa-eye-slash publish"
+              class="fa fa-eye-slash publish even-margin"
               :title="$t('healthIndicatorQuestionnaire.note1')"
             ></span>
             <input
@@ -1077,6 +1077,11 @@ export default Vue.extend({
 .mandatory-field {
   margin-left: 3px;
   margin-right: 3px;
+}
+
+.even-margin {
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 .score-content {
