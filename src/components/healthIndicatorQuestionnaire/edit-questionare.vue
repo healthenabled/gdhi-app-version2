@@ -321,9 +321,8 @@
                 "healthIndicatorQuestionnaire.contactForm.nameOfTheCountryContact"
               )
             }}</label>
-            <span class="mandatory-field">*</span>
             <span
-              class="fa fa-eye publish"
+              class="fa fa-eye-slash publish"
               :title="$t('healthIndicatorQuestionnaire.note1')"
             ></span>
             <input
@@ -336,7 +335,6 @@
                   : 'custom-form-control'
               "
               id="nameofCountryContact"
-              v-validate.disable="'required'"
               v-model="countrySummary.contactName"
               :title="
                 errors.has('countryContact')
@@ -355,9 +353,8 @@
                 "healthIndicatorQuestionnaire.contactForm.roleOfTheCountryContact"
               )
             }}</label>
-            <span class="mandatory-field">*</span>
             <span
-              class="fa fa-eye publish"
+              class="fa fa-eye-slash publish"
               :title="$t('healthIndicatorQuestionnaire.note1')"
             ></span>
             <input
@@ -370,7 +367,6 @@
                   : 'form-control'
               "
               id="roleofCountryContact"
-              v-validate.disable="'required'"
               :title="
                 errors.has('contactRole')
                   ? $t(
@@ -389,9 +385,8 @@
                 "healthIndicatorQuestionnaire.contactForm.emailOfTheCountryContact"
               )
             }}</label>
-            <span class="mandatory-field">*</span>
             <span
-              class="fa fa-eye publish"
+              class="fa fa-eye-slash publish"
               :title="$t('healthIndicatorQuestionnaire.note1')"
             ></span>
             <input
@@ -404,7 +399,7 @@
                   : 'form-control'
               "
               id="emailofCountryContact"
-              v-validate.disable="'required|email'"
+              v-validate.disable="'email'"
               v-model="countrySummary.contactEmail"
               :title="
                 $t('healthIndicatorQuestionnaire.contactForm.hoverText.email')
@@ -454,9 +449,8 @@
                 "healthIndicatorQuestionnaire.contactForm.organisationOfTheCountryContact"
               )
             }}</label>
-            <span class="mandatory-field">*</span>
             <span
-              class="fa fa-eye publish"
+              class="fa fa-eye-slash publish"
               :title="$t('healthIndicatorQuestionnaire.note1')"
             ></span>
             <input
@@ -464,7 +458,6 @@
               :disabled="!showEdit"
               id="Organisation"
               name="Organisation"
-              v-validate.disable="'required'"
               :class="
                 errors.has('Organisation')
                   ? 'has-error form-control'
@@ -517,15 +510,14 @@
               $t("healthIndicatorQuestionnaire.resourceForm.resource", {
                 number: 1,
               })
-            }}</label
-            ><span class="mandatory-field">*</span>
+            }}</label>
             <input
               type="text"
               :disabled="!showEdit"
               name="resource1"
               id="resource1"
               v-model="countrySummary.resources[0]"
-              v-validate.disable="'required|url'"
+              v-validate.disable="'url'"
               :class="
                 errors.has('resource1')
                   ? 'has-error form-control'
