@@ -8,6 +8,8 @@ import sinon from "sinon";
 import VeeValidate from "vee-validate";
 import { i18n } from "../../plugins/i18n";
 import axios from "axios";
+import { EventBus } from "../common/event-bus";
+import { EVENTS } from "../../constants";
 
 describe("EditQuestionaire", () => {
   let component;
@@ -65,9 +67,10 @@ describe("EditQuestionaire", () => {
     );
   });
 
-  it("should save data as draft", async () => {
+  it("should save data as draft and emit event", async () => {
     axiosPostSpy.mockResolvedValue({});
     let notifier = sinon.spy();
+    vi.spyOn(EventBus, "$emit");
 
     await flushPromises();
 
@@ -79,6 +82,10 @@ describe("EditQuestionaire", () => {
       "some-random-uuid"
     );
     await flushPromises();
+
+    expect(EventBus.$emit.mock.calls[0][0]).to.equal(
+      "edit_questionnaire:saved"
+    );
 
     sinon.assert.calledWith(notifier, {
       group: "custom-template",

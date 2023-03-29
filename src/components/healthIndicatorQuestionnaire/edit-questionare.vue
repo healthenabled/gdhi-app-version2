@@ -751,6 +751,8 @@ import VuejsDialog from "vuejs-dialog";
 import common from "../../common/common";
 import dateFormat from "dateformat";
 import { generateFormPDF } from "../pdfHelper/pdf-generate-form.js";
+import { EventBus } from "../common/event-bus";
+import { EVENTS } from "../../constants";
 
 const config = {
   fieldsBagName: "fieldBags",
@@ -923,6 +925,7 @@ export default Vue.extend({
             this.showEdit = false;
           }
           common.hideLoading();
+          EventBus.$emit(EVENTS.QUESTIONNAIRE_DATA_SAVED);
           this.notifier({
             title: "Success",
             message: this.successMessages[action],

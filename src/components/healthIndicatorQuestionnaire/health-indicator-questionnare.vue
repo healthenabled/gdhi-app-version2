@@ -22,6 +22,8 @@ import EditQuestionnaire from "./edit-questionare.vue";
 import axios from "axios";
 import VeeValidate from "vee-validate";
 import common from "../../common/common";
+import { EventBus } from "../common/event-bus";
+import { EVENTS } from "../../constants";
 
 const config = {
   fieldsBagName: "fieldBags",
@@ -70,6 +72,14 @@ export default Vue.extend({
       this.$route.params.countryUUID,
       this.$route.params.currentYear
     );
+  },
+  mounted() {
+    EventBus.$on(EVENTS.QUESTIONNAIRE_DATA_SAVED, () => {
+      this.prepareDataForViewForm(
+        this.$route.params.countryUUID,
+        this.$route.params.currentYear
+      );
+    });
   },
   updated() {
     if (this.locale !== this.$i18n.locale) {

@@ -5,8 +5,11 @@ import VueRouter from "vue-router";
 import { i18n } from "../../plugins/i18n";
 import axios from "axios";
 import flushPromises from "flush-promises";
+import { EventBus } from "../common/event-bus";
+import { EVENTS } from "../../constants";
 
 const axiosGetSpy = vi.spyOn(axios, "get");
+const eventBusOnSpy = vi.spyOn(EventBus, "$on");
 
 describe("Health Indicator Questionnaire", () => {
   let wrapper;
@@ -197,6 +200,17 @@ describe("Health Indicator Questionnaire", () => {
       healthIndicatorOptions.forEach((category) => {
         expect(category.showCategory).to.be.equal(false);
       });
+    });
+
+    it("should register event when health indicator questionnaire is mounted", () => {
+      expect(eventBusOnSpy.mock.calls[0][0]).to.equal(
+        "edit_questionnaire:saved"
+      );
+      eventBusOnSpy.mock.calls[0][1]();
+      expect(axiosGetSpy.mock.calls[0][0]).to.equal(
+        "/api/health_indicator_options"
+      );
+      expect(axiosGetSpy.mock.calls[1][0]).to.contains("/api/countries/");
     });
   });
 
