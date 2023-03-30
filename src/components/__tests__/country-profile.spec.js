@@ -126,7 +126,7 @@ describe("Country Profile ", () => {
     expect(wrapper.find("#collected-date").text()).to.equal(
       `As on: January 2018`
     );
-    expect(wrapper.find(".export a").attributes().href).to.equal(
+    expect(wrapper.find(".header-section-button-container a").attributes().href).to.equal(
       wrapper.vm.countryDataSheetUrl()
     );
     expect(wrapper.find(".score").text()).to.equal(
@@ -183,7 +183,7 @@ describe("Country Profile ", () => {
 
     let mockFn = vi.spyOn(pdfHelper, "generateScorecard").mockReturnValue({});
 
-    wrapper.find(".download-btn").trigger("click");
+    wrapper.findAll(".header-section-button").at(1).trigger("click");
     expect(mockFn.mock.calls[0]).to.deep.equal([
       healthIndicatorData,
       wrapper.vm.countrySummary,
@@ -289,11 +289,11 @@ describe("Country Profile ", () => {
 
   it("should render localization texts properly", async () => {
     await flushPromises();
-    expect(wrapper.find(".export").find("a").text()).equal(
+    expect(wrapper.findAll(".header-section-button").at(0).find("p").text()).equal(
       i18n.messages.en.countryProfile.exportCountryDataButton
     );
 
-    expect(wrapper.find(".download-btn").text()).equal(
+    expect(wrapper.findAll(".header-section-button").at(1).find("p").text()).equal(
       i18n.messages.en.countryProfile.downloadScorecard
     );
 
