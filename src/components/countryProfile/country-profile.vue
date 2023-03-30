@@ -189,18 +189,32 @@ export default Vue.extend({
         </div>
 
         <div class="header-section-button-container">
-          <div class="export">
-            <span
-              ><a v-bind:href="countryDataSheetUrl()" class="btn btn-primary"
-                ><i class="fa fa-file-excel-o fa-lg"></i
-                >{{ $t("countryProfile.exportCountryDataButton") }}</a
-              ></span
-            >
+          <a :href="countryDataSheetUrl()" class="header-section-button">
+            <img
+              src="/static/img/downloadFile.svg"
+              height="35"
+              width="35"
+              style="align-self: center"
+            />
+            <p style="text-align: center">
+              {{ $t("countryProfile.exportCountryDataButton") }}
+            </p>
+          </a>
+          <div
+            class="header-section-button"
+            @click="generatePDF()"
+            style="align-self: center"
+          >
+            <img
+              src="/static/img/downloadPDF.svg"
+              height="35"
+              width="35"
+              style="align-self: center"
+            />
+            <p style="text-align: center">
+              {{ $t("countryProfile.downloadScorecard") }}
+            </p>
           </div>
-          <button class="download-btn btn btn-primary" @click="generatePDF()">
-            <i class="fa fa-download" aria-hidden="true"></i>
-            {{ $t("countryProfile.downloadScorecard") }}
-          </button>
         </div>
       </div>
       <div class="row">
