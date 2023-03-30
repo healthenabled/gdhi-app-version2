@@ -217,33 +217,30 @@ export default Vue.extend({
           </div>
         </div>
       </div>
+      <div class="box overall-card">
+        <div class="title">
+          <div class="sub-header">
+            {{ $t("countryProfile.overallDigitalHealthPhase") }}
+          </div>
+          <div class="phase-desc">
+            <p>
+              {{ $t("countryProfile.overallDigitalHealthPhaseDescription") }}
+            </p>
+          </div>
+        </div>
+        <div :class="'overall-score ' + locale">
+          <div :class="'score ' + ' phase' + healthIndicatorData.countryPhase">
+            {{
+              healthIndicatorData.countryPhase
+                ? healthIndicatorData.countryPhase
+                : "NA"
+            }}
+          </div>
+        </div>
+      </div>
+
       <div class="row">
         <div class="column-60percent">
-          <div class="box overall-card">
-            <div class="title">
-              <div class="title sub-header">
-                {{ $t("countryProfile.overallDigitalHealthPhase") }}
-              </div>
-              <div class="phase-desc copy-italics copy-grey">
-                <p>
-                  {{
-                    $t("countryProfile.overallDigitalHealthPhaseDescription")
-                  }}
-                </p>
-              </div>
-            </div>
-            <div :class="'overall-score ' + locale">
-              <div
-                :class="'score ' + ' phase' + healthIndicatorData.countryPhase"
-              >
-                {{
-                  healthIndicatorData.countryPhase
-                    ? healthIndicatorData.countryPhase
-                    : "NA"
-                }}
-              </div>
-            </div>
-          </div>
           <div class="box">
             <div class="title sub-header">
               <span class="benchmark-dropdown-container">{{
