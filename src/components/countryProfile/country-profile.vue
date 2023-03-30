@@ -381,3 +381,7 @@ export default Vue.extend({
     </div>
   </div>
 </template>
+
+<style lang="scss">
+@import "country-profile";
+</style>

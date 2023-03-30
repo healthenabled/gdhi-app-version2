@@ -1,4 +1,5 @@
-@import "./../../rtl-support";
+@import "../../assets/stylesheets/rtl-support";
+@import "../../assets/stylesheets/components/variables";
 
 $width-of-scoreCard-en: 150px;
 $width-of-scoreCard-es: 200px;
@@ -165,7 +166,7 @@ $width-of-scoreCard-es: 200px;
 
   &.above {
     color: $positive;
-    margin-top: 0px;
+    margin-top: 0;
 
     &:before {
       content: " ";
