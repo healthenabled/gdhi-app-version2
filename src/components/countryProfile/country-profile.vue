@@ -165,7 +165,7 @@ export default Vue.extend({
 <template>
   <div class="country-detail content-width content-centered">
     <div class="health-indicator-section">
-      <div class="clearfix header-section">
+      <div class="header-section">
         <div class="country-name page-title">
           <div
             class="flag"
@@ -188,7 +188,7 @@ export default Vue.extend({
           </div>
         </div>
 
-        <div class="button-container float-right">
+        <div class="header-section-button-container">
           <div class="export">
             <span
               ><a v-bind:href="countryDataSheetUrl()" class="btn btn-primary"

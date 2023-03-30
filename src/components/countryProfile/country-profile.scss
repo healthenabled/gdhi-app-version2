@@ -5,21 +5,35 @@ $width-of-scoreCard-en: 150px;
 $width-of-scoreCard-es: 200px;
 
 .country-detail {
-  .country-name {
-    height: auto;
-    width: 20vw;
+  .header-section {
+    position: relative;
     display: flex;
     flex-direction: row;
-    .country-name-and-date {
+    align-items: center;
+    justify-content: space-between;
+    height: 140px;
+
+    .country-name {
+      height: auto;
+      width: 20vw;
       display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      @include margin-left(30px);
-      #collected-date {
-        font-size: 12px;
+      flex-direction: row;
+      .country-name-and-date {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        @include margin-left(30px);
+        #collected-date {
+          font-size: 12px;
+        }
       }
     }
+
+    .header-section-button-container {
+      display: flex;
+    }
   }
+
   .copy-blue {
     margin-top: 20px;
   }
@@ -124,10 +138,6 @@ $width-of-scoreCard-es: 200px;
 
   .country-text {
     list-style: none;
-  }
-
-  .header-section {
-    position: relative;
   }
 
   .accordion-content {
