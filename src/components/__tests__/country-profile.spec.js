@@ -121,7 +121,7 @@ describe("Country Profile ", () => {
   it("should have the appropriate html elements based on the data", async () => {
     await flushPromises();
     expect(wrapper.find(".country-name").text()).to.equal(
-      healthIndicatorData.countryName
+      healthIndicatorData.countryName + "  As on: January 2018"
     );
     expect(wrapper.find("#collected-date").text()).to.equal(
       `As on: January 2018`
