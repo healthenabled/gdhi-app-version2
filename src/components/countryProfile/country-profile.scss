@@ -5,6 +5,21 @@ $width-of-scoreCard-en: 150px;
 $width-of-scoreCard-es: 200px;
 
 .country-detail {
+  .country-name {
+    height: auto;
+    width: 20vw;
+    display: flex;
+    flex-direction: row;
+    .country-name-and-date {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      @include margin-left(30px);
+      #collected-date {
+        font-size: 12px;
+      }
+    }
+  }
   .copy-blue {
     margin-top: 20px;
   }
@@ -113,13 +128,6 @@ $width-of-scoreCard-es: 200px;
 
   .header-section {
     position: relative;
-  }
-
-  #collected-date {
-    position: absolute;
-    bottom: 20px;
-    @include left(80px);
-    font-size: 1.2em;
   }
 
   .accordion-content {

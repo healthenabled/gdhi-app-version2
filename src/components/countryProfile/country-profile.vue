@@ -175,16 +175,19 @@ export default Vue.extend({
                 `/static/img/flags/${this.healthIndicatorData?.countryAlpha2Code?.toLowerCase()}.svg` +
                 ')',
             }"
-          ></div>
-          {{ healthIndicatorData.countryName }}
+          />
+          <div class="country-name-and-date">
+            {{ healthIndicatorData.countryName }}
+            <span
+              id="collected-date"
+              v-if="healthIndicatorData.updatedDate !== ''"
+              class="copy-italics copy-grey"
+            >
+              {{ updatedDate }}
+            </span>
+          </div>
         </div>
-        <span
-          id="collected-date"
-          v-if="healthIndicatorData.updatedDate !== ''"
-          class="copy-italics copy-grey"
-        >
-          {{ updatedDate }}
-        </span>
+
         <div class="button-container float-right">
           <div class="export">
             <span
