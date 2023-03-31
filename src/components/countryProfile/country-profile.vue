@@ -238,80 +238,71 @@ export default Vue.extend({
           </div>
         </div>
       </div>
+      <div class="box overall-card">
+        <div class="title sub-header">
+          <span class="benchmark-dropdown-container">{{
+            $t("countryProfile.benchmark.text")
+          }}</span>
+        </div>
+      </div>
 
       <div class="row">
         <div class="column-60percent">
-          <div class="box">
-            <div class="title sub-header">
-              <span class="benchmark-dropdown-container">{{
-                $t("countryProfile.benchmark.text")
-              }}</span>
-              <div v-if="healthIndicatorData" class="float-right">
-                <select
-                  class="benchmarkDropDown"
-                  name="benchmarkDropDown"
-                  v-model="benchmarkPhase"
-                  @change="getBenchmarkData()"
-                >
-                  <option value="">-</option>
-                  <option value="-1">
-                    {{
-                      $t(
-                        "countryProfile.benchmark.benchmarkValues.globalAverage"
-                      )
-                    }}
-                  </option>
-                  <option
-                    v-for="phase in phases"
-                    v-bind:value="phase.phaseValue"
-                  >
-                    {{ $t("mixed.phaseN", { number: phase.phaseValue }) }}
-                  </option>
-                </select>
-              </div>
+          <div class="legend">
+            <div class="government-data">
+              <div class="bar" />
+              <p>Government Data</p>
             </div>
-            <div class="phase-desc copy-italics copy-grey">
-              <p>
-                {{ $t("countryProfile.benchmark.benchmarkDescription") }}
-              </p>
-              <span v-if="!hasBenchmarkData" class="error-info">{{
-                $t(
-                  "countryProfile.benchmark.benchmarkNoCountryForSelectedPhase"
-                )
-              }}</span>
+            <div class="non-government-data">
+              <div class="bar" />
+              <p>Non-Government Data</p>
+            </div>
+            <div class="verified-non-government-data">
+              <img
+                src="/static/img/verifiedNonGovtData.svg"
+                width="20"
+                height="20"
+              />
+              <p>Verified Non-Government Data</p>
             </div>
           </div>
           <div v-if="healthIndicatorData" class="health-indicators">
             <div
               v-for="(category, index) in healthIndicatorData.categories"
+              :key="index"
               class="country-profile-indicator-panel-container-category-section"
             >
-              <div class="category-bar box">
+              <div
+                class="category-bar box"
+                @click="onCategoryExpand(category, index)"
+              >
                 <div
-                  v-bind:class="
+                  :class="
                     category.showCategory ? 'accordion expanded' : 'accordion'
                   "
                 >
-                  <div
-                    class="indicator-panel-container-category-section-name sub-header"
-                    @click="onCategoryExpand(category, index)"
-                  >
-                    {{ category.name }}
+                  <div class="category-name-and-phase-value">
+                    <div
+                      class="indicator-panel-container-category-name_and-icon sub-header"
+                    >
+                      <img
+                        :src="`/static/indicator-icons/${category.id}.svg`"
+                        width="30"
+                        height="30"
+                      />
+                      <p>{{ category.name }}</p>
+                    </div>
+                    <div
+                      :class="
+                        category.phase >= 0
+                          ? 'category-phase phase' + category.phase
+                          : 'category-phase phaseNA'
+                      "
+                    >
+                      {{ category.phase >= 0 ? category.phase : "N/A" }}
+                    </div>
                   </div>
-                  <div
-                    :class="
-                      category.phase >= 0
-                        ? 'indicator-panel-container-category-section-phase phase' +
-                          category.phase
-                        : 'indicator-panel-container-category-section-phase phaseNA'
-                    "
-                    :value="category.phase >= 0 ? category.phase : 'N/A'"
-                    :data-phase="
-                      category.phase >= 0
-                        ? $t('mixed.phaseN', { number: category.phase })
-                        : 'N/A'
-                    "
-                  ></div>
+
                   <div class="accordion-content">
                     <div class="heading-row sub-header">
                       <div class="indicator-id">#</div>
@@ -326,6 +317,7 @@ export default Vue.extend({
                       v-for="(
                         indicator, index_indicator
                       ) in category.indicators"
+                      :key="index_indicator"
                       class="indicator"
                     >
                       <div class="indicator-id">{{ indicator.code }}</div>

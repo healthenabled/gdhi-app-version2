@@ -62,6 +62,55 @@ $width-of-scoreCard-es: 200px;
     color: $gdhi-black;
   }
 
+  .category-name-and-phase-value {
+    display: flex;
+    flex-direction: row;
+    .indicator-panel-container-category-name_and-icon {
+      display: flex;
+      align-items: center;
+      width: 400px;
+      img {
+        @include margin-right(30px);
+      }
+      p {
+        font-weight: 700;
+        font-size: 16px;
+        text-transform: none;
+      }
+    }
+    .category-phase {
+      font-weight: 400;
+      font-size: 20px;
+      height: 40px;
+      width: 40px;
+      justify-content: center;
+      align-items: center;
+      display: flex;
+      @include margin-left(50%);
+    }
+    .phaseNA {
+      background-color: transparent;
+    }
+    .phase1 {
+      background-color: $score1;
+    }
+    .phase2 {
+      background-color: $score2;
+    }
+    .phase3 {
+      background-color: $score3;
+    }
+    .phase4 {
+      background-color: $score4;
+    }
+    .phase5 {
+      background-color: $score5;
+    }
+  }
+
+  .category-bar {
+    background-color: $gdhi-light-gray;
+  }
   .phase-desc {
     font-weight: 400;
     font-size: 12px;
@@ -84,10 +133,12 @@ $width-of-scoreCard-es: 200px;
 
   .score,
   .indicator-score {
-    padding: 10px;
-    color: $white;
     text-align: center;
-    min-width: 20px;
+    font-weight: 400;
+    font-size: 20px;
+    width: 40px;
+    height: 35px;
+    padding-top: 5px;
     display: inline-block;
     vertical-align: middle;
   }
@@ -162,6 +213,80 @@ $width-of-scoreCard-es: 200px;
       display: flex;
       align-items: center;
     }
+  }
+}
+
+.column-60percent {
+  width: 60%;
+  @include margin-right(20px);
+
+  .legend {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+    .government-data {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+
+      .bar {
+        width: 40px;
+        height: 5px;
+        background-color: $gdhi-purple-shade-1;
+        @include margin-right(20px);
+      }
+    }
+    .non-government-data {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      @include margin-left(20px);
+
+      .bar {
+        width: 40px;
+        height: 5px;
+        background-color: $gdhi-purple-shade-2;
+        @include margin-right(20px);
+      }
+    }
+    .verified-non-government-data {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      @include margin-left(40px);
+
+      img {
+        @include margin-right(20px);
+      }
+    }
+  }
+  &:last-child {
+    @include margin-right(0);
+    flex-shrink: 0;
+  }
+
+  @media all and (max-width: 1024px) {
+    width: 100%;
+    @include margin-right(0);
+    margin-top: 5px;
+  }
+}
+
+.column-40percent {
+  width: 40%;
+
+  &:last-child {
+    @include margin-right(0);
+    flex-shrink: 0;
+  }
+
+  @media all and (max-width: 1024px) {
+    width: 100%;
+    @include margin-right(0);
+    margin-top: 5px;
   }
 }
 
