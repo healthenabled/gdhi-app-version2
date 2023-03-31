@@ -313,18 +313,14 @@ export default Vue.extend({
                     >
                       <div class="indicator-details-container">
                         <div class="indicator-id">{{ indicator.code }}</div>
-                        <div class="indicator-desc">
-                          <span class="indicator-name-value">{{
-                            indicator.name
-                          }}</span>
-                          <div
-                            class="indicator-score-desc copy-italics copy-grey"
-                          >
+                        <div>
+                          <div class="indicator-name-value">
+                            {{ indicator.name }}
+                          </div>
+                          <div class="indicator-description">
                             {{ indicator.indicatorDescription }}
                           </div>
-                          <div
-                            class="indicator-score-desc copy-italics copy-blue"
-                          >
+                          <div class="indicator-score-description">
                             {{ indicator.scoreDescription }}
                           </div>
                         </div>

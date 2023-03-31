@@ -147,12 +147,12 @@ describe("Country Profile ", () => {
       healthIndicatorData.categories[0].indicators[0].name
     );
     expect(
-      firstIndicator.findAll(".indicator-score-desc").at(0).text()
+      firstIndicator.findAll(".indicator-description").at(0).text()
     ).to.equal(
       healthIndicatorData.categories[0].indicators[0].indicatorDescription
     );
     expect(
-      firstIndicator.findAll(".indicator-score-desc").at(1).text()
+      firstIndicator.findAll(".indicator-score-description").at(0).text()
     ).to.equal(
       healthIndicatorData.categories[0].indicators[0].scoreDescription
     );
