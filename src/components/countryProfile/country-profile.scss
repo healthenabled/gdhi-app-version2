@@ -5,6 +5,12 @@ $width-of-scoreCard-en: 150px;
 $width-of-scoreCard-es: 200px;
 
 .country-detail {
+  .comparison-graph-panel {
+    height: 840px;
+    width: 100%;
+    background-color: $white;
+    margin-top: -15px;
+  }
   .header-section {
     position: relative;
     display: flex;
@@ -50,8 +56,26 @@ $width-of-scoreCard-es: 200px;
     display: flex;
     vertical-align: middle;
 
-    div:nth-of-type(1) {
-      flex-basis: 1px;
+    .country-progress-over-time {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      width: 320px;
+      text-align: center;
+      align-items: center;
+      @include margin-left(55vw);
+      p {
+        font-size: 20px;
+        font-weight: 700;
+      }
+      .progress-accordion::after {
+        content: "\f078";
+        font-family: "FontAwesome", serif;
+      }
+      .progress-accordion-expanded::after {
+        content: "\f077";
+        font-family: "FontAwesome", serif;
+      }
     }
   }
 
@@ -116,8 +140,6 @@ $width-of-scoreCard-es: 200px;
     color: $gdhi-black;
     width: 20vw;
   }
-
-
 
   .overall-score,
   .indicator-score {

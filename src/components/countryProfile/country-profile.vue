@@ -26,6 +26,7 @@ export default Vue.extend({
       countrySummary: "",
       hasBenchmarkData: true,
       updatedDate: "",
+      showCountryProgressOverTime: false,
       locale: "en",
     };
   },
@@ -75,6 +76,9 @@ export default Vue.extend({
     },
     onCategoryExpand(category) {
       category.showCategory = !category.showCategory;
+    },
+    expandCountryProgress() {
+      this.showCountryProgressOverTime = !this.showCountryProgressOverTime;
     },
     initialise() {
       this.healthIndicatorData.categories.forEach((category) => {
@@ -228,19 +232,36 @@ export default Vue.extend({
             </p>
           </div>
         </div>
-        <div :class="'overall-score ' + ' phase' + healthIndicatorData.countryPhase">
+        <div
+          :class="
+            'overall-score ' + ' phase' + healthIndicatorData.countryPhase
+          "
+        >
           {{
             healthIndicatorData.countryPhase
               ? healthIndicatorData.countryPhase
               : "NA"
           }}
         </div>
+        <div class="country-progress-over-time" @click="expandCountryProgress">
+          <p>Country Progress Over Time</p>
+          <div
+            :class="
+              showCountryProgressOverTime
+                ? 'progress-accordion-expanded'
+                : 'progress-accordion'
+            "
+          ></div>
+        </div>
+      </div>
+      <div class="comparison-graph-panel" v-show="showCountryProgressOverTime">
+        Graph placeholder
       </div>
       <div class="box overall-card">
         <div class="title sub-header">
-          <span class="benchmark-dropdown-container">{{
-            $t("countryProfile.benchmark.text")
-          }}</span>
+          <span class="benchmark-dropdown-container"
+            >{{ $t("countryProfile.benchmark.text") }}
+          </span>
         </div>
       </div>
 
