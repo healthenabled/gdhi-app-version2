@@ -283,7 +283,7 @@ export default Vue.extend({
                 >
                   <div class="category-name-and-phase-value">
                     <div
-                      class="indicator-panel-container-category-name_and-icon sub-header"
+                      class="indicator-panel-container-category-name-and-icon sub-header"
                     >
                       <img
                         :src="`/static/indicator-icons/${category.id}.svg`"
