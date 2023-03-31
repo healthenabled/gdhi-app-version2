@@ -34,7 +34,7 @@ $width-of-scoreCard-es: 200px;
         display: flex;
         flex-direction: column;
         font-size: 12px;
-        width: 80px;
+        width: 5vw;
         justify-items: center;
         align-content: center;
         cursor: pointer;
@@ -67,7 +67,7 @@ $width-of-scoreCard-es: 200px;
     .indicator-panel-container-category-name-and-icon {
       display: flex;
       align-items: center;
-      width: 400px;
+      width: 20vw;
       img {
         @include margin-right(30px);
       }
@@ -85,7 +85,7 @@ $width-of-scoreCard-es: 200px;
       justify-content: center;
       align-items: center;
       display: flex;
-      @include margin-left(50%);
+      @include margin-left(28vw);
     }
     .phaseNA {
       background-color: transparent;
@@ -114,20 +114,14 @@ $width-of-scoreCard-es: 200px;
     font-weight: 400;
     font-size: 12px;
     color: $gdhi-black;
-    width: 260px;
+    width: 20vw;
   }
 
   .overall-score {
-    width: $width-of-scoreCard-es;
+    width: 5vw;
     flex-grow: 0;
     flex-shrink: 0;
     text-align: center;
-
-    &.en,
-    &.pt,
-    &.ar {
-      width: $width-of-scoreCard-en;
-    }
   }
 
   .score,
@@ -135,6 +129,7 @@ $width-of-scoreCard-es: 200px;
     text-align: center;
     font-weight: 400;
     font-size: 20px;
+
     width: 40px;
     height: 35px;
     padding-top: 5px;
@@ -146,14 +141,8 @@ $width-of-scoreCard-es: 200px;
   .indicator-score-heading {
     flex-grow: 0;
     flex-shrink: 0;
-    width: $width-of-scoreCard-es;
     text-align: center;
-
-    &.en,
-    &.pt,
-    &.ar {
-      width: $width-of-scoreCard-en;
-    }
+    width: 100%;
   }
 
   .heading-row {
@@ -193,14 +182,17 @@ $width-of-scoreCard-es: 200px;
     font-size: 12px;
   }
 
-  .accordion-content {
+  .accordion::after {
+    @include margin-left(10vw);
+  }
+  .category-accordion-content {
+    margin-top: 20px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     flex-wrap: wrap;
     .indicator {
       margin-bottom: 10px;
-      border-bottom: 1px solid $border-color;
       &:last-child {
         border: none;
       }
@@ -297,7 +289,7 @@ $width-of-scoreCard-es: 200px;
 
 .column-40percent {
   color: $gdhi-purple-shade-1;
-  width: 40%;
+  width: 40vw;
 
   &:last-child {
     @include margin-right(0);
@@ -318,7 +310,7 @@ $width-of-scoreCard-es: 200px;
   }
 
   .indicator {
-    width: 50%;
+    width: 50vw;
     border: none;
     margin-top: 10px;
     padding: 0 5px;

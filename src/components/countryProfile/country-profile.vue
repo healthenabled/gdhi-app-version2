@@ -303,7 +303,7 @@ export default Vue.extend({
                     </div>
                   </div>
 
-                  <div class="accordion-content">
+                  <div class="category-accordion-content" v-show="category.showCategory">
                     <div
                       v-for="(
                         indicator, index_indicator
@@ -325,36 +325,13 @@ export default Vue.extend({
                           </div>
                         </div>
                       </div>
-                      <div :class="'text-center score-container ' + locale">
+                      <div :class="'score-container ' + locale">
                         <div
                           :class="
                             'indicator-score' + ' phase' + indicator.score
                           "
                         >
                           {{ indicator.score >= 0 ? indicator.score : "NA" }}
-                        </div>
-                        <div
-                          v-if="benchmarkData[indicator.id.toString()]"
-                          class="benchmark copy-small"
-                        >
-                          <div class="benchmark-score">
-                            <span>{{
-                              $t("countryProfile.benchmark.textWithData", {
-                                data: benchmarkData[indicator.id]
-                                  .benchmarkScore,
-                              })
-                            }}</span>
-                          </div>
-                          <div
-                            :class="
-                              'benchmarkCompare ' +
-                              benchmarkData[
-                                indicator.id
-                              ].benchmarkValue.toLowerCase()
-                            "
-                          >
-                            {{ getLocaleBenchmarkValue(indicator.id) }}
-                          </div>
                         </div>
                       </div>
                     </div>
