@@ -376,6 +376,9 @@ export default Vue.extend({
           </div>
         </div>
         <div class="column-40percent">
+          <div class="phase-overview box" style="height: 480px">
+            <div class="header-bold">Phase Overview</div>
+          </div>
           <div class="health-indicator-container">
             <development-indicators></development-indicators>
           </div>

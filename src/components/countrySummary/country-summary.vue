@@ -43,7 +43,10 @@ export default Vue.extend({
       <div class="country-contact header-bold no-margin-top">
         {{ $t("countryProfile.countrySummary.keyContacts") }}
       </div>
-      <div v-if="countrySummaries.contactName">
+      <div
+        v-if="countrySummaries.contactName"
+        class="country-summary-contact-name"
+      >
         <span class="country-summary-link" v-if="countrySummaries.contactName">
           <a
             :href="'mailto:' + countrySummaries.contactEmail"

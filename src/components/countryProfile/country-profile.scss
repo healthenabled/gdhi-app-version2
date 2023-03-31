@@ -201,10 +201,20 @@ $width-of-scoreCard-es: 200px;
   .country-summary-text {
     list-style: none;
     white-space: pre-wrap;
+    color: $gdhi-black;
+    font-weight: 400;
+    font-size: 12px;
+  }
+  .country-summary-contact-name {
+    color: $gdhi-black;
+    font-weight: 400;
+    font-size: 12px;
   }
 
   .country-text {
     list-style: none;
+    font-weight: 400;
+    font-size: 12px;
   }
 
   .accordion-content {
@@ -275,6 +285,7 @@ $width-of-scoreCard-es: 200px;
 }
 
 .column-40percent {
+  color: $gdhi-purple-shade-1;
   width: 40%;
 
   &:last-child {
@@ -301,6 +312,11 @@ $width-of-scoreCard-es: 200px;
     margin-top: 10px;
     padding: 0 5px;
     box-sizing: border-box;
+    color: $gdhi-black;
+    .indicator-category {
+      font-weight: 400;
+      font-size: 12px;
+    }
   }
 }
 
