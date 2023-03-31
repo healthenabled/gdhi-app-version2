@@ -117,18 +117,13 @@ $width-of-scoreCard-es: 200px;
     width: 20vw;
   }
 
-  .overall-score {
-    width: 5vw;
-    flex-grow: 0;
-    flex-shrink: 0;
-    text-align: center;
-  }
 
+
+  .overall-score,
   .indicator-score {
     text-align: center;
     font-weight: 400;
     font-size: 20px;
-
     width: 40px;
     height: 35px;
     padding-top: 5px;

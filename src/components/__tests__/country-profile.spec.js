@@ -129,7 +129,7 @@ describe("Country Profile ", () => {
     expect(
       wrapper.find(".header-section-button-container a").attributes().href
     ).to.equal(wrapper.vm.countryDataSheetUrl());
-    expect(wrapper.find(".score").text()).to.equal(
+    expect(wrapper.find(".overall-score").text()).to.equal(
       healthIndicatorData.countryPhase.toString()
     );
     expect(wrapper.findAll(".category-bar").length).to.equal(

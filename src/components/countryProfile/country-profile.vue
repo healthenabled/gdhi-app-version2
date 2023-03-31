@@ -228,14 +228,12 @@ export default Vue.extend({
             </p>
           </div>
         </div>
-        <div :class="'overall-score ' + locale">
-          <div :class="'score ' + ' phase' + healthIndicatorData.countryPhase">
-            {{
-              healthIndicatorData.countryPhase
-                ? healthIndicatorData.countryPhase
-                : "NA"
-            }}
-          </div>
+        <div :class="'overall-score ' + ' phase' + healthIndicatorData.countryPhase">
+          {{
+            healthIndicatorData.countryPhase
+              ? healthIndicatorData.countryPhase
+              : "NA"
+          }}
         </div>
       </div>
       <div class="box overall-card">
