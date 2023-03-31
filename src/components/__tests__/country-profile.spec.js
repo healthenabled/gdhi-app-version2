@@ -305,7 +305,6 @@ describe("Country Profile ", () => {
       i18n.messages.en.countryProfile.overallDigitalHealthPhaseDescription
     );
 
-
     expect(wrapper.findAll(".category-phase").at(0).text()).equal("3");
 
     expect(wrapper.find(".indicator-name").text()).equal(
