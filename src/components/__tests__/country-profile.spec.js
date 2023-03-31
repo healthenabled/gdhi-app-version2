@@ -306,10 +306,6 @@ describe("Country Profile ", () => {
     );
 
     expect(wrapper.findAll(".category-phase").at(0).text()).equal("3");
-
-    expect(wrapper.find(".indicator-name").text()).equal(
-      i18n.messages.en.countryProfile.indicator
-    );
   });
 
   it.skip("should render localization benchmark error text", async () => {

@@ -304,15 +304,6 @@ export default Vue.extend({
                   </div>
 
                   <div class="accordion-content">
-                    <div class="heading-row sub-header">
-                      <div class="indicator-id">#</div>
-                      <div class="indicator-name">
-                        {{ $t("countryProfile.indicator") }}
-                      </div>
-                      <div :class="'indicator-score-heading ' + locale">
-                        {{ $t("countryProfile.score") }}
-                      </div>
-                    </div>
                     <div
                       v-for="(
                         indicator, index_indicator
@@ -320,20 +311,22 @@ export default Vue.extend({
                       :key="index_indicator"
                       class="indicator"
                     >
-                      <div class="indicator-id">{{ indicator.code }}</div>
-                      <div class="indicator-desc">
-                        <span class="indicator-name-value">{{
-                          indicator.name
-                        }}</span>
-                        <div
-                          class="indicator-score-desc copy-italics copy-grey"
-                        >
-                          {{ indicator.indicatorDescription }}
-                        </div>
-                        <div
-                          class="indicator-score-desc copy-italics copy-blue"
-                        >
-                          {{ indicator.scoreDescription }}
+                      <div class="indicator-details-container">
+                        <div class="indicator-id">{{ indicator.code }}</div>
+                        <div class="indicator-desc">
+                          <span class="indicator-name-value">{{
+                            indicator.name
+                          }}</span>
+                          <div
+                            class="indicator-score-desc copy-italics copy-grey"
+                          >
+                            {{ indicator.indicatorDescription }}
+                          </div>
+                          <div
+                            class="indicator-score-desc copy-italics copy-blue"
+                          >
+                            {{ indicator.scoreDescription }}
+                          </div>
                         </div>
                       </div>
                       <div :class="'text-center score-container ' + locale">
