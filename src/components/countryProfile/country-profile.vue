@@ -303,7 +303,10 @@ export default Vue.extend({
                     </div>
                   </div>
 
-                  <div class="category-accordion-content" v-show="category.showCategory">
+                  <div
+                    class="category-accordion-content"
+                    v-show="category.showCategory"
+                  >
                     <div
                       v-for="(
                         indicator, index_indicator
@@ -326,12 +329,34 @@ export default Vue.extend({
                         </div>
                       </div>
                       <div :class="'score-container ' + locale">
-                        <div
-                          :class="
-                            'indicator-score' + ' phase' + indicator.score
-                          "
-                        >
-                          {{ indicator.score >= 0 ? indicator.score : "NA" }}
+                        <div class="score">
+                          <p>Score</p>
+                          <div
+                            :class="
+                              'indicator-score' + ' phase' + indicator.score
+                            "
+                          >
+                            {{ indicator.score >= 0 ? indicator.score : "NA" }}
+                          </div>
+                        </div>
+
+                        <div class="separator" />
+
+                        <div class="score">
+                          <div>
+                            <p>Benchmark</p>
+                            <p style="font-weight: 400; font-size: 12px">
+                              Global average
+                            </p>
+                          </div>
+
+                          <div
+                            :class="
+                              'indicator-score' + ' phase' + indicator.score
+                            "
+                          >
+                            {{ indicator.score >= 0 ? indicator.score : "NA" }}
+                          </div>
                         </div>
                       </div>
                     </div>
