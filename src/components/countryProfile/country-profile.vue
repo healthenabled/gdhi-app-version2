@@ -291,16 +291,16 @@ export default Vue.extend({
               :key="index"
               class="country-profile-indicator-panel-container-category-section"
             >
-              <div
-                class="category-bar box"
-                @click="onCategoryExpand(category, index)"
-              >
+              <div class="category-bar box">
                 <div
                   :class="
                     category.showCategory ? 'accordion expanded' : 'accordion'
                   "
                 >
-                  <div class="category-name-and-phase-value">
+                  <div
+                    class="category-name-and-phase-value"
+                    @click="onCategoryExpand(category, index)"
+                  >
                     <div
                       class="indicator-panel-container-category-name-and-icon sub-header"
                     >
@@ -334,7 +334,14 @@ export default Vue.extend({
                       class="indicator"
                     >
                       <div class="indicator-details-container">
-                        <div class="indicator-id">{{ indicator.code }}</div>
+                        <div class="indicator-id">
+                          <p>{{ indicator.code }}</p>
+                          <img
+                            src="/static/img/verifiedNonGovtData.svg"
+                            width="20"
+                            height="20"
+                          />
+                        </div>
                         <div>
                           <div class="indicator-name-value">
                             {{ indicator.name }}
