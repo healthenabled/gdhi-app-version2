@@ -29,7 +29,7 @@ export default Vue.extend({
       },
       url: "",
       benchmarkData: {},
-      benchmarkPhase: "",
+      benchmarkPhase: -1,
       phases: [],
       countrySummary: "",
       hasBenchmarkData: true,
@@ -42,11 +42,13 @@ export default Vue.extend({
 
   mounted() {
     this.getHealthIndicatorsFor(this.$route.params.countryCode);
+    this.getBenchmarkData();
     this.url = `/api/export_country_data/${this.$route.params.countryCode}`;
     this.fetchPhases();
     EventBus.$on(EVENTS.YEAR_FILTERED, (selectedYear) => {
       this.selectedYear = selectedYear;
       this.getHealthIndicatorsFor(this.$route.params.countryCode);
+      this.getBenchmarkData();
     });
   },
   updated() {
@@ -69,13 +71,13 @@ export default Vue.extend({
     },
     getHealthIndicatorsFor(countryCode) {
       axios
-        .get(`/api/countries/${countryCode}/health_indicators`, {
-          params: { year: this.selectedYear },
-          headers: {
-            "Cache-Control": "no-cache",
-            user_language: this.$i18n.locale,
-          },
-        })
+        .get(
+          `/api/countries/${countryCode}/health_indicators`,
+          common.configWithUserLanguageAndNoCacheHeader(
+            this.$i18n.locale,
+            this.selectedYear
+          )
+        )
         .then((response) => {
           this.healthIndicatorCallback(response);
         });
@@ -131,7 +133,11 @@ export default Vue.extend({
       }
       axios
         .get(
-          `/api/countries/${this.$route.params.countryCode}/benchmark/${this.benchmarkPhase}`
+          `/api/bff/countries/${this.$route.params.countryCode}/benchmark/${this.benchmarkPhase}`,
+          common.configWithUserLanguageAndNoCacheHeader(
+            this.$i18n.locale,
+            this.selectedYear
+          )
         )
         .then((response) => {
           this.benchmarkData = response.data;
@@ -276,9 +282,6 @@ export default Vue.extend({
       <div class="box overall-card">
         <div class="year-select-container">
           <CountryProfileYearSelector></CountryProfileYearSelector>
-          <!-- <span class="benchmark-dropdown-container"
-            >{{ $t("countryProfile.benchmark.text") }}
-          </span> -->
         </div>
       </div>
 
@@ -373,7 +376,7 @@ export default Vue.extend({
                         <div class="separator" />
 
                         <div class="score">
-                          <div>
+                          <div v-if="benchmarkData[indicator.id.toString()]">
                             <p>Benchmark</p>
                             <p style="font-weight: 400; font-size: 12px">
                               Global average
@@ -381,11 +384,18 @@ export default Vue.extend({
                           </div>
 
                           <div
+                            v-if="benchmarkData[indicator.id.toString()]"
                             :class="
-                              'indicator-score' + ' phase' + indicator.score
+                              'indicator-score' +
+                              ' phase' +
+                              benchmarkData[indicator.id].benchmarkScore
                             "
                           >
-                            {{ indicator.score >= 0 ? indicator.score : "NA" }}
+                            {{
+                              benchmarkData[indicator.id].benchmarkScore != -1
+                                ? benchmarkData[indicator.id].benchmarkScore
+                                : "NA"
+                            }}
                           </div>
                         </div>
                       </div>

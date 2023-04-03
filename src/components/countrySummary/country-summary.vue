@@ -3,6 +3,8 @@ import Vue from "vue";
 
 import axios from "axios";
 import common from "../../common/common";
+import { EventBus } from "../common/event-bus";
+import { EVENTS } from "../../constants";
 
 export default Vue.extend({
   name: "CountrySummary",
@@ -10,17 +12,28 @@ export default Vue.extend({
     return {
       countrySummaries: {},
       error: "",
+      selectedYear: null,
     };
   },
   mounted() {
     common.showLoading();
     this.getCountrySummary(this.$route.params.countryCode);
+    EventBus.$on(EVENTS.YEAR_FILTERED, (selectedYear) => {
+      this.selectedYear = selectedYear;
+      this.getCountrySummary(this.$route.params.countryCode);
+    });
   },
   methods: {
     getCountrySummary(countryCode) {
       const countrySummaryUrl = `/api/countries/${countryCode}/country_summary`;
       axios
-        .get(countrySummaryUrl)
+        .get(
+          countrySummaryUrl,
+          common.configWithUserLanguageAndNoCacheHeader(
+            this.$i18n.locale,
+            this.selectedYear
+          )
+        )
         .then((response) => {
           this.countrySummaryCallback(response);
         })

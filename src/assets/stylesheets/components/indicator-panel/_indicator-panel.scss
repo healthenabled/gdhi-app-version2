@@ -188,9 +188,6 @@
           &[value="5"]::before {
             content: attr(data-phase);
           }
-          &.phaseNA::after {
-            background-color: transparent;
-          }
           &.phase1::after {
             background-color: $score1;
           }

@@ -2,8 +2,6 @@
 import Vue from "vue";
 import axios from "axios";
 import yearFilter from "../defaultYearSelector/year-filter.vue";
-import { EventBus } from "../common/event-bus";
-import { EVENTS } from "../../constants";
 
 export default Vue.extend({
   name: "countryProfileYearSelector",
