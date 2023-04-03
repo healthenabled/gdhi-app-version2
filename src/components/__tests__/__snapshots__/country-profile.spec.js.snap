@@ -113,7 +113,7 @@ exports[`Country Profile  > should populate the data after successfull API call 
       <div
         class="year-select-container"
       >
-         Benchmark 
+        <countryprofileyearselector-stub />
       </div>
     </div>
     <div
