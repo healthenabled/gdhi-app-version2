@@ -1,8 +1,19 @@
 @import "../../assets/stylesheets/rtl-support";
 @import "../../assets/stylesheets/components/variables";
 
-$width-of-scoreCard-en: 150px;
-$width-of-scoreCard-es: 200px;
+.large-text {
+  font-size: 20px;
+  font-weight: 700;
+}
+.medium-text {
+  font-size: 20px;
+  font-weight: 400;
+}
+.sub-header {
+  font-weight: 700;
+  font-size: 12px;
+  color: $gdhi-black;
+}
 
 .country-detail {
   .comparison-graph-panel {
@@ -48,14 +59,14 @@ $width-of-scoreCard-es: 200px;
     }
   }
 
-  .copy-blue {
-    margin-top: 20px;
-  }
-
   .overall-card {
     display: flex;
     vertical-align: middle;
 
+    .year-select-container {
+      font-weight: 700;
+      font-size: 16px;
+    }
     .country-progress-over-time {
       display: flex;
       flex-direction: row;
@@ -65,8 +76,7 @@ $width-of-scoreCard-es: 200px;
       align-items: center;
       @include margin-left(55vw);
       p {
-        font-size: 20px;
-        font-weight: 700;
+        @extend .large-text;
       }
       .progress-accordion::after {
         content: "\f078";
@@ -77,12 +87,6 @@ $width-of-scoreCard-es: 200px;
         font-family: "FontAwesome", serif;
       }
     }
-  }
-
-  .sub-header {
-    font-weight: 700;
-    font-size: 12px;
-    color: $gdhi-black;
   }
 
   .category-name-and-phase-value {
@@ -103,8 +107,7 @@ $width-of-scoreCard-es: 200px;
       }
     }
     .category-phase {
-      font-weight: 400;
-      font-size: 20px;
+      @extend .medium-text;
       height: 40px;
       width: 40px;
       justify-content: center;
@@ -127,8 +130,7 @@ $width-of-scoreCard-es: 200px;
   .overall-score,
   .indicator-score {
     text-align: center;
-    font-weight: 400;
-    font-size: 20px;
+    @extend .medium-text;
     width: 40px;
     height: 35px;
     padding-top: 5px;
@@ -203,8 +205,7 @@ $width-of-scoreCard-es: 200px;
         height: 100%;
         .indicator-id,
         .indicator-name-value {
-          font-weight: 700;
-          font-size: 12px;
+          @extend .sub-header;
           color: $gdhi-purple-shade-1;
         }
         .indicator-id {
@@ -213,8 +214,7 @@ $width-of-scoreCard-es: 200px;
           flex-direction: column;
         }
         .indicator-description {
-          font-weight: 700;
-          font-size: 12px;
+          @extend .sub-header;
           color: $gdhi-black;
           margin: 10px 0;
         }
@@ -292,17 +292,6 @@ $width-of-scoreCard-es: 200px;
         @include margin-right(20px);
       }
     }
-    .verified-non-government-data {
-      display: flex;
-      flex-direction: row;
-      justify-content: flex-start;
-      align-items: center;
-      @include margin-left(40px);
-
-      img {
-        @include margin-right(20px);
-      }
-    }
   }
   &:last-child {
     @include margin-right(0);
@@ -348,47 +337,6 @@ $width-of-scoreCard-es: 200px;
     .indicator-category {
       font-weight: 400;
       font-size: 12px;
-    }
-  }
-}
-
-// benchmark
-.benchmark {
-  text-transform: uppercase;
-  margin-top: 10px;
-}
-
-.benchmarkCompare {
-  margin-top: 5px;
-
-  &:before {
-    display: inline-block;
-    @include margin-right(5px);
-    border: 8px solid transparent;
-  }
-
-  &.at {
-    color: $font-grey;
-  }
-
-  &.above {
-    color: $positive;
-    margin-top: 0;
-
-    &:before {
-      content: " ";
-      vertical-align: baseline;
-      border-bottom: 8px solid $positive;
-    }
-  }
-
-  &.below {
-    color: $negative;
-
-    &:before {
-      vertical-align: top;
-      content: " ";
-      border-top: 8px solid $negative;
     }
   }
 }

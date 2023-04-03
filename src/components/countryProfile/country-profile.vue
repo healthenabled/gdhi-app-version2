@@ -258,10 +258,8 @@ export default Vue.extend({
         Graph placeholder
       </div>
       <div class="box overall-card">
-        <div class="title sub-header">
-          <span class="benchmark-dropdown-container"
-            >{{ $t("countryProfile.benchmark.text") }}
-          </span>
+        <div class="year-select-container">
+          {{ $t("countryProfile.benchmark.text") }}
         </div>
       </div>
 
@@ -275,14 +273,6 @@ export default Vue.extend({
             <div class="non-government-data">
               <div class="bar" />
               <p>Non-Government Data</p>
-            </div>
-            <div class="verified-non-government-data">
-              <img
-                src="/static/img/verifiedNonGovtData.svg"
-                width="20"
-                height="20"
-              />
-              <p>Verified Non-Government Data</p>
             </div>
           </div>
           <div v-if="healthIndicatorData" class="health-indicators">
@@ -335,12 +325,7 @@ export default Vue.extend({
                     >
                       <div class="indicator-details-container">
                         <div class="indicator-id">
-                          <p>{{ indicator.code }}</p>
-                          <img
-                            src="/static/img/verifiedNonGovtData.svg"
-                            width="20"
-                            height="20"
-                          />
+                          {{ indicator.code }}
                         </div>
                         <div>
                           <div class="indicator-name-value">
