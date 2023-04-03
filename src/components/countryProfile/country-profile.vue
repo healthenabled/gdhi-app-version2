@@ -7,11 +7,19 @@ import { generateScorecard } from "../pdfHelper/pdf-generate-scorecard";
 import isEmpty from "lodash/isEmpty";
 import Notifications from "vue-notification";
 import common from "../../common/common";
+import CountryProfileYearSelector from "./country-profile-year-selector.vue";
+import { EventBus } from "../common/event-bus";
+import { EVENTS } from "../../constants";
 
 Vue.use(Notifications);
 
 export default Vue.extend({
-  components: { developmentIndicators, countrySummary, Notifications },
+  components: {
+    developmentIndicators,
+    countrySummary,
+    Notifications,
+    CountryProfileYearSelector,
+  },
   data() {
     return {
       healthIndicatorData: {
@@ -28,6 +36,7 @@ export default Vue.extend({
       updatedDate: "",
       showCountryProgressOverTime: false,
       locale: "en",
+      selectedYear: null,
     };
   },
 
@@ -35,6 +44,10 @@ export default Vue.extend({
     this.getHealthIndicatorsFor(this.$route.params.countryCode);
     this.url = `/api/export_country_data/${this.$route.params.countryCode}`;
     this.fetchPhases();
+    EventBus.$on(EVENTS.YEAR_FILTERED, (selectedYear) => {
+      this.selectedYear = selectedYear;
+      this.getHealthIndicatorsFor(this.$route.params.countryCode);
+    });
   },
   updated() {
     if (this.locale !== this.$i18n.locale) {
@@ -56,10 +69,13 @@ export default Vue.extend({
     },
     getHealthIndicatorsFor(countryCode) {
       axios
-        .get(
-          `/api/countries/${countryCode}/health_indicators`,
-          common.configWithUserLanguageAndNoCacheHeader(this.$i18n.locale)
-        )
+        .get(`/api/countries/${countryCode}/health_indicators`, {
+          params: { year: this.selectedYear },
+          headers: {
+            "Cache-Control": "no-cache",
+            user_language: this.$i18n.locale,
+          },
+        })
         .then((response) => {
           this.healthIndicatorCallback(response);
         });
@@ -259,7 +275,10 @@ export default Vue.extend({
       </div>
       <div class="box overall-card">
         <div class="year-select-container">
-          {{ $t("countryProfile.benchmark.text") }}
+          <CountryProfileYearSelector></CountryProfileYearSelector>
+          <!-- <span class="benchmark-dropdown-container"
+            >{{ $t("countryProfile.benchmark.text") }}
+          </span> -->
         </div>
       </div>
 
