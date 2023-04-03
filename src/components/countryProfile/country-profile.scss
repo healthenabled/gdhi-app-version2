@@ -192,6 +192,7 @@ $width-of-scoreCard-es: 200px;
 
   .accordion::after {
     @include margin-left(10vw);
+    top: 10px;
   }
   .category-accordion-content {
     margin-top: 20px;
