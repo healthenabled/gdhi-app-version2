@@ -186,6 +186,7 @@
     justify-content: space-between;
     flex-wrap: wrap;
     .indicator {
+      // TODO: Change below logic for border color based on Govt vs Non Govt
       background-color: $gdhi-purple-shade-1;
       padding-top: 2px;
       margin-bottom: 16px;

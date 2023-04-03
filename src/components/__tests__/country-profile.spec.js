@@ -116,6 +116,7 @@ describe("Country Profile ", () => {
     wrapper.vm.healthIndicatorData.categories.forEach((category) => {
       expect(category["showCategory"]).to.equal(false);
     });
+    expect(wrapper.vm.$el).toMatchSnapshot();
   });
 
   it("should have the appropriate html elements based on the data", async () => {

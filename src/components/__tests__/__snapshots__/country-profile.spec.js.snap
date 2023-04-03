@@ -1,0 +1,423 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Country Profile  > should populate the data after successfull API call 1`] = `
+<div
+  class="country-detail content-width content-centered"
+>
+  <div
+    class="health-indicator-section"
+  >
+    <div
+      class="header-section"
+    >
+      <div
+        class="country-name page-title"
+      >
+        <div
+          class="flag"
+          style="background-image: url(/static/img/flags/in.svg);"
+        />
+        <div
+          class="country-name-and-date"
+        >
+           India 
+          <span
+            class="copy-italics copy-grey"
+            id="collected-date"
+          >
+             As on: January 2018 
+          </span>
+        </div>
+      </div>
+      <div
+        class="header-section-button-container"
+      >
+        <a
+          class="header-section-button"
+          href="/api/export_country_data/undefined?user_language=en"
+        >
+          <img
+            height="35"
+            src="/static/img/downloadFile.svg"
+            style="align-self: center;"
+            width="35"
+          />
+          <p
+            style="text-align: center;"
+          >
+             Export Country Data 
+          </p>
+        </a>
+        <div
+          class="header-section-button"
+          style="align-self: center;"
+        >
+          <img
+            height="35"
+            src="/static/img/downloadPDF.svg"
+            style="align-self: center;"
+            width="35"
+          />
+          <p
+            style="text-align: center;"
+          >
+             Download Scorecard 
+          </p>
+        </div>
+      </div>
+    </div>
+    <div
+      class="box overall-card"
+    >
+      <div
+        class="title"
+      >
+        <div
+          class="sub-header"
+        >
+           Overall Digital Health Phase 
+        </div>
+        <div
+          class="phase-desc"
+        >
+          <p>
+             The overall score is an average of the scores for the GDHI indicators 
+          </p>
+        </div>
+      </div>
+      <div
+        class="overall-score  phase4"
+      >
+         4 
+      </div>
+      <div
+        class="country-progress-over-time"
+      >
+        <p>
+          Country Progress Over Time
+        </p>
+        <div
+          class="progress-accordion"
+        />
+      </div>
+    </div>
+    <div
+      class="comparison-graph-panel"
+      style="display: none;"
+    >
+       Graph placeholder 
+    </div>
+    <div
+      class="box overall-card"
+    >
+      <div
+        class="year-select-container"
+      >
+         Benchmark 
+      </div>
+    </div>
+    <div
+      class="row"
+    >
+      <div
+        class="column-60percent"
+      >
+        <div
+          class="legend"
+        >
+          <div
+            class="government-data"
+          >
+            <div
+              class="bar"
+            />
+            <p>
+              Government Data
+            </p>
+          </div>
+          <div
+            class="non-government-data"
+          >
+            <div
+              class="bar"
+            />
+            <p>
+              Non-Government Data
+            </p>
+          </div>
+        </div>
+        <div
+          class="health-indicators"
+        >
+          <div
+            class="country-profile-indicator-panel-container-category-section"
+          >
+            <div
+              class="category-bar box"
+            >
+              <div
+                class="accordion"
+              >
+                <div
+                  class="category-name-and-phase-value"
+                >
+                  <div
+                    class="indicator-panel-container-category-name-and-icon sub-header"
+                  >
+                    <img
+                      height="30"
+                      src="/static/indicator-icons/1.svg"
+                      width="30"
+                    />
+                    <p>
+                      Leadership and Governance
+                    </p>
+                  </div>
+                  <div
+                    class="category-phase phase3"
+                  >
+                     3 
+                  </div>
+                </div>
+                <div
+                  class="category-accordion-content"
+                  style="display: none;"
+                >
+                  <div
+                    class="indicator"
+                  >
+                    <div
+                      class="indicator-details-container"
+                    >
+                      <div
+                        class="indicator-id"
+                      >
+                         1 
+                      </div>
+                      <div>
+                        <div
+                          class="indicator-name-value"
+                        >
+                           Digital health prioritized at the national level through dedicated bodies / mechanisms for governance 
+                        </div>
+                        <div
+                          class="indicator-description"
+                        >
+                           Does the country have a separate department / agency / national working group for digital health? 
+                        </div>
+                        <div
+                          class="indicator-score-description"
+                        >
+                           Governance structure is fully-functional, government-led, consults with other ministries, and monitors implementation of digital health based on a work plan. 
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="score-container en"
+                    >
+                      <div
+                        class="score"
+                      >
+                        <p>
+                          Score
+                        </p>
+                        <div
+                          class="indicator-score phase4"
+                        >
+                           4 
+                        </div>
+                      </div>
+                      <div
+                        class="separator"
+                      />
+                      <div
+                        class="score"
+                      >
+                        <div>
+                          <p>
+                            Benchmark
+                          </p>
+                          <p
+                            style="font-weight: 400; font-size: 12px;"
+                          >
+                             Global average 
+                          </p>
+                        </div>
+                        <div
+                          class="indicator-score phase4"
+                        >
+                           4 
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="indicator"
+                  >
+                    <div
+                      class="indicator-details-container"
+                    >
+                      <div
+                        class="indicator-id"
+                      >
+                         1 
+                      </div>
+                      <div>
+                        <div
+                          class="indicator-name-value"
+                        >
+                           Digital health prioritized at the national level through dedicated bodies / mechanisms for governance 
+                        </div>
+                        <div
+                          class="indicator-description"
+                        >
+                           Does the country have a separate department / agency / national working group for digital health? 
+                        </div>
+                        <div
+                          class="indicator-score-description"
+                        >
+                           Governance structure is fully-functional, government-led, consults with other ministries, and monitors implementation of digital health based on a work plan. 
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="score-container en"
+                    >
+                      <div
+                        class="score"
+                      >
+                        <p>
+                          Score
+                        </p>
+                        <div
+                          class="indicator-score phase4"
+                        >
+                           4 
+                        </div>
+                      </div>
+                      <div
+                        class="separator"
+                      />
+                      <div
+                        class="score"
+                      >
+                        <div>
+                          <p>
+                            Benchmark
+                          </p>
+                          <p
+                            style="font-weight: 400; font-size: 12px;"
+                          >
+                             Global average 
+                          </p>
+                        </div>
+                        <div
+                          class="indicator-score phase4"
+                        >
+                           4 
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="indicator"
+                  >
+                    <div
+                      class="indicator-details-container"
+                    >
+                      <div
+                        class="indicator-id"
+                      >
+                         1 
+                      </div>
+                      <div>
+                        <div
+                          class="indicator-name-value"
+                        >
+                           Digital health prioritized at the national level through dedicated bodies / mechanisms for governance 
+                        </div>
+                        <div
+                          class="indicator-description"
+                        >
+                           Does the country have a separate department / agency / national working group for digital health? 
+                        </div>
+                        <div
+                          class="indicator-score-description"
+                        >
+                           Governance structure is fully-functional, government-led, consults with other ministries, and monitors implementation of digital health based on a work plan. 
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="score-container en"
+                    >
+                      <div
+                        class="score"
+                      >
+                        <p>
+                          Score
+                        </p>
+                        <div
+                          class="indicator-score phase4"
+                        >
+                           4 
+                        </div>
+                      </div>
+                      <div
+                        class="separator"
+                      />
+                      <div
+                        class="score"
+                      >
+                        <div>
+                          <p>
+                            Benchmark
+                          </p>
+                          <p
+                            style="font-weight: 400; font-size: 12px;"
+                          >
+                             Global average 
+                          </p>
+                        </div>
+                        <div
+                          class="indicator-score phase4"
+                        >
+                           4 
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="column-40percent"
+      >
+        <div
+          class="phase-overview box"
+          style="height: 480px;"
+        >
+          <div
+            class="header-bold"
+          >
+            Phase Overview
+          </div>
+        </div>
+        <div
+          class="health-indicator-container"
+        >
+          <development-indicators-stub />
+        </div>
+        <div
+          class="country-summary-container box"
+        >
+          <country-summary-stub />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
