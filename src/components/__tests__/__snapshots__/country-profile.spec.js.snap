@@ -233,21 +233,8 @@ exports[`Country Profile  > should populate the data after successfull API call 
                       <div
                         class="score"
                       >
-                        <div>
-                          <p>
-                            Benchmark
-                          </p>
-                          <p
-                            style="font-weight: 400; font-size: 12px;"
-                          >
-                             Global average 
-                          </p>
-                        </div>
-                        <div
-                          class="indicator-score phase4"
-                        >
-                           4 
-                        </div>
+                        <!---->
+                        <!---->
                       </div>
                     </div>
                   </div>
@@ -301,21 +288,8 @@ exports[`Country Profile  > should populate the data after successfull API call 
                       <div
                         class="score"
                       >
-                        <div>
-                          <p>
-                            Benchmark
-                          </p>
-                          <p
-                            style="font-weight: 400; font-size: 12px;"
-                          >
-                             Global average 
-                          </p>
-                        </div>
-                        <div
-                          class="indicator-score phase4"
-                        >
-                           4 
-                        </div>
+                        <!---->
+                        <!---->
                       </div>
                     </div>
                   </div>
@@ -369,21 +343,8 @@ exports[`Country Profile  > should populate the data after successfull API call 
                       <div
                         class="score"
                       >
-                        <div>
-                          <p>
-                            Benchmark
-                          </p>
-                          <p
-                            style="font-weight: 400; font-size: 12px;"
-                          >
-                             Global average 
-                          </p>
-                        </div>
-                        <div
-                          class="indicator-score phase4"
-                        >
-                           4 
-                        </div>
+                        <!---->
+                        <!---->
                       </div>
                     </div>
                   </div>

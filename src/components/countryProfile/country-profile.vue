@@ -152,7 +152,7 @@ export default Vue.extend({
             });
           } else {
             this.healthIndicatorData.categories.forEach((category) => {
-              this.$set(category, "showCategory", true);
+              this.$set(category, "showCategory", false);
             });
           }
         })
