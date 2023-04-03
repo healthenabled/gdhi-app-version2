@@ -34,6 +34,16 @@
       height: auto;
       display: flex;
       flex-direction: row;
+      .flag {
+        display: inline-block;
+        vertical-align: top;
+        width: 90px;
+        background-repeat: no-repeat;
+        background-position: center;
+        height: 60px;
+        background-size: cover;
+        border: 1px solid $black;
+      }
       .country-name-and-date {
         display: flex;
         flex-direction: column;
