@@ -27,4 +27,6 @@ export const countryProfile = {
   },
   indicator: "Indicador",
   score: "PUNTUACIÓN",
+  govtData: "Datos gubernamentales",
+  nonGovtData: "Datos no gubernamentales",
 };

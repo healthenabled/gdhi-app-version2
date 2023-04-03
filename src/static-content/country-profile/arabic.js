@@ -26,4 +26,6 @@ export const countryProfile = {
   },
   indicator: "تفاصيل",
   score: "أحرز هدفا",
+  govtData: "البيانات الحكومية",
+  nonGovtData: "البيانات غير الحكومية",
 };

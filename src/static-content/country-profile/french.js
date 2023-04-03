@@ -28,4 +28,6 @@ export const countryProfile = {
   },
   indicator: "l'indicateur",
   score: "Score",
+  govtData: "Données gouvernementales",
+  nonGovtData: "Données non gouvernementales",
 };

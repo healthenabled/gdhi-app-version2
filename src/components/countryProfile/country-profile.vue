@@ -268,11 +268,11 @@ export default Vue.extend({
           <div class="legend">
             <div class="government-data">
               <div class="bar" />
-              <p>Government Data</p>
+              <p>{{ $t("countryProfile.govtData") }}</p>
             </div>
             <div class="non-government-data">
               <div class="bar" />
-              <p>Non-Government Data</p>
+              <p>{{ $t("countryProfile.nonGovtData") }}</p>
             </div>
           </div>
           <div v-if="healthIndicatorData" class="health-indicators">
