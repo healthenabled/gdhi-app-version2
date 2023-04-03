@@ -90,7 +90,7 @@
     left: 80px;
     top: 230px;
     font-size: 1.2em;
-    margin-left: 5%;
+    @include margin-left(2%);
   }
 
   /* Create a custom radio button */
