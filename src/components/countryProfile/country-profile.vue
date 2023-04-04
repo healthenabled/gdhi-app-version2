@@ -32,6 +32,7 @@ export default Vue.extend({
       benchmarkPhase: -1,
       phases: [],
       countrySummary: "",
+      govtApproved: false,
       hasBenchmarkData: true,
       updatedDate: "",
       showCountryProgressOverTime: false,
@@ -70,8 +71,9 @@ export default Vue.extend({
         this.phases = response.data;
       });
     },
-    onSummaryLoaded(countrySummary) {
+    onSummaryLoaded(countrySummary, govtApproved) {
       this.countrySummary = countrySummary;
+      this.govtApproved = govtApproved;
     },
     getGlobalAverage() {
       const globalHealthIndicatorsUrl = `/api/global_health_indicators`;
@@ -362,6 +364,7 @@ export default Vue.extend({
                       ) in category.indicators"
                       :key="index_indicator"
                       class="indicator"
+                      :class="`govt-approved-` + govtApproved"
                     >
                       <div class="indicator-details-container">
                         <div class="indicator-id">

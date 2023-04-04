@@ -43,7 +43,11 @@ export default Vue.extend({
     },
     countrySummaryCallback(response) {
       this.countrySummaries = response.data;
-      this.$emit("summaryLoaded", this.countrySummaries.summary);
+      this.$emit(
+        "summaryLoaded",
+        this.countrySummaries.summary,
+        this.countrySummaries.govtApproved
+      );
       common.hideLoading();
     },
   },

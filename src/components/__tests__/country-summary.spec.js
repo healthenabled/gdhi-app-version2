@@ -1,5 +1,5 @@
 import { createLocalVue, mount } from "@vue/test-utils";
-import { describe, beforeEach, it, expect, afterEach, vi } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import VueRouter from "vue-router";
 import CountrySummary from "../countrySummary/country-summary.vue";
 import { i18n } from "../../plugins/i18n";
