@@ -5,6 +5,10 @@
 @import "components/all";
 @import "rtl-support";
 
+* {
+  -webkit-font-smoothing: antialiased;
+}
+
 body,
 html {
   font-family: "InterRegular", sans-serif;
