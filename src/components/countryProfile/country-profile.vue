@@ -308,11 +308,9 @@ export default Vue.extend({
                   :class="
                     category.showCategory ? 'accordion expanded' : 'accordion'
                   "
+                  @click="onCategoryExpand(category, index)"
                 >
-                  <div
-                    class="category-name-and-phase-value"
-                    @click="onCategoryExpand(category, index)"
-                  >
+                  <div class="category-name-and-phase-value">
                     <div
                       class="indicator-panel-container-category-name-and-icon sub-header"
                     >
