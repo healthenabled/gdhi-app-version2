@@ -110,7 +110,11 @@ exports[`Country Profile  > should populate the data after successfull API call 
     <div
       class="box overall-card"
     >
-      <countryprofileyearselector-stub />
+      <div
+        class="year-select-container"
+      >
+        <countryprofileyearselector-stub />
+      </div>
     </div>
     <div
       class="row"

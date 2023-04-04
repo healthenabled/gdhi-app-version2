@@ -10,12 +10,13 @@ export default Vue.extend({
     return {
       defaultYear: window.appProperties.getDefaultYear(),
       years: [],
-      countryCode: this.$route.params.countryCode,
+      countryCode: "",
     };
   },
 
   created() {
     this.fetchDefaultYear();
+    this.countryCode = this.$route.params.countryCode;
   },
 
   mounted() {
@@ -43,10 +44,10 @@ export default Vue.extend({
 </script>
 
 <template>
-  <div class="year-indicator">
-    <div class="header-bold">{{ $t("countryProfile.selectYear") }}</div>
-    <div class="sub-header">
-      {{ $t("countryProfile.selectYearDescription") }}
+  <div class="title">
+    <div class="sub-header">{{ $t("countryProfile.selectYear") }}</div>
+    <div class="select-year-desc">
+      <p>{{ $t("countryProfile.selectYearDescription") }}</p>
     </div>
     <yearFilter :selectedYear="defaultYear" :years="years" />
   </div>
