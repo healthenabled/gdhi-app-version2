@@ -29,4 +29,7 @@ export const countryProfile = {
   score: "PUNTUACIÓN",
   govtData: "Datos gubernamentales",
   nonGovtData: "Datos no gubernamentales",
+  selectYear: "Seleccionar año",
+  selectYearDescription:
+    "Para ver los datos de un año específico, seleccione el año deseado",
 };

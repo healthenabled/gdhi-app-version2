@@ -43,13 +43,11 @@ export default Vue.extend({
 </script>
 
 <template>
-  <div>
-    <div class="year-indicator">
-      <div class="header-bold">Select year</div>
-      <div class="">
-        To view data for a specific year, please select the desired year.
-      </div>
-      <yearFilter :selectedYear="defaultYear" :years="years" />
+  <div class="year-indicator">
+    <div class="header-bold">{{ $t("countryProfile.selectYear") }}</div>
+    <div class="sub-header">
+      {{ $t("countryProfile.selectYearDescription") }}
     </div>
+    <yearFilter :selectedYear="defaultYear" :years="years" />
   </div>
 </template>

@@ -28,4 +28,7 @@ export const countryProfile = {
   score: "أحرز هدفا",
   govtData: "البيانات الحكومية",
   nonGovtData: "البيانات غير الحكومية",
+  selectYear: "حدد السنة",
+  selectYearDescription:
+    "لعرض البيانات الخاصة بسنة معينة ، يرجى تحديد السنة المطلوبة",
 };

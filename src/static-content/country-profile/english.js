@@ -29,4 +29,7 @@ export const countryProfile = {
   score: "Score",
   govtData: "Government Data",
   nonGovtData: "Non-Government Data",
+  selectYear: "Select Year",
+  selectYearDescription:
+    "To view data for a specific year, please select the desired year",
 };

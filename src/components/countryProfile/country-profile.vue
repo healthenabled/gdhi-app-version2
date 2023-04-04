@@ -41,14 +41,18 @@ export default Vue.extend({
   },
 
   mounted() {
+    common.showLoading();
     this.getHealthIndicatorsFor(this.$route.params.countryCode);
     this.getBenchmarkData();
+    this.getGlobalAverage();
     this.url = `/api/export_country_data/${this.$route.params.countryCode}`;
     this.fetchPhases();
     EventBus.$on(EVENTS.YEAR_FILTERED, (selectedYear) => {
+      common.showLoading();
       this.selectedYear = selectedYear;
       this.getHealthIndicatorsFor(this.$route.params.countryCode);
       this.getBenchmarkData();
+      this.getGlobalAverage();
     });
   },
   updated() {
@@ -69,6 +73,20 @@ export default Vue.extend({
     onSummaryLoaded(countrySummary) {
       this.countrySummary = countrySummary;
     },
+    getGlobalAverage() {
+      const globalHealthIndicatorsUrl = `/api/global_health_indicators`;
+      axios
+        .get(
+          globalHealthIndicatorsUrl,
+          common.configWithUserLanguageAndNoCacheHeader(
+            this.$i18n.locale,
+            this.selectedYear
+          )
+        )
+        .then((response) => {
+          console.log(response);
+        });
+    },
     getHealthIndicatorsFor(countryCode) {
       axios
         .get(
@@ -80,6 +98,7 @@ export default Vue.extend({
         )
         .then((response) => {
           this.healthIndicatorCallback(response);
+          common.hideLoading();
         });
     },
     setUpdatedDate(date) {
@@ -140,6 +159,7 @@ export default Vue.extend({
           )
         )
         .then((response) => {
+          common.hideLoading();
           this.benchmarkData = response.data;
           if (isEmpty(this.benchmarkData)) {
             this.hasBenchmarkData = false;
@@ -280,9 +300,9 @@ export default Vue.extend({
         Graph placeholder
       </div>
       <div class="box overall-card">
-        <div class="year-select-container">
-          <CountryProfileYearSelector></CountryProfileYearSelector>
-        </div>
+        <!-- <div class="year-select-container"> -->
+        <CountryProfileYearSelector></CountryProfileYearSelector>
+        <!-- </div> -->
       </div>
 
       <div class="row">
