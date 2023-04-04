@@ -128,7 +128,7 @@ exports[`Country Profile  > should populate the data after successfull API call 
               class="bar"
             />
             <p>
-              Government Data
+              Government Approved Data
             </p>
           </div>
           <div
@@ -138,7 +138,7 @@ exports[`Country Profile  > should populate the data after successfull API call 
               class="bar"
             />
             <p>
-              Non-Government Data
+              Pending Government Approval Data
             </p>
           </div>
         </div>

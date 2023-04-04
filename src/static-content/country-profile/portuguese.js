@@ -27,8 +27,8 @@ export const countryProfile = {
   },
   indicator: "Indicador",
   score: "PONTUAÇÃO",
-  govtData: "Government Data",
-  nonGovtData: "Dados Governamentais",
+  govtData: "Dados aprovados pelo governo",
+  nonGovtData: "Dados de aprovação do governo pendentes",
   selectYear: "Selecione o ano",
   selectYearDescription:
     "Para visualizar os dados de um ano específico, selecione o ano desejado",
