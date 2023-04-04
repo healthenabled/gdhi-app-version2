@@ -3,15 +3,101 @@ import flushPromises from "flush-promises";
 import { describe, expect, it, beforeEach, vi } from "vitest";
 import VueRouter from "vue-router";
 import axios from "axios";
+import { EventBus } from "../common/event-bus";
 import CountryProfile from "../countryProfile/country-profile.vue";
 import * as pdfHelper from "../pdfHelper/pdf-generate-scorecard.js";
 import { i18n } from "../../plugins/i18n";
+
+const axiosGetSpy = vi.spyOn(axios, "get");
+const eventBusOnSpy = vi.spyOn(EventBus, "$on");
 
 describe("Country Profile ", () => {
   let wrapper;
   const localVue = createLocalVue();
   localVue.use(VueRouter);
   const router = new VueRouter();
+  const globalData = {
+    countryHealthScores: [
+      {
+        countryId: "IND",
+        countryName: "India",
+        countryAlpha2Code: "IN",
+        categories: [
+          {
+            id: 1,
+            name: "Leadership and Governance",
+            overallScore: 1.5,
+            phase: 2,
+            indicators: [
+              {
+                id: 1,
+                code: "1",
+                name: "Digital health prioritized at the national level through dedicated bodies / mechanisms for governance",
+                indicatorDescription:
+                  "Does the country have a separate department / agency / national working group for digital health?",
+                score: 1,
+                supportingText: "markr@thoughtworks.com",
+                scoreDescription:
+                  "No coordinating body exists and/or nascent governance structure for digital health is constituted on a case-by-case basis.",
+              },
+              {
+                id: 2,
+                code: "2",
+                name: "Digital Health prioritized at the national level through planning",
+                indicatorDescription:
+                  "Is digital health included and budgeted for in national health or relevant national strategies and/or plan(s)?",
+                score: 2,
+                supportingText: "markr@thoughtworks.com",
+                scoreDescription:
+                  "There is some discussion of inclusion of digital health in national health or other relevant national strategies or plans. Proposed language for inclusion of digital health in national health or relevant national strategies and/or plans has been made and is under review.",
+              },
+            ],
+          },
+        ],
+        countryPhase: 3,
+        updatedDate: "May 2018",
+      },
+      {
+        countryId: "MLI",
+        countryName: "Mali",
+        countryAlpha2Code: "ML",
+        categories: [
+          {
+            id: 1,
+            name: "Leadership and Governance",
+            overallScore: 4.0,
+            phase: 4,
+            indicators: [
+              {
+                id: 1,
+                code: "1",
+                name: "Digital health prioritized at the national level through dedicated bodies / mechanisms for governance",
+                indicatorDescription:
+                  "Does the country have a separate department / agency / national working group for digital health?",
+                score: 4,
+                supportingText: "sdfl",
+                scoreDescription:
+                  "Governance structure is fully-functional, government-led, consults with other ministries, and monitors implementation of digital health based on a work plan.",
+              },
+              {
+                id: 2,
+                code: "2",
+                name: "Digital Health prioritized at the national level through planning",
+                indicatorDescription:
+                  "Is digital health included and budgeted for in national health or relevant national strategies and/or plan(s)?",
+                score: 4,
+                supportingText: "sdfl",
+                scoreDescription:
+                  "Digital health is being implemented as part of national health or other relevant national strategies and/or plans.",
+              },
+            ],
+          },
+        ],
+        countryPhase: 3,
+        updatedDate: "May 2018",
+      },
+    ],
+  };
   const healthIndicatorData = {
     countryId: "IND",
     countryName: "India",
@@ -79,6 +165,21 @@ describe("Country Profile ", () => {
     },
   };
 
+  const benchmarkDataForAYear = {
+    1: {
+      benchmarkScore: 2,
+      benchmarkValue: "above",
+    },
+    2: {
+      benchmarkScore: 1,
+      benchmarkValue: "Below",
+    },
+    3: {
+      benchmarkScore: 5,
+      benchmarkValue: "At",
+    },
+  };
+
   const phaseData = [
     {
       phaseName: "phase1",
@@ -91,7 +192,17 @@ describe("Country Profile ", () => {
   ];
   const axiosGetSpy = vi.spyOn(axios, "get");
   axiosGetSpy.mockImplementation(async (url) => {
-    if (url.includes("countries")) {
+    if (url.includes("benchmark")) {
+      if (url.includes("year")) {
+        return new Promise((resolve) =>
+          resolve({ data: benchmarkDataForAYear })
+        );
+      } else {
+        return new Promise((resolve) => resolve({ data: benchmarkData }));
+      }
+    } else if (url.includes("global_health_indicators")) {
+      return new Promise((resolve) => resolve({ data: globalData }));
+    } else if (url.includes("countries")) {
       return new Promise((resolve) => resolve({ data: healthIndicatorData }));
     } else {
       return new Promise((resolve) => resolve({ data: phaseData }));
@@ -100,6 +211,7 @@ describe("Country Profile ", () => {
 
   beforeEach(() => {
     wrapper = shallowMount(CountryProfile, {
+      selectedYear: null,
       localVue,
       router,
       i18n,
@@ -175,6 +287,10 @@ describe("Country Profile ", () => {
     );
   });
 
+  it("should register event when country page is mounted", async () => {
+    expect(eventBusOnSpy.mock.calls[0][0]).to.equal("year:filtered");
+  });
+
   it("should call generateScorecard with the healthindicator data", async () => {
     await flushPromises();
 
@@ -193,6 +309,12 @@ describe("Country Profile ", () => {
       wrapper.vm.hasBenchmarkData,
       i18n,
     ]);
+  });
+
+  it("should fetch global data for a year", async () => {
+    wrapper.vm.getGlobalAverage();
+    await flushPromises();
+    expect(wrapper.vm.globalData).to.deep.equal(globalData);
   });
 
   it.skip("should load the benchmark data when the benchmark dropdown is changed when data is present", async () => {
@@ -222,6 +344,13 @@ describe("Country Profile ", () => {
     expect(wrapper.findAll(".benchmarkCompare").at(2).text()).to.equal(
       "AT AVG."
     );
+  });
+
+  it("should load the benchmark data for a selected year", async () => {
+    wrapper.vm.getBenchmarkData();
+    await flushPromises();
+
+    expect(wrapper.vm.benchmarkData).to.deep.equal(benchmarkData);
   });
 
   it.skip("should reset the benchmark data to empty object when no value is selected", async () => {

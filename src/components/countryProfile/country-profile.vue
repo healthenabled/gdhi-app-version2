@@ -38,6 +38,7 @@ export default Vue.extend({
       showCountryProgressOverTime: false,
       locale: "en",
       selectedYear: null,
+      globalData: {},
     };
   },
 
@@ -86,7 +87,8 @@ export default Vue.extend({
           )
         )
         .then((response) => {
-          console.log(response);
+          this.globalData = response.data;
+          console.log(this.globalData);
         });
     },
     getHealthIndicatorsFor(countryCode) {
