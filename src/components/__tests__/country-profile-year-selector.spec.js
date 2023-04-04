@@ -27,7 +27,7 @@ describe("Country Profile Year Selector ", () => {
       data: { years: ["Version 1", "2022", "2023"], defaultYear: "2022" },
     });
     axiosGetSpy.mockResolvedValueOnce({
-      data: { years: ["2023", "2021", "Version1"] },
+      data: ["2023", "2021", "Version1"],
     });
     wrapper = mount(CountryProfileYearSelector, {
       localVue,
@@ -58,7 +58,7 @@ describe("Country Profile Year Selector ", () => {
   });
 
   it("should return the published years of a country when api call is made", async () => {
-    let data = { years: ["2023", "2021", "Version1"] };
+    let data = ["2023", "2021", "Version1"];
     expect(wrapper.vm.years).to.deep.equal(data);
   });
 });

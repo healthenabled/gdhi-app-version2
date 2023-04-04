@@ -304,9 +304,7 @@ export default Vue.extend({
         Graph placeholder
       </div>
       <div class="box overall-card">
-        <div class="year-select-container">
-          <CountryProfileYearSelector></CountryProfileYearSelector>
-        </div>
+        <CountryProfileYearSelector></CountryProfileYearSelector>
       </div>
 
       <div class="row">

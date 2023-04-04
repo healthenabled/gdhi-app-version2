@@ -44,11 +44,15 @@ export default Vue.extend({
 </script>
 
 <template>
-  <div class="title">
-    <div class="sub-header">{{ $t("countryProfile.selectYear") }}</div>
-    <div class="select-year-desc">
-      <p>{{ $t("countryProfile.selectYearDescription") }}</p>
+  <div class="year-select-container">
+    <div class="title">
+      <div class="sub-header">{{ $t("countryProfile.selectYear") }}</div>
+      <div class="select-year-desc">
+        <p>{{ $t("countryProfile.selectYearDescription") }}</p>
+      </div>
     </div>
-    <yearFilter :selectedYear="defaultYear" :years="years" />
+    <div class="year-indicator year-indicator-select">
+      <yearFilter :selectedYear="defaultYear" :years="years" />
+    </div>
   </div>
 </template>
