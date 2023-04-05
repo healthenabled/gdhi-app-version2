@@ -2,16 +2,18 @@
   "name": "gdhi-app-clone",
   "version": "0.0.0",
   "scripts": {
-    "postinstall": "node build/pre_install.mjs",
+    "postinstall": "husky install",
     "predev": "node build/check_version.mjs",
     "dev": "vite --config build/vite.dev.config.js",
     "build": "vite build --config build/vite.prod.config.js",
     "preview": "vite preview --port 4173 --config build/vite.prod.config.js",
     "test": "vitest --environment=jsdom --config=build/vitetest.config.js",
     "test:ui": "vitest --environment=jsdom --config=build/vitetest.config.js --ui",
-    "test:coverage": "vitest --environment=jsdom --config=build/vitetest.config.js --coverage",
+    "test:coverage": "vitest run --environment=jsdom --config=build/vitetest.config.js --coverage",
     "test:file": "vitest run ${0} --environment=jsdom --config=build/vitetest.config.js --reporter=\"verbose\"",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
+    "prepack": "pinst --disable",
+    "postpack": "pinst --enable"
   },
   "engines": {
     "node": ">= 14.0.0",
@@ -50,7 +52,9 @@
     "eslint-plugin-vue": "^9.0.0",
     "execa": "^6.1.0",
     "flush-promises": "^1.0.2",
+    "husky": "^8.0.0",
     "jsdom": "^20.0.0",
+    "pinst": "^3.0.0",
     "prettier": "^2.5.1",
     "rollup-plugin-uglify": "^6.0.4",
     "rollup-plugin-visualizer": "^5.9.0",
