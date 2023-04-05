@@ -23,26 +23,29 @@ exports[`Country Profile Year Selector  > should render Year Selector 1`] = `
   <div
     class="year-indicator year-indicator-select"
   >
-    <select
-      class="year-indicator-select"
-      name="test_select3"
-    >
-      <option
-        value="2023"
+    <div>
+      <select
+        class="year-indicator-select ltr"
+        name="test_select3"
       >
-         2023 
-      </option>
-      <option
-        value="2021"
-      >
-         2021 
-      </option>
-      <option
-        value="Version1"
-      >
-         Version1 
-      </option>
-    </select>
+        <option
+          value="2023"
+        >
+           2023 
+        </option>
+        <option
+          value="2021"
+        >
+           2021 
+        </option>
+        <option
+          value="Version1"
+        >
+           Version1 
+        </option>
+      </select>
+        
+    </div>
   </div>
 </div>
 `;

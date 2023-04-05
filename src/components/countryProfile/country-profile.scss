@@ -76,8 +76,6 @@
     vertical-align: middle;
 
     .year-select-container {
-      font-weight: 700;
-      font-size: 16px;
       display: flex;
     }
     .country-progress-over-time {
@@ -142,33 +140,11 @@
     width: 20vw;
   }
   .select-year-desc {
+    margin-top: 5px;
     font-weight: 400;
     font-size: 12px;
     color: $gdhi-black;
     width: 30vw;
-  }
-
-  .year-indicator {
-    height: 100%;
-
-    .year-indicator-select {
-      @include margin-right(2.5vw);
-      @include margin-left(0.5vw);
-      color: $cool-gray;
-      background-color: $white;
-      width: 10vw;
-      height: 40px;
-      @include padding-left(20px);
-      @include padding-right(20px);
-      border: $table-border;
-      -webkit-appearance: none;
-      appearance: none;
-      -moz-appearance: none;
-      background: url("/static/img/arrowDown.svg") no-repeat;
-      background-position-x: 95%;
-      background-position-y: 50%;
-      background-size: 15px;
-    }
   }
 
   .overall-score,

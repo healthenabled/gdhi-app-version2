@@ -52,7 +52,11 @@ export default Vue.extend({
       </div>
     </div>
     <div class="year-indicator year-indicator-select">
-      <yearFilter :selectedYear="defaultYear" :years="years" />
+      <yearFilter
+        :selectedYear="defaultYear"
+        :years="years"
+        :shouldRespectTranslation="true"
+      />
     </div>
   </div>
 </template>

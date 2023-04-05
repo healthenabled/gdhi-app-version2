@@ -2,15 +2,18 @@ import { shallowMount } from "@vue/test-utils";
 import { describe, it, expect, beforeEach, vi } from "vitest";
 import yearFilter from "../defaultYearSelector/year-filter.vue";
 import { EventBus } from "../common/event-bus";
+import { i18n } from "../../plugins/i18n";
 
 describe("year-filter", () => {
   let wrapper;
 
   beforeEach(async () => {
     wrapper = shallowMount(yearFilter, {
+      i18n,
       propsData: {
         years: ["Version 1", "2022", "2023"],
         selectedYear: "2022",
+        shouldRespectTranslation: true,
       },
     });
   });
