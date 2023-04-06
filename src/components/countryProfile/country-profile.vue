@@ -65,6 +65,7 @@ export default Vue.extend({
       }
       this.locale = this.$i18n.locale;
     }
+    console.log("Bubu", this.healthIndicatorData.categories);
   },
   methods: {
     fetchPhases() {
@@ -121,6 +122,7 @@ export default Vue.extend({
       this.showCountryProgressOverTime = !this.showCountryProgressOverTime;
     },
     initialise() {
+      console.log("Am I getting called");
       this.healthIndicatorData.categories.forEach((category) => {
         this.$set(category, "showCategory", false);
       });
@@ -381,7 +383,7 @@ export default Vue.extend({
                     </div>
                     <div :class="'score-container ' + locale">
                       <div class="score">
-                        <p>Score</p>
+                        <p class="score-benchmark">Score</p>
                         <div
                           :class="
                             'indicator-score' + ' phase' + indicator.score

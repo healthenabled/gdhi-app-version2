@@ -26,8 +26,8 @@ export const countryProfile = {
   },
   indicator: "تفاصيل",
   score: "أحرز هدفا",
-  govtData: "البيانات المعتمدة من الحكومة",
-  nonGovtData: "بيانات الموافقة الحكومية المعلقة",
+  govtData: "وافقت الحكومة",
+  nonGovtData: "في انتظار موافقة الحكومة",
   selectYear: "حدد السنة",
   selectYearDescription:
     "لعرض البيانات الخاصة بسنة معينة ، يرجى تحديد السنة المطلوبة",

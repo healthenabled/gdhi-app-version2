@@ -27,8 +27,8 @@ export const countryProfile = {
   },
   indicator: "Indicator",
   score: "Score",
-  govtData: "Government Approved Data",
-  nonGovtData: "Pending Government Approval Data",
+  govtData: "Government Approved",
+  nonGovtData: "Pending Government Approval",
   selectYear: "Select Year",
   selectYearDescription:
     "To view data for a specific year, please select the desired year",

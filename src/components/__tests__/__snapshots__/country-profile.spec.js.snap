@@ -128,7 +128,7 @@ exports[`Country Profile  > should populate the data after successfull API call 
               class="bar"
             />
             <p>
-              Government Approved Data
+              Government Approved
             </p>
           </div>
           <div
@@ -138,7 +138,7 @@ exports[`Country Profile  > should populate the data after successfull API call 
               class="bar"
             />
             <p>
-              Pending Government Approval Data
+              Pending Government Approval
             </p>
           </div>
         </div>
@@ -215,7 +215,9 @@ exports[`Country Profile  > should populate the data after successfull API call 
                     <div
                       class="score"
                     >
-                      <p>
+                      <p
+                        class="score-benchmark"
+                      >
                         Score
                       </p>
                       <div
@@ -285,7 +287,9 @@ exports[`Country Profile  > should populate the data after successfull API call 
                     <div
                       class="score"
                     >
-                      <p>
+                      <p
+                        class="score-benchmark"
+                      >
                         Score
                       </p>
                       <div
@@ -355,7 +359,9 @@ exports[`Country Profile  > should populate the data after successfull API call 
                     <div
                       class="score"
                     >
-                      <p>
+                      <p
+                        class="score-benchmark"
+                      >
                         Score
                       </p>
                       <div

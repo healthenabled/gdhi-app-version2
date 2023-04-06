@@ -28,8 +28,8 @@ export const countryProfile = {
   },
   indicator: "l'indicateur",
   score: "Score",
-  govtData: "Données approuvées par le gouvernement",
-  nonGovtData: "Données en attente d'approbation du gouvernement",
+  govtData: "Approuvées par le gouvernement",
+  nonGovtData: "En attente de l'approbation du gouvernement",
   selectYear: "Sélectionnez l'année",
   selectYearDescription:
     "Pour afficher les données d'une année spécifique, veuillez sélectionner l'année souhaitée",
