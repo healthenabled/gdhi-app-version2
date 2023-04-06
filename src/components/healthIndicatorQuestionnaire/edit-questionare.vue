@@ -1,7 +1,13 @@
 <template>
   <div class="health-indicator-questionnaire content-centered">
-    <div class="clearfix fixed-sub-header">
-      <div class="page-title">
+    <div
+      class="clearfix fixed-sub-header"
+      style="display: flex; justify-content: space-between; align-items: center"
+    >
+      <div
+        class="page-title"
+        style="display: flex; align-items: center; width: 40vw"
+      >
         <div
           v-if="countrySummary.countryAlpha2Code"
           class="flag"
@@ -12,7 +18,15 @@
               ')',
           }"
         ></div>
-        {{ countrySummary.countryName }}
+        <div
+          class="country-name-and-description"
+          style="display: flex; flex-direction: column; margin-left: 30px"
+        >
+          {{ countrySummary.countryName }}
+          <div class="copy-italics copy-grey" style="font-size: 12px">
+            {{ $t("healthIndicatorQuestionnaire.digitalHeathQuestionnaire") }}
+          </div>
+        </div>
       </div>
       <div class="pdf-title">
         {{
@@ -21,10 +35,8 @@
           })
         }}
       </div>
-      <span class="copy-italics copy-grey questionnaire-title">{{
-        $t("healthIndicatorQuestionnaire.digitalHeathQuestionnaire")
-      }}</span>
-      <div class="float-right button-container">
+
+      <div class="float-right button-container" style="margin-top: 0">
         <span
           ><button class="submit-btn btn btn-primary" @click="generatePDF()">
             <i class="fa fa-download" aria-hidden="true"></i
@@ -1087,5 +1099,9 @@ export default Vue.extend({
 .score-content {
   margin-left: 2px;
   margin-right: 2px;
+}
+
+.clearfix::after {
+  content: none;
 }
 </style>
