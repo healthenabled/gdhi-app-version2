@@ -10,7 +10,7 @@
   font-weight: 400;
 }
 .sub-header-country-profile {
-  font-size: 16px;
+  //font-size: 16px;
   color: $gdhi-black;
   font-family: "InterBold", sans-serif;
 }
@@ -74,8 +74,8 @@
 
   .overall-card {
     display: flex;
+    align-items: center;
     vertical-align: middle;
-
     .title {
       width: 30vw;
     }
@@ -110,6 +110,7 @@
     display: flex;
     flex-direction: row;
     cursor: pointer;
+    justify-content: space-between;
     .indicator-panel-container-category-name-and-icon {
       display: flex;
       align-items: center;
@@ -127,9 +128,10 @@
       height: 40px;
       width: 40px;
       justify-content: center;
+      align-self: flex-end;
       align-items: center;
       display: flex;
-      @include margin-left(35vw);
+      @include margin-right(50px);
     }
   }
 
