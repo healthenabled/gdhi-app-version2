@@ -5,10 +5,6 @@
 @import "components/all";
 @import "rtl-support";
 
-* {
-  -webkit-font-smoothing: antialiased;
-}
-
 body,
 html {
   font-family: "InterRegular", sans-serif;
@@ -411,6 +407,37 @@ input[type="date"] {
 
 .column-100percent {
   width: 100%;
+}
+
+.column-60percent {
+  width: 60%;
+  @include margin-right(20px);
+
+  &:last-child {
+    @include margin-right(0);
+    flex-shrink: 0;
+  }
+
+  @media all and (max-width: 1024px) {
+    width: 100%;
+    @include margin-right(0);
+    margin-top: 5px;
+  }
+}
+
+.column-40percent {
+  width: 40%;
+
+  &:last-child {
+    @include margin-right(0);
+    flex-shrink: 0;
+  }
+
+  @media all and (max-width: 1024px) {
+    width: 100%;
+    @include margin-right(0);
+    margin-top: 5px;
+  }
 }
 
 #info-box {

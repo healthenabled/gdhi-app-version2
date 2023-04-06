@@ -46,7 +46,9 @@ export default Vue.extend({
 <template>
   <div class="year-select-container">
     <div class="title">
-      <div class="sub-header">{{ $t("countryProfile.selectYear") }}</div>
+      <div class="sub-header-country-profile">
+        {{ $t("countryProfile.selectYear") }}
+      </div>
       <div class="select-year-desc">
         <p>{{ $t("countryProfile.selectYearDescription") }}</p>
       </div>

@@ -88,7 +88,6 @@ export default Vue.extend({
         )
         .then((response) => {
           this.globalData = response.data;
-          console.log(this.globalData);
         });
     },
     getHealthIndicatorsFor(countryCode) {
@@ -231,7 +230,7 @@ export default Vue.extend({
             <span
               id="collected-date"
               v-if="healthIndicatorData.updatedDate !== ''"
-              class="copy-italics copy-grey"
+              class="copy-italics"
             >
               {{ updatedDate }}
             </span>
@@ -269,7 +268,7 @@ export default Vue.extend({
       </div>
       <div class="box overall-card">
         <div class="title">
-          <div class="sub-header">
+          <div class="sub-header-country-profile">
             {{ $t("countryProfile.overallDigitalHealthPhase") }}
           </div>
           <div class="phase-desc">
@@ -290,7 +289,7 @@ export default Vue.extend({
           }}
         </div>
         <div class="country-progress-over-time" @click="expandCountryProgress">
-          <p>Country Progress Over Time</p>
+          <p>{{ $t("countryProfile.countryProgressOverTime") }}</p>
           <div
             :class="
               showCountryProgressOverTime
@@ -334,7 +333,7 @@ export default Vue.extend({
                 >
                   <div class="category-name-and-phase-value">
                     <div
-                      class="indicator-panel-container-category-name-and-icon sub-header"
+                      class="indicator-panel-container-category-name-and-icon sub-header-country-profile"
                     >
                       <img
                         :src="`/static/indicator-icons/${category.id}.svg`"
@@ -350,74 +349,77 @@ export default Vue.extend({
                           : 'category-phase phaseNA'
                       "
                     >
-                      {{ category.phase >= 0 ? category.phase : "N/A" }}
+                      {{ category.phase >= 0 ? category.phase : "NA" }}
                     </div>
                   </div>
-
+                </div>
+                <div
+                  class="category-accordion-content"
+                  v-show="category.showCategory"
+                >
                   <div
-                    class="category-accordion-content"
-                    v-show="category.showCategory"
+                    v-for="(indicator, index_indicator) in category.indicators"
+                    :key="index_indicator"
+                    class="indicator"
+                    :class="`govt-approved-` + govtApproved"
                   >
-                    <div
-                      v-for="(
-                        indicator, index_indicator
-                      ) in category.indicators"
-                      :key="index_indicator"
-                      class="indicator"
-                      :class="`govt-approved-` + govtApproved"
-                    >
-                      <div class="indicator-details-container">
-                        <div class="indicator-id">
-                          {{ indicator.code }}
+                    <div class="indicator-details-container">
+                      <div class="indicator-id">
+                        {{ indicator.code }}
+                      </div>
+                      <div>
+                        <div class="indicator-name-value">
+                          {{ indicator.name }}
                         </div>
-                        <div>
-                          <div class="indicator-name-value">
-                            {{ indicator.name }}
-                          </div>
-                          <div class="indicator-description">
-                            {{ indicator.indicatorDescription }}
-                          </div>
-                          <div class="indicator-score-description">
-                            {{ indicator.scoreDescription }}
-                          </div>
+                        <div class="indicator-description">
+                          {{ indicator.indicatorDescription }}
+                        </div>
+                        <div class="indicator-score-description">
+                          {{ indicator.scoreDescription }}
                         </div>
                       </div>
-                      <div :class="'score-container ' + locale">
-                        <div class="score">
-                          <p>Score</p>
-                          <div
-                            :class="
-                              'indicator-score' + ' phase' + indicator.score
-                            "
-                          >
-                            {{ indicator.score >= 0 ? indicator.score : "NA" }}
-                          </div>
+                    </div>
+                    <div :class="'score-container ' + locale">
+                      <div class="score">
+                        <p>Score</p>
+                        <div
+                          :class="
+                            'indicator-score' + ' phase' + indicator.score
+                          "
+                        >
+                          {{ indicator.score >= 0 ? indicator.score : "NA" }}
+                        </div>
+                      </div>
+
+                      <div class="separator" />
+
+                      <div class="score">
+                        <div v-if="benchmarkData[indicator.id.toString()]">
+                          <p class="score-benchmark">
+                            {{ $t("countryProfile.benchmark.text") }}
+                          </p>
+                          <p class="score-global-average">
+                            {{
+                              $t(
+                                "countryProfile.benchmark.benchmarkValues.globalAverage"
+                              )
+                            }}
+                          </p>
                         </div>
 
-                        <div class="separator" />
-
-                        <div class="score">
-                          <div v-if="benchmarkData[indicator.id.toString()]">
-                            <p>Benchmark</p>
-                            <p style="font-weight: 400; font-size: 12px">
-                              Global average
-                            </p>
-                          </div>
-
-                          <div
-                            v-if="benchmarkData[indicator.id.toString()]"
-                            :class="
-                              'indicator-score' +
-                              ' phase' +
-                              benchmarkData[indicator.id].benchmarkScore
-                            "
-                          >
-                            {{
-                              benchmarkData[indicator.id].benchmarkScore != -1
-                                ? benchmarkData[indicator.id].benchmarkScore
-                                : "NA"
-                            }}
-                          </div>
+                        <div
+                          v-if="benchmarkData[indicator.id.toString()]"
+                          :class="
+                            'indicator-score' +
+                            ' phase' +
+                            benchmarkData[indicator.id].benchmarkScore
+                          "
+                        >
+                          {{
+                            benchmarkData[indicator.id].benchmarkScore != -1
+                              ? benchmarkData[indicator.id].benchmarkScore
+                              : "NA"
+                          }}
                         </div>
                       </div>
                     </div>
@@ -429,7 +431,9 @@ export default Vue.extend({
         </div>
         <div class="column-40percent">
           <div class="phase-overview box" style="height: 480px">
-            <div class="header-bold">Phase Overview</div>
+            <div class="header-bold">
+              {{ $t("countryProfile.phaseOverview") }}
+            </div>
           </div>
           <div class="health-indicator-container">
             <development-indicators></development-indicators>

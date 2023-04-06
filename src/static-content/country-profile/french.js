@@ -33,4 +33,6 @@ export const countryProfile = {
   selectYear: "Sélectionnez l'année",
   selectYearDescription:
     "Pour afficher les données d'une année spécifique, veuillez sélectionner l'année souhaitée",
+  phaseOverview: "Aperçu des phases",
+  countryProgressOverTime: "Progrès du pays au fil du temps",
 };

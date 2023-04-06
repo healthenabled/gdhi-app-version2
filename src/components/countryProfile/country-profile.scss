@@ -9,7 +9,7 @@
   font-size: 20px;
   font-weight: 400;
 }
-.sub-header {
+.sub-header-country-profile {
   font-size: 12px;
   color: $gdhi-black;
   font-family: "InterBold", sans-serif;
@@ -62,7 +62,7 @@
         display: flex;
         flex-direction: column;
         font-size: 12px;
-        max-width: 6vw;
+        max-width: 10vw;
         justify-items: center;
         align-content: center;
         cursor: pointer;
@@ -81,13 +81,16 @@
     .country-progress-over-time {
       display: flex;
       flex-direction: row;
-      justify-content: space-between;
-      width: 320px;
-      text-align: center;
+      justify-content: flex-end;
       align-items: center;
-      @include margin-left(55vw);
+      height: 40px;
+      flex-grow: 1;
+      cursor: pointer;
+      text-align: center;
       p {
         @extend .large-text;
+        @include margin-right(20px);
+        word-wrap: break-word;
       }
       .progress-accordion::after {
         content: "\f078";
@@ -123,7 +126,7 @@
       justify-content: center;
       align-items: center;
       display: flex;
-      @include margin-left(28vw);
+      @include margin-left(35vw);
     }
   }
 
@@ -134,10 +137,10 @@
     border-radius: 0;
   }
   .phase-desc {
+    margin-top: 2px;
     font-weight: 400;
     font-size: 12px;
     color: $gdhi-black;
-    width: 20vw;
   }
   .select-year-desc {
     margin-top: 5px;
@@ -153,9 +156,9 @@
     @extend .medium-text;
     width: 40px;
     height: 35px;
+    @include margin-left(30px);
+    text-align: center;
     padding-top: 5px;
-    display: inline-block;
-    vertical-align: middle;
   }
 
   .heading-row {
@@ -231,7 +234,7 @@
         height: 100%;
         .indicator-id,
         .indicator-name-value {
-          @extend .sub-header;
+          @extend .sub-header-country-profile;
           color: $gdhi-purple-shade-1;
         }
         .indicator-id {
@@ -240,7 +243,7 @@
           flex-direction: column;
         }
         .indicator-description {
-          @extend .sub-header;
+          @extend .sub-header-country-profile;
           color: $gdhi-black;
           margin: 10px 0;
         }
@@ -268,10 +271,27 @@
 
           justify-content: center;
           align-items: center;
-          p {
-            font-weight: 700;
+          .score-benchmark {
+            font-family: "InterBold", sans-serif;
             font-size: 16px;
             @include margin-right(20px);
+          }
+          .score-global-average {
+            font-weight: 400;
+            font-size: 12px;
+            @include margin-right(20px);
+          }
+          .indicator-score {
+            text-align: center;
+            @extend .medium-text;
+            width: 40px;
+            height: 35px;
+            padding-top: 5px;
+            display: inline-block;
+            vertical-align: middle;
+            @include margin-left(30px);
+            align-self: center;
+            justify-content: center;
           }
         }
         .separator {
@@ -286,7 +306,7 @@
 }
 
 .column-60percent {
-  width: 60%;
+  width: 65vw;
   @include margin-right(20px);
 
   .legend {
@@ -335,7 +355,7 @@
 
 .column-40percent {
   color: $gdhi-purple-shade-1;
-  width: 40vw;
+  width: 35vw;
 
   &:last-child {
     @include margin-right(0);

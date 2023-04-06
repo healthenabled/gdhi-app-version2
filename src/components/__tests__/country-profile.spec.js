@@ -249,7 +249,7 @@ describe("Country Profile ", () => {
       healthIndicatorData.categories.length
     );
     const firstCategory = wrapper.findAll(".category-bar").at(0);
-    expect(firstCategory.find(".sub-header").text()).to.equal(
+    expect(firstCategory.find(".sub-header-country-profile").text()).to.equal(
       healthIndicatorData.categories[0].name
     );
     expect(firstCategory.findAll(".indicator").length).to.equal(
@@ -277,11 +277,11 @@ describe("Country Profile ", () => {
   it("should updated the showCategory when the category is clicked", async () => {
     await flushPromises();
     const firstCategory = wrapper.findAll(".category-bar").at(0);
-    firstCategory.find(".sub-header").trigger("click");
+    firstCategory.find(".sub-header-country-profile").trigger("click");
     expect(wrapper.vm.healthIndicatorData.categories[0].showCategory).to.equal(
       true
     );
-    firstCategory.find(".sub-header").trigger("click");
+    firstCategory.find(".sub-header-country-profile").trigger("click");
     expect(wrapper.vm.healthIndicatorData.categories[0].showCategory).to.equal(
       false
     );
@@ -427,7 +427,7 @@ describe("Country Profile ", () => {
       wrapper.findAll(".header-section-button").at(1).find("p").text()
     ).equal(i18n.messages.en.countryProfile.downloadScorecard);
 
-    expect(wrapper.findAll(".title .sub-header").at(0).text()).equal(
+    expect(wrapper.findAll(".title .sub-header-country-profile").at(0).text()).equal(
       i18n.messages.en.countryProfile.overallDigitalHealthPhase
     );
 

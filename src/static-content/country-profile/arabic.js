@@ -31,4 +31,6 @@ export const countryProfile = {
   selectYear: "حدد السنة",
   selectYearDescription:
     "لعرض البيانات الخاصة بسنة معينة ، يرجى تحديد السنة المطلوبة",
+  phaseOverview: "نظرة عامة على المرحلة",
+  countryProgressOverTime: "تقدم الدولة بمرور الوقت",
 };

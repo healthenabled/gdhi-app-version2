@@ -8,9 +8,9 @@ exports[`Country Profile Year Selector  > should render Year Selector 1`] = `
     class="title"
   >
     <div
-      class="sub-header"
+      class="sub-header-country-profile"
     >
-      Select Year
+       Select Year 
     </div>
     <div
       class="select-year-desc"

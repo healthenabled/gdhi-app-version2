@@ -130,17 +130,17 @@ export default Vue.extend({
                 />
               </svg> </a
           ></span>
-          <router-link :to="{ path: '/map' }" class="hd-element xs-length"
+          <router-link :to="{ path: '/map' }" class="hd-element header-link"
             ><span>{{ $t("headers.worldMap") }}</span></router-link
           >
           <router-link
             :to="{ path: '/indicators_info' }"
-            class="hd-element xl-length"
+            class="hd-element header-link"
             ><span>{{ $t("headers.indicators") }}</span></router-link
           >
           <router-link
             :to="{ path: '/methodology' }"
-            class="hd-element xl-length"
+            class="hd-element header-link"
             ><span>{{ $t("methodology.text") }}</span></router-link
           >
         </div>
