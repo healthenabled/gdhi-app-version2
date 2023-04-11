@@ -66,6 +66,7 @@ export default Vue.extend({
                 lineWidth: 1,
               },
               suggestedMin: 0,
+              min: 0,
               alignToPixels: true,
               beginAtZero: true,
               ticks: {
