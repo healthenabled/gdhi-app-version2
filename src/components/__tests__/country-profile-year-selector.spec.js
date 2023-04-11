@@ -48,9 +48,9 @@ describe("Country Profile Year Selector ", () => {
   });
 
   it("should render select year", async () => {
-    expect(wrapper.findAll(".title .sub-header-country-profile").at(0).text()).equal(
-      i18n.messages.en.countryProfile.selectYear
-    );
+    expect(
+      wrapper.findAll(".title .sub-header-country-profile").at(0).text()
+    ).equal(i18n.messages.en.countryProfile.selectYear);
   });
 
   it("should render Year Selector", async () => {

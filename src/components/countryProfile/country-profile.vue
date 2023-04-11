@@ -10,6 +10,7 @@ import common from "../../common/common";
 import CountryProfileYearSelector from "./country-profile-year-selector.vue";
 import { EventBus } from "../common/event-bus";
 import { EVENTS } from "../../constants";
+import PhaseOverviewSpiderGraph from "../graphs/phase-overview-spider-graph/phase-overview-spider-graph.vue";
 
 Vue.use(Notifications);
 
@@ -18,6 +19,7 @@ export default Vue.extend({
     developmentIndicators,
     countrySummary,
     Notifications,
+    PhaseOverviewSpiderGraph,
     CountryProfileYearSelector,
   },
   data() {
@@ -430,10 +432,15 @@ export default Vue.extend({
           </div>
         </div>
         <div class="column-40percent">
-          <div class="phase-overview box" style="height: 480px">
+          <div class="phase-overview box">
             <div class="header-bold">
               {{ $t("countryProfile.phaseOverview") }}
             </div>
+            <phase-overview-spider-graph
+              v-if="healthIndicatorData.categories && globalData.categories"
+              :country-data="healthIndicatorData"
+              :regional-data="globalData"
+            />
           </div>
           <div class="health-indicator-container">
             <development-indicators></development-indicators>

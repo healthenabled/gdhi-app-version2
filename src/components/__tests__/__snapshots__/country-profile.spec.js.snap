@@ -406,13 +406,13 @@ exports[`Country Profile  > should populate the data after successfull API call 
       >
         <div
           class="phase-overview box"
-          style="height: 480px;"
         >
           <div
             class="header-bold"
           >
              Phase Overview 
           </div>
+          <!---->
         </div>
         <div
           class="health-indicator-container"

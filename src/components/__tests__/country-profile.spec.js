@@ -427,9 +427,9 @@ describe("Country Profile ", () => {
       wrapper.findAll(".header-section-button").at(1).find("p").text()
     ).equal(i18n.messages.en.countryProfile.downloadScorecard);
 
-    expect(wrapper.findAll(".title .sub-header-country-profile").at(0).text()).equal(
-      i18n.messages.en.countryProfile.overallDigitalHealthPhase
-    );
+    expect(
+      wrapper.findAll(".title .sub-header-country-profile").at(0).text()
+    ).equal(i18n.messages.en.countryProfile.overallDigitalHealthPhase);
 
     expect(wrapper.findAll(".phase-desc").at(0).find("p").text()).equal(
       i18n.messages.en.countryProfile.overallDigitalHealthPhaseDescription
