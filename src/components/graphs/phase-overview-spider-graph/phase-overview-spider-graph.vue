@@ -51,8 +51,9 @@ export default Vue.extend({
         type: "radar",
         options: {
           elements: {
-            line: {
-              borderWidth: 1,
+            point: {
+              borderWidth: 10,
+              radius: 10,
             },
           },
           scales: {
@@ -60,16 +61,21 @@ export default Vue.extend({
               angleLines: {
                 display: true,
               },
+              grid: {
+                color: "#CED4DA",
+                lineWidth: 1,
+              },
               suggestedMin: 0,
               alignToPixels: true,
               beginAtZero: true,
               ticks: {
+                display: false,
                 format: "",
                 precision: 0,
               },
               pointLabels: {
                 font: {
-                  size: 9,
+                  size: 10,
                   family: "'InterRegular', sans-serif",
                 },
                 backdropPadding: 0,
@@ -120,6 +126,7 @@ export default Vue.extend({
             borderColor: "rgba(65,91,163,0.5)",
             pointBackgroundColor: "rgba(65,91,163,0.5)",
             pointBorderColor: "#fff",
+            pointRadius: 5,
             pointHoverBackgroundColor: "#fff",
             pointHoverBorderColor: "rgba(65,91,163,0.5)",
             spanGaps: true,
@@ -135,6 +142,7 @@ export default Vue.extend({
             borderColor: "rgba(108,117,125,0.5)",
             pointBackgroundColor: "rgba(108,117,125,0.5)",
             pointBorderColor: "#fff",
+            pointRadius: 5,
             pointHoverBackgroundColor: "#fff",
             pointHoverBorderColor: "rgba(108,117,125,0.5)",
             spanGaps: true,
@@ -168,8 +176,11 @@ export default Vue.extend({
 });
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@import "../../../assets/stylesheets/_rtl-support.scss";
+
 .canvas-container {
   height: 65vh;
+  @include margin-left(10px);
 }
 </style>

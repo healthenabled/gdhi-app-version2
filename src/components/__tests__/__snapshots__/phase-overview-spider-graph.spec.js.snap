@@ -32,6 +32,7 @@ exports[`Phase OverView Spider Graph > should render Graph when mounted and crea
         "pointBorderColor": "#fff",
         "pointHoverBackgroundColor": "#fff",
         "pointHoverBorderColor": "rgba(65,91,163,0.5)",
+        "pointRadius": 5,
         "spanGaps": true,
       },
       {
@@ -50,6 +51,7 @@ exports[`Phase OverView Spider Graph > should render Graph when mounted and crea
         "pointBorderColor": "#fff",
         "pointHoverBackgroundColor": "#fff",
         "pointHoverBorderColor": "rgba(108,117,125,0.5)",
+        "pointRadius": 5,
         "spanGaps": true,
       },
     ],
@@ -62,8 +64,9 @@ exports[`Phase OverView Spider Graph > should render Graph when mounted and crea
   },
   "options": {
     "elements": {
-      "line": {
-        "borderWidth": 1,
+      "point": {
+        "borderWidth": 10,
+        "radius": 10,
       },
     },
     "layout": {
@@ -96,17 +99,22 @@ exports[`Phase OverView Spider Graph > should render Graph when mounted and crea
           "display": true,
         },
         "beginAtZero": true,
+        "grid": {
+          "color": "#CED4DA",
+          "lineWidth": 1,
+        },
         "pointLabels": {
           "backdropPadding": 0,
           "callback": [Function],
           "font": {
             "family": "'InterRegular', sans-serif",
-            "size": 9,
+            "size": 10,
           },
           "padding": 2,
         },
         "suggestedMin": 0,
         "ticks": {
+          "display": false,
           "format": "",
           "precision": 0,
         },
