@@ -103,7 +103,6 @@ exports[`Phase OverView Spider Graph > should render Graph when mounted and crea
           "color": "#CED4DA",
           "lineWidth": 1,
         },
-        "min": 0,
         "pointLabels": {
           "backdropPadding": 0,
           "callback": [Function],
@@ -113,7 +112,6 @@ exports[`Phase OverView Spider Graph > should render Graph when mounted and crea
           },
           "padding": 2,
         },
-        "suggestedMin": 0,
         "ticks": {
           "display": false,
           "format": "",
