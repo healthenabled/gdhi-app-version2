@@ -111,11 +111,7 @@ export default Vue.extend({
     },
 
     healthIndicatorCallback(response) {
-      this.healthIndicatorData = Object.assign(
-        this.healthIndicatorData,
-        response.data
-      );
-      // this.healthIndicatorData = response.data;
+      this.healthIndicatorData = response.data;
       this.setUpdatedDate(this.healthIndicatorData.updatedDate);
 
       this.initialise();
