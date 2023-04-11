@@ -1,0 +1,114 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Phase OverView Spider Graph > should render Graph when mounted and create a new Chart instance 1`] = `
+<div
+  class="canvas-container"
+  data-v-a4c9761d=""
+>
+  <canvas
+    data-v-a4c9761d=""
+    id="phase-overview-spider-graph"
+  />
+</div>
+`;
+
+exports[`Phase OverView Spider Graph > should render Graph when mounted and create a new Chart instance 2`] = `
+{
+  "data": {
+    "datasets": [
+      {
+        "backgroundColor": "rgba(65,91,163,0.5)",
+        "borderColor": "rgba(65,91,163,0.5)",
+        "borderWidth": 1,
+        "data": [
+          1,
+          2,
+          3,
+          4,
+        ],
+        "fill": true,
+        "label": "Sample Country Name",
+        "pointBackgroundColor": "rgba(65,91,163,0.5)",
+        "pointBorderColor": "#fff",
+        "pointHoverBackgroundColor": "#fff",
+        "pointHoverBorderColor": "rgba(65,91,163,0.5)",
+        "spanGaps": true,
+      },
+      {
+        "backgroundColor": "rgba(108,117,125,0.5)",
+        "borderColor": "rgba(108,117,125,0.5)",
+        "borderWidth": 1,
+        "data": [
+          1,
+          1,
+          2,
+          2,
+        ],
+        "fill": true,
+        "label": "Global Average",
+        "pointBackgroundColor": "rgba(108,117,125,0.5)",
+        "pointBorderColor": "#fff",
+        "pointHoverBackgroundColor": "#fff",
+        "pointHoverBorderColor": "rgba(108,117,125,0.5)",
+        "spanGaps": true,
+      },
+    ],
+    "labels": [
+      "Phase1",
+      "Phase2",
+      "Phase3",
+      "Phase4",
+    ],
+  },
+  "options": {
+    "elements": {
+      "line": {
+        "borderWidth": 1,
+      },
+    },
+    "layout": {
+      "autoPadding": false,
+      "padding": 0,
+    },
+    "plugins": {
+      "legend": {
+        "align": "start",
+        "display": true,
+        "labels": {
+          "boxHeight": 20,
+          "boxWidth": 20,
+          "font": {
+            "size": 12,
+          },
+          "padding": 10,
+        },
+        "position": "bottom",
+      },
+    },
+    "scales": {
+      "r": {
+        "alignToPixels": true,
+        "angleLines": {
+          "display": true,
+        },
+        "beginAtZero": true,
+        "pointLabels": {
+          "backdropPadding": 0,
+          "callback": [Function],
+          "font": {
+            "family": "'InterRegular', sans-serif",
+            "size": 9,
+          },
+          "padding": 2,
+        },
+        "suggestedMin": 0,
+        "ticks": {
+          "format": "",
+          "precision": 0,
+        },
+      },
+    },
+  },
+  "type": "radar",
+}
+`;

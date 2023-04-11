@@ -6,43 +6,96 @@
 
 <script>
 import Chart from "chart.js/auto";
+import { i18n } from "../../../plugins/i18n";
+
+const graphConfig = {
+  type: "radar",
+  options: {
+    elements: {
+      line: {
+        borderWidth: 1,
+      },
+    },
+    scales: {
+      r: {
+        angleLines: {
+          display: true,
+        },
+        suggestedMin: 0,
+        alignToPixels: true,
+        beginAtZero: true,
+        ticks: {
+          format: "",
+          precision: 0,
+        },
+        pointLabels: {
+          font: {
+            size: 9,
+            family: "'InterRegular', sans-serif",
+          },
+          backdropPadding: 0,
+          padding: 2,
+          callback: (args) => {
+            return args.replaceAll(" ", "\n");
+          },
+        },
+      },
+    },
+    layout: {
+      autoPadding: false,
+      padding: 0,
+    },
+    plugins: {
+      legend: {
+        display: true,
+        position: "bottom",
+        align: "start",
+        labels: {
+          padding: 10,
+          boxWidth: 20,
+          boxHeight: 20,
+          font: {
+            size: 12,
+          },
+        },
+      },
+    },
+  },
+};
 
 export default {
   name: "phase-overview-spider-graph",
 
   props: {
-    countryData: {
-      type: Object,
-      default() {
-        return {};
-      },
-    },
-    regionalData: {
-      type: Object,
-      default() {
-        return {};
-      },
-    },
+    countryDataCategories: { type: Array, required: true },
+    regionalDataCategories: { type: Array, required: true },
+    countryName: { type: String, required: true },
+  },
+
+  data() {
+    return {
+      chart: null,
+    };
   },
 
   computed: {
     labels() {
       let val = [];
-      this.countryData.categories.forEach((category) => {
+      this.countryDataCategories.forEach((category) => {
         val.push(category.name);
       });
       return val;
     },
     countryPhaseData() {
       let val = [];
-      this.countryData.categories.forEach((category) => {
+      this.countryDataCategories.forEach((category) => {
         val.push(category.phase);
       });
       return val;
     },
     regionalPhaseData() {
       let val = [];
-      this.regionalData.categories.forEach((category) => {
+      this.regionalDataCategories.forEach((category) => {
         val.push(category.phase);
       });
       return val;
@@ -52,7 +105,7 @@ export default {
         labels: this.labels,
         datasets: [
           {
-            label: this.countryData.countryName,
+            label: this.countryName,
             data: this.countryPhaseData,
             fill: true,
             borderWidth: 1,
@@ -65,7 +118,9 @@ export default {
             spanGaps: true,
           },
           {
-            label: "Overall",
+            label: i18n.t(
+              "countryProfile.benchmark.benchmarkValues.globalAverage"
+            ),
             data: this.regionalPhaseData,
             fill: true,
             borderWidth: 1,
@@ -85,102 +140,23 @@ export default {
   mounted() {
     Chart.defaults.font.size = 16;
     Chart.defaults.font.family = "'InterRegular', sans-serif";
-    new Chart(document.getElementById("phase-overview-spider-graph"), {
-      type: "radar",
-      data: this.graphData,
-      options: {
-        elements: {
-          line: {
-            borderWidth: 1,
-          },
-        },
-        scales: {
-          r: {
-            angleLines: {
-              display: true,
-            },
-            suggestedMin: 0,
-            alignToPixels: true,
-            beginAtZero: true,
-            ticks: {
-              count: 5,
-              format: "",
-            },
-            pointLabels: {
-              font: {
-                size: 9,
-                family: "'InterRegular', sans-serif",
-              },
-              backdropPadding: 0,
-              padding: 2,
-              callback: (args) => {
-                return args.replaceAll(" ", "\n");
-              },
-            },
-          },
-        },
-        layout: {
-          autoPadding: false,
-          padding: 0,
-        },
-        plugins: {
-          legend: {
-            display: true,
-            position: "bottom",
-          },
-        },
-      },
-    });
+    this.drawChart();
   },
-  updated() {
-    Chart.defaults.font.size = 16;
-    Chart.defaults.font.family = "'InterRegular', sans-serif";
-    new Chart(document.getElementById("phase-overview-spider-graph"), {
-      type: "radar",
-      data: this.graphData,
-      options: {
-        elements: {
-          line: {
-            borderWidth: 1,
-          },
-        },
-        scales: {
-          r: {
-            angleLines: {
-              display: true,
-            },
-            suggestedMin: 0,
-            alignToPixels: true,
-            beginAtZero: true,
-            ticks: {
-              count: 5,
-              format: "",
-            },
-            pointLabels: {
-              font: {
-                size: 9,
-                family: "'InterRegular', sans-serif",
-              },
-              backdropPadding: 0,
-              padding: 2,
-              callback: (args) => {
-                return args.replaceAll(" ", "\n");
-              },
-            },
-          },
-        },
-        layout: {
-          autoPadding: false,
-          padding: 0,
-        },
-        plugins: {
-          legend: {
-            display: true,
-            position: "bottom",
-          },
-        },
-      },
-    });
+
+  watch: {
+    countryDataCategories() {
+      this.chart.destroy();
+      this.drawChart();
+    },
+  },
+
+  methods: {
+    drawChart() {
+      this.chart = new Chart(
+        document.getElementById("phase-overview-spider-graph"),
+        { ...graphConfig, ...{ data: this.graphData } }
+      );
+    },
   },
 };
 </script>

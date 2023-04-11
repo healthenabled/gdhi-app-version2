@@ -111,7 +111,11 @@ export default Vue.extend({
     },
 
     healthIndicatorCallback(response) {
-      this.healthIndicatorData = response.data;
+      this.healthIndicatorData = Object.assign(
+        this.healthIndicatorData,
+        response.data
+      );
+      // this.healthIndicatorData = response.data;
       this.setUpdatedDate(this.healthIndicatorData.updatedDate);
 
       this.initialise();
@@ -436,10 +440,12 @@ export default Vue.extend({
             <div class="header-bold">
               {{ $t("countryProfile.phaseOverview") }}
             </div>
+
             <phase-overview-spider-graph
               v-if="healthIndicatorData.categories && globalData.categories"
-              :country-data="healthIndicatorData"
-              :regional-data="globalData"
+              :countryDataCategories="healthIndicatorData.categories"
+              :regionalDataCategories="globalData.categories"
+              :countryName="healthIndicatorData.countryName"
             />
           </div>
           <div class="health-indicator-container">
