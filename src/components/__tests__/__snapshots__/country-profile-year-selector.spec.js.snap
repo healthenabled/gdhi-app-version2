@@ -25,7 +25,7 @@ exports[`Country Profile Year Selector  > should render Year Selector 1`] = `
   >
     <div>
       <select
-        class="year-indicator-select ltr"
+        class="year-indicator-select ltr width"
         name="test_select3"
       >
         <option
