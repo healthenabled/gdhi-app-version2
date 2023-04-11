@@ -58,6 +58,7 @@ export default Vue.extend({
         :selectedYear="defaultYear"
         :years="years"
         :shouldRespectTranslation="true"
+        :shouldChangeWidth="true"
       />
     </div>
   </div>

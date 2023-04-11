@@ -4,7 +4,10 @@
       class="year-indicator-select"
       @change="filter"
       name="test_select3"
-      :class="shouldRespectTranslation ? direction : 'ltr'"
+      :class="[
+        shouldRespectTranslation ? direction : 'ltr',
+        shouldChangeWidth ? 'width' : '',
+      ]"
     >
       <option
         v-for="(year, index) in years"
@@ -35,6 +38,10 @@ export default {
     years: Array,
     selectedYear: String,
     shouldRespectTranslation: {
+      type: Boolean,
+      default: false,
+    },
+    shouldChangeWidth: {
       type: Boolean,
       default: false,
     },
