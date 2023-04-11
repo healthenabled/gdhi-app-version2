@@ -83,6 +83,10 @@ exports[`Phase OverView Spider Graph > should render Graph when mounted and crea
           "padding": 10,
         },
         "position": "bottom",
+        "rtl": false,
+      },
+      "tooltip": {
+        "rtl": false,
       },
     },
     "scales": {

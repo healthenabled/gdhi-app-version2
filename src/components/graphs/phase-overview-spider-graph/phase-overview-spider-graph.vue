@@ -6,64 +6,10 @@
 
 <script>
 import Chart from "chart.js/auto";
-import { i18n } from "../../../plugins/i18n";
+import Vue from "vue";
+import { i18n, LayoutDirectionConfig } from "../../../plugins/i18n";
 
-const graphConfig = {
-  type: "radar",
-  options: {
-    elements: {
-      line: {
-        borderWidth: 1,
-      },
-    },
-    scales: {
-      r: {
-        angleLines: {
-          display: true,
-        },
-        suggestedMin: 0,
-        alignToPixels: true,
-        beginAtZero: true,
-        ticks: {
-          format: "",
-          precision: 0,
-        },
-        pointLabels: {
-          font: {
-            size: 9,
-            family: "'InterRegular', sans-serif",
-          },
-          backdropPadding: 0,
-          padding: 2,
-          callback: (args) => {
-            return args.replaceAll(" ", "\n");
-          },
-        },
-      },
-    },
-    layout: {
-      autoPadding: false,
-      padding: 0,
-    },
-    plugins: {
-      legend: {
-        display: true,
-        position: "bottom",
-        align: "start",
-        labels: {
-          padding: 10,
-          boxWidth: 20,
-          boxHeight: 20,
-          font: {
-            size: 12,
-          },
-        },
-      },
-    },
-  },
-};
-
-export default {
+export default Vue.extend({
   name: "phase-overview-spider-graph",
 
   props: {
@@ -100,6 +46,67 @@ export default {
       });
       return val;
     },
+    graphConfig() {
+      return {
+        type: "radar",
+        options: {
+          elements: {
+            line: {
+              borderWidth: 1,
+            },
+          },
+          scales: {
+            r: {
+              angleLines: {
+                display: true,
+              },
+              suggestedMin: 0,
+              alignToPixels: true,
+              beginAtZero: true,
+              ticks: {
+                format: "",
+                precision: 0,
+              },
+              pointLabels: {
+                font: {
+                  size: 9,
+                  family: "'InterRegular', sans-serif",
+                },
+                backdropPadding: 0,
+                padding: 2,
+                callback: (args) => {
+                  return args.replaceAll(" ", "\n");
+                },
+              },
+            },
+          },
+          layout: {
+            autoPadding: false,
+            padding: 0,
+          },
+          plugins: {
+            tooltip: {
+              rtl: LayoutDirectionConfig[i18n.locale] === "rtl",
+            },
+            legend: {
+              display: true,
+              position: "bottom",
+              align: "start",
+              rtl: LayoutDirectionConfig[i18n.locale] === "rtl",
+              labels: {
+                padding: 10,
+                boxWidth: 20,
+                boxHeight: 20,
+                font: {
+                  size: 12,
+                },
+              },
+            },
+          },
+        },
+      };
+    },
+
     graphData() {
       return {
         labels: this.labels,
@@ -154,11 +161,11 @@ export default {
     drawChart() {
       this.chart = new Chart(
         document.getElementById("phase-overview-spider-graph"),
-        { ...graphConfig, ...{ data: this.graphData } }
+        { ...this.graphConfig, ...{ data: this.graphData } }
       );
     },
   },
-};
+});
 </script>
 
 <style scoped>
