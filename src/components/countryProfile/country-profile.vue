@@ -8,6 +8,7 @@ import isEmpty from "lodash/isEmpty";
 import Notifications from "vue-notification";
 import common from "../../common/common";
 import CountryProfileYearSelector from "./country-profile-year-selector.vue";
+import LineGraphChart from "../lineGraph/lineGraphChart.vue";
 import { EventBus } from "../common/event-bus";
 import { EVENTS } from "../../constants";
 import PhaseOverviewSpiderGraph from "../graphs/phase-overview-spider-graph/phase-overview-spider-graph.vue";
@@ -21,6 +22,7 @@ export default Vue.extend({
     Notifications,
     PhaseOverviewSpiderGraph,
     CountryProfileYearSelector,
+    LineGraphChart,
   },
   data() {
     return {
@@ -41,11 +43,13 @@ export default Vue.extend({
       locale: "en",
       selectedYear: null,
       globalData: {},
+      yearOnYearData: {},
     };
   },
 
   mounted() {
     common.showLoading();
+    this.getYearOnYearData(this.$route.params.countryCode);
     this.getHealthIndicatorsFor(this.$route.params.countryCode);
     this.getBenchmarkData();
     this.getGlobalAverage();
@@ -90,6 +94,13 @@ export default Vue.extend({
         )
         .then((response) => {
           this.globalData = response.data;
+        });
+    },
+    getYearOnYearData(countryCode) {
+      axios
+        .get(`/api/countries/${countryCode}/year_on_year`)
+        .then((response) => {
+          this.yearOnYearData = response.data;
         });
     },
     getHealthIndicatorsFor(countryCode) {
@@ -302,7 +313,12 @@ export default Vue.extend({
         </div>
       </div>
       <div class="comparison-graph-panel" v-show="showCountryProgressOverTime">
-        Graph placeholder
+        <LineGraphChart
+          v-if="yearOnYearData.currentYear"
+          :yearOnYearData="yearOnYearData"
+          :locale="locale"
+          :key="locale"
+        />
       </div>
       <div class="box overall-card">
         <CountryProfileYearSelector></CountryProfileYearSelector>
