@@ -69,9 +69,7 @@ export default Vue.extend({
 <template>
   <div>
     <div class="year-indicator">
-      <div class="header-bold">
-        Select year for which date is to be displayed on the Homepage
-      </div>
+      <div class="header-bold">Select default year for home page view</div>
 
       <yearFilter :selectedYear="defaultYear" :years="years" />
     </div>
