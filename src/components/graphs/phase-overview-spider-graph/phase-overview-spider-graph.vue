@@ -82,9 +82,9 @@ export default Vue.extend({
               },
               pointLabels: {
                 font: {
-                  size: 12,
-                  family: "'InterRegular', sans-serif",
-                  weight: 900,
+                  size: 10,
+                  family: "'InterRegularN', sans-serif",
+                  weight: 600,
                 },
                 backdropPadding: 0,
                 padding: 2,
@@ -204,9 +204,10 @@ export default Vue.extend({
 
 .canvas-container {
   height: 60vh;
-  @include margin-left(40px);
+  width: 110%;
 }
 canvas {
   margin-top: -8vh;
+  @include margin-left(10px);
 }
 </style>

@@ -110,9 +110,9 @@ exports[`Phase OverView Spider Graph > should render Graph when mounted and crea
           "backdropPadding": 0,
           "callback": [Function],
           "font": {
-            "family": "'InterRegular', sans-serif",
-            "size": 12,
-            "weight": 900,
+            "family": "'InterRegularN', sans-serif",
+            "size": 10,
+            "weight": 600,
           },
           "padding": 2,
         },
