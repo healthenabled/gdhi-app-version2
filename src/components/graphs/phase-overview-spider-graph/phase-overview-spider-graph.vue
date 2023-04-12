@@ -35,20 +35,14 @@ export default Vue.extend({
     countryPhaseData() {
       let val = [];
       this.countryDataCategories.forEach((category) => {
-        if (Number(category.phase) >= 0) val.push(category.phase);
-        else {
-          val.push(0);
-        }
+        val.push(category.phase);
       });
       return val;
     },
     regionalPhaseData() {
       let val = [];
       this.regionalDataCategories.forEach((category) => {
-        if (Number(category.phase) >= 0) val.push(category.phase);
-        else {
-          val.push(0);
-        }
+        val.push(category.phase);
       });
       return val;
     },
@@ -71,8 +65,6 @@ export default Vue.extend({
                 color: "#CED4DA",
                 lineWidth: 1,
               },
-              // suggestedMin: 0,
-              // min: 0,
               alignToPixels: true,
               beginAtZero: true,
               ticks: {
