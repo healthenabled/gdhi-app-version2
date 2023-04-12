@@ -2994,6 +2994,7 @@ __metadata:
     jsdom: ^20.0.0
     leaflet: ^1.9.3
     lodash: ^4.17.4
+    papaparse: ^5.4.1
     pdf-lib: ^1.17.1
     pinst: ^3.0.0
     prettier: ^2.5.1
@@ -4490,6 +4491,13 @@ __metadata:
   version: 1.0.11
   resolution: "pako@npm:1.0.11"
   checksum: 1be2bfa1f807608c7538afa15d6f25baa523c30ec870a3228a89579e474a4d992f4293859524e46d5d87fd30fa17c5edf34dbef0671251d9749820b488660b16
+  languageName: node
+  linkType: hard
+
+"papaparse@npm:^5.4.1":
+  version: 5.4.1
+  resolution: "papaparse@npm:5.4.1"
+  checksum: fc9e52f7158dca3517c229e3309065b1ab5da6c7194572fba4f31ff138bc43e3c91182cc40365cc828f97fe10d0aca416068fd731661058bea0f69ddb84a411a
   languageName: node
   linkType: hard
 

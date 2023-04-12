@@ -25,6 +25,7 @@
     "dateformat": "^3.0.3",
     "leaflet": "^1.9.3",
     "lodash": "^4.17.4",
+    "papaparse": "^5.4.1",
     "pdf-lib": "^1.17.1",
     "vee-validate": "2.0.0-rc.22",
     "vue": "^2.7.7",
