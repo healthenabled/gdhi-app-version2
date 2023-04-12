@@ -35,14 +35,20 @@ export default Vue.extend({
     countryPhaseData() {
       let val = [];
       this.countryDataCategories.forEach((category) => {
-        val.push(category.phase);
+        if (Number(category.phase) >= 0) val.push(category.phase);
+        else {
+          val.push(0);
+        }
       });
       return val;
     },
     regionalPhaseData() {
       let val = [];
       this.regionalDataCategories.forEach((category) => {
-        val.push(category.phase);
+        if (Number(category.phase) >= 0) val.push(category.phase);
+        else {
+          val.push(0);
+        }
       });
       return val;
     },
@@ -65,6 +71,8 @@ export default Vue.extend({
                 color: "#CED4DA",
                 lineWidth: 1,
               },
+              suggestedMax: 5,
+              suggestedMin: -1,
               alignToPixels: true,
               beginAtZero: true,
               ticks: {
@@ -74,8 +82,9 @@ export default Vue.extend({
               },
               pointLabels: {
                 font: {
-                  size: 10,
+                  size: 12,
                   family: "'InterRegular', sans-serif",
+                  weight: 900,
                 },
                 backdropPadding: 0,
                 padding: 2,
@@ -92,18 +101,33 @@ export default Vue.extend({
           plugins: {
             tooltip: {
               rtl: LayoutDirectionConfig[i18n.locale] === "rtl",
+              // TODO: Check customizations on Tooltip Labels
+              // callbacks: {
+              //   title: function (args) {
+              //     console.log(args);
+              //     return "";
+              //   },
+              //   label: function (args) {
+              //     console.log(args);
+              //     return "";
+              //   },
+              // },
             },
             legend: {
+              // TODO: Change Legend display to false and add an HTML Legend
               display: true,
               position: "bottom",
-              align: "start",
+              align: "center",
               rtl: LayoutDirectionConfig[i18n.locale] === "rtl",
+              fullSize: false,
               labels: {
                 padding: 10,
                 boxWidth: 20,
                 boxHeight: 20,
                 font: {
                   size: 12,
+                  family: "'InterRegular', sans-serif",
+                  weight: 900,
                 },
               },
             },
@@ -179,7 +203,10 @@ export default Vue.extend({
 @import "../../../assets/stylesheets/_rtl-support.scss";
 
 .canvas-container {
-  height: 65vh;
-  @include margin-left(10px);
+  height: 60vh;
+  @include margin-left(40px);
+}
+canvas {
+  margin-top: -8vh;
 }
 </style>

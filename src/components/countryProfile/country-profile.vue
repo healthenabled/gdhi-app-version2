@@ -436,7 +436,6 @@ export default Vue.extend({
             <div class="header-bold">
               {{ $t("countryProfile.phaseOverview") }}
             </div>
-
             <phase-overview-spider-graph
               v-if="healthIndicatorData.categories && globalData.categories"
               :countryDataCategories="healthIndicatorData.categories"

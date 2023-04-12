@@ -75,13 +75,16 @@ exports[`Phase OverView Spider Graph > should render Graph when mounted and crea
     },
     "plugins": {
       "legend": {
-        "align": "start",
+        "align": "center",
         "display": true,
+        "fullSize": false,
         "labels": {
           "boxHeight": 20,
           "boxWidth": 20,
           "font": {
+            "family": "'InterRegular', sans-serif",
             "size": 12,
+            "weight": 900,
           },
           "padding": 10,
         },
@@ -108,10 +111,13 @@ exports[`Phase OverView Spider Graph > should render Graph when mounted and crea
           "callback": [Function],
           "font": {
             "family": "'InterRegular', sans-serif",
-            "size": 10,
+            "size": 12,
+            "weight": 900,
           },
           "padding": 2,
         },
+        "suggestedMax": 5,
+        "suggestedMin": -1,
         "ticks": {
           "display": false,
           "format": "",
