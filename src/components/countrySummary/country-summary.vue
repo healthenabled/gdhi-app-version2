@@ -78,10 +78,17 @@ export default Vue.extend({
           :href="resource.startsWith('http') ? resource : 'http://' + resource"
           target="_blank"
           class="link-blue"
-          style="word-wrap: break-word; word-break: break-all"
           >{{ resource }}</a
         >
       </li>
     </ul>
   </div>
 </template>
+<style scoped lang="scss">
+.link-blue {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-all;
+  white-space: unset;
+}
+</style>
