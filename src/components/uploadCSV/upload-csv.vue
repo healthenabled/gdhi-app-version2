@@ -3,40 +3,8 @@ import Vue from "vue";
 import Papa from "papaparse";
 import { object, string, array } from "yup";
 
-let userSchema = object({
-  countrySummary: object().shape({
-    countryName: string(),
-    summary: string().required(),
-    contactName: string(),
-    contactDesignation: string(),
-    contactOrganization: string(),
-    contactEmail: string().email(),
-    dataFeederName: string().required(),
-    dataFeederRole: string().required(),
-    dataFeederEmail: string().email().required(),
-    dataApproverName: string(),
-    dataApproverRole: string(),
-    dataApproverEmail: string().email(),
-    govtApproved: string(),
-    resources: array().of(
-      string()
-        .matches(
-          /((https?):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/,
-          "Enter correct url!"
-        )
-        .required()
-    ),
-  }),
-  healthIndicators: array().of(
-    object().shape({
-      score: string().required(),
-      supportingText: string().required(),
-    })
-  ),
-});
-
 let schema = object({
-  countryName: string(),
+  "Country Name": string(),
   "Country Summary": string().required(),
   "Country Contact Name": string(),
   "Country Contact Role": string(),
@@ -51,12 +19,15 @@ let schema = object({
   "Data Approver Name": string(),
   "Data Approver Role": string(),
   "Data Approver Email": string().email(),
-  "Resources Link": string()
-    .matches(
-      /((https?):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/,
-      "Enter correct url!"
-    )
-    .required(),
+  "Resources Link": array().of(
+    string()
+      .trim()
+      .matches(
+        /((https?):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/,
+        "Enter correct url!"
+      )
+      .required()
+  ),
   "Indicator 1 Score": string().required(),
   "Enter Indicator 1 justification": string().required(),
   "Indicator 2 Score": string().required(),
@@ -65,28 +36,26 @@ let schema = object({
   "Enter Indicator 2a justification": string(),
   "Indicator 3 Score": string().required(),
   "Enter Indicator 3 justification": string().required(),
-  "Indicator 3a Score": string().required(),
-  "Enter Indicator 3a justification": string().required(),
   "Indicator 4 Score": string().required(),
   "Enter Indicator 4 justification": string().required(),
   "Indicator 4a Score": string().required(),
   "Enter Indicator 4a justification": string().required(),
   "Indicator 5 Score": string().required(),
   "Enter Indicator 5 justification": string().required(),
-  // "Indicator 5a Score": string().required(),
-  // "Enter Indicator 5a justification": string().required(),
+  "Indicator 5a Score": string().required(),
+  "Enter Indicator 5a justification": string().required(),
   "Indicator 6 Score": string().required(),
   "Enter Indicator 6 justification": string().required(),
-  // "Indicator 6a Score": string().required(),
-  // "Enter Indicator 6a justification": string().required(),
+  "Indicator 6a Score": string().required(),
+  "Enter Indicator 6a justification": string().required(),
   "Indicator 7 Score": string().required(),
   "Enter Indicator 7 justification": string().required(),
-  "Indicator 7a Score": string().required(),
-  "Enter Indicator 7a justification": string().required(),
   "Indicator 8 Score": string().required(),
   "Enter Indicator 8 justification": string().required(),
   "Indicator 9 Score": string().required(),
   "Enter Indicator 9 justification": string().required(),
+  "Indicator 9a Score": string().required(),
+  "Enter Indicator 9a justification": string().required(),
   "Indicator 10 Score": string().required(),
   "Enter Indicator 10 justification": string().required(),
   "Indicator 11 Score": string().required(),
@@ -107,22 +76,20 @@ let schema = object({
   "Enter Indicator 18 justification": string().required(),
   "Indicator 19 Score": string().required(),
   "Enter Indicator 19 justification": string().required(),
-  "Indicator 19a Score": string().required(),
-  "Enter Indicator 19a justification": string().required(),
-  "Indicator 19b Score": string().required(),
-  "Enter Indicator 19b justification": string().required(),
-  "Indicator 19c Score": string().required(),
-  "Enter Indicator 19c justification": string().required(),
   "Indicator 20 Score": string().required(),
   "Enter Indicator 20 justification": string().required(),
   "Indicator 21 Score": string().required(),
   "Enter Indicator 21 justification": string().required(),
+  "Indicator 21a Score": string().required(),
+  "Enter Indicator 21a justification": string().required(),
+  "Indicator 21b Score": string().required(),
+  "Enter Indicator 21b justification": string().required(),
+  "Indicator 21c Score": string().required(),
+  "Enter Indicator 21c justification": string().required(),
   "Indicator 22 Score": string().required(),
   "Enter Indicator 22 justification": string().required(),
   "Indicator 23 Score": string().required(),
   "Enter Indicator 23 justification": string().required(),
-  "Indicator 23a Score": string().required(),
-  "Enter Indicator 23a justification": string().required(),
 });
 
 const mapCSVToSchemaFields = (formCSVRow) => {
@@ -134,239 +101,239 @@ const mapCSVToSchemaFields = (formCSVRow) => {
     updatedDate: "",
     countrySummary: {
       countryId: "",
-      countryName: formCSVRow.countryName,
+      countryName: formCSVRow["Country Name"],
       countryAlpha2Code: "",
-      summary: formCSVRow.summary,
-      contactName: formCSVRow.contactName,
-      contactDesignation: formCSVRow.contactDesignation,
-      contactOrganization: formCSVRow.contactOrganization,
-      contactEmail: formCSVRow.contactEmail,
-      dataFeederName: formCSVRow.dataFeederName,
-      dataFeederRole: formCSVRow.dataFeederRole,
-      dataFeederEmail: formCSVRow.dataFeederEmail,
-      dataApproverName: formCSVRow.dataApproverName,
-      dataApproverRole: formCSVRow.dataApproverRole,
-      dataApproverEmail: formCSVRow.dataApproverEmail,
-      govtApproved: formCSVRow.govtApproved,
-      resources: formCSVRow.resources.split(","),
+      summary: formCSVRow["Country Summary"],
+      contactName: formCSVRow["Country Contact Name"],
+      contactDesignation: formCSVRow["Country Contact Role"],
+      contactOrganization: formCSVRow["Country Contact Org"],
+      contactEmail: formCSVRow["Country Contact Email"],
+      dataFeederName: formCSVRow["Contact Person Name"],
+      dataFeederRole: formCSVRow["Contact Person Role"],
+      dataFeederEmail: formCSVRow["Contact Person Email"],
+      dataApproverName: formCSVRow["Data Approver Name"],
+      dataApproverRole: formCSVRow["Data Approver Role"],
+      dataApproverEmail: formCSVRow["Data Approver Email"],
+      govtApproved: formCSVRow["Is the data approved by the government"],
+      resources: formCSVRow["Resources Link"],
     },
     healthIndicators: [
       {
         categoryId: 1,
         indicatorId: 1,
         status: "",
-        score: formCSVRow.indicatorId1_Score,
-        supportingText: formCSVRow.indicatorId1_supportingText,
+        score: formCSVRow["Indicator 1 Score"],
+        supportingText: formCSVRow["Enter Indicator 1 justification"],
       },
       {
         categoryId: 1,
         indicatorId: 2,
         status: "",
-        score: formCSVRow.indicatorId2_Score,
-        supportingText: formCSVRow.indicatorId2_supportingText,
+        score: formCSVRow["Indicator 1 Score"],
+        supportingText: formCSVRow["Enter Indicator 1 justification"],
       },
       {
         categoryId: 1,
         indicatorId: 30,
         status: "",
-        score: formCSVRow.indicatorId30_Score,
-        supportingText: formCSVRow.indicatorId30_supportingText,
+        score: formCSVRow["Indicator 2a Score"],
+        supportingText: formCSVRow["Enter Indicator 2a justification"],
       },
       {
         categoryId: 1,
         indicatorId: 31,
         status: "",
-        score: formCSVRow.indicatorId31_Score,
-        supportingText: formCSVRow.indicatorId31_supportingText,
+        score: formCSVRow["Indicator 3 Score"],
+        supportingText: formCSVRow["Enter Indicator 3 justification"],
       },
       {
         categoryId: 1,
         indicatorId: 32,
         status: "",
-        score: formCSVRow.indicatorId32_Score,
-        supportingText: formCSVRow.indicatorId32_supportingText,
+        score: formCSVRow["Indicator 4 Score"],
+        supportingText: formCSVRow["Enter Indicator 4 justification"],
       },
       {
         categoryId: 1,
         indicatorId: 33,
         status: "",
-        score: formCSVRow.indicatorId33_Score,
-        supportingText: formCSVRow.indicatorId33_supportingText,
+        score: formCSVRow["Indicator 4a Score"],
+        supportingText: formCSVRow["Enter Indicator 4a justification"],
       },
       {
         categoryId: 2,
         indicatorId: 3,
         status: "",
-        score: formCSVRow.indicatorId3_Score,
-        supportingText: formCSVRow.indicatorId3_supportingText,
+        score: formCSVRow["Indicator 5 Score"],
+        supportingText: formCSVRow["Enter Indicator 5 justification"],
       },
       {
         categoryId: 2,
         indicatorId: 37,
         status: "",
-        score: formCSVRow.indicatorId37_Score,
-        supportingText: formCSVRow.indicatorId37_supportingText,
+        score: formCSVRow["Indicator 5a Score"],
+        supportingText: formCSVRow["Enter Indicator 5a justification"],
       },
       {
         categoryId: 2,
         indicatorId: 4,
         status: "",
-        score: formCSVRow.indicatorId4_Score,
-        supportingText: formCSVRow.indicatorId4_supportingText,
+        score: formCSVRow["Indicator 6 Score"],
+        supportingText: formCSVRow["Enter Indicator 6 justification"],
       },
       {
         categoryId: 2,
         indicatorId: 38,
         status: "",
-        score: formCSVRow.indicatorId38_Score,
-        supportingText: formCSVRow.indicatorId38_supportingText,
+        score: formCSVRow["Indicator 6a Score"],
+        supportingText: formCSVRow["Enter Indicator 6a justification"],
       },
       {
         categoryId: 3,
         indicatorId: 5,
         status: "",
-        score: formCSVRow.indicatorId5_Score,
-        supportingText: formCSVRow.indicatorId5_supportingText,
+        score: formCSVRow["Indicator 7 Score"],
+        supportingText: formCSVRow["Enter Indicator 7 justification"],
       },
       {
         categoryId: 3,
         indicatorId: 6,
         status: "",
-        score: formCSVRow.indicatorId6_Score,
-        supportingText: formCSVRow.indicatorId6_supportingText,
+        score: formCSVRow["Indicator 8 Score"],
+        supportingText: formCSVRow["Enter Indicator 8 justification"],
       },
       {
         categoryId: 3,
         indicatorId: 7,
         status: "",
-        score: formCSVRow.indicatorId7_Score,
-        supportingText: formCSVRow.indicatorId7_supportingText,
+        score: formCSVRow["Indicator 9 Score"],
+        supportingText: formCSVRow["Enter Indicator 9 justification"],
       },
       {
         categoryId: 3,
         indicatorId: 36,
         status: "",
-        score: formCSVRow.indicatorId36_Score,
-        supportingText: formCSVRow.indicatorId36_supportingText,
+        score: formCSVRow["Indicator 9a Score"],
+        supportingText: formCSVRow["Enter Indicator 9a justification"],
       },
       {
         categoryId: 3,
         indicatorId: 8,
         status: "",
-        score: formCSVRow.indicatorId8_Score,
-        supportingText: formCSVRow.indicatorId8_supportingText,
+        score: formCSVRow["Indicator 10 Score"],
+        supportingText: formCSVRow["Enter Indicator 10 justification"],
       },
       {
         categoryId: 4,
         indicatorId: 9,
         status: "",
-        score: formCSVRow.indicatorId9_Score,
-        supportingText: formCSVRow.indicatorId9_supportingText,
+        score: formCSVRow["Indicator 11 Score"],
+        supportingText: formCSVRow["Enter Indicator 11 justification"],
       },
       {
         categoryId: 4,
         indicatorId: 10,
         status: "",
-        score: formCSVRow.indicatorId10_Score,
-        supportingText: formCSVRow.indicatorId10_supportingText,
+        score: formCSVRow["Indicator 12 Score"],
+        supportingText: formCSVRow["Enter Indicator 12 justification"],
       },
       {
         categoryId: 4,
         indicatorId: 11,
         status: "",
-        score: formCSVRow.indicatorId11_Score,
-        supportingText: formCSVRow.indicatorId11_supportingText,
+        score: formCSVRow["Indicator 13 Score"],
+        supportingText: formCSVRow["Enter Indicator 13 justification"],
       },
       {
         categoryId: 4,
         indicatorId: 12,
         status: "",
-        score: formCSVRow.indicatorId12_Score,
-        supportingText: formCSVRow.indicatorId12_supportingText,
+        score: formCSVRow["Indicator 14 Score"],
+        supportingText: formCSVRow["Enter Indicator 14 justification"],
       },
       {
         categoryId: 5,
         indicatorId: 13,
         status: "",
-        score: formCSVRow.indicatorId13_Score,
-        supportingText: formCSVRow.indicatorId13_supportingText,
+        score: formCSVRow["Indicator 15 Score"],
+        supportingText: formCSVRow["Enter Indicator 15 justification"],
       },
       {
         categoryId: 5,
         indicatorId: 14,
         status: "",
-        score: formCSVRow.indicatorId14_Score,
-        supportingText: formCSVRow.indicatorId14_supportingText,
+        score: formCSVRow["Indicator 16 Score"],
+        supportingText: formCSVRow["Enter Indicator 16 justification"],
       },
       {
         categoryId: 6,
         indicatorId: 15,
         status: "",
-        score: formCSVRow.indicatorId15_Score,
-        supportingText: formCSVRow.indicatorId15_supportingText,
+        score: formCSVRow["Indicator 17 Score"],
+        supportingText: formCSVRow["Enter Indicator 17 justification"],
       },
       {
         categoryId: 6,
         indicatorId: 16,
         status: "",
-        score: formCSVRow.indicatorId16_Score,
-        supportingText: formCSVRow.indicatorId16_supportingText,
+        score: formCSVRow["Indicator 18 Score"],
+        supportingText: formCSVRow["Enter Indicator 18 justification"],
       },
       {
         categoryId: 7,
         indicatorId: 17,
         status: "",
-        score: formCSVRow.indicatorId17_Score,
-        supportingText: formCSVRow.indicatorId17_supportingText,
+        score: formCSVRow["Indicator 19 Score"],
+        supportingText: formCSVRow["Enter Indicator 19 justification"],
       },
       {
         categoryId: 7,
         indicatorId: 18,
         status: "",
-        score: formCSVRow.indicatorId18_Score,
-        supportingText: formCSVRow.indicatorId18_supportingText,
+        score: formCSVRow["Indicator 20 Score"],
+        supportingText: formCSVRow["Enter Indicator 20 justification"],
       },
       {
         categoryId: 7,
         indicatorId: 19,
         status: "",
-        score: formCSVRow.indicatorId19_Score,
-        supportingText: formCSVRow.indicatorId19_supportingText,
+        score: formCSVRow["Indicator 21 Score"],
+        supportingText: formCSVRow["Enter Indicator 21 justification"],
       },
       {
         categoryId: 7,
         indicatorId: 27,
         status: "",
-        score: formCSVRow.indicatorId27_Score,
-        supportingText: formCSVRow.indicatorId27_supportingText,
+        score: formCSVRow["Indicator 21a Score"],
+        supportingText: formCSVRow["Enter Indicator 21a justification"],
       },
       {
         categoryId: 7,
         indicatorId: 28,
         status: "",
-        score: formCSVRow.indicatorId28_Score,
-        supportingText: formCSVRow.indicatorId28_supportingText,
+        score: formCSVRow["Indicator 21b Score"],
+        supportingText: formCSVRow["Enter Indicator 21b justification"],
       },
       {
         categoryId: 7,
         indicatorId: 29,
         status: "",
-        score: formCSVRow.indicatorId29_Score,
-        supportingText: formCSVRow.indicatorId29_supportingText,
+        score: formCSVRow["Indicator 21c Score"],
+        supportingText: formCSVRow["Enter Indicator 21c justification"],
       },
       {
         categoryId: 7,
         indicatorId: 34,
         status: "",
-        score: formCSVRow.indicatorId34_Score,
-        supportingText: formCSVRow.indicatorId34_supportingText,
+        score: formCSVRow["Indicator 22 Score"],
+        supportingText: formCSVRow["Enter Indicator 22 justification"],
       },
       {
         categoryId: 7,
         indicatorId: 35,
         status: "",
-        score: formCSVRow.indicatorId35_Score,
-        supportingText: formCSVRow.indicatorId35_supportingText,
+        score: formCSVRow["Indicator 23 Score"],
+        supportingText: formCSVRow["Enter Indicator 23 justification"],
       },
     ],
   };
@@ -374,6 +341,14 @@ const mapCSVToSchemaFields = (formCSVRow) => {
   return targetObject;
 };
 export default Vue.extend({
+  data() {
+    return {
+      wrongData: false,
+    };
+  },
+  created() {
+    this.wrongData = false;
+  },
   methods: {
     uploadFile(event) {
       const self = this;
@@ -384,15 +359,20 @@ export default Vue.extend({
           header: true,
           complete: function ({ data, error }) {
             for (let i = 0; i < data.length; i++) {
+              if (data[i]["Resources Link"]) {
+                data[i]["Resources Link"] =
+                  data[i]["Resources Link"].split(",");
+              }
               console.log(data[i]);
-
               self
                 .validateFields(data[i])
                 .then((response) => {
                   console.log("Success");
+                  mapCSVToSchemaFields(data[i]);
                   console.log(response);
                 })
                 .catch((response) => {
+                  self.wrongData = true;
                   console.log("Error");
                   console.log(response);
                 });
@@ -423,6 +403,7 @@ export default Vue.extend({
         height="100"
         accept="text/csv"
       />
+      <p v-if="wrongData">There is something wrong with csv data</p>
     </fieldset>
   </div>
 </template>
