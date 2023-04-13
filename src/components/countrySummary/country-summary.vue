@@ -69,9 +69,9 @@ export default Vue.extend({
     >
       {{ $t("countryProfile.countrySummary.resources") }}
     </div>
-    <ul class="country-text" v-if="countrySummaries.resources">
+    <ul class="country-text" v-if="countrySummaries.resources.length">
       <li
-        v-for="resource in countrySummaries.resources"
+        v-for="resource in countrySummaries.resources.length"
         class="country-resource-link"
       >
         <a
