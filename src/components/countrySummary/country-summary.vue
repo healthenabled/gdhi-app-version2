@@ -56,33 +56,6 @@ export default Vue.extend({
 
 <template>
   <div class="country-summary">
-    <div class="country-map">
-      <div class="country-contact header-bold no-margin-top">
-        {{ $t("countryProfile.countrySummary.keyContacts") }}
-      </div>
-      <div
-        v-if="countrySummaries.contactName"
-        class="country-summary-contact-name"
-      >
-        <span class="country-summary-link" v-if="countrySummaries.contactName">
-          <a
-            :href="'mailto:' + countrySummaries.contactEmail"
-            target="_blank"
-            class="link-blue"
-            >{{ countrySummaries.contactName }}</a
-          >,
-        </span>
-        <span
-          v-if="countrySummaries.contactDesignation"
-          class="country-designation"
-          >{{ countrySummaries.contactDesignation }},</span
-        >
-        <span v-if="countrySummaries.contactOrganization" class="country-org">{{
-          countrySummaries.contactOrganization
-        }}</span>
-      </div>
-      <div class="error" v-else>{{ $t("mixed.noDataAvailable") }}</div>
-    </div>
     <div class="country-summary-title header-bold">
       {{ $t("countryProfile.countrySummary.text") }}
     </div>
