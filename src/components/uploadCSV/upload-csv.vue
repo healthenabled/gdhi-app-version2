@@ -1,99 +1,116 @@
 <script>
 import Vue from "vue";
 import Papa from "papaparse";
-import { object, string, array } from "yup";
+import { object, string } from "yup";
 
-let schema = object({
-  "Country Name": string(),
-  "Country Summary": string().required(),
-  "Country Contact Name": string(),
-  "Country Contact Role": string(),
-  "Country Contact Org": string(),
-  "Country Contact Email": string().email(),
-  "Contact Person Name": string().required(),
-  "Contact Person Role": string().required(),
-  "Contact Person Email": string().email().required(),
+const csvSchema = object({
+  "Country Name": string().trim(),
+  "Country Summary": string().trim().required(),
+  "Country Contact Name": string().trim(),
+  "Country Contact Role": string().trim(),
+  "Country Contact Org": string().trim(),
+  "Country Contact Email": string().trim().email(),
+  "Contact Person Name": string().trim().required(),
+  "Contact Person Role": string().trim().required(),
+  "Contact Person Email": string().trim().email().required(),
   "Is the data approved by the government": string()
+    .trim()
     .lowercase()
     .matches(/(true|false)/),
-  "Data Approver Name": string(),
-  "Data Approver Role": string(),
-  "Data Approver Email": string().email(),
-  "Resources Link": array().of(
-    string()
-      .trim()
-      .matches(
-        /((https?):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/,
-        "Enter correct url!"
-      )
-      .required()
-  ),
-  "Indicator 1 Score": string().required(),
-  "Enter Indicator 1 justification": string().required(),
-  "Indicator 2 Score": string().required(),
-  "Enter Indicator 2 justification": string().required(),
-  "Indicator 2a Score": string(),
-  "Enter Indicator 2a justification": string(),
-  "Indicator 3 Score": string().required(),
-  "Enter Indicator 3 justification": string().required(),
-  "Indicator 4 Score": string().required(),
-  "Enter Indicator 4 justification": string().required(),
-  "Indicator 4a Score": string().required(),
-  "Enter Indicator 4a justification": string().required(),
-  "Indicator 5 Score": string().required(),
-  "Enter Indicator 5 justification": string().required(),
-  "Indicator 5a Score": string().required(),
-  "Enter Indicator 5a justification": string().required(),
-  "Indicator 6 Score": string().required(),
-  "Enter Indicator 6 justification": string().required(),
-  "Indicator 6a Score": string().required(),
-  "Enter Indicator 6a justification": string().required(),
-  "Indicator 7 Score": string().required(),
-  "Enter Indicator 7 justification": string().required(),
-  "Indicator 8 Score": string().required(),
-  "Enter Indicator 8 justification": string().required(),
-  "Indicator 9 Score": string().required(),
-  "Enter Indicator 9 justification": string().required(),
-  "Indicator 9a Score": string().required(),
-  "Enter Indicator 9a justification": string().required(),
-  "Indicator 10 Score": string().required(),
-  "Enter Indicator 10 justification": string().required(),
-  "Indicator 11 Score": string().required(),
-  "Enter Indicator 11 justification": string().required(),
-  "Indicator 12 Score": string().required(),
-  "Enter Indicator 12 justification": string().required(),
-  "Indicator 13 Score": string().required(),
-  "Enter Indicator 13 justification": string().required(),
-  "Indicator 14 Score": string().required(),
-  "Enter Indicator 14 justification": string().required(),
-  "Indicator 15 Score": string().required(),
-  "Enter Indicator 15 justification": string().required(),
-  "Indicator 16 Score": string().required(),
-  "Enter Indicator 16 justification": string().required(),
-  "Indicator 17 Score": string().required(),
-  "Enter Indicator 17 justification": string().required(),
-  "Indicator 18 Score": string().required(),
-  "Enter Indicator 18 justification": string().required(),
-  "Indicator 19 Score": string().required(),
-  "Enter Indicator 19 justification": string().required(),
-  "Indicator 20 Score": string().required(),
-  "Enter Indicator 20 justification": string().required(),
-  "Indicator 21 Score": string().required(),
-  "Enter Indicator 21 justification": string().required(),
-  "Indicator 21a Score": string().required(),
-  "Enter Indicator 21a justification": string().required(),
-  "Indicator 21b Score": string().required(),
-  "Enter Indicator 21b justification": string().required(),
-  "Indicator 21c Score": string().required(),
-  "Enter Indicator 21c justification": string().required(),
-  "Indicator 22 Score": string().required(),
-  "Enter Indicator 22 justification": string().required(),
-  "Indicator 23 Score": string().required(),
-  "Enter Indicator 23 justification": string().required(),
+  "Data Approver Name": string().trim(),
+  "Data Approver Role": string().trim(),
+  "Data Approver Email": string().trim().email(),
+  "Resources Link": string()
+    .trim()
+    .lowercase()
+    .required()
+    .test(
+      "validate-csv-urls",
+      (d) => `${d.value} are not valid URL's`,
+      function (value) {
+        let isValid = true;
+        value.split(",").forEach((a) => {
+          const urlPattern = new RegExp(
+            "^(https?:\\/\\/)?" + // validate protocol
+              "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // validate domain name
+              "((\\d{1,3}\\.){3}\\d{1,3}))" + // validate OR ip (v4) address
+              "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // validate port and path
+              "(\\?[;&a-z\\d%_.~+=-]*)?" + // validate query string
+              "(\\#[-a-z\\d_]*)?$",
+            "i"
+          ); // validate fragment locator
+
+          isValid = isValid && !!urlPattern.test(a);
+        });
+        return isValid;
+      }
+    ),
+  "Indicator 1 Score": string().trim().required(),
+  "Enter Indicator 1 justification": string().trim().required(),
+  "Indicator 2 Score": string().trim().required(),
+  "Enter Indicator 2 justification": string().trim().required(),
+  "Indicator 2a Score": string().trim(),
+  "Enter Indicator 2a justification": string().trim(),
+  "Indicator 3 Score": string().trim().required(),
+  "Enter Indicator 3 justification": string().trim().required(),
+  "Indicator 4 Score": string().trim().required(),
+  "Enter Indicator 4 justification": string().trim().required(),
+  "Indicator 4a Score": string().trim().required(),
+  "Enter Indicator 4a justification": string().trim().required(),
+  "Indicator 5 Score": string().trim().required(),
+  "Enter Indicator 5 justification": string().trim().required(),
+  "Indicator 5a Score": string().trim().required(),
+  "Enter Indicator 5a justification": string().trim().required(),
+  "Indicator 6 Score": string().trim().required(),
+  "Enter Indicator 6 justification": string().trim().required(),
+  "Indicator 6a Score": string().trim().required(),
+  "Enter Indicator 6a justification": string().trim().required(),
+  "Indicator 7 Score": string().trim().required(),
+  "Enter Indicator 7 justification": string().trim().required(),
+  "Indicator 8 Score": string().trim().required(),
+  "Enter Indicator 8 justification": string().trim().required(),
+  "Indicator 9 Score": string().trim().required(),
+  "Enter Indicator 9 justification": string().trim().required(),
+  "Indicator 9a Score": string().trim().required(),
+  "Enter Indicator 9a justification": string().trim().required(),
+  "Indicator 10 Score": string().trim().required(),
+  "Enter Indicator 10 justification": string().trim().required(),
+  "Indicator 11 Score": string().trim().required(),
+  "Enter Indicator 11 justification": string().trim().required(),
+  "Indicator 12 Score": string().trim().required(),
+  "Enter Indicator 12 justification": string().trim().required(),
+  "Indicator 13 Score": string().trim().required(),
+  "Enter Indicator 13 justification": string().trim().required(),
+  "Indicator 14 Score": string().trim().required(),
+  "Enter Indicator 14 justification": string().trim().required(),
+  "Indicator 15 Score": string().trim().required(),
+  "Enter Indicator 15 justification": string().trim().required(),
+  "Indicator 16 Score": string().trim().required(),
+  "Enter Indicator 16 justification": string().trim().required(),
+  "Indicator 17 Score": string().trim().required(),
+  "Enter Indicator 17 justification": string().trim().required(),
+  "Indicator 18 Score": string().trim().required(),
+  "Enter Indicator 18 justification": string().trim().required(),
+  "Indicator 19 Score": string().trim().required(),
+  "Enter Indicator 19 justification": string().trim().required(),
+  "Indicator 20 Score": string().trim().required(),
+  "Enter Indicator 20 justification": string().trim().required(),
+  "Indicator 21 Score": string().trim().required(),
+  "Enter Indicator 21 justification": string().trim().required(),
+  "Indicator 21a Score": string().trim().required(),
+  "Enter Indicator 21a justification": string().trim().required(),
+  "Indicator 21b Score": string().trim().required(),
+  "Enter Indicator 21b justification": string().trim().required(),
+  "Indicator 21c Score": string().trim().required(),
+  "Enter Indicator 21c justification": string().trim().required(),
+  "Indicator 22 Score": string().trim().required(),
+  "Enter Indicator 22 justification": string().trim().required(),
+  "Indicator 23 Score": string().trim().required(),
+  "Enter Indicator 23 justification": string().trim().required(),
 });
 
-const mapCSVToSchemaFields = (formCSVRow) => {
-  const targetObject = {
+const generatePayloadFromParsedJSON = (formCSVRow) => {
+  return {
     countryId: "",
     currentYear: "",
     dataAvailableForYear: "",
@@ -115,7 +132,7 @@ const mapCSVToSchemaFields = (formCSVRow) => {
       dataApproverRole: formCSVRow["Data Approver Role"],
       dataApproverEmail: formCSVRow["Data Approver Email"],
       govtApproved: formCSVRow["Is the data approved by the government"],
-      resources: formCSVRow["Resources Link"],
+      resources: formCSVRow["Resources Link"].split(","),
     },
     healthIndicators: [
       {
@@ -129,8 +146,8 @@ const mapCSVToSchemaFields = (formCSVRow) => {
         categoryId: 1,
         indicatorId: 2,
         status: "",
-        score: formCSVRow["Indicator 1 Score"],
-        supportingText: formCSVRow["Enter Indicator 1 justification"],
+        score: formCSVRow["Indicator 2 Score"],
+        supportingText: formCSVRow["Enter Indicator 2 justification"],
       },
       {
         categoryId: 1,
@@ -337,18 +354,15 @@ const mapCSVToSchemaFields = (formCSVRow) => {
       },
     ],
   };
-  console.log(targetObject);
-  return targetObject;
 };
+
 export default Vue.extend({
   data() {
     return {
       wrongData: false,
     };
   },
-  created() {
-    this.wrongData = false;
-  },
+
   methods: {
     uploadFile(event) {
       const self = this;
@@ -357,35 +371,32 @@ export default Vue.extend({
         Papa.parse(files[0], {
           worker: true,
           header: true,
-          complete: function ({ data, error }) {
-            for (let i = 0; i < data.length; i++) {
-              if (data[i]["Resources Link"]) {
-                data[i]["Resources Link"] =
-                  data[i]["Resources Link"].split(",");
+          complete: function (object) {
+            const { data } = object;
+            if (!data.length) {
+              self.wrongData = true;
+            } else {
+              for (let i = 0; i < data.length; i++) {
+                self
+                  .validateFields(data[i])
+                  .then((response) => {
+                    console.log("Success");
+                    generatePayloadFromParsedJSON(data[i]);
+                    console.log(response);
+                  })
+                  .catch((response) => {
+                    self.wrongData = true;
+                    console.log("Error");
+                    console.log(response);
+                  });
               }
-              console.log(data[i]);
-              self
-                .validateFields(data[i])
-                .then((response) => {
-                  console.log("Success");
-                  mapCSVToSchemaFields(data[i]);
-                  console.log(response);
-                })
-                .catch((response) => {
-                  self.wrongData = true;
-                  console.log("Error");
-                  console.log(response);
-                });
             }
-          },
-          error: function ({ error }) {
-            console.log(error);
           },
         });
       }
     },
     async validateFields(data) {
-      return await schema.validate(data);
+      return await csvSchema.validate(data);
     },
   },
   name: "UploadCSV",
