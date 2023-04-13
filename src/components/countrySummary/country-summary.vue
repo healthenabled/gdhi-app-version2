@@ -65,13 +65,13 @@ export default Vue.extend({
     </div>
     <div
       class="country-resource-title header-bold"
-      v-if="countrySummaries.resources"
+      v-if="countrySummaries?.resources?.length"
     >
       {{ $t("countryProfile.countrySummary.resources") }}
     </div>
-    <ul class="country-text" v-if="countrySummaries.resources.length">
+    <ul class="country-text" v-if="countrySummaries?.resources?.length">
       <li
-        v-for="resource in countrySummaries.resources.length"
+        v-for="resource in countrySummaries.resources"
         class="country-resource-link"
       >
         <a
