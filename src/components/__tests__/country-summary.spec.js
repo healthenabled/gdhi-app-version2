@@ -101,11 +101,8 @@ describe("Country Summary ", () => {
       i18n,
     });
     await flushPromises();
-    expect(wrapper.findAll(".error").length).to.equal(2);
+    expect(wrapper.findAll(".error").length).to.equal(1);
     expect(wrapper.findAll(".error").at(0).text()).equal(
-      i18n.messages.en.mixed.noDataAvailable
-    );
-    expect(wrapper.findAll(".error").at(1).text()).equal(
       i18n.messages.en.mixed.noDataAvailable
     );
   });

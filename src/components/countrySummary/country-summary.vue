@@ -65,11 +65,11 @@ export default Vue.extend({
     </div>
     <div
       class="country-resource-title header-bold"
-      v-if="countrySummaries?.resources?.length"
+      v-show="countrySummaries?.resources?.length"
     >
       {{ $t("countryProfile.countrySummary.resources") }}
     </div>
-    <ul class="country-text" v-if="countrySummaries?.resources?.length">
+    <ul class="country-text" v-show="countrySummaries?.resources?.length">
       <li
         v-for="resource in countrySummaries.resources"
         class="country-resource-link"
@@ -83,6 +83,5 @@ export default Vue.extend({
         >
       </li>
     </ul>
-    <div class="error" v-else>{{ $t("mixed.noDataAvailable") }}</div>
   </div>
 </template>
