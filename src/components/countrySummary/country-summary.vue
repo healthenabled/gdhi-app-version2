@@ -63,7 +63,10 @@ export default Vue.extend({
       <div v-if="countrySummaries.summary">{{ countrySummaries.summary }}</div>
       <div class="error" v-else>{{ $t("mixed.noDataAvailable") }}</div>
     </div>
-    <div class="country-resource-title header-bold">
+    <div
+      class="country-resource-title header-bold"
+      v-if="countrySummaries.resources"
+    >
       {{ $t("countryProfile.countrySummary.resources") }}
     </div>
     <ul class="country-text" v-if="countrySummaries.resources">
@@ -75,6 +78,7 @@ export default Vue.extend({
           :href="resource.startsWith('http') ? resource : 'http://' + resource"
           target="_blank"
           class="link-blue"
+          style="word-wrap: break-word; word-break: break-all"
           >{{ resource }}</a
         >
       </li>
