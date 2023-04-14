@@ -1,6 +1,7 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, beforeEach, vi } from "vitest";
 import { validateFields } from "../uploadCSV/uploadUtils";
 import flushPromises from "flush-promises";
+import yup, { object } from "yup";
 
 describe("upload Utils", () => {
   const data = {
@@ -83,6 +84,7 @@ describe("upload Utils", () => {
     "Enter Indicator 23 justification": "Enter Indicator 23 justification",
   };
   it("should handle validating object", async () => {
+    const objectMock = vi.spyOn(yup, "object");
     let error = null;
     validateFields(data).catch((e) => {
       error = e.toString();
@@ -91,5 +93,6 @@ describe("upload Utils", () => {
     expect(error).toEqual(
       "ValidationError: resources link are not valid URL's"
     );
+    expect(objectMock.mock.calls[0][0]).toMatchSnapshot();
   });
 });
