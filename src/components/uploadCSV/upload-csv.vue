@@ -2,18 +2,29 @@
 import Vue from "vue";
 import Papa from "papaparse";
 import { generatePayloadFromParsedJSON, validateFields } from "./uploadUtils";
+import common from "../../common/common";
 
 export default Vue.extend({
   data() {
     return {
-      wrongData: false,
+      wrongData: {
+        isWrong: false,
+        description: "",
+      },
+      validData: {
+        isValid: false,
+        payload: null,
+      },
+      selectedFile: "",
     };
   },
 
   methods: {
     uploadFile(event) {
+      common.showLoading();
       const self = this;
       const files = event.target.files;
+      this.selectedFile = event.target.files[0].name;
       if (files.length === 1) {
         Papa.parse(files[0], {
           worker: true,
@@ -27,12 +38,21 @@ export default Vue.extend({
                 validateFields(data[i])
                   .then((response) => {
                     console.log("Success");
-                    generatePayloadFromParsedJSON(data[i]);
+                    self.validData.payload = generatePayloadFromParsedJSON(
+                      data[i]
+                    );
+                    self.validData.isValid = true;
+                    self.wrongData.isWrong = false;
                     console.log(response);
                   })
-                  .catch((response) => {
-                    self.wrongData = true;
-                    console.log("Error", response.toString());
+                  .catch((error) => {
+                    self.wrongData.isWrong = true;
+                    self.validData.isValid = false;
+                    self.wrongData.description = error.toString();
+                    console.log(error);
+                  })
+                  .finally(() => {
+                    common.hideLoading();
                   });
               }
             }
@@ -47,16 +67,40 @@ export default Vue.extend({
 
 <template>
   <div>
-    <fieldset>
-      <div class="header-bold">Upload file</div>
+    <div class="header-bold">Upload File</div>
+    <div class="file-name-and-error">
+      <p>{{ selectedFile }}</p>
+      <p class="error-message" v-if="wrongData.isWrong">
+        {{ wrongData.description }}
+      </p>
+    </div>
+    <div class="button-section">
       <input
         type="file"
         @change="uploadFile"
         width="100"
         height="100"
         accept="text/csv"
+        class="upload-file"
       />
-      <p v-if="wrongData">There is something wrong with csv data</p>
-    </fieldset>
+      <button
+        class="btn btn-primary"
+        onclick="document.getElementsByClassName('upload-file')[0].click();"
+      >
+        Select File
+      </button>
+      <button
+        class="btn btn-primary"
+        :class="!validData.isValid ? 'disabled ' : ''"
+        :disabled="!validData.isValid"
+      >
+        Import to server
+      </button>
+      <button class="btn btn-primary">Sample CSV</button>
+    </div>
   </div>
 </template>
+
+<style scoped lang="scss">
+@import "upload-csv";
+</style>
