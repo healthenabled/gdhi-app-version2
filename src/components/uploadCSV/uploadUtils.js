@@ -79,112 +79,6 @@ const csvDataMap = {
   EnterIndicator23Justification: "Enter Indicator 23 justification",
 };
 
-const csvSchema = object({
-  [csvDataMap.CountryName]: string().trim(),
-  [csvDataMap.CountrySummary]: string().trim().required(),
-  [csvDataMap.CountryContactName]: string().trim(),
-  [csvDataMap.CountryContactRole]: string().trim(),
-  [csvDataMap.CountryContactOrg]: string().trim(),
-  [csvDataMap.CountryContactEmail]: string().trim().email(),
-  [csvDataMap.ContactPersonName]: string().trim().required(),
-  [csvDataMap.ContactPersonRole]: string().trim().required(),
-  [csvDataMap.ContactPersonEmail]: string().trim().email().required(),
-  [csvDataMap.IsTheDataApprovedByTheGovernment]: string()
-    .trim()
-    .lowercase()
-    .matches(/(true|false)/),
-  [csvDataMap.DataApproverName]: string().trim(),
-  [csvDataMap.DataApproverRole]: string().trim(),
-  [csvDataMap.DataApproverEmail]: string().trim().email(),
-  [csvDataMap.ResourcesLink]: string()
-    .trim()
-    .lowercase()
-    .required()
-    .test(
-      "validate-csv-urls",
-      (d) => `${d.value} are not valid URL's`,
-      function (value) {
-        let isValid = true;
-        value.split(",").forEach((a) => {
-          const urlPattern = new RegExp(
-            "^(https?:\\/\\/)?" + // validate protocol
-              "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // validate domain name
-              "((\\d{1,3}\\.){3}\\d{1,3}))" + // validate OR ip (v4) address
-              "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // validate port and path
-              "(\\?[;&a-z\\d%_.~+=-]*)?" + // validate query string
-              "(\\#[-a-z\\d_]*)?$",
-            "i"
-          ); // validate fragment locator
-
-          isValid = isValid && !!urlPattern.test(a);
-        });
-        return isValid;
-      }
-    ),
-  [csvDataMap.Indicator1Score]: string().trim().required(),
-  [csvDataMap.EnterIndicator1Justification]: string().trim().required(),
-  [csvDataMap.Indicator2Score]: string().trim().required(),
-  [csvDataMap.EnterIndicator2Justification]: string().trim().required(),
-  [csvDataMap.Indicator2aScore]: string().trim(),
-  [csvDataMap.EnterIndicator2aJustification]: string().trim(),
-  [csvDataMap.Indicator3Score]: string().trim().required(),
-  [csvDataMap.EnterIndicator3Justification]: string().trim().required(),
-  [csvDataMap.Indicator4Score]: string().trim().required(),
-  [csvDataMap.EnterIndicator4Justification]: string().trim().required(),
-  [csvDataMap.Indicator4aScore]: string().trim().required(),
-  [csvDataMap.EnterIndicator4aJustification]: string().trim().required(),
-  [csvDataMap.Indicator5Score]: string().trim().required(),
-  [csvDataMap.EnterIndicator5Justification]: string().trim().required(),
-  [csvDataMap.Indicator5aScore]: string().trim().required(),
-  [csvDataMap.EnterIndicator5aJustification]: string().trim().required(),
-  [csvDataMap.Indicator6Score]: string().trim().required(),
-  [csvDataMap.EnterIndicator6Justification]: string().trim().required(),
-  [csvDataMap.Indicator6aScore]: string().trim().required(),
-  [csvDataMap.EnterIndicator6aJustification]: string().trim().required(),
-  [csvDataMap.Indicator7Score]: string().trim().required(),
-  [csvDataMap.EnterIndicator7Justification]: string().trim().required(),
-  [csvDataMap.Indicator8Score]: string().trim().required(),
-  [csvDataMap.EnterIndicator8Justification]: string().trim().required(),
-  [csvDataMap.Indicator9Score]: string().trim().required(),
-  [csvDataMap.EnterIndicator9Justification]: string().trim().required(),
-  [csvDataMap.Indicator9aScore]: string().trim().required(),
-  [csvDataMap.EnterIndicator9aJustification]: string().trim().required(),
-  [csvDataMap.Indicator10Score]: string().trim().required(),
-  [csvDataMap.EnterIndicator10Justification]: string().trim().required(),
-  [csvDataMap.Indicator11Score]: string().trim().required(),
-  [csvDataMap.EnterIndicator11Justification]: string().trim().required(),
-  [csvDataMap.Indicator12Score]: string().trim().required(),
-  [csvDataMap.EnterIndicator12Justification]: string().trim().required(),
-  [csvDataMap.Indicator13Score]: string().trim().required(),
-  [csvDataMap.EnterIndicator13Justification]: string().trim().required(),
-  [csvDataMap.Indicator14Score]: string().trim().required(),
-  [csvDataMap.EnterIndicator14Justification]: string().trim().required(),
-  [csvDataMap.Indicator15Score]: string().trim().required(),
-  [csvDataMap.EnterIndicator15Justification]: string().trim().required(),
-  [csvDataMap.Indicator16Score]: string().trim().required(),
-  [csvDataMap.EnterIndicator16Justification]: string().trim().required(),
-  [csvDataMap.Indicator17Score]: string().trim().required(),
-  [csvDataMap.EnterIndicator17Justification]: string().trim().required(),
-  [csvDataMap.Indicator18Score]: string().trim().required(),
-  [csvDataMap.EnterIndicator18Justification]: string().trim().required(),
-  [csvDataMap.Indicator19Score]: string().trim().required(),
-  [csvDataMap.EnterIndicator19Justification]: string().trim().required(),
-  [csvDataMap.Indicator20Score]: string().trim().required(),
-  [csvDataMap.EnterIndicator20Justification]: string().trim().required(),
-  [csvDataMap.Indicator21Score]: string().trim().required(),
-  [csvDataMap.EnterIndicator21Justification]: string().trim().required(),
-  [csvDataMap.Indicator21aScore]: string().trim().required(),
-  [csvDataMap.EnterIndicator21aJustification]: string().trim().required(),
-  [csvDataMap.Indicator21bScore]: string().trim().required(),
-  [csvDataMap.EnterIndicator21bJustification]: string().trim().required(),
-  [csvDataMap.Indicator21cScore]: string().trim().required(),
-  [csvDataMap.EnterIndicator21cJustification]: string().trim().required(),
-  [csvDataMap.Indicator22Score]: string().trim().required(),
-  [csvDataMap.EnterIndicator22Justification]: string().trim().required(),
-  [csvDataMap.Indicator23Score]: string().trim().required(),
-  [csvDataMap.EnterIndicator23Justification]: string().trim().required(),
-});
-
 export const generatePayloadFromParsedJSON = (formCSVRow) => ({
   countryId: "",
   currentYear: "",
@@ -431,5 +325,109 @@ export const generatePayloadFromParsedJSON = (formCSVRow) => ({
 });
 
 export async function validateFields(data) {
-  return await csvSchema.validate(data);
+  return await object({
+    [csvDataMap.CountryName]: string().trim(),
+    [csvDataMap.CountrySummary]: string().trim().required(),
+    [csvDataMap.CountryContactName]: string().trim(),
+    [csvDataMap.CountryContactRole]: string().trim(),
+    [csvDataMap.CountryContactOrg]: string().trim(),
+    [csvDataMap.CountryContactEmail]: string().trim().email(),
+    [csvDataMap.ContactPersonName]: string().trim().required(),
+    [csvDataMap.ContactPersonRole]: string().trim().required(),
+    [csvDataMap.ContactPersonEmail]: string().trim().email().required(),
+    [csvDataMap.IsTheDataApprovedByTheGovernment]: string()
+      .trim()
+      .lowercase()
+      .matches(/(true|false)/),
+    [csvDataMap.DataApproverName]: string().trim(),
+    [csvDataMap.DataApproverRole]: string().trim(),
+    [csvDataMap.DataApproverEmail]: string().trim().email(),
+    [csvDataMap.ResourcesLink]: string()
+      .trim()
+      .lowercase()
+      .required()
+      .test(
+        "validate-csv-urls",
+        (d) => `${d.value} are not valid URL's`,
+        function (value) {
+          let isValid = true;
+          value.split(",").forEach((a) => {
+            const urlPattern = new RegExp(
+              "^(https?:\\/\\/)?" + // validate protocol
+                "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // validate domain name
+                "((\\d{1,3}\\.){3}\\d{1,3}))" + // validate OR ip (v4) address
+                "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // validate port and path
+                "(\\?[;&a-z\\d%_.~+=-]*)?" + // validate query string
+                "(\\#[-a-z\\d_]*)?$",
+              "i"
+            ); // validate fragment locator
+
+            isValid = isValid && !!urlPattern.test(a);
+          });
+          return isValid;
+        }
+      ),
+    [csvDataMap.Indicator1Score]: string().trim().required(),
+    [csvDataMap.EnterIndicator1Justification]: string().trim().required(),
+    [csvDataMap.Indicator2Score]: string().trim().required(),
+    [csvDataMap.EnterIndicator2Justification]: string().trim().required(),
+    [csvDataMap.Indicator2aScore]: string().trim(),
+    [csvDataMap.EnterIndicator2aJustification]: string().trim(),
+    [csvDataMap.Indicator3Score]: string().trim().required(),
+    [csvDataMap.EnterIndicator3Justification]: string().trim().required(),
+    [csvDataMap.Indicator4Score]: string().trim().required(),
+    [csvDataMap.EnterIndicator4Justification]: string().trim().required(),
+    [csvDataMap.Indicator4aScore]: string().trim().required(),
+    [csvDataMap.EnterIndicator4aJustification]: string().trim().required(),
+    [csvDataMap.Indicator5Score]: string().trim().required(),
+    [csvDataMap.EnterIndicator5Justification]: string().trim().required(),
+    [csvDataMap.Indicator5aScore]: string().trim().required(),
+    [csvDataMap.EnterIndicator5aJustification]: string().trim().required(),
+    [csvDataMap.Indicator6Score]: string().trim().required(),
+    [csvDataMap.EnterIndicator6Justification]: string().trim().required(),
+    [csvDataMap.Indicator6aScore]: string().trim().required(),
+    [csvDataMap.EnterIndicator6aJustification]: string().trim().required(),
+    [csvDataMap.Indicator7Score]: string().trim().required(),
+    [csvDataMap.EnterIndicator7Justification]: string().trim().required(),
+    [csvDataMap.Indicator8Score]: string().trim().required(),
+    [csvDataMap.EnterIndicator8Justification]: string().trim().required(),
+    [csvDataMap.Indicator9Score]: string().trim().required(),
+    [csvDataMap.EnterIndicator9Justification]: string().trim().required(),
+    [csvDataMap.Indicator9aScore]: string().trim().required(),
+    [csvDataMap.EnterIndicator9aJustification]: string().trim().required(),
+    [csvDataMap.Indicator10Score]: string().trim().required(),
+    [csvDataMap.EnterIndicator10Justification]: string().trim().required(),
+    [csvDataMap.Indicator11Score]: string().trim().required(),
+    [csvDataMap.EnterIndicator11Justification]: string().trim().required(),
+    [csvDataMap.Indicator12Score]: string().trim().required(),
+    [csvDataMap.EnterIndicator12Justification]: string().trim().required(),
+    [csvDataMap.Indicator13Score]: string().trim().required(),
+    [csvDataMap.EnterIndicator13Justification]: string().trim().required(),
+    [csvDataMap.Indicator14Score]: string().trim().required(),
+    [csvDataMap.EnterIndicator14Justification]: string().trim().required(),
+    [csvDataMap.Indicator15Score]: string().trim().required(),
+    [csvDataMap.EnterIndicator15Justification]: string().trim().required(),
+    [csvDataMap.Indicator16Score]: string().trim().required(),
+    [csvDataMap.EnterIndicator16Justification]: string().trim().required(),
+    [csvDataMap.Indicator17Score]: string().trim().required(),
+    [csvDataMap.EnterIndicator17Justification]: string().trim().required(),
+    [csvDataMap.Indicator18Score]: string().trim().required(),
+    [csvDataMap.EnterIndicator18Justification]: string().trim().required(),
+    [csvDataMap.Indicator19Score]: string().trim().required(),
+    [csvDataMap.EnterIndicator19Justification]: string().trim().required(),
+    [csvDataMap.Indicator20Score]: string().trim().required(),
+    [csvDataMap.EnterIndicator20Justification]: string().trim().required(),
+    [csvDataMap.Indicator21Score]: string().trim().required(),
+    [csvDataMap.EnterIndicator21Justification]: string().trim().required(),
+    [csvDataMap.Indicator21aScore]: string().trim().required(),
+    [csvDataMap.EnterIndicator21aJustification]: string().trim().required(),
+    [csvDataMap.Indicator21bScore]: string().trim().required(),
+    [csvDataMap.EnterIndicator21bJustification]: string().trim().required(),
+    [csvDataMap.Indicator21cScore]: string().trim().required(),
+    [csvDataMap.EnterIndicator21cJustification]: string().trim().required(),
+    [csvDataMap.Indicator22Score]: string().trim().required(),
+    [csvDataMap.EnterIndicator22Justification]: string().trim().required(),
+    [csvDataMap.Indicator23Score]: string().trim().required(),
+    [csvDataMap.EnterIndicator23Justification]: string().trim().required(),
+  }).validate(data);
 }
