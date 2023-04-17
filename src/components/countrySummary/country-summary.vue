@@ -56,33 +56,6 @@ export default Vue.extend({
 
 <template>
   <div class="country-summary">
-    <div class="country-map">
-      <div class="country-contact header-bold no-margin-top">
-        {{ $t("countryProfile.countrySummary.keyContacts") }}
-      </div>
-      <div
-        v-if="countrySummaries.contactName"
-        class="country-summary-contact-name"
-      >
-        <span class="country-summary-link" v-if="countrySummaries.contactName">
-          <a
-            :href="'mailto:' + countrySummaries.contactEmail"
-            target="_blank"
-            class="link-blue"
-            >{{ countrySummaries.contactName }}</a
-          >,
-        </span>
-        <span
-          v-if="countrySummaries.contactDesignation"
-          class="country-designation"
-          >{{ countrySummaries.contactDesignation }},</span
-        >
-        <span v-if="countrySummaries.contactOrganization" class="country-org">{{
-          countrySummaries.contactOrganization
-        }}</span>
-      </div>
-      <div class="error" v-else>{{ $t("mixed.noDataAvailable") }}</div>
-    </div>
     <div class="country-summary-title header-bold">
       {{ $t("countryProfile.countrySummary.text") }}
     </div>
@@ -90,10 +63,13 @@ export default Vue.extend({
       <div v-if="countrySummaries.summary">{{ countrySummaries.summary }}</div>
       <div class="error" v-else>{{ $t("mixed.noDataAvailable") }}</div>
     </div>
-    <div class="country-resource-title header-bold">
+    <div
+      class="country-resource-title header-bold"
+      v-show="countrySummaries?.resources?.length"
+    >
       {{ $t("countryProfile.countrySummary.resources") }}
     </div>
-    <ul class="country-text" v-if="countrySummaries.resources">
+    <ul class="country-text" v-show="countrySummaries?.resources?.length">
       <li
         v-for="resource in countrySummaries.resources"
         class="country-resource-link"
@@ -106,6 +82,13 @@ export default Vue.extend({
         >
       </li>
     </ul>
-    <div class="error" v-else>{{ $t("mixed.noDataAvailable") }}</div>
   </div>
 </template>
+<style scoped lang="scss">
+.link-blue {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-all;
+  white-space: unset;
+}
+</style>

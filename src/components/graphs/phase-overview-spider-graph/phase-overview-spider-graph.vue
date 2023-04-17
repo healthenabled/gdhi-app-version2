@@ -179,13 +179,15 @@ export default Vue.extend({
     Chart.defaults.font.size = 16;
     Chart.defaults.font.family = "'InterRegular', sans-serif";
     this.drawChart();
-  },
-
-  watch: {
-    countryDataCategories() {
-      this.chart.destroy();
-      this.drawChart();
-    },
+    this.$watch(
+      (vm) => (vm.countryDataCategories, vm.regionalDataCategories),
+      function () {
+        this.chart.destroy();
+        setTimeout(() => {
+          this.drawChart();
+        }, 500);
+      }
+    );
   },
 
   methods: {

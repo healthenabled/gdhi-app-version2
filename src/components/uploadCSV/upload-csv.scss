@@ -1,0 +1,15 @@
+@import "../../assets/stylesheets/components/variables";
+
+.error-message {
+  color: $negative;
+}
+
+.button-section {
+  .upload-file {
+    display: none;
+  }
+  .btn {
+    margin-left: 0px;
+    margin-right: 16px;
+  }
+}
