@@ -33,8 +33,7 @@ export default Vue.extend({
         Papa.parse(files[0], {
           worker: true,
           header: true,
-          complete: function (object) {
-            const { data } = object;
+          complete: function ({ data }) {
             if (!data.length) {
               self.wrongData = true;
             } else {
@@ -63,15 +62,14 @@ export default Vue.extend({
     },
     submitData() {
       common.showLoading();
-      let url = "/api/bff/countries/submit";
+      const url = "/api/bff/countries/submit";
       axios
         .post(url, {
           gdhiQuestionnaires: this.payload,
         })
-        .then((response) => {
+        .then(({ data: { countryStatuses } }) => {
           this.importToServer = true;
-          this.countryStatuses = response.data.countryStatuses;
-          common.hideLoading();
+          this.countryStatuses = countryStatuses;
         })
         .catch(() => {
           this.message = "Error While Importing Data To Server ";
@@ -81,6 +79,8 @@ export default Vue.extend({
             text: this.message,
             type: "error",
           });
+        })
+        .finally(() => {
           common.hideLoading();
         });
     },
