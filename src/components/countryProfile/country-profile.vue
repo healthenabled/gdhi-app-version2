@@ -246,6 +246,7 @@ export default Vue.extend({
               height="35"
               width="35"
               style="align-self: center"
+              loading="lazy"
             />
             <p style="text-align: center">
               {{ $t("countryProfile.exportCountryDataButton") }}
@@ -261,6 +262,7 @@ export default Vue.extend({
               height="35"
               width="35"
               style="align-self: center"
+              loading="lazy"
             />
             <p style="text-align: center">
               {{ $t("countryProfile.downloadScorecard") }}
@@ -341,6 +343,7 @@ export default Vue.extend({
                         :src="`/static/indicator-icons/${category.id}.svg`"
                         width="30"
                         height="30"
+                        loading="lazy"
                       />
                       <p>{{ category.name }}</p>
                     </div>

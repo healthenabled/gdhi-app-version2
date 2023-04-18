@@ -187,7 +187,7 @@ export default Vue.extend({
           <span
             class="indicator-panel-container-category-section-name-phase-and-icon"
           >
-            <img src="/static/indicator-icons/overAll.svg" />
+            <img src="/static/indicator-icons/overAll.svg" loading="lazy" />
             <div
               class="indicator-panel-container-category-section-name-and-phase"
             >
@@ -220,7 +220,10 @@ export default Vue.extend({
           <span
             class="indicator-panel-container-category-section-name-phase-and-icon"
           >
-            <img :src="`/static/indicator-icons/${category.id}.svg`" />
+            <img
+              :src="`/static/indicator-icons/${category.id}.svg`"
+              loading="lazy"
+            />
             <div
               class="indicator-panel-container-category-section-name-and-phase"
             >
@@ -263,7 +266,7 @@ export default Vue.extend({
           <span
             class="indicator-panel-container-category-section-name-phase-and-icon"
           >
-            <img src="/static/indicator-icons/overAll.svg" />
+            <img src="/static/indicator-icons/overAll.svg" loading="lazy" />
             <div
               class="indicator-panel-container-category-section-name-and-phase"
             >
@@ -305,7 +308,10 @@ export default Vue.extend({
           <span
             class="indicator-panel-container-category-section-name-phase-and-icon"
           >
-            <img :src="`/static/indicator-icons/${category.id}.svg`" />
+            <img
+              :src="`/static/indicator-icons/${category.id}.svg`"
+              loading="lazy"
+            />
             <div
               class="indicator-panel-container-category-section-name-and-phase"
             >

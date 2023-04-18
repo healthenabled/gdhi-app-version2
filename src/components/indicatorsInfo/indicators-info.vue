@@ -62,7 +62,7 @@ export default Vue.extend({
 <template>
   <div class="indicators-info content-centered">
     <div class="hero-image">
-      <img src="/static/img/hero.jpg" alt="hero image" />
+      <img src="/static/img/hero.jpg" alt="hero image" loading="lazy" />
       <span class="hero-title"
         >{{ $t("indicators.gdhi") }}<br />{{
           $t("indicators.indicatorGuide")
