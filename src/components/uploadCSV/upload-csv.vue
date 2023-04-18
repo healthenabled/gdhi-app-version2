@@ -99,6 +99,12 @@ export default Vue.extend({
 
 <template>
   <div>
+    <div class="download-section">
+      <div class="header-bold">Sample CSV</div>
+      <button class="btn btn-primary">
+        <i class="fa fa-download" aria-hidden="true"></i>Download
+      </button>
+    </div>
     <div class="header-bold">Upload File</div>
     <div class="file-name-and-error">
       <p>{{ selectedFile }}</p>
@@ -145,7 +151,6 @@ export default Vue.extend({
       >
         Import to server
       </button>
-      <button class="btn btn-primary">Sample CSV</button>
     </div>
   </div>
 </template>
