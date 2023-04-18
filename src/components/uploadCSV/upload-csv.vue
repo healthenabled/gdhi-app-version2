@@ -3,6 +3,7 @@ import Vue from "vue";
 import Papa from "papaparse";
 import { generatePayloadFromParsedJSON, validateFields } from "./uploadUtils";
 import common from "../../common/common";
+import axios from "axios";
 
 const status = Object.freeze({
   VALID: "valid",
@@ -18,10 +19,10 @@ export default Vue.extend({
       description: "",
       payload: [],
       status,
-      questionnairePayload: [],
+      countryStatuses: [],
+      importToServer: false,
     };
   },
-
   methods: {
     uploadFile(event) {
       common.showLoading();
@@ -40,11 +41,10 @@ export default Vue.extend({
               for (let i = 0; i < data.length; i++) {
                 validateFields(data[i])
                   .then((response) => {
-                    console.log("Success");
-                    self.payload.push(generatePayloadFromParsedJSON(data[i]));
-                    self.validationStatus = status.VALID;
-                    console.log(generatePayloadFromParsedJSON(data[i]));
                     console.log(response);
+                    self.payload.push(generatePayloadFromParsedJSON(response));
+                    console.log(generatePayloadFromParsedJSON(response));
+                    self.validationStatus = status.VALID;
                   })
                   .catch((error) => {
                     self.description =
@@ -61,6 +61,37 @@ export default Vue.extend({
         });
       }
     },
+    submitData() {
+      common.showLoading();
+      let url = "/api/bff/countries/submit";
+      axios
+        .post(url, {
+          gdhiQuestionnaires: this.payload,
+        })
+        .then((response) => {
+          this.importToServer = true;
+          this.countryStatuses = response.data.countryStatuses;
+          common.hideLoading();
+        })
+        .catch(() => {
+          this.message = "Error While Importing Data To Server ";
+          this.notifier({
+            group: "custom-template",
+            title: "Error",
+            text: this.message,
+            type: "error",
+          });
+          common.hideLoading();
+        });
+    },
+    notifier(props) {
+      this.$notify({
+        group: props.group,
+        title: props.title,
+        text: props.text,
+        type: props.type,
+      });
+    },
   },
   name: "UploadCSV",
 });
@@ -74,6 +105,14 @@ export default Vue.extend({
       <p class="error-message" v-if="validationStatus === status.INVALID">
         {{ description }}
       </p>
+      <div v-if="importToServer === true">
+        <div v-for="countryStatus in countryStatuses">
+          <div>
+            {{ countryStatus.countryName }} - {{ countryStatus.success }} -
+            {{ countryStatus.message }}
+          </div>
+        </div>
+      </div>
     </div>
     <div class="button-section">
       <input
@@ -102,6 +141,7 @@ export default Vue.extend({
           validationStatus === status.INVALID ||
           validationStatus === status.DEFAULT
         "
+        @click="submitData()"
       >
         Import to server
       </button>
