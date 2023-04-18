@@ -1477,16 +1477,16 @@ exports[`upload Utils > should handle validating object 1`] = `
     ],
     "type": "string",
   },
-  "Indicator 1 Score": StringSchema {
+  "Indicator 1 Score": NumberSchema {
     "_blacklist": Set {},
-    "_mutate": undefined,
     "_typeCheck": [Function],
     "_whitelist": Set {},
     "conditions": [],
     "deps": [],
     "exclusiveTests": {
-      "required": false,
-      "trim": false,
+      "integer": false,
+      "max": true,
+      "min": true,
     },
     "internalTests": {
       "nullable": [Function],
@@ -1505,23 +1505,23 @@ exports[`upload Utils > should handle validating object 1`] = `
     "tests": [
       [Function],
       [Function],
+      [Function],
     ],
     "transforms": [
       [Function],
-      [Function],
     ],
-    "type": "string",
+    "type": "number",
   },
-  "Indicator 10 Score": StringSchema {
+  "Indicator 10 Score": NumberSchema {
     "_blacklist": Set {},
-    "_mutate": undefined,
     "_typeCheck": [Function],
     "_whitelist": Set {},
     "conditions": [],
     "deps": [],
     "exclusiveTests": {
-      "required": false,
-      "trim": false,
+      "integer": false,
+      "max": true,
+      "min": true,
     },
     "internalTests": {
       "nullable": [Function],
@@ -1540,23 +1540,23 @@ exports[`upload Utils > should handle validating object 1`] = `
     "tests": [
       [Function],
       [Function],
+      [Function],
     ],
     "transforms": [
       [Function],
-      [Function],
     ],
-    "type": "string",
+    "type": "number",
   },
-  "Indicator 11 Score": StringSchema {
+  "Indicator 11 Score": NumberSchema {
     "_blacklist": Set {},
-    "_mutate": undefined,
     "_typeCheck": [Function],
     "_whitelist": Set {},
     "conditions": [],
     "deps": [],
     "exclusiveTests": {
-      "required": false,
-      "trim": false,
+      "integer": false,
+      "max": true,
+      "min": true,
     },
     "internalTests": {
       "nullable": [Function],
@@ -1575,23 +1575,23 @@ exports[`upload Utils > should handle validating object 1`] = `
     "tests": [
       [Function],
       [Function],
+      [Function],
     ],
     "transforms": [
       [Function],
-      [Function],
     ],
-    "type": "string",
+    "type": "number",
   },
-  "Indicator 12 Score": StringSchema {
+  "Indicator 12 Score": NumberSchema {
     "_blacklist": Set {},
-    "_mutate": undefined,
     "_typeCheck": [Function],
     "_whitelist": Set {},
     "conditions": [],
     "deps": [],
     "exclusiveTests": {
-      "required": false,
-      "trim": false,
+      "integer": false,
+      "max": true,
+      "min": true,
     },
     "internalTests": {
       "nullable": [Function],
@@ -1610,23 +1610,23 @@ exports[`upload Utils > should handle validating object 1`] = `
     "tests": [
       [Function],
       [Function],
+      [Function],
     ],
     "transforms": [
       [Function],
-      [Function],
     ],
-    "type": "string",
+    "type": "number",
   },
-  "Indicator 13 Score": StringSchema {
+  "Indicator 13 Score": NumberSchema {
     "_blacklist": Set {},
-    "_mutate": undefined,
     "_typeCheck": [Function],
     "_whitelist": Set {},
     "conditions": [],
     "deps": [],
     "exclusiveTests": {
-      "required": false,
-      "trim": false,
+      "integer": false,
+      "max": true,
+      "min": true,
     },
     "internalTests": {
       "nullable": [Function],
@@ -1645,23 +1645,23 @@ exports[`upload Utils > should handle validating object 1`] = `
     "tests": [
       [Function],
       [Function],
+      [Function],
     ],
     "transforms": [
       [Function],
-      [Function],
     ],
-    "type": "string",
+    "type": "number",
   },
-  "Indicator 14 Score": StringSchema {
+  "Indicator 14 Score": NumberSchema {
     "_blacklist": Set {},
-    "_mutate": undefined,
     "_typeCheck": [Function],
     "_whitelist": Set {},
     "conditions": [],
     "deps": [],
     "exclusiveTests": {
-      "required": false,
-      "trim": false,
+      "integer": false,
+      "max": true,
+      "min": true,
     },
     "internalTests": {
       "nullable": [Function],
@@ -1680,23 +1680,23 @@ exports[`upload Utils > should handle validating object 1`] = `
     "tests": [
       [Function],
       [Function],
+      [Function],
     ],
     "transforms": [
       [Function],
-      [Function],
     ],
-    "type": "string",
+    "type": "number",
   },
-  "Indicator 15 Score": StringSchema {
+  "Indicator 15 Score": NumberSchema {
     "_blacklist": Set {},
-    "_mutate": undefined,
     "_typeCheck": [Function],
     "_whitelist": Set {},
     "conditions": [],
     "deps": [],
     "exclusiveTests": {
-      "required": false,
-      "trim": false,
+      "integer": false,
+      "max": true,
+      "min": true,
     },
     "internalTests": {
       "nullable": [Function],
@@ -1715,23 +1715,23 @@ exports[`upload Utils > should handle validating object 1`] = `
     "tests": [
       [Function],
       [Function],
+      [Function],
     ],
     "transforms": [
       [Function],
-      [Function],
     ],
-    "type": "string",
+    "type": "number",
   },
-  "Indicator 16 Score": StringSchema {
+  "Indicator 16 Score": NumberSchema {
     "_blacklist": Set {},
-    "_mutate": undefined,
     "_typeCheck": [Function],
     "_whitelist": Set {},
     "conditions": [],
     "deps": [],
     "exclusiveTests": {
-      "required": false,
-      "trim": false,
+      "integer": false,
+      "max": true,
+      "min": true,
     },
     "internalTests": {
       "nullable": [Function],
@@ -1750,23 +1750,23 @@ exports[`upload Utils > should handle validating object 1`] = `
     "tests": [
       [Function],
       [Function],
+      [Function],
     ],
     "transforms": [
       [Function],
-      [Function],
     ],
-    "type": "string",
+    "type": "number",
   },
-  "Indicator 17 Score": StringSchema {
+  "Indicator 17 Score": NumberSchema {
     "_blacklist": Set {},
-    "_mutate": undefined,
     "_typeCheck": [Function],
     "_whitelist": Set {},
     "conditions": [],
     "deps": [],
     "exclusiveTests": {
-      "required": false,
-      "trim": false,
+      "integer": false,
+      "max": true,
+      "min": true,
     },
     "internalTests": {
       "nullable": [Function],
@@ -1785,23 +1785,23 @@ exports[`upload Utils > should handle validating object 1`] = `
     "tests": [
       [Function],
       [Function],
+      [Function],
     ],
     "transforms": [
       [Function],
-      [Function],
     ],
-    "type": "string",
+    "type": "number",
   },
-  "Indicator 18 Score": StringSchema {
+  "Indicator 18 Score": NumberSchema {
     "_blacklist": Set {},
-    "_mutate": undefined,
     "_typeCheck": [Function],
     "_whitelist": Set {},
     "conditions": [],
     "deps": [],
     "exclusiveTests": {
-      "required": false,
-      "trim": false,
+      "integer": false,
+      "max": true,
+      "min": true,
     },
     "internalTests": {
       "nullable": [Function],
@@ -1820,23 +1820,23 @@ exports[`upload Utils > should handle validating object 1`] = `
     "tests": [
       [Function],
       [Function],
+      [Function],
     ],
     "transforms": [
       [Function],
-      [Function],
     ],
-    "type": "string",
+    "type": "number",
   },
-  "Indicator 19 Score": StringSchema {
+  "Indicator 19 Score": NumberSchema {
     "_blacklist": Set {},
-    "_mutate": undefined,
     "_typeCheck": [Function],
     "_whitelist": Set {},
     "conditions": [],
     "deps": [],
     "exclusiveTests": {
-      "required": false,
-      "trim": false,
+      "integer": false,
+      "max": true,
+      "min": true,
     },
     "internalTests": {
       "nullable": [Function],
@@ -1855,23 +1855,23 @@ exports[`upload Utils > should handle validating object 1`] = `
     "tests": [
       [Function],
       [Function],
+      [Function],
     ],
     "transforms": [
       [Function],
-      [Function],
     ],
-    "type": "string",
+    "type": "number",
   },
-  "Indicator 2 Score": StringSchema {
+  "Indicator 2 Score": NumberSchema {
     "_blacklist": Set {},
-    "_mutate": undefined,
     "_typeCheck": [Function],
     "_whitelist": Set {},
     "conditions": [],
     "deps": [],
     "exclusiveTests": {
-      "required": false,
-      "trim": false,
+      "integer": false,
+      "max": true,
+      "min": true,
     },
     "internalTests": {
       "nullable": [Function],
@@ -1890,23 +1890,23 @@ exports[`upload Utils > should handle validating object 1`] = `
     "tests": [
       [Function],
       [Function],
+      [Function],
     ],
     "transforms": [
       [Function],
-      [Function],
     ],
-    "type": "string",
+    "type": "number",
   },
-  "Indicator 20 Score": StringSchema {
+  "Indicator 20 Score": NumberSchema {
     "_blacklist": Set {},
-    "_mutate": undefined,
     "_typeCheck": [Function],
     "_whitelist": Set {},
     "conditions": [],
     "deps": [],
     "exclusiveTests": {
-      "required": false,
-      "trim": false,
+      "integer": false,
+      "max": true,
+      "min": true,
     },
     "internalTests": {
       "nullable": [Function],
@@ -1925,23 +1925,23 @@ exports[`upload Utils > should handle validating object 1`] = `
     "tests": [
       [Function],
       [Function],
+      [Function],
     ],
     "transforms": [
       [Function],
-      [Function],
     ],
-    "type": "string",
+    "type": "number",
   },
-  "Indicator 21 Score": StringSchema {
+  "Indicator 21 Score": NumberSchema {
     "_blacklist": Set {},
-    "_mutate": undefined,
     "_typeCheck": [Function],
     "_whitelist": Set {},
     "conditions": [],
     "deps": [],
     "exclusiveTests": {
-      "required": false,
-      "trim": false,
+      "integer": false,
+      "max": true,
+      "min": true,
     },
     "internalTests": {
       "nullable": [Function],
@@ -1960,23 +1960,23 @@ exports[`upload Utils > should handle validating object 1`] = `
     "tests": [
       [Function],
       [Function],
+      [Function],
     ],
     "transforms": [
       [Function],
-      [Function],
     ],
-    "type": "string",
+    "type": "number",
   },
-  "Indicator 21a Score": StringSchema {
+  "Indicator 21a Score": NumberSchema {
     "_blacklist": Set {},
-    "_mutate": undefined,
     "_typeCheck": [Function],
     "_whitelist": Set {},
     "conditions": [],
     "deps": [],
     "exclusiveTests": {
-      "required": false,
-      "trim": false,
+      "integer": false,
+      "max": true,
+      "min": true,
     },
     "internalTests": {
       "nullable": [Function],
@@ -1995,23 +1995,23 @@ exports[`upload Utils > should handle validating object 1`] = `
     "tests": [
       [Function],
       [Function],
+      [Function],
     ],
     "transforms": [
       [Function],
-      [Function],
     ],
-    "type": "string",
+    "type": "number",
   },
-  "Indicator 21b Score": StringSchema {
+  "Indicator 21b Score": NumberSchema {
     "_blacklist": Set {},
-    "_mutate": undefined,
     "_typeCheck": [Function],
     "_whitelist": Set {},
     "conditions": [],
     "deps": [],
     "exclusiveTests": {
-      "required": false,
-      "trim": false,
+      "integer": false,
+      "max": true,
+      "min": true,
     },
     "internalTests": {
       "nullable": [Function],
@@ -2030,23 +2030,23 @@ exports[`upload Utils > should handle validating object 1`] = `
     "tests": [
       [Function],
       [Function],
+      [Function],
     ],
     "transforms": [
       [Function],
-      [Function],
     ],
-    "type": "string",
+    "type": "number",
   },
-  "Indicator 21c Score": StringSchema {
+  "Indicator 21c Score": NumberSchema {
     "_blacklist": Set {},
-    "_mutate": undefined,
     "_typeCheck": [Function],
     "_whitelist": Set {},
     "conditions": [],
     "deps": [],
     "exclusiveTests": {
-      "required": false,
-      "trim": false,
+      "integer": false,
+      "max": true,
+      "min": true,
     },
     "internalTests": {
       "nullable": [Function],
@@ -2065,23 +2065,23 @@ exports[`upload Utils > should handle validating object 1`] = `
     "tests": [
       [Function],
       [Function],
+      [Function],
     ],
     "transforms": [
       [Function],
-      [Function],
     ],
-    "type": "string",
+    "type": "number",
   },
-  "Indicator 22 Score": StringSchema {
+  "Indicator 22 Score": NumberSchema {
     "_blacklist": Set {},
-    "_mutate": undefined,
     "_typeCheck": [Function],
     "_whitelist": Set {},
     "conditions": [],
     "deps": [],
     "exclusiveTests": {
-      "required": false,
-      "trim": false,
+      "integer": false,
+      "max": true,
+      "min": true,
     },
     "internalTests": {
       "nullable": [Function],
@@ -2100,23 +2100,23 @@ exports[`upload Utils > should handle validating object 1`] = `
     "tests": [
       [Function],
       [Function],
+      [Function],
     ],
     "transforms": [
       [Function],
-      [Function],
     ],
-    "type": "string",
+    "type": "number",
   },
-  "Indicator 23 Score": StringSchema {
+  "Indicator 23 Score": NumberSchema {
     "_blacklist": Set {},
-    "_mutate": undefined,
     "_typeCheck": [Function],
     "_whitelist": Set {},
     "conditions": [],
     "deps": [],
     "exclusiveTests": {
-      "required": false,
-      "trim": false,
+      "integer": false,
+      "max": true,
+      "min": true,
     },
     "internalTests": {
       "nullable": [Function],
@@ -2135,54 +2135,23 @@ exports[`upload Utils > should handle validating object 1`] = `
     "tests": [
       [Function],
       [Function],
+      [Function],
     ],
     "transforms": [
       [Function],
-      [Function],
     ],
-    "type": "string",
+    "type": "number",
   },
-  "Indicator 2a Score": StringSchema {
+  "Indicator 2a Score": NumberSchema {
     "_blacklist": Set {},
     "_typeCheck": [Function],
     "_whitelist": Set {},
     "conditions": [],
     "deps": [],
     "exclusiveTests": {
-      "trim": false,
-    },
-    "internalTests": {
-      "nullable": [Function],
-      "typeError": [Function],
-    },
-    "spec": {
-      "abortEarly": true,
-      "coerce": true,
-      "nullable": false,
-      "optional": true,
-      "recursive": true,
-      "strict": false,
-      "strip": false,
-    },
-    "tests": [
-      [Function],
-    ],
-    "transforms": [
-      [Function],
-      [Function],
-    ],
-    "type": "string",
-  },
-  "Indicator 3 Score": StringSchema {
-    "_blacklist": Set {},
-    "_mutate": undefined,
-    "_typeCheck": [Function],
-    "_whitelist": Set {},
-    "conditions": [],
-    "deps": [],
-    "exclusiveTests": {
-      "required": false,
-      "trim": false,
+      "integer": false,
+      "max": true,
+      "min": true,
     },
     "internalTests": {
       "nullable": [Function],
@@ -2201,23 +2170,23 @@ exports[`upload Utils > should handle validating object 1`] = `
     "tests": [
       [Function],
       [Function],
+      [Function],
     ],
     "transforms": [
       [Function],
-      [Function],
     ],
-    "type": "string",
+    "type": "number",
   },
-  "Indicator 4 Score": StringSchema {
+  "Indicator 3 Score": NumberSchema {
     "_blacklist": Set {},
-    "_mutate": undefined,
     "_typeCheck": [Function],
     "_whitelist": Set {},
     "conditions": [],
     "deps": [],
     "exclusiveTests": {
-      "required": false,
-      "trim": false,
+      "integer": false,
+      "max": true,
+      "min": true,
     },
     "internalTests": {
       "nullable": [Function],
@@ -2236,23 +2205,23 @@ exports[`upload Utils > should handle validating object 1`] = `
     "tests": [
       [Function],
       [Function],
+      [Function],
     ],
     "transforms": [
       [Function],
-      [Function],
     ],
-    "type": "string",
+    "type": "number",
   },
-  "Indicator 4a Score": StringSchema {
+  "Indicator 4 Score": NumberSchema {
     "_blacklist": Set {},
-    "_mutate": undefined,
     "_typeCheck": [Function],
     "_whitelist": Set {},
     "conditions": [],
     "deps": [],
     "exclusiveTests": {
-      "required": false,
-      "trim": false,
+      "integer": false,
+      "max": true,
+      "min": true,
     },
     "internalTests": {
       "nullable": [Function],
@@ -2271,23 +2240,23 @@ exports[`upload Utils > should handle validating object 1`] = `
     "tests": [
       [Function],
       [Function],
+      [Function],
     ],
     "transforms": [
       [Function],
-      [Function],
     ],
-    "type": "string",
+    "type": "number",
   },
-  "Indicator 5 Score": StringSchema {
+  "Indicator 4a Score": NumberSchema {
     "_blacklist": Set {},
-    "_mutate": undefined,
     "_typeCheck": [Function],
     "_whitelist": Set {},
     "conditions": [],
     "deps": [],
     "exclusiveTests": {
-      "required": false,
-      "trim": false,
+      "integer": false,
+      "max": true,
+      "min": true,
     },
     "internalTests": {
       "nullable": [Function],
@@ -2306,23 +2275,23 @@ exports[`upload Utils > should handle validating object 1`] = `
     "tests": [
       [Function],
       [Function],
+      [Function],
     ],
     "transforms": [
       [Function],
-      [Function],
     ],
-    "type": "string",
+    "type": "number",
   },
-  "Indicator 5a Score": StringSchema {
+  "Indicator 5 Score": NumberSchema {
     "_blacklist": Set {},
-    "_mutate": undefined,
     "_typeCheck": [Function],
     "_whitelist": Set {},
     "conditions": [],
     "deps": [],
     "exclusiveTests": {
-      "required": false,
-      "trim": false,
+      "integer": false,
+      "max": true,
+      "min": true,
     },
     "internalTests": {
       "nullable": [Function],
@@ -2341,23 +2310,23 @@ exports[`upload Utils > should handle validating object 1`] = `
     "tests": [
       [Function],
       [Function],
+      [Function],
     ],
     "transforms": [
       [Function],
-      [Function],
     ],
-    "type": "string",
+    "type": "number",
   },
-  "Indicator 6 Score": StringSchema {
+  "Indicator 5a Score": NumberSchema {
     "_blacklist": Set {},
-    "_mutate": undefined,
     "_typeCheck": [Function],
     "_whitelist": Set {},
     "conditions": [],
     "deps": [],
     "exclusiveTests": {
-      "required": false,
-      "trim": false,
+      "integer": false,
+      "max": true,
+      "min": true,
     },
     "internalTests": {
       "nullable": [Function],
@@ -2376,23 +2345,23 @@ exports[`upload Utils > should handle validating object 1`] = `
     "tests": [
       [Function],
       [Function],
+      [Function],
     ],
     "transforms": [
       [Function],
-      [Function],
     ],
-    "type": "string",
+    "type": "number",
   },
-  "Indicator 6a Score": StringSchema {
+  "Indicator 6 Score": NumberSchema {
     "_blacklist": Set {},
-    "_mutate": undefined,
     "_typeCheck": [Function],
     "_whitelist": Set {},
     "conditions": [],
     "deps": [],
     "exclusiveTests": {
-      "required": false,
-      "trim": false,
+      "integer": false,
+      "max": true,
+      "min": true,
     },
     "internalTests": {
       "nullable": [Function],
@@ -2411,23 +2380,23 @@ exports[`upload Utils > should handle validating object 1`] = `
     "tests": [
       [Function],
       [Function],
+      [Function],
     ],
     "transforms": [
       [Function],
-      [Function],
     ],
-    "type": "string",
+    "type": "number",
   },
-  "Indicator 7 Score": StringSchema {
+  "Indicator 6a Score": NumberSchema {
     "_blacklist": Set {},
-    "_mutate": undefined,
     "_typeCheck": [Function],
     "_whitelist": Set {},
     "conditions": [],
     "deps": [],
     "exclusiveTests": {
-      "required": false,
-      "trim": false,
+      "integer": false,
+      "max": true,
+      "min": true,
     },
     "internalTests": {
       "nullable": [Function],
@@ -2446,23 +2415,23 @@ exports[`upload Utils > should handle validating object 1`] = `
     "tests": [
       [Function],
       [Function],
+      [Function],
     ],
     "transforms": [
       [Function],
-      [Function],
     ],
-    "type": "string",
+    "type": "number",
   },
-  "Indicator 8 Score": StringSchema {
+  "Indicator 7 Score": NumberSchema {
     "_blacklist": Set {},
-    "_mutate": undefined,
     "_typeCheck": [Function],
     "_whitelist": Set {},
     "conditions": [],
     "deps": [],
     "exclusiveTests": {
-      "required": false,
-      "trim": false,
+      "integer": false,
+      "max": true,
+      "min": true,
     },
     "internalTests": {
       "nullable": [Function],
@@ -2481,23 +2450,23 @@ exports[`upload Utils > should handle validating object 1`] = `
     "tests": [
       [Function],
       [Function],
+      [Function],
     ],
     "transforms": [
       [Function],
-      [Function],
     ],
-    "type": "string",
+    "type": "number",
   },
-  "Indicator 9 Score": StringSchema {
+  "Indicator 8 Score": NumberSchema {
     "_blacklist": Set {},
-    "_mutate": undefined,
     "_typeCheck": [Function],
     "_whitelist": Set {},
     "conditions": [],
     "deps": [],
     "exclusiveTests": {
-      "required": false,
-      "trim": false,
+      "integer": false,
+      "max": true,
+      "min": true,
     },
     "internalTests": {
       "nullable": [Function],
@@ -2516,23 +2485,23 @@ exports[`upload Utils > should handle validating object 1`] = `
     "tests": [
       [Function],
       [Function],
+      [Function],
     ],
     "transforms": [
       [Function],
-      [Function],
     ],
-    "type": "string",
+    "type": "number",
   },
-  "Indicator 9a Score": StringSchema {
+  "Indicator 9 Score": NumberSchema {
     "_blacklist": Set {},
-    "_mutate": undefined,
     "_typeCheck": [Function],
     "_whitelist": Set {},
     "conditions": [],
     "deps": [],
     "exclusiveTests": {
-      "required": false,
-      "trim": false,
+      "integer": false,
+      "max": true,
+      "min": true,
     },
     "internalTests": {
       "nullable": [Function],
@@ -2551,12 +2520,47 @@ exports[`upload Utils > should handle validating object 1`] = `
     "tests": [
       [Function],
       [Function],
+      [Function],
     ],
     "transforms": [
       [Function],
+    ],
+    "type": "number",
+  },
+  "Indicator 9a Score": NumberSchema {
+    "_blacklist": Set {},
+    "_typeCheck": [Function],
+    "_whitelist": Set {},
+    "conditions": [],
+    "deps": [],
+    "exclusiveTests": {
+      "integer": false,
+      "max": true,
+      "min": true,
+    },
+    "internalTests": {
+      "nullable": [Function],
+      "optionality": [Function],
+      "typeError": [Function],
+    },
+    "spec": {
+      "abortEarly": true,
+      "coerce": true,
+      "nullable": false,
+      "optional": false,
+      "recursive": true,
+      "strict": false,
+      "strip": false,
+    },
+    "tests": [
+      [Function],
+      [Function],
       [Function],
     ],
-    "type": "string",
+    "transforms": [
+      [Function],
+    ],
+    "type": "number",
   },
   "Is the data approved by the government": StringSchema {
     "_blacklist": Set {},
