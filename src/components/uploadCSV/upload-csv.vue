@@ -4,18 +4,21 @@ import Papa from "papaparse";
 import { generatePayloadFromParsedJSON, validateFields } from "./uploadUtils";
 import common from "../../common/common";
 
+const status = Object.freeze({
+  VALID: "valid",
+  INVALID: "inValid",
+  DEFAULT: null,
+});
+
 export default Vue.extend({
   data() {
     return {
-      wrongData: {
-        isWrong: false,
-        description: "",
-      },
-      validData: {
-        isValid: false,
-        payload: null,
-      },
       selectedFile: "",
+      validationStatus: status.DEFAULT,
+      description: "",
+      payload: [],
+      status,
+      questionnairePayload: [],
     };
   },
 
@@ -38,17 +41,15 @@ export default Vue.extend({
                 validateFields(data[i])
                   .then((response) => {
                     console.log("Success");
-                    self.validData.payload = generatePayloadFromParsedJSON(
-                      data[i]
-                    );
-                    self.validData.isValid = true;
-                    self.wrongData.isWrong = false;
+                    self.payload.push(generatePayloadFromParsedJSON(data[i]));
+                    self.validationStatus = status.VALID;
+                    console.log(generatePayloadFromParsedJSON(data[i]));
                     console.log(response);
                   })
                   .catch((error) => {
-                    self.wrongData.isWrong = true;
-                    self.validData.isValid = false;
-                    self.wrongData.description = error.toString();
+                    self.description =
+                      "On row " + (i + 1) + " " + error.toString();
+                    self.validationStatus = status.INVALID;
                     console.log(error);
                   })
                   .finally(() => {
@@ -70,8 +71,8 @@ export default Vue.extend({
     <div class="header-bold">Upload File</div>
     <div class="file-name-and-error">
       <p>{{ selectedFile }}</p>
-      <p class="error-message" v-if="wrongData.isWrong">
-        {{ wrongData.description }}
+      <p class="error-message" v-if="validationStatus === status.INVALID">
+        {{ description }}
       </p>
     </div>
     <div class="button-section">
@@ -91,8 +92,16 @@ export default Vue.extend({
       </button>
       <button
         class="btn btn-primary"
-        :class="!validData.isValid ? 'disabled ' : ''"
-        :disabled="!validData.isValid"
+        :class="
+          validationStatus === status.INVALID ||
+          validationStatus === status.DEFAULT
+            ? 'disabled '
+            : ''
+        "
+        :disabled="
+          validationStatus === status.INVALID ||
+          validationStatus === status.DEFAULT
+        "
       >
         Import to server
       </button>
