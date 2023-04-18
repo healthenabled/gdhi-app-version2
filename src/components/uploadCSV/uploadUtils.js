@@ -1,4 +1,4 @@
-import { object, string, number, boolean, array } from "yup";
+import { object, string, number, boolean } from "yup";
 
 const csvDataMap = {
   CountryName: "Country Name",
@@ -101,7 +101,11 @@ export const generatePayloadFromParsedJSON = (formCSVRow) => ({
     dataApproverRole: formCSVRow[csvDataMap.DataApproverRole],
     dataApproverEmail: formCSVRow[csvDataMap.DataApproverEmail],
     govtApproved: formCSVRow[csvDataMap.IsTheDataApprovedByTheGovernment],
-    resources: formCSVRow[csvDataMap.ResourcesLink].split(","),
+    resources: formCSVRow[csvDataMap.ResourcesLink]
+      .split(",")
+      .map(function (resourceLink) {
+        return resourceLink.trim();
+      }),
   },
   healthIndicators: [
     {
