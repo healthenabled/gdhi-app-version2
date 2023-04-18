@@ -12,7 +12,10 @@ import { viteStaticCopy } from "vite-plugin-static-copy";
 
 const renderChunks = (deps) => {
   let chunks = {};
+
   Object.keys(deps).forEach((key) => {
+    if (key.includes("vuejs") || key.includes("dateformat")) return;
+    if (key.includes("vue")) return;
     chunks[key] = [key];
   });
   return chunks;
@@ -27,6 +30,7 @@ export default defineConfig({
     sourcemap: true,
     cssCodeSplit: true,
     assetsDir: "static",
+    minify: true,
     rollupOptions: {
       plugins: [uglify(), visualizer({ template: "sunburst" })],
       output: {
