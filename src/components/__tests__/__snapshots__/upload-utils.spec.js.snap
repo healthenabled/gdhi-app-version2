@@ -237,27 +237,31 @@ exports[`upload Utils > should handle validating object 1`] = `
   },
   "Country Name": StringSchema {
     "_blacklist": Set {},
+    "_mutate": undefined,
     "_typeCheck": [Function],
     "_whitelist": Set {},
     "conditions": [],
     "deps": [],
     "exclusiveTests": {
+      "required": false,
       "trim": false,
     },
     "internalTests": {
       "nullable": [Function],
+      "optionality": [Function],
       "typeError": [Function],
     },
     "spec": {
       "abortEarly": true,
       "coerce": true,
       "nullable": false,
-      "optional": true,
+      "optional": false,
       "recursive": true,
       "strict": false,
       "strip": false,
     },
     "tests": [
+      [Function],
       [Function],
     ],
     "transforms": [
@@ -305,10 +309,26 @@ exports[`upload Utils > should handle validating object 1`] = `
     "_blacklist": Set {},
     "_typeCheck": [Function],
     "_whitelist": Set {},
-    "conditions": [],
-    "deps": [],
+    "conditions": [
+      Condition {
+        "fn": [Function],
+        "refs": [
+          Reference {
+            "getter": [Function],
+            "isContext": false,
+            "isSibling": true,
+            "isValue": false,
+            "key": "Is the data approved by the government",
+            "map": undefined,
+            "path": "Is the data approved by the government",
+          },
+        ],
+      },
+    ],
+    "deps": [
+      "Is the data approved by the government",
+    ],
     "exclusiveTests": {
-      "email": false,
       "trim": false,
     },
     "internalTests": {
@@ -326,7 +346,6 @@ exports[`upload Utils > should handle validating object 1`] = `
     },
     "tests": [
       [Function],
-      [Function],
     ],
     "transforms": [
       [Function],
@@ -338,8 +357,25 @@ exports[`upload Utils > should handle validating object 1`] = `
     "_blacklist": Set {},
     "_typeCheck": [Function],
     "_whitelist": Set {},
-    "conditions": [],
-    "deps": [],
+    "conditions": [
+      Condition {
+        "fn": [Function],
+        "refs": [
+          Reference {
+            "getter": [Function],
+            "isContext": false,
+            "isSibling": true,
+            "isValue": false,
+            "key": "Is the data approved by the government",
+            "map": undefined,
+            "path": "Is the data approved by the government",
+          },
+        ],
+      },
+    ],
+    "deps": [
+      "Is the data approved by the government",
+    ],
     "exclusiveTests": {
       "trim": false,
     },
@@ -369,8 +405,25 @@ exports[`upload Utils > should handle validating object 1`] = `
     "_blacklist": Set {},
     "_typeCheck": [Function],
     "_whitelist": Set {},
-    "conditions": [],
-    "deps": [],
+    "conditions": [
+      Condition {
+        "fn": [Function],
+        "refs": [
+          Reference {
+            "getter": [Function],
+            "isContext": false,
+            "isSibling": true,
+            "isValue": false,
+            "key": "Is the data approved by the government",
+            "map": undefined,
+            "path": "Is the data approved by the government",
+          },
+        ],
+      },
+    ],
+    "deps": [
+      "Is the data approved by the government",
+    ],
     "exclusiveTests": {
       "trim": false,
     },
@@ -1063,27 +1116,31 @@ exports[`upload Utils > should handle validating object 1`] = `
   },
   "Enter Indicator 2a justification": StringSchema {
     "_blacklist": Set {},
+    "_mutate": undefined,
     "_typeCheck": [Function],
     "_whitelist": Set {},
     "conditions": [],
     "deps": [],
     "exclusiveTests": {
+      "required": false,
       "trim": false,
     },
     "internalTests": {
       "nullable": [Function],
+      "optionality": [Function],
       "typeError": [Function],
     },
     "spec": {
       "abortEarly": true,
       "coerce": true,
       "nullable": false,
-      "optional": true,
+      "optional": false,
       "recursive": true,
       "strict": false,
       "strip": false,
     },
     "tests": [
+      [Function],
       [Function],
     ],
     "transforms": [
@@ -1483,11 +1540,7 @@ exports[`upload Utils > should handle validating object 1`] = `
     "_whitelist": Set {},
     "conditions": [],
     "deps": [],
-    "exclusiveTests": {
-      "integer": false,
-      "max": true,
-      "min": true,
-    },
+    "exclusiveTests": {},
     "internalTests": {
       "nullable": [Function],
       "optionality": [Function],
@@ -1502,12 +1555,9 @@ exports[`upload Utils > should handle validating object 1`] = `
       "strict": false,
       "strip": false,
     },
-    "tests": [
-      [Function],
-      [Function],
-      [Function],
-    ],
+    "tests": [],
     "transforms": [
+      [Function],
       [Function],
     ],
     "type": "number",
@@ -1518,11 +1568,7 @@ exports[`upload Utils > should handle validating object 1`] = `
     "_whitelist": Set {},
     "conditions": [],
     "deps": [],
-    "exclusiveTests": {
-      "integer": false,
-      "max": true,
-      "min": true,
-    },
+    "exclusiveTests": {},
     "internalTests": {
       "nullable": [Function],
       "optionality": [Function],
@@ -1537,12 +1583,9 @@ exports[`upload Utils > should handle validating object 1`] = `
       "strict": false,
       "strip": false,
     },
-    "tests": [
-      [Function],
-      [Function],
-      [Function],
-    ],
+    "tests": [],
     "transforms": [
+      [Function],
       [Function],
     ],
     "type": "number",
@@ -1553,11 +1596,7 @@ exports[`upload Utils > should handle validating object 1`] = `
     "_whitelist": Set {},
     "conditions": [],
     "deps": [],
-    "exclusiveTests": {
-      "integer": false,
-      "max": true,
-      "min": true,
-    },
+    "exclusiveTests": {},
     "internalTests": {
       "nullable": [Function],
       "optionality": [Function],
@@ -1572,12 +1611,9 @@ exports[`upload Utils > should handle validating object 1`] = `
       "strict": false,
       "strip": false,
     },
-    "tests": [
-      [Function],
-      [Function],
-      [Function],
-    ],
+    "tests": [],
     "transforms": [
+      [Function],
       [Function],
     ],
     "type": "number",
@@ -1588,11 +1624,7 @@ exports[`upload Utils > should handle validating object 1`] = `
     "_whitelist": Set {},
     "conditions": [],
     "deps": [],
-    "exclusiveTests": {
-      "integer": false,
-      "max": true,
-      "min": true,
-    },
+    "exclusiveTests": {},
     "internalTests": {
       "nullable": [Function],
       "optionality": [Function],
@@ -1607,12 +1639,9 @@ exports[`upload Utils > should handle validating object 1`] = `
       "strict": false,
       "strip": false,
     },
-    "tests": [
-      [Function],
-      [Function],
-      [Function],
-    ],
+    "tests": [],
     "transforms": [
+      [Function],
       [Function],
     ],
     "type": "number",
@@ -1623,11 +1652,7 @@ exports[`upload Utils > should handle validating object 1`] = `
     "_whitelist": Set {},
     "conditions": [],
     "deps": [],
-    "exclusiveTests": {
-      "integer": false,
-      "max": true,
-      "min": true,
-    },
+    "exclusiveTests": {},
     "internalTests": {
       "nullable": [Function],
       "optionality": [Function],
@@ -1642,12 +1667,9 @@ exports[`upload Utils > should handle validating object 1`] = `
       "strict": false,
       "strip": false,
     },
-    "tests": [
-      [Function],
-      [Function],
-      [Function],
-    ],
+    "tests": [],
     "transforms": [
+      [Function],
       [Function],
     ],
     "type": "number",
@@ -1658,11 +1680,7 @@ exports[`upload Utils > should handle validating object 1`] = `
     "_whitelist": Set {},
     "conditions": [],
     "deps": [],
-    "exclusiveTests": {
-      "integer": false,
-      "max": true,
-      "min": true,
-    },
+    "exclusiveTests": {},
     "internalTests": {
       "nullable": [Function],
       "optionality": [Function],
@@ -1677,12 +1695,9 @@ exports[`upload Utils > should handle validating object 1`] = `
       "strict": false,
       "strip": false,
     },
-    "tests": [
-      [Function],
-      [Function],
-      [Function],
-    ],
+    "tests": [],
     "transforms": [
+      [Function],
       [Function],
     ],
     "type": "number",
@@ -1693,11 +1708,7 @@ exports[`upload Utils > should handle validating object 1`] = `
     "_whitelist": Set {},
     "conditions": [],
     "deps": [],
-    "exclusiveTests": {
-      "integer": false,
-      "max": true,
-      "min": true,
-    },
+    "exclusiveTests": {},
     "internalTests": {
       "nullable": [Function],
       "optionality": [Function],
@@ -1712,12 +1723,9 @@ exports[`upload Utils > should handle validating object 1`] = `
       "strict": false,
       "strip": false,
     },
-    "tests": [
-      [Function],
-      [Function],
-      [Function],
-    ],
+    "tests": [],
     "transforms": [
+      [Function],
       [Function],
     ],
     "type": "number",
@@ -1728,11 +1736,7 @@ exports[`upload Utils > should handle validating object 1`] = `
     "_whitelist": Set {},
     "conditions": [],
     "deps": [],
-    "exclusiveTests": {
-      "integer": false,
-      "max": true,
-      "min": true,
-    },
+    "exclusiveTests": {},
     "internalTests": {
       "nullable": [Function],
       "optionality": [Function],
@@ -1747,12 +1751,9 @@ exports[`upload Utils > should handle validating object 1`] = `
       "strict": false,
       "strip": false,
     },
-    "tests": [
-      [Function],
-      [Function],
-      [Function],
-    ],
+    "tests": [],
     "transforms": [
+      [Function],
       [Function],
     ],
     "type": "number",
@@ -1763,11 +1764,7 @@ exports[`upload Utils > should handle validating object 1`] = `
     "_whitelist": Set {},
     "conditions": [],
     "deps": [],
-    "exclusiveTests": {
-      "integer": false,
-      "max": true,
-      "min": true,
-    },
+    "exclusiveTests": {},
     "internalTests": {
       "nullable": [Function],
       "optionality": [Function],
@@ -1782,12 +1779,9 @@ exports[`upload Utils > should handle validating object 1`] = `
       "strict": false,
       "strip": false,
     },
-    "tests": [
-      [Function],
-      [Function],
-      [Function],
-    ],
+    "tests": [],
     "transforms": [
+      [Function],
       [Function],
     ],
     "type": "number",
@@ -1798,11 +1792,7 @@ exports[`upload Utils > should handle validating object 1`] = `
     "_whitelist": Set {},
     "conditions": [],
     "deps": [],
-    "exclusiveTests": {
-      "integer": false,
-      "max": true,
-      "min": true,
-    },
+    "exclusiveTests": {},
     "internalTests": {
       "nullable": [Function],
       "optionality": [Function],
@@ -1817,12 +1807,9 @@ exports[`upload Utils > should handle validating object 1`] = `
       "strict": false,
       "strip": false,
     },
-    "tests": [
-      [Function],
-      [Function],
-      [Function],
-    ],
+    "tests": [],
     "transforms": [
+      [Function],
       [Function],
     ],
     "type": "number",
@@ -1833,11 +1820,7 @@ exports[`upload Utils > should handle validating object 1`] = `
     "_whitelist": Set {},
     "conditions": [],
     "deps": [],
-    "exclusiveTests": {
-      "integer": false,
-      "max": true,
-      "min": true,
-    },
+    "exclusiveTests": {},
     "internalTests": {
       "nullable": [Function],
       "optionality": [Function],
@@ -1852,12 +1835,9 @@ exports[`upload Utils > should handle validating object 1`] = `
       "strict": false,
       "strip": false,
     },
-    "tests": [
-      [Function],
-      [Function],
-      [Function],
-    ],
+    "tests": [],
     "transforms": [
+      [Function],
       [Function],
     ],
     "type": "number",
@@ -1868,11 +1848,7 @@ exports[`upload Utils > should handle validating object 1`] = `
     "_whitelist": Set {},
     "conditions": [],
     "deps": [],
-    "exclusiveTests": {
-      "integer": false,
-      "max": true,
-      "min": true,
-    },
+    "exclusiveTests": {},
     "internalTests": {
       "nullable": [Function],
       "optionality": [Function],
@@ -1887,12 +1863,9 @@ exports[`upload Utils > should handle validating object 1`] = `
       "strict": false,
       "strip": false,
     },
-    "tests": [
-      [Function],
-      [Function],
-      [Function],
-    ],
+    "tests": [],
     "transforms": [
+      [Function],
       [Function],
     ],
     "type": "number",
@@ -1903,11 +1876,7 @@ exports[`upload Utils > should handle validating object 1`] = `
     "_whitelist": Set {},
     "conditions": [],
     "deps": [],
-    "exclusiveTests": {
-      "integer": false,
-      "max": true,
-      "min": true,
-    },
+    "exclusiveTests": {},
     "internalTests": {
       "nullable": [Function],
       "optionality": [Function],
@@ -1922,12 +1891,9 @@ exports[`upload Utils > should handle validating object 1`] = `
       "strict": false,
       "strip": false,
     },
-    "tests": [
-      [Function],
-      [Function],
-      [Function],
-    ],
+    "tests": [],
     "transforms": [
+      [Function],
       [Function],
     ],
     "type": "number",
@@ -1938,11 +1904,7 @@ exports[`upload Utils > should handle validating object 1`] = `
     "_whitelist": Set {},
     "conditions": [],
     "deps": [],
-    "exclusiveTests": {
-      "integer": false,
-      "max": true,
-      "min": true,
-    },
+    "exclusiveTests": {},
     "internalTests": {
       "nullable": [Function],
       "optionality": [Function],
@@ -1957,12 +1919,9 @@ exports[`upload Utils > should handle validating object 1`] = `
       "strict": false,
       "strip": false,
     },
-    "tests": [
-      [Function],
-      [Function],
-      [Function],
-    ],
+    "tests": [],
     "transforms": [
+      [Function],
       [Function],
     ],
     "type": "number",
@@ -1973,11 +1932,7 @@ exports[`upload Utils > should handle validating object 1`] = `
     "_whitelist": Set {},
     "conditions": [],
     "deps": [],
-    "exclusiveTests": {
-      "integer": false,
-      "max": true,
-      "min": true,
-    },
+    "exclusiveTests": {},
     "internalTests": {
       "nullable": [Function],
       "optionality": [Function],
@@ -1992,12 +1947,9 @@ exports[`upload Utils > should handle validating object 1`] = `
       "strict": false,
       "strip": false,
     },
-    "tests": [
-      [Function],
-      [Function],
-      [Function],
-    ],
+    "tests": [],
     "transforms": [
+      [Function],
       [Function],
     ],
     "type": "number",
@@ -2008,11 +1960,7 @@ exports[`upload Utils > should handle validating object 1`] = `
     "_whitelist": Set {},
     "conditions": [],
     "deps": [],
-    "exclusiveTests": {
-      "integer": false,
-      "max": true,
-      "min": true,
-    },
+    "exclusiveTests": {},
     "internalTests": {
       "nullable": [Function],
       "optionality": [Function],
@@ -2027,12 +1975,9 @@ exports[`upload Utils > should handle validating object 1`] = `
       "strict": false,
       "strip": false,
     },
-    "tests": [
-      [Function],
-      [Function],
-      [Function],
-    ],
+    "tests": [],
     "transforms": [
+      [Function],
       [Function],
     ],
     "type": "number",
@@ -2043,11 +1988,7 @@ exports[`upload Utils > should handle validating object 1`] = `
     "_whitelist": Set {},
     "conditions": [],
     "deps": [],
-    "exclusiveTests": {
-      "integer": false,
-      "max": true,
-      "min": true,
-    },
+    "exclusiveTests": {},
     "internalTests": {
       "nullable": [Function],
       "optionality": [Function],
@@ -2062,12 +2003,9 @@ exports[`upload Utils > should handle validating object 1`] = `
       "strict": false,
       "strip": false,
     },
-    "tests": [
-      [Function],
-      [Function],
-      [Function],
-    ],
+    "tests": [],
     "transforms": [
+      [Function],
       [Function],
     ],
     "type": "number",
@@ -2078,11 +2016,7 @@ exports[`upload Utils > should handle validating object 1`] = `
     "_whitelist": Set {},
     "conditions": [],
     "deps": [],
-    "exclusiveTests": {
-      "integer": false,
-      "max": true,
-      "min": true,
-    },
+    "exclusiveTests": {},
     "internalTests": {
       "nullable": [Function],
       "optionality": [Function],
@@ -2097,12 +2031,9 @@ exports[`upload Utils > should handle validating object 1`] = `
       "strict": false,
       "strip": false,
     },
-    "tests": [
-      [Function],
-      [Function],
-      [Function],
-    ],
+    "tests": [],
     "transforms": [
+      [Function],
       [Function],
     ],
     "type": "number",
@@ -2113,11 +2044,7 @@ exports[`upload Utils > should handle validating object 1`] = `
     "_whitelist": Set {},
     "conditions": [],
     "deps": [],
-    "exclusiveTests": {
-      "integer": false,
-      "max": true,
-      "min": true,
-    },
+    "exclusiveTests": {},
     "internalTests": {
       "nullable": [Function],
       "optionality": [Function],
@@ -2132,12 +2059,9 @@ exports[`upload Utils > should handle validating object 1`] = `
       "strict": false,
       "strip": false,
     },
-    "tests": [
-      [Function],
-      [Function],
-      [Function],
-    ],
+    "tests": [],
     "transforms": [
+      [Function],
       [Function],
     ],
     "type": "number",
@@ -2148,11 +2072,7 @@ exports[`upload Utils > should handle validating object 1`] = `
     "_whitelist": Set {},
     "conditions": [],
     "deps": [],
-    "exclusiveTests": {
-      "integer": false,
-      "max": true,
-      "min": true,
-    },
+    "exclusiveTests": {},
     "internalTests": {
       "nullable": [Function],
       "optionality": [Function],
@@ -2167,12 +2087,9 @@ exports[`upload Utils > should handle validating object 1`] = `
       "strict": false,
       "strip": false,
     },
-    "tests": [
-      [Function],
-      [Function],
-      [Function],
-    ],
+    "tests": [],
     "transforms": [
+      [Function],
       [Function],
     ],
     "type": "number",
@@ -2183,11 +2100,7 @@ exports[`upload Utils > should handle validating object 1`] = `
     "_whitelist": Set {},
     "conditions": [],
     "deps": [],
-    "exclusiveTests": {
-      "integer": false,
-      "max": true,
-      "min": true,
-    },
+    "exclusiveTests": {},
     "internalTests": {
       "nullable": [Function],
       "optionality": [Function],
@@ -2202,12 +2115,9 @@ exports[`upload Utils > should handle validating object 1`] = `
       "strict": false,
       "strip": false,
     },
-    "tests": [
-      [Function],
-      [Function],
-      [Function],
-    ],
+    "tests": [],
     "transforms": [
+      [Function],
       [Function],
     ],
     "type": "number",
@@ -2218,11 +2128,7 @@ exports[`upload Utils > should handle validating object 1`] = `
     "_whitelist": Set {},
     "conditions": [],
     "deps": [],
-    "exclusiveTests": {
-      "integer": false,
-      "max": true,
-      "min": true,
-    },
+    "exclusiveTests": {},
     "internalTests": {
       "nullable": [Function],
       "optionality": [Function],
@@ -2237,12 +2143,9 @@ exports[`upload Utils > should handle validating object 1`] = `
       "strict": false,
       "strip": false,
     },
-    "tests": [
-      [Function],
-      [Function],
-      [Function],
-    ],
+    "tests": [],
     "transforms": [
+      [Function],
       [Function],
     ],
     "type": "number",
@@ -2253,11 +2156,7 @@ exports[`upload Utils > should handle validating object 1`] = `
     "_whitelist": Set {},
     "conditions": [],
     "deps": [],
-    "exclusiveTests": {
-      "integer": false,
-      "max": true,
-      "min": true,
-    },
+    "exclusiveTests": {},
     "internalTests": {
       "nullable": [Function],
       "optionality": [Function],
@@ -2272,12 +2171,9 @@ exports[`upload Utils > should handle validating object 1`] = `
       "strict": false,
       "strip": false,
     },
-    "tests": [
-      [Function],
-      [Function],
-      [Function],
-    ],
+    "tests": [],
     "transforms": [
+      [Function],
       [Function],
     ],
     "type": "number",
@@ -2288,11 +2184,7 @@ exports[`upload Utils > should handle validating object 1`] = `
     "_whitelist": Set {},
     "conditions": [],
     "deps": [],
-    "exclusiveTests": {
-      "integer": false,
-      "max": true,
-      "min": true,
-    },
+    "exclusiveTests": {},
     "internalTests": {
       "nullable": [Function],
       "optionality": [Function],
@@ -2307,12 +2199,9 @@ exports[`upload Utils > should handle validating object 1`] = `
       "strict": false,
       "strip": false,
     },
-    "tests": [
-      [Function],
-      [Function],
-      [Function],
-    ],
+    "tests": [],
     "transforms": [
+      [Function],
       [Function],
     ],
     "type": "number",
@@ -2323,11 +2212,7 @@ exports[`upload Utils > should handle validating object 1`] = `
     "_whitelist": Set {},
     "conditions": [],
     "deps": [],
-    "exclusiveTests": {
-      "integer": false,
-      "max": true,
-      "min": true,
-    },
+    "exclusiveTests": {},
     "internalTests": {
       "nullable": [Function],
       "optionality": [Function],
@@ -2342,12 +2227,9 @@ exports[`upload Utils > should handle validating object 1`] = `
       "strict": false,
       "strip": false,
     },
-    "tests": [
-      [Function],
-      [Function],
-      [Function],
-    ],
+    "tests": [],
     "transforms": [
+      [Function],
       [Function],
     ],
     "type": "number",
@@ -2358,11 +2240,7 @@ exports[`upload Utils > should handle validating object 1`] = `
     "_whitelist": Set {},
     "conditions": [],
     "deps": [],
-    "exclusiveTests": {
-      "integer": false,
-      "max": true,
-      "min": true,
-    },
+    "exclusiveTests": {},
     "internalTests": {
       "nullable": [Function],
       "optionality": [Function],
@@ -2377,12 +2255,9 @@ exports[`upload Utils > should handle validating object 1`] = `
       "strict": false,
       "strip": false,
     },
-    "tests": [
-      [Function],
-      [Function],
-      [Function],
-    ],
+    "tests": [],
     "transforms": [
+      [Function],
       [Function],
     ],
     "type": "number",
@@ -2393,11 +2268,7 @@ exports[`upload Utils > should handle validating object 1`] = `
     "_whitelist": Set {},
     "conditions": [],
     "deps": [],
-    "exclusiveTests": {
-      "integer": false,
-      "max": true,
-      "min": true,
-    },
+    "exclusiveTests": {},
     "internalTests": {
       "nullable": [Function],
       "optionality": [Function],
@@ -2412,12 +2283,9 @@ exports[`upload Utils > should handle validating object 1`] = `
       "strict": false,
       "strip": false,
     },
-    "tests": [
-      [Function],
-      [Function],
-      [Function],
-    ],
+    "tests": [],
     "transforms": [
+      [Function],
       [Function],
     ],
     "type": "number",
@@ -2428,11 +2296,7 @@ exports[`upload Utils > should handle validating object 1`] = `
     "_whitelist": Set {},
     "conditions": [],
     "deps": [],
-    "exclusiveTests": {
-      "integer": false,
-      "max": true,
-      "min": true,
-    },
+    "exclusiveTests": {},
     "internalTests": {
       "nullable": [Function],
       "optionality": [Function],
@@ -2447,12 +2311,9 @@ exports[`upload Utils > should handle validating object 1`] = `
       "strict": false,
       "strip": false,
     },
-    "tests": [
-      [Function],
-      [Function],
-      [Function],
-    ],
+    "tests": [],
     "transforms": [
+      [Function],
       [Function],
     ],
     "type": "number",
@@ -2463,11 +2324,7 @@ exports[`upload Utils > should handle validating object 1`] = `
     "_whitelist": Set {},
     "conditions": [],
     "deps": [],
-    "exclusiveTests": {
-      "integer": false,
-      "max": true,
-      "min": true,
-    },
+    "exclusiveTests": {},
     "internalTests": {
       "nullable": [Function],
       "optionality": [Function],
@@ -2482,12 +2339,9 @@ exports[`upload Utils > should handle validating object 1`] = `
       "strict": false,
       "strip": false,
     },
-    "tests": [
-      [Function],
-      [Function],
-      [Function],
-    ],
+    "tests": [],
     "transforms": [
+      [Function],
       [Function],
     ],
     "type": "number",
@@ -2498,11 +2352,7 @@ exports[`upload Utils > should handle validating object 1`] = `
     "_whitelist": Set {},
     "conditions": [],
     "deps": [],
-    "exclusiveTests": {
-      "integer": false,
-      "max": true,
-      "min": true,
-    },
+    "exclusiveTests": {},
     "internalTests": {
       "nullable": [Function],
       "optionality": [Function],
@@ -2517,12 +2367,9 @@ exports[`upload Utils > should handle validating object 1`] = `
       "strict": false,
       "strip": false,
     },
-    "tests": [
-      [Function],
-      [Function],
-      [Function],
-    ],
+    "tests": [],
     "transforms": [
+      [Function],
       [Function],
     ],
     "type": "number",
@@ -2533,11 +2380,7 @@ exports[`upload Utils > should handle validating object 1`] = `
     "_whitelist": Set {},
     "conditions": [],
     "deps": [],
-    "exclusiveTests": {
-      "integer": false,
-      "max": true,
-      "min": true,
-    },
+    "exclusiveTests": {},
     "internalTests": {
       "nullable": [Function],
       "optionality": [Function],
@@ -2552,27 +2395,21 @@ exports[`upload Utils > should handle validating object 1`] = `
       "strict": false,
       "strip": false,
     },
-    "tests": [
-      [Function],
-      [Function],
-      [Function],
-    ],
+    "tests": [],
     "transforms": [
+      [Function],
       [Function],
     ],
     "type": "number",
   },
-  "Is the data approved by the government": StringSchema {
+  "Is the data approved by the government": BooleanSchema {
     "_blacklist": Set {},
+    "_mutate": undefined,
     "_typeCheck": [Function],
     "_whitelist": Set {},
     "conditions": [],
     "deps": [],
-    "exclusiveTests": {
-      "matches": false,
-      "string_case": true,
-      "trim": false,
-    },
+    "exclusiveTests": {},
     "internalTests": {
       "nullable": [Function],
       "typeError": [Function],
@@ -2586,17 +2423,11 @@ exports[`upload Utils > should handle validating object 1`] = `
       "strict": false,
       "strip": false,
     },
-    "tests": [
-      [Function],
-      [Function],
-      [Function],
-    ],
+    "tests": [],
     "transforms": [
       [Function],
-      [Function],
-      [Function],
     ],
-    "type": "string",
+    "type": "boolean",
   },
   "Resources Link": StringSchema {
     "_blacklist": Set {},

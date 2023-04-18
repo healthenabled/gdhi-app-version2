@@ -14,8 +14,7 @@ describe("upload Utils", () => {
     "Contact Person Name": "Contact Person Name",
     "Contact Person Role": "Contact Person Role",
     "Contact Person Email": "Contact Person Email",
-    "Is the data approved by the government":
-      "Is the data approved by the government",
+    "Is the data approved by the government": true,
     "Data Approver Name": "Data Approver Name",
     "Data Approver Role": "Data Approver Role",
     "Data Approver Email": "Data Approver Email",
