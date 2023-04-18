@@ -105,7 +105,9 @@ exports[`Country Profile  > should populate the data after successfull API call 
       class="comparison-graph-panel"
       style="display: none;"
     >
-      <!---->
+      <linegraphcontainer-stub
+        locale="en"
+      />
     </div>
     <div
       class="box overall-card"

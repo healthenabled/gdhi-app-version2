@@ -1,31 +1,42 @@
 <template>
-  <canvas id="myChart" dir="rtl"></canvas>
+  <div>
+    <canvas id="myChart"></canvas>
+  </div>
 </template>
 <script>
 import Chart from "chart.js/auto";
-import annotationPlugin from "chartjs-plugin-annotation";
 import { i18n, LayoutDirectionConfig } from "../../plugins/i18n";
+import indicatorFilter from "../indicatorFilter/indicator-filter.vue";
 import Vue from "vue";
 
+let lineChartInstance = null;
 export default Vue.extend({
-  name: "LineGraphChart",
-  data() {
-    return {
-      labels: ["", "Version1", "2023", "2024"],
-      chart: null,
-    };
+  components: {
+    indicatorFilter,
   },
+  name: "LineGraphChart",
   props: {
     yearOnYearData: { type: Array, required: true },
+    currentYear: { type: String, required: true },
+    defaultYear: { type: String, required: true },
+    categoryFilter: { type: Number, required: true },
     locale: { type: String, required: true },
+    labels: { type: Array, required: true },
   },
 
   computed: {
     countryData() {
       let val = [];
       let yearPhaseMap = new Map();
-      this.yearOnYearData.yearOnYearData.map((element) => {
-        yearPhaseMap.set(element.year, element.data.country.countryPhase);
+      this.yearOnYearData.map((element) => {
+        if (this.categoryFilter === 0 || this.categoryFilter === -1) {
+          yearPhaseMap.set(element.year, element.data.country.countryPhase);
+        } else {
+          yearPhaseMap.set(
+            element.year,
+            element.data.country.categories[this.categoryFilter].phase
+          );
+        }
       });
       this.labels.map((label) => {
         if (yearPhaseMap.has(label)) {
@@ -40,7 +51,7 @@ export default Vue.extend({
     globalData() {
       let val = [];
       let yearPhaseMap = new Map();
-      this.yearOnYearData.yearOnYearData.map((element) => {
+      this.yearOnYearData.map((element) => {
         yearPhaseMap.set(element.year, element.data.average.overAllScore);
       });
       this.labels.map((label) => {
@@ -58,8 +69,7 @@ export default Vue.extend({
         labels: this.labels,
         datasets: [
           {
-            label:
-              this.yearOnYearData.yearOnYearData[0].data.country.countryName,
+            label: this.yearOnYearData[0].data.country.countryName,
             data: this.countryData,
             fill: false,
             borderColor: "black",
@@ -85,22 +95,22 @@ export default Vue.extend({
               }
             },
 
-            segment: {
-              borderColor: (ctx) => {
-                const skipped = (ctx, value) =>
-                  ctx.p0.skip || ctx.p1.skip ? value : undefined;
-                const down = (ctx, value) =>
-                  ctx.p0.parsed.y > ctx.p1.parsed.y ? value : undefined;
-                skipped(ctx, "rgb(0,0,0,0.2)") || down(ctx, "rgb(192,75,75)");
-              },
-              borderDash: (ctx) => {
-                const skipped = (ctx, value) =>
-                  ctx.p0.skip || ctx.p1.skip ? value : undefined;
-                const down = (ctx, value) =>
-                  ctx.p0.parsed.y > ctx.p1.parsed.y ? value : undefined;
-                skipped(ctx, [4, 4]);
-              },
-            },
+            // segment: {
+            //   borderColor: (ctx) => {
+            //     const skipped = (ctx, value) =>
+            //       ctx.p0.skip || ctx.p1.skip ? value : undefined;
+            //     const down = (ctx, value) =>
+            //       ctx.p0.parsed.y > ctx.p1.parsed.y ? value : undefined;
+            //     skipped(ctx, "rgb(0,0,0,0.2)") || down(ctx, "rgb(192,75,75)");
+            //   },
+            //   borderDash: (ctx) => {
+            //     const skipped = (ctx, value) =>
+            //       ctx.p0.skip || ctx.p1.skip ? value : undefined;
+            //     const down = (ctx, value) =>
+            //       ctx.p0.parsed.y > ctx.p1.parsed.y ? value : undefined;
+            //     skipped(ctx, [4, 4]);
+            //   },
+            // },
           },
           {
             label: "Global average",
@@ -123,10 +133,10 @@ export default Vue.extend({
         clip: false,
         layout: {
           padding: {
-            left: 20,
-            right: 80,
+            left: 40,
+            right: 40,
             top: 60,
-            bottom: 60,
+            bottom: 0,
           },
         },
         animation: false,
@@ -158,8 +168,8 @@ export default Vue.extend({
             annotations: {
               line: {
                 type: "line",
-                xMin: this.yearOnYearData.currentYear,
-                xMax: this.yearOnYearData.currentYear,
+                xMin: this.currentYear,
+                xMax: this.currentYear,
                 backgroundColor: "yellow",
                 borderColor: "darkblue",
                 borderWidth: 1.5,
@@ -224,40 +234,37 @@ export default Vue.extend({
     this.drawLineChart();
   },
 
-  // updated() {
-  //   console.log("updated invoked");
-  //   if (this.locale != i18n.locale) {
-  //     this.locale = i18n.locale;
-  //   }
-  // },
-
   watch: {
     yearOnYearData() {
-      console.log("Year Data changed");
-      this.chart.destroy();
-      this.drawChart();
+      this.drawLineChart();
     },
-
     locale() {
-      console.log("Language change detected");
-      this.chart.destroy();
-      this.drawChart();
+      console.log("Chart destroyed due to language change");
+      this.drawLineChart();
+    },
+    categoryFilter() {
+      this.drawLineChart();
     },
   },
 
   methods: {
     drawLineChart() {
-      Chart.register(annotationPlugin);
-      this.chart = new Chart(
+      lineChartInstance?.destroy();
+      lineChartInstance = new Chart(
         document.getElementById("myChart"),
         this.lineChartConfig
       );
     },
     getLabels() {
-      this.yearOnYearData.yearOnYearData.map((element) => {
+      this.yearOnYearData.map((element) => {
         this.labels.push(element.year);
       });
     },
   },
 });
 </script>
+<style scoped lang="scss">
+div {
+  height: 85%;
+}
+</style>
