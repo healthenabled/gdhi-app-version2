@@ -144,7 +144,7 @@ export default Vue.extend({
       </button>
     </div>
     <div class="header-bold" v-if="importedToServer">Import Status</div>
-    <table v-if="importedToServer">
+    <table v-if="importedToServer" class="import-status-table">
       <thead>
         <tr>
           <th>Country</th>
