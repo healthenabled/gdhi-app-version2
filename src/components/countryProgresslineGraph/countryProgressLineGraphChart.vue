@@ -27,18 +27,18 @@ export default Vue.extend({
       let val = [];
       let yearPhaseMap = new Map();
       this.yearOnYearData.map(({ data, year }) => {
-        if (this.categoryFilter <= 0) {
+        if (this.categoryFilter < 0 && data.country.categories.length) {
           if (data.country.countryPhase > 0)
             yearPhaseMap.set(year, data.country.countryPhase);
-          else {
+          else if (data.country.countryPhase == -1) {
             yearPhaseMap.set(year, 0);
           }
-        } else {
+        } else if (data.country.categories.length) {
           const categoryPhaseValue =
             data.country.categories[this.categoryFilter].phase;
-          if (categoryPhaseValue > 0)
+          if (categoryPhaseValue >= 0)
             yearPhaseMap.set(year, categoryPhaseValue);
-          else {
+          else if (categoryPhaseValue == -1) {
             yearPhaseMap.set(year, 0);
           }
         }
@@ -57,7 +57,10 @@ export default Vue.extend({
       let val = [];
       let yearPhaseMap = new Map();
       this.yearOnYearData.map(({ data, year }) => {
-        yearPhaseMap.set(year, data.average.overAllScore);
+        if (data.average.overAllScore == -1) yearPhaseMap.set(year, 0);
+        else {
+          yearPhaseMap.set(year, data.average.overAllScore);
+        }
       });
       this.xAxisLabels.map((label) => {
         if (yearPhaseMap.has(label)) {
