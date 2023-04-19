@@ -3,62 +3,89 @@ import Vue from "vue";
 import Papa from "papaparse";
 import { generatePayloadFromParsedJSON, validateFields } from "./uploadUtils";
 import common from "../../common/common";
+import axios from "axios";
+
+const status = Object.freeze({
+  VALID: "valid",
+  INVALID: "inValid",
+  DEFAULT: null,
+});
 
 export default Vue.extend({
   data() {
     return {
-      wrongData: {
-        isWrong: false,
-        description: "",
-      },
-      validData: {
-        isValid: false,
-        payload: null,
-      },
       selectedFile: "",
+      validationStatus: status.DEFAULT,
+      description: "",
+      payload: [],
+      status,
+      countryStatuses: [],
+      importedToServer: false,
     };
   },
-
   methods: {
     uploadFile(event) {
       common.showLoading();
       const self = this;
       const files = event.target.files;
       this.selectedFile = event.target.files[0].name;
-      if (files.length === 1) {
-        Papa.parse(files[0], {
-          worker: true,
-          header: true,
-          complete: function (object) {
-            const { data } = object;
-            if (!data.length) {
-              self.wrongData = true;
-            } else {
-              for (let i = 0; i < data.length; i++) {
-                validateFields(data[i])
-                  .then((response) => {
-                    console.log("Success");
-                    self.validData.payload = generatePayloadFromParsedJSON(
-                      data[i]
-                    );
-                    self.validData.isValid = true;
-                    self.wrongData.isWrong = false;
-                    console.log(response);
-                  })
-                  .catch((error) => {
-                    self.wrongData.isWrong = true;
-                    self.validData.isValid = false;
-                    self.wrongData.description = error.toString();
-                    console.log(error);
-                  })
-                  .finally(() => {
-                    common.hideLoading();
-                  });
-              }
+      Papa.parse(files[0], {
+        worker: true,
+        header: true,
+        complete: function ({ data }) {
+          if (!data.length) {
+            self.wrongData = true;
+          } else {
+            for (let i = 0; i < data.length; i++) {
+              validateFields(data[i])
+                .then((response) => {
+                  self.payload.push(generatePayloadFromParsedJSON(response));
+                  self.validationStatus = status.VALID;
+                })
+                .catch((error) => {
+                  self.description =
+                    "On row " + (i + 1) + " " + error.toString();
+                  self.validationStatus = status.INVALID;
+                })
+                .finally(() => {
+                  common.hideLoading();
+                });
             }
-          },
+          }
+        },
+      });
+    },
+    submitData() {
+      common.showLoading();
+      const url = "/api/bff/countries/submit";
+      axios
+        .post(url, {
+          gdhiQuestionnaires: this.payload,
+        })
+        .then(({ data: { countryStatuses } }) => {
+          this.importedToServer = true;
+          this.countryStatuses = countryStatuses;
+        })
+        .catch(() => {
+          this.message = "Error While Importing Data To Server ";
+          this.notifier({
+            group: "custom-template",
+            title: "Error",
+            text: this.message,
+            type: "error",
+          });
+        })
+        .finally(() => {
+          common.hideLoading();
         });
-      }
+    },
+    notifier(props) {
+      this.$notify({
+        group: props.group,
+        title: props.title,
+        text: props.text,
+        type: props.type,
+      });
     },
   },
   name: "UploadCSV",
@@ -67,11 +94,20 @@ export default Vue.extend({
 
 <template>
   <div>
+    <div class="download-section">
+      <div class="header-bold">Template</div>
+      <button
+        class="btn btn-primary"
+        onclick="location.href = 'https://docs.google.com/spreadsheets/d/1AZ_5oYOCokiI4xosVPCZU3jSZUYjt4MB/edit?usp=sharing&ouid=105807527850921178070&rtpof=true&sd=true';"
+      >
+        <i class="fa fa-download" aria-hidden="true"></i>Download
+      </button>
+    </div>
     <div class="header-bold">Upload File</div>
     <div class="file-name-and-error">
       <p>{{ selectedFile }}</p>
-      <p class="error-message" v-if="wrongData.isWrong">
-        {{ wrongData.description }}
+      <p class="error-message" v-if="validationStatus === status.INVALID">
+        {{ description }}
       </p>
     </div>
     <div class="button-section">
@@ -91,13 +127,39 @@ export default Vue.extend({
       </button>
       <button
         class="btn btn-primary"
-        :class="!validData.isValid ? 'disabled ' : ''"
-        :disabled="!validData.isValid"
+        :class="
+          validationStatus === status.INVALID ||
+          validationStatus === status.DEFAULT
+            ? 'disabled '
+            : ''
+        "
+        :disabled="
+          validationStatus === status.INVALID ||
+          validationStatus === status.DEFAULT
+        "
+        @click="submitData"
       >
         Import to server
       </button>
-      <button class="btn btn-primary">Sample CSV</button>
     </div>
+    <div class="header-bold" v-if="importedToServer">Import Status</div>
+    <table v-if="importedToServer">
+      <thead>
+        <tr>
+          <th>Country</th>
+          <th>Success</th>
+          <th>Status</th>
+          <th>Failure Reason</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(countryStatus, id) in countryStatuses" :key="id">
+          <td v-for="(countryDetails, id) in countryStatus" :key="id">
+            {{ countryDetails }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 

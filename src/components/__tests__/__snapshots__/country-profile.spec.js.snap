@@ -38,6 +38,7 @@ exports[`Country Profile  > should populate the data after successfull API call 
         >
           <img
             height="35"
+            loading="lazy"
             src="/static/img/downloadFile.svg"
             style="align-self: center;"
             width="35"
@@ -54,6 +55,7 @@ exports[`Country Profile  > should populate the data after successfull API call 
         >
           <img
             height="35"
+            loading="lazy"
             src="/static/img/downloadPDF.svg"
             style="align-self: center;"
             width="35"
@@ -157,6 +159,7 @@ exports[`Country Profile  > should populate the data after successfull API call 
                   >
                     <img
                       height="30"
+                      loading="lazy"
                       src="/static/indicator-icons/1.svg"
                       width="30"
                     />

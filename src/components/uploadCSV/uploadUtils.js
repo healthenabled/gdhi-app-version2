@@ -1,4 +1,4 @@
-import { object, string } from "yup";
+import { object, string, number, boolean } from "yup";
 
 const csvDataMap = {
   CountryName: "Country Name",
@@ -101,7 +101,11 @@ export const generatePayloadFromParsedJSON = (formCSVRow) => ({
     dataApproverRole: formCSVRow[csvDataMap.DataApproverRole],
     dataApproverEmail: formCSVRow[csvDataMap.DataApproverEmail],
     govtApproved: formCSVRow[csvDataMap.IsTheDataApprovedByTheGovernment],
-    resources: formCSVRow[csvDataMap.ResourcesLink].split(","),
+    resources: formCSVRow[csvDataMap.ResourcesLink]
+      .split(",")
+      .map(function (resourceLink) {
+        return resourceLink.trim();
+      }),
   },
   healthIndicators: [
     {
@@ -325,23 +329,53 @@ export const generatePayloadFromParsedJSON = (formCSVRow) => ({
 });
 
 export async function validateFields(data) {
+  const min1Max5RequiredInteger = number()
+    .required()
+    .transform((originalValue) => {
+      if (
+        originalValue === 1 ||
+        originalValue === 2 ||
+        originalValue === 3 ||
+        originalValue === 4 ||
+        originalValue === 5
+      ) {
+        return Number(originalValue);
+      }
+      return -1;
+    });
+  const requiredString = string().trim().required();
+  const requiredEmail = string().trim().email().required();
+  const email = string().trim().email();
+  const trimString = string().trim();
   return await object({
-    [csvDataMap.CountryName]: string().trim(),
-    [csvDataMap.CountrySummary]: string().trim().required(),
-    [csvDataMap.CountryContactName]: string().trim(),
-    [csvDataMap.CountryContactRole]: string().trim(),
-    [csvDataMap.CountryContactOrg]: string().trim(),
-    [csvDataMap.CountryContactEmail]: string().trim().email(),
-    [csvDataMap.ContactPersonName]: string().trim().required(),
-    [csvDataMap.ContactPersonRole]: string().trim().required(),
-    [csvDataMap.ContactPersonEmail]: string().trim().email().required(),
-    [csvDataMap.IsTheDataApprovedByTheGovernment]: string()
+    [csvDataMap.CountryName]: requiredString,
+    [csvDataMap.CountrySummary]: requiredString,
+    [csvDataMap.CountryContactName]: trimString,
+    [csvDataMap.CountryContactRole]: trimString,
+    [csvDataMap.CountryContactOrg]: trimString,
+    [csvDataMap.CountryContactEmail]: email,
+    [csvDataMap.ContactPersonName]: requiredString,
+    [csvDataMap.ContactPersonRole]: requiredString,
+    [csvDataMap.ContactPersonEmail]: requiredEmail,
+    [csvDataMap.IsTheDataApprovedByTheGovernment]: boolean(),
+    [csvDataMap.DataApproverName]: string()
       .trim()
-      .lowercase()
-      .matches(/(true|false)/),
-    [csvDataMap.DataApproverName]: string().trim(),
-    [csvDataMap.DataApproverRole]: string().trim(),
-    [csvDataMap.DataApproverEmail]: string().trim().email(),
+      .when([csvDataMap.IsTheDataApprovedByTheGovernment], {
+        is: true,
+        then: () => requiredString,
+      }),
+    [csvDataMap.DataApproverRole]: string()
+      .trim()
+      .when([csvDataMap.IsTheDataApprovedByTheGovernment], {
+        is: true,
+        then: () => requiredString,
+      }),
+    [csvDataMap.DataApproverEmail]: string()
+      .trim()
+      .when([csvDataMap.IsTheDataApprovedByTheGovernment], {
+        is: true,
+        then: () => requiredEmail,
+      }),
     [csvDataMap.ResourcesLink]: string()
       .trim()
       .lowercase()
@@ -362,72 +396,72 @@ export async function validateFields(data) {
               "i"
             ); // validate fragment locator
 
-            isValid = isValid && !!urlPattern.test(a);
+            isValid = isValid && !!urlPattern.test(a.trim());
           });
           return isValid;
         }
       ),
-    [csvDataMap.Indicator1Score]: string().trim().required(),
-    [csvDataMap.EnterIndicator1Justification]: string().trim().required(),
-    [csvDataMap.Indicator2Score]: string().trim().required(),
-    [csvDataMap.EnterIndicator2Justification]: string().trim().required(),
-    [csvDataMap.Indicator2aScore]: string().trim(),
-    [csvDataMap.EnterIndicator2aJustification]: string().trim(),
-    [csvDataMap.Indicator3Score]: string().trim().required(),
-    [csvDataMap.EnterIndicator3Justification]: string().trim().required(),
-    [csvDataMap.Indicator4Score]: string().trim().required(),
-    [csvDataMap.EnterIndicator4Justification]: string().trim().required(),
-    [csvDataMap.Indicator4aScore]: string().trim().required(),
-    [csvDataMap.EnterIndicator4aJustification]: string().trim().required(),
-    [csvDataMap.Indicator5Score]: string().trim().required(),
-    [csvDataMap.EnterIndicator5Justification]: string().trim().required(),
-    [csvDataMap.Indicator5aScore]: string().trim().required(),
-    [csvDataMap.EnterIndicator5aJustification]: string().trim().required(),
-    [csvDataMap.Indicator6Score]: string().trim().required(),
-    [csvDataMap.EnterIndicator6Justification]: string().trim().required(),
-    [csvDataMap.Indicator6aScore]: string().trim().required(),
-    [csvDataMap.EnterIndicator6aJustification]: string().trim().required(),
-    [csvDataMap.Indicator7Score]: string().trim().required(),
-    [csvDataMap.EnterIndicator7Justification]: string().trim().required(),
-    [csvDataMap.Indicator8Score]: string().trim().required(),
-    [csvDataMap.EnterIndicator8Justification]: string().trim().required(),
-    [csvDataMap.Indicator9Score]: string().trim().required(),
-    [csvDataMap.EnterIndicator9Justification]: string().trim().required(),
-    [csvDataMap.Indicator9aScore]: string().trim().required(),
-    [csvDataMap.EnterIndicator9aJustification]: string().trim().required(),
-    [csvDataMap.Indicator10Score]: string().trim().required(),
-    [csvDataMap.EnterIndicator10Justification]: string().trim().required(),
-    [csvDataMap.Indicator11Score]: string().trim().required(),
-    [csvDataMap.EnterIndicator11Justification]: string().trim().required(),
-    [csvDataMap.Indicator12Score]: string().trim().required(),
-    [csvDataMap.EnterIndicator12Justification]: string().trim().required(),
-    [csvDataMap.Indicator13Score]: string().trim().required(),
-    [csvDataMap.EnterIndicator13Justification]: string().trim().required(),
-    [csvDataMap.Indicator14Score]: string().trim().required(),
-    [csvDataMap.EnterIndicator14Justification]: string().trim().required(),
-    [csvDataMap.Indicator15Score]: string().trim().required(),
-    [csvDataMap.EnterIndicator15Justification]: string().trim().required(),
-    [csvDataMap.Indicator16Score]: string().trim().required(),
-    [csvDataMap.EnterIndicator16Justification]: string().trim().required(),
-    [csvDataMap.Indicator17Score]: string().trim().required(),
-    [csvDataMap.EnterIndicator17Justification]: string().trim().required(),
-    [csvDataMap.Indicator18Score]: string().trim().required(),
-    [csvDataMap.EnterIndicator18Justification]: string().trim().required(),
-    [csvDataMap.Indicator19Score]: string().trim().required(),
-    [csvDataMap.EnterIndicator19Justification]: string().trim().required(),
-    [csvDataMap.Indicator20Score]: string().trim().required(),
-    [csvDataMap.EnterIndicator20Justification]: string().trim().required(),
-    [csvDataMap.Indicator21Score]: string().trim().required(),
-    [csvDataMap.EnterIndicator21Justification]: string().trim().required(),
-    [csvDataMap.Indicator21aScore]: string().trim().required(),
-    [csvDataMap.EnterIndicator21aJustification]: string().trim().required(),
-    [csvDataMap.Indicator21bScore]: string().trim().required(),
-    [csvDataMap.EnterIndicator21bJustification]: string().trim().required(),
-    [csvDataMap.Indicator21cScore]: string().trim().required(),
-    [csvDataMap.EnterIndicator21cJustification]: string().trim().required(),
-    [csvDataMap.Indicator22Score]: string().trim().required(),
-    [csvDataMap.EnterIndicator22Justification]: string().trim().required(),
-    [csvDataMap.Indicator23Score]: string().trim().required(),
-    [csvDataMap.EnterIndicator23Justification]: string().trim().required(),
+    [csvDataMap.Indicator1Score]: min1Max5RequiredInteger,
+    [csvDataMap.EnterIndicator1Justification]: requiredString,
+    [csvDataMap.Indicator2Score]: min1Max5RequiredInteger,
+    [csvDataMap.EnterIndicator2Justification]: requiredString,
+    [csvDataMap.Indicator2aScore]: min1Max5RequiredInteger,
+    [csvDataMap.EnterIndicator2aJustification]: requiredString,
+    [csvDataMap.Indicator3Score]: min1Max5RequiredInteger,
+    [csvDataMap.EnterIndicator3Justification]: requiredString,
+    [csvDataMap.Indicator4Score]: min1Max5RequiredInteger,
+    [csvDataMap.EnterIndicator4Justification]: requiredString,
+    [csvDataMap.Indicator4aScore]: min1Max5RequiredInteger,
+    [csvDataMap.EnterIndicator4aJustification]: requiredString,
+    [csvDataMap.Indicator5Score]: min1Max5RequiredInteger,
+    [csvDataMap.EnterIndicator5Justification]: requiredString,
+    [csvDataMap.Indicator5aScore]: min1Max5RequiredInteger,
+    [csvDataMap.EnterIndicator5aJustification]: requiredString,
+    [csvDataMap.Indicator6Score]: min1Max5RequiredInteger,
+    [csvDataMap.EnterIndicator6Justification]: requiredString,
+    [csvDataMap.Indicator6aScore]: min1Max5RequiredInteger,
+    [csvDataMap.EnterIndicator6aJustification]: requiredString,
+    [csvDataMap.Indicator7Score]: min1Max5RequiredInteger,
+    [csvDataMap.EnterIndicator7Justification]: requiredString,
+    [csvDataMap.Indicator8Score]: min1Max5RequiredInteger,
+    [csvDataMap.EnterIndicator8Justification]: requiredString,
+    [csvDataMap.Indicator9Score]: min1Max5RequiredInteger,
+    [csvDataMap.EnterIndicator9Justification]: requiredString,
+    [csvDataMap.Indicator9aScore]: min1Max5RequiredInteger,
+    [csvDataMap.EnterIndicator9aJustification]: requiredString,
+    [csvDataMap.Indicator10Score]: min1Max5RequiredInteger,
+    [csvDataMap.EnterIndicator10Justification]: requiredString,
+    [csvDataMap.Indicator11Score]: min1Max5RequiredInteger,
+    [csvDataMap.EnterIndicator11Justification]: requiredString,
+    [csvDataMap.Indicator12Score]: min1Max5RequiredInteger,
+    [csvDataMap.EnterIndicator12Justification]: requiredString,
+    [csvDataMap.Indicator13Score]: min1Max5RequiredInteger,
+    [csvDataMap.EnterIndicator13Justification]: requiredString,
+    [csvDataMap.Indicator14Score]: min1Max5RequiredInteger,
+    [csvDataMap.EnterIndicator14Justification]: requiredString,
+    [csvDataMap.Indicator15Score]: min1Max5RequiredInteger,
+    [csvDataMap.EnterIndicator15Justification]: requiredString,
+    [csvDataMap.Indicator16Score]: min1Max5RequiredInteger,
+    [csvDataMap.EnterIndicator16Justification]: requiredString,
+    [csvDataMap.Indicator17Score]: min1Max5RequiredInteger,
+    [csvDataMap.EnterIndicator17Justification]: requiredString,
+    [csvDataMap.Indicator18Score]: min1Max5RequiredInteger,
+    [csvDataMap.EnterIndicator18Justification]: requiredString,
+    [csvDataMap.Indicator19Score]: min1Max5RequiredInteger,
+    [csvDataMap.EnterIndicator19Justification]: requiredString,
+    [csvDataMap.Indicator20Score]: min1Max5RequiredInteger,
+    [csvDataMap.EnterIndicator20Justification]: requiredString,
+    [csvDataMap.Indicator21Score]: min1Max5RequiredInteger,
+    [csvDataMap.EnterIndicator21Justification]: requiredString,
+    [csvDataMap.Indicator21aScore]: min1Max5RequiredInteger,
+    [csvDataMap.EnterIndicator21aJustification]: requiredString,
+    [csvDataMap.Indicator21bScore]: min1Max5RequiredInteger,
+    [csvDataMap.EnterIndicator21bJustification]: requiredString,
+    [csvDataMap.Indicator21cScore]: min1Max5RequiredInteger,
+    [csvDataMap.EnterIndicator21cJustification]: requiredString,
+    [csvDataMap.Indicator22Score]: min1Max5RequiredInteger,
+    [csvDataMap.EnterIndicator22Justification]: requiredString,
+    [csvDataMap.Indicator23Score]: min1Max5RequiredInteger,
+    [csvDataMap.EnterIndicator23Justification]: requiredString,
   }).validate(data);
 }
