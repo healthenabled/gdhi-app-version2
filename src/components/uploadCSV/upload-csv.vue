@@ -138,6 +138,7 @@ export default Vue.extend({
           validationStatus === status.DEFAULT
         "
         @click="submitData"
+        data-testid="import-button"
       >
         Import to server
       </button>
