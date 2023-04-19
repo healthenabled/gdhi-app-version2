@@ -43,9 +43,16 @@ describe("Upload CSV", () => {
   const axiosPostSpy = vi.spyOn(axios, "post");
   const papaParseSpy = vi.spyOn(Papa, "parse").mockImplementation(() => null);
   const validateFieldsSpy = vi.spyOn(uploadUtils, "validateFields");
+  const generatePayloadSpy = vi.spyOn(
+    uploadUtils,
+    "generatePayloadFromParsedJSON"
+  );
 
   beforeEach(() => {
     axiosPostSpy.mockReset();
+    papaParseSpy.mockReset();
+    validateFieldsSpy.mockReset();
+    generatePayloadSpy.mockReset();
     wrapper = mount(UploadCSV);
   });
 
@@ -68,6 +75,7 @@ describe("Upload CSV", () => {
   });
 
   it("should call validateFields method when uploadFile is triggered", async () => {
+    validateFieldsSpy.mockResolvedValue({ data: "a" });
     wrapper.vm.uploadFile(event);
     expect(papaParseSpy).toHaveBeenCalledWith(
       {
@@ -81,7 +89,24 @@ describe("Upload CSV", () => {
       })
     );
     papaParseSpy.mock.calls[0][1].complete({ data: ["abc"] });
-    expect(validateFieldsSpy).toHaveBeenCalledOnce();
     expect(validateFieldsSpy).toHaveBeenCalledWith("abc");
+  });
+
+  it("should set validation status to valid when validateFields is success", async () => {
+    validateFieldsSpy.mockResolvedValue({ data: "a" });
+    wrapper.vm.uploadFile(event);
+    papaParseSpy.mock.calls[0][1].complete({ data: ["abc"] });
+    await flushPromises();
+    expect(generatePayloadSpy).toHaveBeenCalledOnce();
+    expect(generatePayloadSpy).toHaveBeenCalledWith({ data: "a" });
+    expect(wrapper.vm.validationStatus).toBe("valid");
+  });
+
+  it("should set validation status to inValid when validateFields is failed", async () => {
+    validateFieldsSpy.mockRejectedValueOnce({ error: "error" });
+    wrapper.vm.uploadFile(event);
+    papaParseSpy.mock.calls[0][1].complete({ data: ["a"] });
+    await flushPromises();
+    expect(wrapper.vm.validationStatus).toBe("inValid");
   });
 });
