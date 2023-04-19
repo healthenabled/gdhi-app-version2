@@ -30,12 +30,22 @@ export default Vue.extend({
       let yearPhaseMap = new Map();
       this.yearOnYearData.map((element) => {
         if (this.categoryFilter === 0 || this.categoryFilter === -1) {
-          yearPhaseMap.set(element.year, element.data.country.countryPhase);
+          if (element.data.country.countryPhase > 0)
+            yearPhaseMap.set(element.year, element.data.country.countryPhase);
+          else if (element.data.country.countryPhase === -1) {
+            yearPhaseMap.set(element.year, 0);
+          }
         } else {
-          yearPhaseMap.set(
-            element.year,
-            element.data.country.categories[this.categoryFilter].phase
-          );
+          if (element.data.country.categories[this.categoryFilter].phase > 0)
+            yearPhaseMap.set(
+              element.year,
+              element.data.country.categories[this.categoryFilter].phase
+            );
+          else if (
+            element.data.country.categories[this.categoryFilter].phase === -1
+          ) {
+            yearPhaseMap.set(element.year, 0);
+          }
         }
       });
       this.labels.map((label) => {

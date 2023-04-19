@@ -31,6 +31,7 @@ export default Vue.extend({
   },
   methods: {
     appendFutureYear(years) {
+      years.reverse();
       let lastElement = years[years.length - 1];
       lastElement = Number(lastElement);
       lastElement++;
