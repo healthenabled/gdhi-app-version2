@@ -40,16 +40,13 @@ export default Vue.extend({
               for (let i = 0; i < data.length; i++) {
                 validateFields(data[i])
                   .then((response) => {
-                    console.log(response);
                     self.payload.push(generatePayloadFromParsedJSON(response));
-                    console.log(generatePayloadFromParsedJSON(response));
                     self.validationStatus = status.VALID;
                   })
                   .catch((error) => {
                     self.description =
                       "On row " + (i + 1) + " " + error.toString();
                     self.validationStatus = status.INVALID;
-                    console.log(error);
                   })
                   .finally(() => {
                     common.hideLoading();
@@ -100,8 +97,11 @@ export default Vue.extend({
 <template>
   <div>
     <div class="download-section">
-      <div class="header-bold">Sample CSV</div>
-      <button class="btn btn-primary">
+      <div class="header-bold">Template</div>
+      <button
+        class="btn btn-primary"
+        onclick="location.href = 'https://docs.google.com/spreadsheets/d/1AZ_5oYOCokiI4xosVPCZU3jSZUYjt4MB/edit?usp=sharing&ouid=105807527850921178070&rtpof=true&sd=true';"
+      >
         <i class="fa fa-download" aria-hidden="true"></i>Download
       </button>
     </div>
@@ -111,14 +111,6 @@ export default Vue.extend({
       <p class="error-message" v-if="validationStatus === status.INVALID">
         {{ description }}
       </p>
-      <div v-if="importToServer === true">
-        <div v-for="countryStatus in countryStatuses">
-          <div>
-            {{ countryStatus.countryName }} - {{ countryStatus.success }} -
-            {{ countryStatus.message }}
-          </div>
-        </div>
-      </div>
     </div>
     <div class="button-section">
       <input
@@ -152,6 +144,24 @@ export default Vue.extend({
         Import to server
       </button>
     </div>
+    <div class="header-bold" v-if="importToServer === true">Import Status</div>
+    <table id="fifthTable" v-if="importToServer === true">
+      <thead>
+        <tr>
+          <th>Country</th>
+          <th>Success</th>
+          <th>Status</th>
+          <th>Message</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="countryStatus in countryStatuses">
+          <td v-for="id in countryStatus" :key="id">
+            {{ id }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
