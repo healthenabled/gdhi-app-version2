@@ -1,0 +1,231 @@
+<template>
+  <div>
+    <canvas id="myChart"></canvas>
+  </div>
+</template>
+
+<script>
+import Chart from "chart.js/auto";
+import Vue from "vue";
+import mapHelper from "../landing-map/map-helper";
+import { i18n, LayoutDirectionConfig } from "../../plugins/i18n";
+
+let lineChartInstance = null;
+export default Vue.extend({
+  name: "CountryProgressLineGraphChart",
+  props: {
+    yearOnYearData: { type: Array, required: true },
+    currentYear: { type: String, required: true },
+    defaultYear: { type: String, required: true },
+    categoryFilter: { type: Number, required: true },
+    locale: { type: String, required: true },
+    xAxisLabels: { type: Array, required: true },
+  },
+
+  computed: {
+    countryData() {
+      let val = [];
+      let yearPhaseMap = new Map();
+      this.yearOnYearData.map(({ data, year }) => {
+        if (this.categoryFilter <= 0) {
+          if (data.country.countryPhase > 0)
+            yearPhaseMap.set(year, data.country.countryPhase);
+          else {
+            yearPhaseMap.set(year, 0);
+          }
+        } else {
+          const categoryPhaseValue =
+            data.country.categories[this.categoryFilter].phase;
+          if (categoryPhaseValue > 0)
+            yearPhaseMap.set(year, categoryPhaseValue);
+          else {
+            yearPhaseMap.set(year, 0);
+          }
+        }
+      });
+      this.xAxisLabels.map((label) => {
+        if (yearPhaseMap.has(label)) {
+          val.push(yearPhaseMap.get(label));
+        } else {
+          val.push(null);
+        }
+      });
+      return val;
+    },
+
+    globalData() {
+      let val = [];
+      let yearPhaseMap = new Map();
+      this.yearOnYearData.map(({ data, year }) => {
+        yearPhaseMap.set(year, data.average.overAllScore);
+      });
+      this.xAxisLabels.map((label) => {
+        if (yearPhaseMap.has(label)) {
+          val.push(yearPhaseMap.get(label));
+        } else {
+          val.push(null);
+        }
+      });
+      return val;
+    },
+
+    lineChartData() {
+      return {
+        labels: this.xAxisLabels,
+        datasets: [
+          {
+            label: this.yearOnYearData[0].data.country.countryName,
+            data: this.countryData,
+            fill: false,
+            borderColor: "black",
+            spanGaps: true,
+            pointBorderColor: "transparent",
+            pointStyle: "rectRot",
+            borderWidth: 1.5,
+            pointRadius: 14,
+            pointHoverRadius: 16,
+            pointBackgroundColor: ({ parsed: { y } }) =>
+              mapHelper.getColorCodeFor(y),
+          },
+          {
+            label: "Global average",
+            data: this.globalData,
+            fill: false,
+            borderColor: "#6C757D",
+            tension: 0.1,
+            borderDash: [5, 4],
+            borderWidth: 1.5,
+            pointStyle: false,
+            pointRadius: 14,
+            spanGaps: true,
+          },
+        ],
+      };
+    },
+
+    lineChartOptions() {
+      let pluginTooltipOptions = {
+        rtl: LayoutDirectionConfig[i18n.locale] === "rtl",
+      };
+      let pluginLegendOptions = {
+        rtl: LayoutDirectionConfig[i18n.locale] === "rtl",
+        position: "bottom",
+        labels: {
+          boxHeight: 0,
+        },
+      };
+      let pluginAnnotationOptions = {
+        annotations: {
+          line: {
+            type: "line",
+            xMin: this.currentYear,
+            xMax: this.currentYear,
+            borderColor: "#415BA3",
+            borderWidth: 1.5,
+            borderDash: [20, 16],
+            drawTime: "beforeDatasetsDraw",
+          },
+        },
+      };
+
+      let scalesYOptions = {
+        position:
+          LayoutDirectionConfig[i18n.locale] === "rtl" ? "right" : "left",
+        grid: {
+          tickBorderDash: [4, 4],
+        },
+        min: 0,
+        max: 5,
+        ticks: {
+          stepSize: 1,
+          beginAtZero: false,
+          callback: function (value) {
+            const labels = [
+              "",
+              "Phase 1",
+              "Phase 2",
+              "Phase 3",
+              "Phase 4",
+              "Phase 5",
+            ];
+            return labels[value];
+          },
+        },
+      };
+      let scalesXOptions = {
+        reverse: LayoutDirectionConfig[i18n.locale] === "rtl",
+        grid: {
+          display: false,
+        },
+        ticks: {
+          beginAtZero: true,
+          stepSize: 1,
+          min: 1,
+        },
+      };
+      return {
+        clip: false,
+        layout: {
+          padding: {
+            left: 40,
+            right: 40,
+            top: 60,
+            bottom: 0,
+          },
+        },
+        animation: true,
+        plugins: {
+          tooltip: pluginTooltipOptions,
+          legend: pluginLegendOptions,
+          annotation: pluginAnnotationOptions,
+        },
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          y: scalesYOptions,
+          x: scalesXOptions,
+        },
+      };
+    },
+
+    lineChartConfig() {
+      return {
+        type: "line",
+        data: this.lineChartData,
+        options: this.lineChartOptions,
+      };
+    },
+  },
+
+  mounted() {
+    this.drawLineChart();
+  },
+
+  watch: {
+    yearOnYearData() {
+      this.drawLineChart();
+    },
+    locale() {
+      this.drawLineChart();
+    },
+    categoryFilter() {
+      this.drawLineChart();
+    },
+  },
+
+  methods: {
+    drawLineChart() {
+      lineChartInstance?.destroy();
+      lineChartInstance = new Chart(
+        document.getElementById("myChart"),
+        this.lineChartConfig
+      );
+    },
+  },
+});
+</script>
+<style scoped lang="scss">
+div {
+  height: 85%;
+}
+</style>

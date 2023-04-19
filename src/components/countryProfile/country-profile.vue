@@ -8,11 +8,10 @@ import isEmpty from "lodash/isEmpty";
 import Notifications from "vue-notification";
 import common from "../../common/common";
 import CountryProfileYearSelector from "./country-profile-year-selector.vue";
-import lineGraphContainer from "../lineGraph/lineGraphContainer.vue";
+import CountryProgressLineGraphContainer from "../countryProgresslineGraph/countryProgressLineGraphContainer.vue";
 import { EventBus } from "../common/event-bus";
 import { EVENTS } from "../../constants";
 import PhaseOverviewSpiderGraph from "../graphs/phase-overview-spider-graph/phase-overview-spider-graph.vue";
-import indicatorFilter from "../indicatorFilter/indicator-filter.vue";
 
 Vue.use(Notifications);
 
@@ -23,8 +22,7 @@ export default Vue.extend({
     Notifications,
     PhaseOverviewSpiderGraph,
     CountryProfileYearSelector,
-    lineGraphContainer,
-    indicatorFilter,
+    CountryProgressLineGraphContainer,
   },
   data() {
     return {
@@ -51,7 +49,6 @@ export default Vue.extend({
 
   mounted() {
     common.showLoading();
-    this.getYearOnYearData(this.$route.params.countryCode);
     this.getHealthIndicatorsFor(this.$route.params.countryCode);
     this.getBenchmarkData();
     this.getGlobalAverage();
@@ -98,13 +95,7 @@ export default Vue.extend({
           this.globalData = response.data;
         });
     },
-    getYearOnYearData(countryCode) {
-      axios
-        .get(`/api/countries/${countryCode}/year_on_year`)
-        .then((response) => {
-          this.yearOnYearData = response.data;
-        });
-    },
+
     getHealthIndicatorsFor(countryCode) {
       axios
         .get(
@@ -314,8 +305,8 @@ export default Vue.extend({
           ></div>
         </div>
       </div>
-      <div class="comparison-graph-panel" v-show="showCountryProgressOverTime">
-        <lineGraphContainer :locale="locale" />
+      <div class="comparison-graph-panel" v-if="showCountryProgressOverTime">
+        <CountryProgressLineGraphContainer :locale="locale" />
       </div>
       <div class="box overall-card">
         <CountryProfileYearSelector></CountryProfileYearSelector>

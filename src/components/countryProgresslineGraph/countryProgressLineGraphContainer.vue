@@ -1,17 +1,17 @@
 <script>
 import Vue from "vue";
 import axios from "axios";
-import lineGraphChart from "./lineGraphChart.vue";
+import CountryProgressLineGraphChart from "./countryProgressLineGraphChart.vue";
 import indicatorFilter from "../indicatorFilter/indicator-filter.vue";
 import { EventBus } from "../common/event-bus";
 import { EVENTS } from "../../constants";
 
 export default Vue.extend({
+  name: "CountryProgressLineGraphContainer",
   components: {
-    lineGraphChart,
+    CountryProgressLineGraphChart,
     indicatorFilter,
   },
-  props: {},
   data() {
     return {
       category: 0,
@@ -30,42 +30,50 @@ export default Vue.extend({
     });
   },
   methods: {
-    appendFutureYear(years) {
-      years.reverse();
-      let lastElement = years[years.length - 1];
-      lastElement = Number(lastElement);
-      lastElement++;
-      lastElement = lastElement.toString();
-      years.push(lastElement);
-      years.unshift("");
-    },
     getPublishedYears() {
-      axios.get("/api/bff/distinct_year").then((response) => {
-        this.years = response.data.years;
-        this.appendFutureYear(this.years);
+      axios.get("/api/bff/distinct_year").then(({ data: { years } }) => {
+        this.years = years.reverse();
+        const lastElement = Number(this.years[this.years.length - 1]);
+        this.years.push(String(lastElement + 1));
+        this.years.unshift("");
       });
     },
     getYearOnYearData(countryCode) {
       axios
         .get(`/api/countries/${countryCode}/year_on_year`)
-        .then((response) => {
-          this.yearOnYearData = response.data;
+        .then(({ data }) => {
+          this.yearOnYearData = data;
         });
     },
   },
 });
 </script>
+
 <template>
-  <div style="height: 100%">
-    <indicatorFilter style="height: 10%" />
-    <lineGraphChart
+  <div class="container">
+    <div class="indicator-filter-container">
+      <indicatorFilter />
+    </div>
+    <CountryProgressLineGraphChart
       v-if="Object.keys(yearOnYearData).length"
       :yearOnYearData="yearOnYearData.yearOnYearData"
       :currentYear="yearOnYearData.currentYear"
       :defaultYear="yearOnYearData.defaultYear"
       :locale="locale"
       :categoryFilter="category"
-      :labels="years"
+      :xAxisLabels="years"
     />
   </div>
 </template>
+
+<style scoped lang="scss">
+@import "../../assets/stylesheets/rtl-support";
+
+.container {
+  height: 100%;
+  .indicator-filter-container {
+    @include padding-left(16px);
+    padding-top: 2px;
+  }
+}
+</style>
