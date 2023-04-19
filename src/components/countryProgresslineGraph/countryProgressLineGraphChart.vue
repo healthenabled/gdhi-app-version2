@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <canvas id="myChart"></canvas>
+  <div class="my-chart-container">
+    <canvas id="my-chart"></canvas>
   </div>
 </template>
 
@@ -31,7 +31,7 @@ export default Vue.extend({
         if (this.categoryFilter < 0 && data.country.categories.length) {
           if (data.country.countryPhase > 0)
             yearPhaseMap.set(year, data.country.countryPhase);
-          else if (data.country.countryPhase == -1) {
+          else if (data.country.countryPhase === -1) {
             yearPhaseMap.set(year, 0);
           }
         } else if (data.country.categories.length) {
@@ -39,7 +39,7 @@ export default Vue.extend({
             data.country.categories[this.categoryFilter].phase;
           if (categoryPhaseValue >= 0)
             yearPhaseMap.set(year, categoryPhaseValue);
-          else if (categoryPhaseValue == -1) {
+          else if (categoryPhaseValue === -1) {
             yearPhaseMap.set(year, 0);
           }
         }
@@ -58,7 +58,7 @@ export default Vue.extend({
       let val = [];
       let yearPhaseMap = new Map();
       this.yearOnYearData.map(({ data, year }) => {
-        if (data.average.overAllScore == -1) yearPhaseMap.set(year, 0);
+        if (data.average.overAllScore === -1) yearPhaseMap.set(year, 0);
         else {
           yearPhaseMap.set(year, data.average.overAllScore);
         }
@@ -244,7 +244,7 @@ export default Vue.extend({
     drawLineChart() {
       lineChartInstance?.destroy();
       lineChartInstance = new Chart(
-        document.getElementById("myChart"),
+        document.getElementById("my-chart"),
         this.lineChartConfig
       );
     },
@@ -252,7 +252,7 @@ export default Vue.extend({
 });
 </script>
 <style scoped lang="scss">
-div {
+.my-chart-container {
   height: 85%;
   width: 95%;
 }
