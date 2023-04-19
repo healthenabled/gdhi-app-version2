@@ -98,8 +98,10 @@ export default Vue.extend({
             tension: 0.1,
             borderDash: [5, 4],
             borderWidth: 1.5,
-            pointStyle: false,
-            pointRadius: 14,
+            pointStyle: "circle",
+            pointBackgroundColor: "black",
+            pointRadius: 1,
+            pointHoverRadius: 8,
             spanGaps: true,
           },
         ],
@@ -134,9 +136,6 @@ export default Vue.extend({
       let scalesYOptions = {
         position:
           LayoutDirectionConfig[i18n.locale] === "rtl" ? "right" : "left",
-        grid: {
-          tickBorderDash: [4, 4],
-        },
         min: 0,
         max: 5,
         ticks: {
@@ -153,6 +152,7 @@ export default Vue.extend({
             ];
             return labels[value];
           },
+          color: "black",
         },
       };
       let scalesXOptions = {
@@ -164,6 +164,10 @@ export default Vue.extend({
           beginAtZero: true,
           stepSize: 1,
           min: 1,
+          font: {
+            weight: "bold",
+          },
+          color: "black",
         },
       };
       return {

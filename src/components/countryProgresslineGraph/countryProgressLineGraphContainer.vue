@@ -14,7 +14,7 @@ export default Vue.extend({
   },
   data() {
     return {
-      category: 0,
+      category: -1,
       yearOnYearData: {},
       years: [],
     };
