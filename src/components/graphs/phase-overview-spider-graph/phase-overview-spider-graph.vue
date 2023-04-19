@@ -9,6 +9,7 @@ import Chart from "chart.js/auto";
 import Vue from "vue";
 import { i18n, LayoutDirectionConfig } from "../../../plugins/i18n";
 
+let graphInstance = null;
 export default Vue.extend({
   name: "phase-overview-spider-graph",
 
@@ -182,7 +183,7 @@ export default Vue.extend({
     this.$watch(
       (vm) => (vm.countryDataCategories, vm.regionalDataCategories),
       function () {
-        this.chart.destroy();
+        graphInstance.destroy();
         setTimeout(() => {
           this.drawChart();
         }, 500);
@@ -192,9 +193,12 @@ export default Vue.extend({
 
   methods: {
     drawChart() {
-      this.chart = new Chart(
+      graphInstance = new Chart(
         document.getElementById("phase-overview-spider-graph"),
-        { ...this.graphConfig, ...{ data: this.graphData } }
+        {
+          ...this.graphConfig,
+          ...{ data: this.graphData },
+        }
       );
     },
   },

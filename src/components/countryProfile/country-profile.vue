@@ -8,6 +8,7 @@ import isEmpty from "lodash/isEmpty";
 import Notifications from "vue-notification";
 import common from "../../common/common";
 import CountryProfileYearSelector from "./country-profile-year-selector.vue";
+import CountryProgressLineGraphContainer from "../countryProgresslineGraph/countryProgressLineGraphContainer.vue";
 import { EventBus } from "../common/event-bus";
 import { EVENTS } from "../../constants";
 import PhaseOverviewSpiderGraph from "../graphs/phase-overview-spider-graph/phase-overview-spider-graph.vue";
@@ -21,6 +22,7 @@ export default Vue.extend({
     Notifications,
     PhaseOverviewSpiderGraph,
     CountryProfileYearSelector,
+    CountryProgressLineGraphContainer,
   },
   data() {
     return {
@@ -41,6 +43,7 @@ export default Vue.extend({
       locale: "en",
       selectedYear: null,
       globalData: {},
+      yearOnYearData: {},
     };
   },
 
@@ -92,6 +95,7 @@ export default Vue.extend({
           this.globalData = response.data;
         });
     },
+
     getHealthIndicatorsFor(countryCode) {
       axios
         .get(
@@ -303,8 +307,11 @@ export default Vue.extend({
           ></div>
         </div>
       </div>
-      <div class="comparison-graph-panel" v-show="showCountryProgressOverTime">
-        Graph placeholder
+      <div class="comparison-graph-panel" v-if="showCountryProgressOverTime">
+        <CountryProgressLineGraphContainer
+          :locale="locale"
+          :countryName="healthIndicatorData.countryName"
+        />
       </div>
       <div class="box overall-card">
         <CountryProfileYearSelector></CountryProfileYearSelector>

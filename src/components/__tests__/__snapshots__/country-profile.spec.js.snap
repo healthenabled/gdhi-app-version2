@@ -103,12 +103,7 @@ exports[`Country Profile  > should populate the data after successfull API call 
         />
       </div>
     </div>
-    <div
-      class="comparison-graph-panel"
-      style="display: none;"
-    >
-       Graph placeholder 
-    </div>
+    <!---->
     <div
       class="box overall-card"
     >
