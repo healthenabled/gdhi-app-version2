@@ -20,7 +20,7 @@ export default Vue.extend({
       payload: [],
       status,
       countryStatuses: [],
-      importToServer: false,
+      importedToServer: false,
     };
   },
   methods: {
@@ -29,33 +29,31 @@ export default Vue.extend({
       const self = this;
       const files = event.target.files;
       this.selectedFile = event.target.files[0].name;
-      if (files.length === 1) {
-        Papa.parse(files[0], {
-          worker: true,
-          header: true,
-          complete: function ({ data }) {
-            if (!data.length) {
-              self.wrongData = true;
-            } else {
-              for (let i = 0; i < data.length; i++) {
-                validateFields(data[i])
-                  .then((response) => {
-                    self.payload.push(generatePayloadFromParsedJSON(response));
-                    self.validationStatus = status.VALID;
-                  })
-                  .catch((error) => {
-                    self.description =
-                      "On row " + (i + 1) + " " + error.toString();
-                    self.validationStatus = status.INVALID;
-                  })
-                  .finally(() => {
-                    common.hideLoading();
-                  });
-              }
+      Papa.parse(files[0], {
+        worker: true,
+        header: true,
+        complete: function ({ data }) {
+          if (!data.length) {
+            self.wrongData = true;
+          } else {
+            for (let i = 0; i < data.length; i++) {
+              validateFields(data[i])
+                .then((response) => {
+                  self.payload.push(generatePayloadFromParsedJSON(response));
+                  self.validationStatus = status.VALID;
+                })
+                .catch((error) => {
+                  self.description =
+                    "On row " + (i + 1) + " " + error.toString();
+                  self.validationStatus = status.INVALID;
+                })
+                .finally(() => {
+                  common.hideLoading();
+                });
             }
-          },
-        });
-      }
+          }
+        },
+      });
     },
     submitData() {
       common.showLoading();
@@ -65,7 +63,7 @@ export default Vue.extend({
           gdhiQuestionnaires: this.payload,
         })
         .then(({ data: { countryStatuses } }) => {
-          this.importToServer = true;
+          this.importedToServer = true;
           this.countryStatuses = countryStatuses;
         })
         .catch(() => {
@@ -139,25 +137,25 @@ export default Vue.extend({
           validationStatus === status.INVALID ||
           validationStatus === status.DEFAULT
         "
-        @click="submitData()"
+        @click="submitData"
       >
         Import to server
       </button>
     </div>
-    <div class="header-bold" v-if="importToServer === true">Import Status</div>
-    <table id="fifthTable" v-if="importToServer === true">
+    <div class="header-bold" v-if="importedToServer">Import Status</div>
+    <table v-if="importedToServer">
       <thead>
         <tr>
           <th>Country</th>
           <th>Success</th>
           <th>Status</th>
-          <th>Message</th>
+          <th>Failure Reason</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="countryStatus in countryStatuses">
-          <td v-for="id in countryStatus" :key="id">
-            {{ id }}
+        <tr v-for="(countryStatus, id) in countryStatuses" :key="id">
+          <td v-for="(countryDetails, id) in countryStatus" :key="id">
+            {{ countryDetails }}
           </td>
         </tr>
       </tbody>
