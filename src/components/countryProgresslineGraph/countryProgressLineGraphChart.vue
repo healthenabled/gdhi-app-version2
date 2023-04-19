@@ -20,6 +20,7 @@ export default Vue.extend({
     categoryFilter: { type: Number, required: true },
     locale: { type: String, required: true },
     xAxisLabels: { type: Array, required: true },
+    countryName: { type: String, required: true },
   },
 
   computed: {
@@ -77,7 +78,7 @@ export default Vue.extend({
         labels: this.xAxisLabels,
         datasets: [
           {
-            label: this.yearOnYearData[0].data.country.countryName,
+            label: this.countryName,
             data: this.countryData,
             fill: false,
             borderColor: "black",
@@ -134,6 +135,15 @@ export default Vue.extend({
       };
 
       let scalesYOptions = {
+        grid: {
+          lineWidth: 2,
+          drawTicks: false,
+        },
+        border: {
+          dash: [4, 4],
+          color: "#ced4da",
+          width: 2,
+        },
         position:
           LayoutDirectionConfig[i18n.locale] === "rtl" ? "right" : "left",
         min: 0,
@@ -157,8 +167,18 @@ export default Vue.extend({
       };
       let scalesXOptions = {
         reverse: LayoutDirectionConfig[i18n.locale] === "rtl",
+        border: {
+          dash: [2, 4],
+          width: 2,
+          color: "#ced4da",
+        },
         grid: {
-          display: false,
+          display: true,
+          tickWidth: 1.5,
+          tickLength: 7,
+          tickColor: "black",
+          drawTicks: false,
+          lineWidth: 0,
         },
         ticks: {
           beginAtZero: true,
@@ -174,8 +194,8 @@ export default Vue.extend({
         clip: false,
         layout: {
           padding: {
-            left: 40,
-            right: 40,
+            left: 60,
+            right: 80,
             top: 60,
             bottom: 0,
           },
@@ -234,5 +254,6 @@ export default Vue.extend({
 <style scoped lang="scss">
 div {
   height: 85%;
+  width: 95%;
 }
 </style>

@@ -308,7 +308,10 @@ export default Vue.extend({
         </div>
       </div>
       <div class="comparison-graph-panel" v-if="showCountryProgressOverTime">
-        <CountryProgressLineGraphContainer :locale="locale" />
+        <CountryProgressLineGraphContainer
+          :locale="locale"
+          :countryName="healthIndicatorData.countryName"
+        />
       </div>
       <div class="box overall-card">
         <CountryProfileYearSelector></CountryProfileYearSelector>

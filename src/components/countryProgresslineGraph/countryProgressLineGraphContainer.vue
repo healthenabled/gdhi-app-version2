@@ -21,6 +21,7 @@ export default Vue.extend({
   },
   props: {
     locale: { type: String, required: true },
+    countryName: { type: String, required: true },
   },
   mounted() {
     this.getPublishedYears();
@@ -62,6 +63,7 @@ export default Vue.extend({
       :locale="locale"
       :categoryFilter="category"
       :xAxisLabels="years"
+      :countryName="countryName"
     />
   </div>
 </template>
