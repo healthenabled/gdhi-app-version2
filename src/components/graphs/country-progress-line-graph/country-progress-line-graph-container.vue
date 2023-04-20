@@ -17,6 +17,7 @@ export default Vue.extend({
       category: -1,
       yearOnYearData: {},
       years: [],
+      selectedRegion: null,
     };
   },
   props: {
@@ -28,6 +29,10 @@ export default Vue.extend({
     this.getYearOnYearData(this.$route.params.countryCode);
     EventBus.$on(EVENTS.INDICATOR_FILTERED, () => {
       this.category = window.appProperties.getCategoryFilter() - 1;
+    });
+    EventBus.$on(EVENTS.REGION_FILTERED, (selectedRegion) => {
+      this.selectedRegion = selectedRegion;
+      this.getYearOnYearData(this.$route.params.countryCode);
     });
   },
   methods: {
@@ -41,7 +46,11 @@ export default Vue.extend({
     },
     getYearOnYearData(countryCode) {
       axios
-        .get(`/api/countries/${countryCode}/year_on_year`)
+        .get(`/api/countries/${countryCode}/year_on_year`, {
+          params: {
+            regionId: this.selectedRegion,
+          },
+        })
         .then(({ data }) => {
           this.yearOnYearData = data;
         });

@@ -7,9 +7,9 @@ export default {
     const loadingElement = document.querySelector(".loading");
     if (loadingElement) loadingElement.style.display = "block";
   },
-  configWithUserLanguageAndNoCacheHeader(language, year) {
+  configWithUserLanguageAndNoCacheHeader(language, year, regionId) {
     return {
-      params: { year: year },
+      params: { year: year, regionId: regionId },
       headers: {
         user_language: language,
         "Cache-Control": "no-cache, no-store, must-revalidate",

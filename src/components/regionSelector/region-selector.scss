@@ -1,0 +1,30 @@
+@import "../../assets/stylesheets/rtl-support";
+@import "../../assets/stylesheets/components/variables";
+
+.region-section {
+  .region {
+    height: 100%;
+    margin-left: 20px;
+    .region-selct {
+      @include margin-right(2.5vw);
+      @include margin-left(0.5vw);
+      color: $cool-gray;
+      background-color: $white;
+      width: 16vw;
+      height: 40px;
+      @include padding-left(20px);
+      @include padding-right(20px);
+      border: $table-border;
+      -webkit-appearance: none;
+      appearance: none;
+      -moz-appearance: none;
+      background: url("/static/img/arrowDown.svg") no-repeat;
+      background-position-y: 50%;
+      background-size: 15px;
+    }
+  }
+
+  select::-ms-expand {
+    display: none;
+  }
+}

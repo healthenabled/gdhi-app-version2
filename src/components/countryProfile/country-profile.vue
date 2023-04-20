@@ -12,6 +12,7 @@ import CountryProgressLineGraphContainer from "../graphs/country-progress-line-g
 import { EventBus } from "../common/event-bus";
 import { EVENTS } from "../../constants";
 import PhaseOverviewSpiderGraph from "../graphs/phase-overview-spider-graph/phase-overview-spider-graph.vue";
+import RegionSelector from "../regionSelector/region-selector.vue";
 
 Vue.use(Notifications);
 
@@ -23,6 +24,7 @@ export default Vue.extend({
     PhaseOverviewSpiderGraph,
     CountryProfileYearSelector,
     CountryProgressLineGraphContainer,
+    RegionSelector,
   },
   data() {
     return {
@@ -44,6 +46,7 @@ export default Vue.extend({
       selectedYear: null,
       globalData: {},
       yearOnYearData: {},
+      selectedRegion: null,
     };
   },
 
@@ -60,6 +63,12 @@ export default Vue.extend({
       this.getHealthIndicatorsFor(this.$route.params.countryCode);
       this.getBenchmarkData();
       this.getGlobalAverage();
+    });
+    EventBus.$on(EVENTS.REGION_FILTERED, (selectedRegion) => {
+      common.showLoading();
+      this.selectedRegion = selectedRegion;
+      this.getBenchmarkData();
+      this.getHealthIndicatorsFor(this.$route.params.countryCode);
     });
   },
   updated() {
@@ -102,7 +111,8 @@ export default Vue.extend({
           `/api/countries/${countryCode}/health_indicators`,
           common.configWithUserLanguageAndNoCacheHeader(
             this.$i18n.locale,
-            this.selectedYear
+            this.selectedYear,
+            this.selectedRegion
           )
         )
         .then((response) => {
@@ -164,7 +174,8 @@ export default Vue.extend({
           `/api/bff/countries/${this.$route.params.countryCode}/benchmark/${this.benchmarkPhase}`,
           common.configWithUserLanguageAndNoCacheHeader(
             this.$i18n.locale,
-            this.selectedYear
+            this.selectedYear,
+            this.selectedRegion
           )
         )
         .then((response) => {
@@ -241,6 +252,10 @@ export default Vue.extend({
               {{ updatedDate }}
             </span>
           </div>
+        </div>
+        <div class="region-section">
+          <div>Comapre To</div>
+          <RegionSelector></RegionSelector>
         </div>
 
         <div class="header-section-button-container">
