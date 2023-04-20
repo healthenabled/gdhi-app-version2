@@ -29,12 +29,14 @@ export default Vue.extend({
       let yearPhaseMap = new Map();
       this.yearOnYearData.map(({ data, year }) => {
         if (this.categoryFilter < 0 && data.country.categories.length) {
+          console.log(`category filter : ${this.categoryFilter} first entry`);
           if (data.country.countryPhase > 0)
             yearPhaseMap.set(year, data.country.countryPhase);
           else if (data.country.countryPhase === -1) {
             yearPhaseMap.set(year, 0);
           }
         } else if (data.country.categories.length) {
+          console.log(`category filter : ${this.categoryFilter} second entry`);
           const categoryPhaseValue =
             data.country.categories[this.categoryFilter].phase;
           if (categoryPhaseValue >= 0)
@@ -136,13 +138,15 @@ export default Vue.extend({
 
       let scalesYOptions = {
         grid: {
-          lineWidth: 2,
-          drawTicks: false,
+          lineWidth: 1,
+          tickLength: 16,
+          tickColor: "white",
+          drawTicks: true,
         },
         border: {
-          dash: [4, 4],
+          dash: [2, 2],
           color: "#ced4da",
-          width: 2,
+          width: 1,
         },
         position:
           LayoutDirectionConfig[i18n.locale] === "rtl" ? "right" : "left",
@@ -169,15 +173,15 @@ export default Vue.extend({
         reverse: LayoutDirectionConfig[i18n.locale] === "rtl",
         border: {
           dash: [2, 4],
-          width: 2,
+          width: 1.5,
           color: "#ced4da",
         },
         grid: {
           display: true,
           tickWidth: 1.5,
-          tickLength: 7,
-          tickColor: "black",
-          drawTicks: false,
+          tickLength: 16,
+          tickColor: "white",
+          drawTicks: true,
           lineWidth: 0,
         },
         ticks: {
