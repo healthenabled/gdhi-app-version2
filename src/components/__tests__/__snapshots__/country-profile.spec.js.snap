@@ -30,6 +30,14 @@ exports[`Country Profile  > should populate the data after successfull API call 
         </div>
       </div>
       <div
+        class="region-section"
+      >
+        <div>
+          Comapre To
+        </div>
+        <regionselector-stub />
+      </div>
+      <div
         class="header-section-button-container"
       >
         <a
