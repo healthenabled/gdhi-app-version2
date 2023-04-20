@@ -5,6 +5,7 @@ import axios from "axios";
 import Papa from "papaparse";
 import flushPromises from "flush-promises";
 import * as uploadUtils from "../uploadCSV/uploadUtils";
+import sinon from "sinon";
 const event = {
   target: {
     files: [
@@ -62,6 +63,22 @@ describe("Upload CSV", () => {
     await flushPromises();
 
     expect(axiosPostSpy.mock.calls[0][0]).to.equal("/api/bff/countries/submit");
+  });
+
+  it("should not submit data when the wrong csv is uploaded and notifier should be displayedq", async () => {
+    let notifier = sinon.spy();
+
+    wrapper.vm.notifier = notifier;
+    axiosPostSpy.mockRejectedValue({});
+    wrapper.vm.submitData();
+    await flushPromises();
+
+    sinon.assert.calledWith(notifier, {
+      group: "custom-template",
+      title: "Error",
+      text: "Error While Importing Data To Server ",
+      type: "error",
+    });
   });
 
   it("should render upload csv", async () => {

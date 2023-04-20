@@ -33,24 +33,23 @@ export default Vue.extend({
         worker: true,
         header: true,
         complete: function ({ data }) {
-          if (!data.length) {
-            self.wrongData = true;
-          } else {
-            for (let i = 0; i < data.length; i++) {
-              validateFields(data[i])
-                .then((response) => {
-                  self.payload.push(generatePayloadFromParsedJSON(response));
-                  self.validationStatus = status.VALID;
-                })
-                .catch((error) => {
-                  self.description =
-                    "On row " + (i + 1) + " " + error.toString();
-                  self.validationStatus = status.INVALID;
-                })
-                .finally(() => {
-                  common.hideLoading();
-                });
-            }
+          // if (data.length == 0) {
+          //   self.validationStatus = status.INVALID;
+          // } else {
+          for (let i = 0; i < data.length; i++) {
+            validateFields(data[i])
+              .then((response) => {
+                self.payload.push(generatePayloadFromParsedJSON(response));
+                self.validationStatus = status.VALID;
+              })
+              .catch((error) => {
+                self.description = "On row " + (i + 1) + " " + error.toString();
+                self.validationStatus = status.INVALID;
+              })
+              .finally(() => {
+                common.hideLoading();
+              });
+            // }
           }
         },
       });
