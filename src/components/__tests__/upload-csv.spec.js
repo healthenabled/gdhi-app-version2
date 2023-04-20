@@ -65,7 +65,7 @@ describe("Upload CSV", () => {
     expect(axiosPostSpy.mock.calls[0][0]).to.equal("/api/bff/countries/submit");
   });
 
-  it("should not submit data when the wrong csv is uploaded and notifier should be displayedq", async () => {
+  it("should not submit data when the wrong csv is uploaded and notifier should be displayed", async () => {
     let notifier = sinon.spy();
 
     wrapper.vm.notifier = notifier;
