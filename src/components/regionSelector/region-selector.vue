@@ -5,27 +5,32 @@ import { EventBus } from "../common/event-bus";
 import { EVENTS } from "../../constants";
 import { LayoutDirectionConfig } from "../../plugins/i18n";
 import common from "../../common/common";
+
 export default Vue.extend({
   name: "RegionSelect",
   data() {
     return {
       regions: [],
-      regionValue: "",
+      region: "",
     };
   },
+
+  created() {
+    this.fetchRegions();
+  },
+
   updated() {
     if (this.locale !== this.$i18n.locale) {
       this.fetchRegions();
     }
     this.locale = this.$i18n.locale;
   },
-  created() {
-    this.fetchRegions();
-  },
+
   methods: {
     sendSelectedRegion: function () {
-      EventBus.$emit(EVENTS.REGION_FILTERED, this.regionValue);
+      EventBus.$emit(EVENTS.REGION_FILTERED, this.region);
     },
+
     fetchRegions: function () {
       const self = this;
       axios
@@ -37,6 +42,7 @@ export default Vue.extend({
           self.regions = data;
         });
     },
+
     getBackgroundPositionX: function () {
       return LayoutDirectionConfig[this.locale] === "ltr" ? "95%" : "5%";
     },
@@ -50,7 +56,7 @@ export default Vue.extend({
       class="region-select"
       name="test_select3"
       @change="sendSelectedRegion"
-      v-model="regionValue"
+      v-model="region"
       :style="`background-position-x: ${getBackgroundPositionX()}`"
     >
       <option value="">{{ $t("regionDropDown.textSelectRegion") }}</option>
