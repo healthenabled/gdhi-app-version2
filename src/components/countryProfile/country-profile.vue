@@ -46,7 +46,8 @@ export default Vue.extend({
       selectedYear: null,
       globalData: {},
       yearOnYearData: {},
-      selectedRegion: null,
+      selectedRegionId: null,
+      selectedRegionName: "",
     };
   },
 
@@ -66,7 +67,8 @@ export default Vue.extend({
     });
     EventBus.$on(EVENTS.REGION_FILTERED, (selectedRegion) => {
       common.showLoading();
-      this.selectedRegion = selectedRegion;
+      this.selectedRegionName = selectedRegion.name;
+      this.selectedRegionId = selectedRegion.id;
       this.getBenchmarkData();
       this.getHealthIndicatorsFor(this.$route.params.countryCode);
       this.getGlobalAverage();
@@ -99,7 +101,7 @@ export default Vue.extend({
           common.configWithUserLanguageAndNoCacheHeader(
             this.$i18n.locale,
             this.selectedYear,
-            this.selectedRegion
+            this.selectedRegionId
           )
         )
         .then((response) => {
@@ -114,7 +116,7 @@ export default Vue.extend({
           common.configWithUserLanguageAndNoCacheHeader(
             this.$i18n.locale,
             this.selectedYear,
-            this.selectedRegion
+            this.selectedRegionId
           )
         )
         .then((response) => {
@@ -177,7 +179,7 @@ export default Vue.extend({
           common.configWithUserLanguageAndNoCacheHeader(
             this.$i18n.locale,
             this.selectedYear,
-            this.selectedRegion
+            this.selectedRegionId
           )
         )
         .then((response) => {

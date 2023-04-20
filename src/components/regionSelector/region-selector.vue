@@ -23,6 +23,9 @@ export default Vue.extend({
     this.fetchRegions();
   },
   methods: {
+    sendSelectedRegion: function () {
+      EventBus.$emit(EVENTS.REGION_FILTERED, this.regionValue);
+    },
     fetchRegions: function () {
       const self = this;
       axios
@@ -33,9 +36,6 @@ export default Vue.extend({
         .then(({ data }) => {
           self.regions = data;
         });
-    },
-    filter: (event) => {
-      EventBus.$emit(EVENTS.REGION_FILTERED, event.target.value);
     },
     getBackgroundPositionX: function () {
       return LayoutDirectionConfig[this.locale] === "ltr" ? "95%" : "5%";
@@ -49,14 +49,15 @@ export default Vue.extend({
     <select
       class="region-select"
       name="test_select3"
-      @change="filter"
+      @change="sendSelectedRegion"
+      v-model="regionValue"
       :style="`background-position-x: ${getBackgroundPositionX()}`"
     >
       <option value="">{{ $t("regionDropDown.textSelectRegion") }}</option>
       <option
         v-for="region in regions"
         :key="region.region_id"
-        :value="region.region_id"
+        :value="{ id: region.region_id, name: region.regionName }"
       >
         {{ region.regionName }}
       </option>
