@@ -34,6 +34,12 @@ exports[`Upload CSV > should render upload csv 1`] = `
     Upload File
   </div>
   <div
+    class="note"
+    data-v-901d73fd=""
+  >
+     * The indicator values should be between 1 and 5 else they will be converted to "Not available" 
+  </div>
+  <div
     class="file-name-and-error"
     data-v-901d73fd=""
   >

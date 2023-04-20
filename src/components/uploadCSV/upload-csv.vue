@@ -103,6 +103,10 @@ export default Vue.extend({
       </button>
     </div>
     <div class="header-bold">Upload File</div>
+    <div class="note">
+      * The indicator values should be between 1 and 5 else they will be
+      converted to "Not available"
+    </div>
     <div class="file-name-and-error">
       <p>{{ selectedFile }}</p>
       <p class="error-message" v-if="validationStatus === status.INVALID">

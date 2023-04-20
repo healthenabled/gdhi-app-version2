@@ -24,3 +24,10 @@
 .import-status-table {
   margin-top: 15px;
 }
+
+.note {
+  color: $black;
+  background-color: $nodiff;
+  margin-bottom: 10px;
+  width: 37vw;
+}
