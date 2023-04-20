@@ -1,10 +1,10 @@
 <script>
 import Vue from "vue";
 import axios from "axios";
-import CountryProgressLineGraphChart from "./countryProgressLineGraphChart.vue";
-import indicatorFilter from "../indicatorFilter/indicator-filter.vue";
-import { EventBus } from "../common/event-bus";
-import { EVENTS } from "../../constants";
+import CountryProgressLineGraphChart from "./country-progress-line-graph-chart.vue";
+import indicatorFilter from "../../indicatorFilter/indicator-filter.vue";
+import { EventBus } from "../../common/event-bus";
+import { EVENTS } from "../../../constants";
 
 export default Vue.extend({
   name: "CountryProgressLineGraphContainer",
@@ -69,7 +69,7 @@ export default Vue.extend({
 </template>
 
 <style scoped lang="scss">
-@import "../../assets/stylesheets/rtl-support";
+@import "../../../assets/stylesheets/rtl-support";
 
 .container {
   height: 100%;
