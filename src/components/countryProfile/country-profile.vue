@@ -69,6 +69,7 @@ export default Vue.extend({
       this.selectedRegion = selectedRegion;
       this.getBenchmarkData();
       this.getHealthIndicatorsFor(this.$route.params.countryCode);
+      this.getGlobalAverage();
     });
   },
   updated() {
@@ -97,7 +98,8 @@ export default Vue.extend({
           globalHealthIndicatorsUrl,
           common.configWithUserLanguageAndNoCacheHeader(
             this.$i18n.locale,
-            this.selectedYear
+            this.selectedYear,
+            this.selectedRegion
           )
         )
         .then((response) => {
