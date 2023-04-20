@@ -67,7 +67,7 @@
     "sinon": "^4.0.0",
     "stylelint": "^14.16.1",
     "terser": "^5.14.2",
-    "vite": "^4.2.1",
+    "vite": "^4.2.3",
     "vite-plugin-static-copy": "^0.13.1",
     "vitest": "^0.29.8",
     "vue-template-compiler": "^2.7.7"
