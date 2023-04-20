@@ -34,4 +34,5 @@ export const countryProfile = {
     "Para ver los datos de un año específico, seleccione el año deseado",
   phaseOverview: " Resumen de fases",
   countryProgressOverTime: "Progreso del país a lo largo del tiempo",
+  IndicatorGroupingDescription: "Seleccione un indicador",
 };

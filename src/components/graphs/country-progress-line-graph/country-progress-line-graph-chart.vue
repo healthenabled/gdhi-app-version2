@@ -22,21 +22,18 @@ export default Vue.extend({
     xAxisLabels: { type: Array, required: true },
     countryName: { type: String, required: true },
   },
-
   computed: {
     countryData() {
       let val = [];
       let yearPhaseMap = new Map();
       this.yearOnYearData.map(({ data, year }) => {
         if (this.categoryFilter < 0 && data.country.categories.length) {
-          console.log(`category filter : ${this.categoryFilter} first entry`);
           if (data.country.countryPhase > 0)
             yearPhaseMap.set(year, data.country.countryPhase);
           else if (data.country.countryPhase === -1) {
             yearPhaseMap.set(year, 0);
           }
         } else if (data.country.categories.length) {
-          console.log(`category filter : ${this.categoryFilter} second entry`);
           const categoryPhaseValue =
             data.country.categories[this.categoryFilter].phase;
           if (categoryPhaseValue >= 0)
@@ -112,6 +109,7 @@ export default Vue.extend({
     },
 
     lineChartOptions() {
+      const self = this;
       let pluginTooltipOptions = {
         rtl: LayoutDirectionConfig[i18n.locale] === "rtl",
       };
@@ -158,11 +156,11 @@ export default Vue.extend({
           callback: function (value) {
             const labels = [
               "",
-              "Phase 1",
-              "Phase 2",
-              "Phase 3",
-              "Phase 4",
-              "Phase 5",
+              `${self.$i18n.t("mixed.phase")} 1`,
+              `${self.$i18n.t("mixed.phase")} 2`,
+              `${self.$i18n.t("mixed.phase")} 3`,
+              `${self.$i18n.t("mixed.phase")} 4`,
+              `${self.$i18n.t("mixed.phase")} 5`,
             ];
             return labels[value];
           },

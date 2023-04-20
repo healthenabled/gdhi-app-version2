@@ -14,7 +14,7 @@ export default Vue.extend({
   },
   data() {
     return {
-      category: -1,
+      category: window.appProperties.getCategoryFilter() - 1,
       yearOnYearData: {},
       years: [],
       selectedRegion: null,
@@ -62,7 +62,7 @@ export default Vue.extend({
 <template>
   <div class="container">
     <div class="indicator-filter-container">
-      <indicatorFilter />
+      <indicatorFilter title="countryProfile.IndicatorGroupingDescription" />
     </div>
     <CountryProgressLineGraphChart
       v-if="Object.keys(yearOnYearData).length"
