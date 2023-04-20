@@ -1,14 +1,14 @@
 <template>
-  <div class="my-chart-container">
-    <canvas id="my-chart"></canvas>
+  <div class="line-chart-container">
+    <canvas id="line-chart"></canvas>
   </div>
 </template>
 
 <script>
 import Chart from "chart.js/auto";
 import Vue from "vue";
-import mapHelper from "../landing-map/map-helper";
-import { i18n, LayoutDirectionConfig } from "../../plugins/i18n";
+import mapHelper from "../../landing-map/map-helper";
+import { i18n, LayoutDirectionConfig } from "../../../plugins/i18n";
 
 let lineChartInstance = null;
 export default Vue.extend({
@@ -244,7 +244,7 @@ export default Vue.extend({
     drawLineChart() {
       lineChartInstance?.destroy();
       lineChartInstance = new Chart(
-        document.getElementById("my-chart"),
+        document.getElementById("line-chart"),
         this.lineChartConfig
       );
     },
@@ -252,7 +252,7 @@ export default Vue.extend({
 });
 </script>
 <style scoped lang="scss">
-.my-chart-container {
+.line-chart-container {
   height: 85%;
   width: 95%;
 }

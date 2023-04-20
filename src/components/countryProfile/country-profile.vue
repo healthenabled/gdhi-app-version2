@@ -8,7 +8,7 @@ import isEmpty from "lodash/isEmpty";
 import Notifications from "vue-notification";
 import common from "../../common/common";
 import CountryProfileYearSelector from "./country-profile-year-selector.vue";
-import CountryProgressLineGraphContainer from "../countryProgresslineGraph/countryProgressLineGraphContainer.vue";
+import CountryProgressLineGraphContainer from "../graphs/country-progress-line-graph/country-progress-line-graph-container.vue";
 import { EventBus } from "../common/event-bus";
 import { EVENTS } from "../../constants";
 import PhaseOverviewSpiderGraph from "../graphs/phase-overview-spider-graph/phase-overview-spider-graph.vue";
