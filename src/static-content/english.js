@@ -41,4 +41,7 @@ export const en = {
       "The main indicator in each category is used to calculate overall country average. Each country can be benchmarked " +
       "against global average or countries within a selected phase.",
   },
+  regionDropDown: {
+    textSelectRegion: "Select Region",
+  },
 };
