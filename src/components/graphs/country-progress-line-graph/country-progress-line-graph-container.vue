@@ -62,7 +62,9 @@ export default Vue.extend({
 <template>
   <div class="container">
     <div class="indicator-filter-container">
-      <indicatorFilter title="countryProfile.IndicatorGroupingDescription" />
+      <indicatorFilter
+        title="countryProfile.countryProgressLineChart.indicatorGroupingDescription"
+      />
     </div>
     <CountryProgressLineGraphChart
       v-if="Object.keys(yearOnYearData).length"

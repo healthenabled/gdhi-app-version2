@@ -33,5 +33,8 @@ export const countryProfile = {
     "لعرض البيانات الخاصة بسنة معينة ، يرجى تحديد السنة المطلوبة",
   phaseOverview: "نظرة عامة على المرحلة",
   countryProgressOverTime: "تقدم الدولة بمرور الوقت",
-  IndicatorGroupingDescription: "حدد مؤشراr",
+  countryProgressLineChart: {
+    indicatorGroupingDescription: "حدد مؤشرا",
+    globalAverage: "المعدل العالمي",
+  },
 };

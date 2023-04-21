@@ -7,7 +7,6 @@
 <script>
 import Chart from "chart.js/auto";
 import Vue from "vue";
-import mapHelper from "../../landing-map/map-helper";
 import { i18n, LayoutDirectionConfig } from "../../../plugins/i18n";
 
 let lineChartInstance = null;
@@ -16,13 +15,34 @@ export default Vue.extend({
   props: {
     yearOnYearData: { type: Array, required: true },
     currentYear: { type: String, required: true },
-    defaultYear: { type: String, required: true },
     categoryFilter: { type: Number, required: true },
     locale: { type: String, required: true },
     xAxisLabels: { type: Array, required: true },
     countryName: { type: String, required: true },
+    displayText: {
+      type: String,
+      required: false,
+    },
   },
+
   computed: {
+    chartMetaData() {
+      return {
+        yearOnYearData: this.yearOnYearData,
+        currentYear: this.currentYear,
+        categoryFilter: this.categoryFilter,
+        locale: this.locale,
+        xAxisLabels: this.xAxisLabels,
+        countryName: this.countryName,
+        averageText: this.averageText,
+      };
+    },
+    averageText() {
+      return (
+        this.displayText ||
+        i18n.t("countryProfile.countryProgressLineChart.globalAverage")
+      );
+    },
     countryData() {
       let val = [];
       let yearPhaseMap = new Map();
@@ -87,11 +107,20 @@ export default Vue.extend({
             borderWidth: 1.5,
             pointRadius: 14,
             pointHoverRadius: 16,
-            pointBackgroundColor: ({ parsed: { y } }) =>
-              mapHelper.getColorCodeFor(y),
+            pointBackgroundColor: ({ parsed: { y } }) => {
+              const phaseToColorMap = {
+                1: "#FCAB9C",
+                2: "#FFCA82",
+                3: "#FFE180",
+                4: "#80E1CC",
+                5: "#01C975",
+                0: "#e9ecef",
+              };
+              return phaseToColorMap[y];
+            },
           },
           {
-            label: "Global average",
+            label: this.averageText,
             data: this.globalData,
             fill: false,
             borderColor: "#6C757D",
@@ -202,7 +231,7 @@ export default Vue.extend({
             bottom: 0,
           },
         },
-        animation: true,
+        animation: false,
         plugins: {
           tooltip: pluginTooltipOptions,
           legend: pluginLegendOptions,
@@ -231,13 +260,7 @@ export default Vue.extend({
   },
 
   watch: {
-    yearOnYearData() {
-      this.drawLineChart();
-    },
-    locale() {
-      this.drawLineChart();
-    },
-    categoryFilter() {
+    chartMetaData() {
       this.drawLineChart();
     },
   },
