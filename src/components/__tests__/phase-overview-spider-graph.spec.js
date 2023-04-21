@@ -22,6 +22,7 @@ describe("Phase OverView Spider Graph", () => {
           { phase: 2 },
         ],
         countryName: "Sample Country Name",
+        selectedRegion: {},
       },
     });
   });

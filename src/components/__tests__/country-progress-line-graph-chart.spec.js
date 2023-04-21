@@ -31,6 +31,7 @@ describe("Country Progress Line Chart", () => {
             },
           },
         ],
+        selectedRegion: {},
       },
     });
   });

@@ -474,6 +474,7 @@ export default Vue.extend({
               :countryDataCategories="healthIndicatorData.categories"
               :regionalDataCategories="globalData.categories"
               :countryName="healthIndicatorData.countryName"
+              :selectedRegion="selectedRegion"
             />
           </div>
           <div class="health-indicator-container">
