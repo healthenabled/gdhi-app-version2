@@ -25,34 +25,44 @@ export default Vue.extend({
   },
   methods: {
     uploadFile(event) {
-      common.showLoading();
       const self = this;
       const files = event.target.files;
-      this.selectedFile = event.target.files[0].name;
-      Papa.parse(files[0], {
-        worker: true,
-        header: true,
-        complete: function ({ data }) {
-          // if (data.length == 0) {
-          //   self.validationStatus = status.INVALID;
-          // } else {
-          for (let i = 0; i < data.length; i++) {
-            validateFields(data[i])
-              .then((response) => {
-                self.payload.push(generatePayloadFromParsedJSON(response));
-                self.validationStatus = status.VALID;
-              })
-              .catch((error) => {
-                self.description = "On row " + (i + 1) + " " + error.toString();
-                self.validationStatus = status.INVALID;
-              })
-              .finally(() => {
-                common.hideLoading();
-              });
-            // }
-          }
-        },
-      });
+      if (files.length === 1 && files[0].type === "text/csv") {
+        common.showLoading();
+        this.selectedFile = event.target.files[0].name;
+        self.validationStatus = status.DEFAULT;
+        Papa.parse(files[0], {
+          worker: true,
+          header: true,
+          complete: function ({ data }) {
+            if (data.length === 0) {
+              self.validationStatus = status.INVALID;
+              self.description = "Empty csv";
+              common.hideLoading();
+            } else {
+              for (let i = 0; i < data.length; i++) {
+                validateFields(data[i])
+                  .then((response) => {
+                    self.payload.push(generatePayloadFromParsedJSON(response));
+                    self.validationStatus = status.VALID;
+                  })
+                  .catch((error) => {
+                    self.description =
+                      "On row " + (i + 1) + " " + error.toString();
+                    self.validationStatus = status.INVALID;
+                  })
+                  .finally(() => {
+                    common.hideLoading();
+                    event.target.value = null;
+                  });
+              }
+            }
+          },
+          error: function (error) {
+            console.log(error);
+          },
+        });
+      }
     },
     submitData() {
       common.showLoading();

@@ -87,7 +87,10 @@ export const generatePayloadFromParsedJSON = (formCSVRow) => ({
   updatedDate: "",
   countrySummary: {
     countryId: "",
-    countryName: formCSVRow[csvDataMap.CountryName],
+    countryName:
+      formCSVRow[csvDataMap.CountryName] &&
+      formCSVRow[csvDataMap.CountryName][0].toUpperCase() +
+        formCSVRow[csvDataMap.CountryName].slice(1).toLowerCase(),
     countryAlpha2Code: "",
     summary: formCSVRow[csvDataMap.CountrySummary],
     contactName: formCSVRow[csvDataMap.CountryContactName],
@@ -360,18 +363,21 @@ export async function validateFields(data) {
     [csvDataMap.IsTheDataApprovedByTheGovernment]: boolean(),
     [csvDataMap.DataApproverName]: string()
       .trim()
+      .length(0)
       .when([csvDataMap.IsTheDataApprovedByTheGovernment], {
         is: true,
         then: () => requiredString,
       }),
     [csvDataMap.DataApproverRole]: string()
       .trim()
+      .length(0)
       .when([csvDataMap.IsTheDataApprovedByTheGovernment], {
         is: true,
         then: () => requiredString,
       }),
     [csvDataMap.DataApproverEmail]: string()
       .trim()
+      .length(0)
       .when([csvDataMap.IsTheDataApprovedByTheGovernment], {
         is: true,
         then: () => requiredEmail,
@@ -379,11 +385,13 @@ export async function validateFields(data) {
     [csvDataMap.ResourcesLink]: string()
       .trim()
       .lowercase()
-      .required()
       .test(
         "validate-csv-urls",
         (d) => `${d.value} are not valid URL's`,
         function (value) {
+          if (!value) {
+            return true;
+          }
           let isValid = true;
           value.split(",").forEach((a) => {
             const urlPattern = new RegExp(

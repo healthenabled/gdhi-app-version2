@@ -329,6 +329,7 @@ exports[`upload Utils > should handle validating object 1`] = `
       "Is the data approved by the government",
     ],
     "exclusiveTests": {
+      "length": true,
       "trim": false,
     },
     "internalTests": {
@@ -345,6 +346,7 @@ exports[`upload Utils > should handle validating object 1`] = `
       "strip": false,
     },
     "tests": [
+      [Function],
       [Function],
     ],
     "transforms": [
@@ -377,6 +379,7 @@ exports[`upload Utils > should handle validating object 1`] = `
       "Is the data approved by the government",
     ],
     "exclusiveTests": {
+      "length": true,
       "trim": false,
     },
     "internalTests": {
@@ -393,6 +396,7 @@ exports[`upload Utils > should handle validating object 1`] = `
       "strip": false,
     },
     "tests": [
+      [Function],
       [Function],
     ],
     "transforms": [
@@ -425,6 +429,7 @@ exports[`upload Utils > should handle validating object 1`] = `
       "Is the data approved by the government",
     ],
     "exclusiveTests": {
+      "length": true,
       "trim": false,
     },
     "internalTests": {
@@ -441,6 +446,7 @@ exports[`upload Utils > should handle validating object 1`] = `
       "strip": false,
     },
     "tests": [
+      [Function],
       [Function],
     ],
     "transforms": [
@@ -2436,27 +2442,24 @@ exports[`upload Utils > should handle validating object 1`] = `
     "conditions": [],
     "deps": [],
     "exclusiveTests": {
-      "required": false,
       "string_case": true,
       "trim": false,
       "validate-csv-urls": false,
     },
     "internalTests": {
       "nullable": [Function],
-      "optionality": [Function],
       "typeError": [Function],
     },
     "spec": {
       "abortEarly": true,
       "coerce": true,
       "nullable": false,
-      "optional": false,
+      "optional": true,
       "recursive": true,
       "strict": false,
       "strip": false,
     },
     "tests": [
-      [Function],
       [Function],
       [Function],
       [Function],
