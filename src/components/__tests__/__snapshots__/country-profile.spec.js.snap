@@ -247,7 +247,7 @@ exports[`Country Profile  > should populate the data after successfull API call 
                         <p
                           class="score-global-average"
                         >
-                           Global Average 
+                            
                         </p>
                       </div>
                       <div
@@ -319,7 +319,7 @@ exports[`Country Profile  > should populate the data after successfull API call 
                         <p
                           class="score-global-average"
                         >
-                           Global Average 
+                            
                         </p>
                       </div>
                       <div
@@ -391,7 +391,7 @@ exports[`Country Profile  > should populate the data after successfull API call 
                         <p
                           class="score-global-average"
                         >
-                           Global Average 
+                            
                         </p>
                       </div>
                       <div

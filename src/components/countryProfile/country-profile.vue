@@ -46,8 +46,7 @@ export default Vue.extend({
       selectedYear: null,
       globalData: {},
       yearOnYearData: {},
-      selectedRegionId: null,
-      selectedRegionName: "",
+      selectedRegion: {},
     };
   },
 
@@ -65,10 +64,9 @@ export default Vue.extend({
       this.getBenchmarkData();
       this.getGlobalAverage();
     });
-    EventBus.$on(EVENTS.REGION_FILTERED, (selectedRegion) => {
+    EventBus.$on(EVENTS.REGION_FILTERED, () => {
       common.showLoading();
-      this.selectedRegionName = selectedRegion.name;
-      this.selectedRegionId = selectedRegion.id;
+      this.selectedRegion = window.appProperties.getRegion();
       this.getBenchmarkData();
       this.getHealthIndicatorsFor(this.$route.params.countryCode);
       this.getGlobalAverage();
@@ -101,7 +99,7 @@ export default Vue.extend({
           common.configWithUserLanguageAndNoCacheHeader(
             this.$i18n.locale,
             this.selectedYear,
-            this.selectedRegionId
+            this.selectedRegion.region_id
           )
         )
         .then((response) => {
@@ -110,13 +108,16 @@ export default Vue.extend({
     },
 
     getHealthIndicatorsFor(countryCode) {
+      // if (this.selectedRegionId === "") {
+      //   this.selectedRegionId = null;
+      // }
       axios
         .get(
           `/api/countries/${countryCode}/health_indicators`,
           common.configWithUserLanguageAndNoCacheHeader(
             this.$i18n.locale,
             this.selectedYear,
-            this.selectedRegionId
+            this.selectedRegion.region_id
           )
         )
         .then((response) => {
@@ -179,7 +180,7 @@ export default Vue.extend({
           common.configWithUserLanguageAndNoCacheHeader(
             this.$i18n.locale,
             this.selectedYear,
-            this.selectedRegionId
+            this.selectedRegion.region_id
           )
         )
         .then((response) => {
@@ -429,12 +430,18 @@ export default Vue.extend({
                           <p class="score-benchmark">
                             {{ $t("countryProfile.benchmark.text") }}
                           </p>
-                          <p class="score-global-average">
+                          <p
+                            v-if="selectedRegion.regionName == ''"
+                            class="score-global-average"
+                          >
                             {{
                               $t(
                                 "countryProfile.benchmark.benchmarkValues.globalAverage"
                               )
                             }}
+                          </p>
+                          <p v-else class="score-global-average">
+                            {{ selectedRegion.regionName }}
                           </p>
                         </div>
 

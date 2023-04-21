@@ -11,7 +11,7 @@ export default Vue.extend({
   data() {
     return {
       regions: [],
-      region: "",
+      selectedRegion: "",
     };
   },
 
@@ -27,11 +27,16 @@ export default Vue.extend({
   },
 
   methods: {
-    sendSelectedRegion: function () {
-      EventBus.$emit(EVENTS.REGION_FILTERED, this.region);
+    onChange(selectedIndex) {
+      this.selectedRegion = this.regions[selectedIndex];
+      window.appProperties.setRegion({
+        region: this.selectedRegion,
+      });
+      EventBus.$emit(EVENTS.REGION_FILTERED);
     },
 
     fetchRegions: function () {
+      common.showLoading();
       const self = this;
       axios
         .get(
@@ -40,6 +45,18 @@ export default Vue.extend({
         )
         .then(({ data }) => {
           self.regions = data;
+          if (self.selectedRegion) {
+            let index = 0;
+            self.regions.forEach((region, i) => {
+              if (region.region_id == self.selectedRegion.region_id) {
+                index = i;
+              }
+            });
+            self.onChange(index);
+          }
+        })
+        .finally(() => {
+          common.hideLoading();
         });
     },
 
@@ -55,15 +72,21 @@ export default Vue.extend({
     <select
       class="region-select"
       name="test_select3"
-      @change="sendSelectedRegion"
-      v-model="region"
+      @change="
+        {
+          if ($event.target.options.selectedIndex === 0) {
+            return null;
+          }
+          return onChange($event.target.options.selectedIndex - 1);
+        }
+      "
       :style="`background-position-x: ${getBackgroundPositionX()}`"
     >
       <option value="">{{ $t("regionDropDown.textSelectRegion") }}</option>
       <option
         v-for="region in regions"
         :key="region.region_id"
-        :value="{ id: region.region_id, name: region.regionName }"
+        :value="region.region_id"
       >
         {{ region.regionName }}
       </option>
