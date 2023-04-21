@@ -4,6 +4,7 @@ exports[`Country Progress Line Chart > should render Graph when mounted and crea
 <div
   class="line-chart-container"
   data-v-d2870135=""
+  defaultyear="2022"
 >
   <canvas
     data-v-d2870135=""
@@ -68,7 +69,7 @@ exports[`Country Progress Line Chart > should render Graph when mounted and crea
     ],
   },
   "options": {
-    "animation": true,
+    "animation": false,
     "clip": false,
     "layout": {
       "padding": {

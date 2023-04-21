@@ -34,5 +34,8 @@ export const countryProfile = {
     "Para visualizar os dados de um ano específico, selecione o ano desejado",
   phaseOverview: "Visão geral da fase",
   countryProgressOverTime: "Progresso do país ao longo do tempo",
-  IndicatorGroupingDescription: "Selecione um indicador",
+  countryProgressLineChart: {
+    indicatorGroupingDescription: "Selecione um indicador",
+    globalAverage: "Média global",
+  },
 };
