@@ -74,9 +74,6 @@ export default Vue.extend({
       name="test_select3"
       @change="
         {
-          if ($event.target.options.selectedIndex === 0) {
-            return null;
-          }
           return onChange($event.target.options.selectedIndex - 1);
         }
       "
