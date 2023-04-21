@@ -108,9 +108,6 @@ export default Vue.extend({
     },
 
     getHealthIndicatorsFor(countryCode) {
-      // if (this.selectedRegionId === "") {
-      //   this.selectedRegionId = null;
-      // }
       axios
         .get(
           `/api/countries/${countryCode}/health_indicators`,
@@ -431,7 +428,7 @@ export default Vue.extend({
                             {{ $t("countryProfile.benchmark.text") }}
                           </p>
                           <p
-                            v-if="selectedRegion.regionName == ''"
+                            v-if="selectedRegion.regionName == null"
                             class="score-global-average"
                           >
                             {{
@@ -477,6 +474,7 @@ export default Vue.extend({
               :countryDataCategories="healthIndicatorData.categories"
               :regionalDataCategories="globalData.categories"
               :countryName="healthIndicatorData.countryName"
+              :selectedRegion="selectedRegion"
             />
           </div>
           <div class="health-indicator-container">

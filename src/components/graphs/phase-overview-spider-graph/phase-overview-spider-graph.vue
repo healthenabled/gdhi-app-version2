@@ -17,6 +17,7 @@ export default Vue.extend({
     countryDataCategories: { type: Array, required: true },
     regionalDataCategories: { type: Array, required: true },
     countryName: { type: String, required: true },
+    selectedRegion: { type: Object, required: true },
   },
 
   data() {
@@ -26,6 +27,12 @@ export default Vue.extend({
   },
 
   computed: {
+    chartMetaData() {
+      return {
+        countryDataCategories: this.countryDataCategories,
+        regionalDataCategories: this.regionalDataCategories,
+      };
+    },
     labels() {
       let val = [];
       this.countryDataCategories.forEach((category) => {
@@ -99,6 +106,7 @@ export default Vue.extend({
             autoPadding: false,
             padding: 0,
           },
+          // animation: false,
           plugins: {
             tooltip: {
               rtl: LayoutDirectionConfig[i18n.locale] === "rtl",
@@ -156,9 +164,12 @@ export default Vue.extend({
             spanGaps: true,
           },
           {
-            label: i18n.t(
-              "countryProfile.benchmark.benchmarkValues.globalAverage"
-            ),
+            label:
+              this.selectedRegion.regionName == null
+                ? i18n.t(
+                    "countryProfile.benchmark.benchmarkValues.globalAverage"
+                  )
+                : this.selectedRegion.regionName,
             data: this.regionalPhaseData,
             fill: true,
             borderWidth: 1,
@@ -180,26 +191,31 @@ export default Vue.extend({
     Chart.defaults.font.size = 16;
     Chart.defaults.font.family = "'InterRegular', sans-serif";
     this.drawChart();
-    this.$watch(
-      (vm) => (vm.countryDataCategories, vm.regionalDataCategories),
-      function () {
-        graphInstance.destroy();
-        setTimeout(() => {
-          this.drawChart();
-        }, 500);
-      }
-    );
+  },
+
+  watch: {
+    chartMetaData() {
+      graphInstance?.destroy();
+
+      setTimeout(() => {
+        this.drawChart();
+      }, 700);
+    },
   },
 
   methods: {
     drawChart() {
-      graphInstance = new Chart(
-        document.getElementById("phase-overview-spider-graph"),
-        {
-          ...this.graphConfig,
-          ...{ data: this.graphData },
-        }
-      );
+      try {
+        graphInstance = new Chart(
+          document.getElementById("phase-overview-spider-graph"),
+          {
+            ...this.graphConfig,
+            ...{ data: this.graphData },
+          }
+        );
+      } catch (e) {
+        /* empty */
+      }
     },
   },
 });

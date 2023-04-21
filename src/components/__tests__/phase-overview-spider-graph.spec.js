@@ -22,13 +22,14 @@ describe("Phase OverView Spider Graph", () => {
           { phase: 2 },
         ],
         countryName: "Sample Country Name",
+        selectedRegion: {},
       },
     });
   });
   it("should render Graph when mounted and create a new Chart instance", () => {
     expect(wrapper.vm.$el).toMatchSnapshot();
     vi.useFakeTimers();
-    vi.advanceTimersByTime(500);
+    vi.advanceTimersByTime(700);
     expect(Chart.mock.calls.length).toEqual(1);
     expect(Chart.mock.calls[0][1]).toMatchSnapshot();
     // TODO: Fix mock of ChartJS to be able to assert watch call
