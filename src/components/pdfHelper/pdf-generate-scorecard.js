@@ -267,6 +267,31 @@ export async function generateScorecard(
     height: pngDims.height,
   });
 
+  let canvasTwo = document.getElementById("line-chart");
+  const imgSrcTwo = canvasTwo.toDataURL();
+  const dataUrlMinLength = 6;
+  if (imgSrcTwo.length > dataUrlMinLength) {
+    page = pdfDoc.addPage();
+
+    page.moveTo(70, page.getHeight() - 60);
+
+    drawTextWithPagination(i18n.t("scoreCardPDF.lineChartTitle"), {
+      font: helveticaBoldFont,
+      size: 12,
+      lineHeight: 12,
+      maxWidth: 480,
+    });
+
+    const pngImageTwo = await pdfDoc.embedPng(imgSrcTwo);
+    const pngDimsTwo = pngImageTwo.scale(0.17);
+    page.drawImage(pngImageTwo, {
+      x: page.getWidth() / 2 - pngDimsTwo.width / 2,
+      y: page.getHeight() / 2 - pngDimsTwo.height / 2,
+      width: pngDimsTwo.width,
+      height: pngDimsTwo.height,
+    });
+  }
+
   page = pdfDoc.addPage();
 
   page.moveTo(70, page.getHeight() - 60);
