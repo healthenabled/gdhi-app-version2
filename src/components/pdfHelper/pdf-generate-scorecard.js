@@ -552,7 +552,6 @@ export async function generateScorecard(
       );
 
       if (index !== category.indicators.length - 1) {
-        // page.setLineWidth(0.5);
         page.drawLine({
           start: { x: 70, y: page.getY() },
           end: { x: 560, y: page.getY() },
@@ -560,14 +559,6 @@ export async function generateScorecard(
         });
       }
 
-      //score box yValue computation startYVal + ((endYVal - startYVal) / 2) - ((scoreBoxHeight / 2) + (benchmark text height/ 2))
-
-      // if (benchmarkData[indicator.id]) {
-      //   //adjust benchmark height to align center (12px)
-      //   scoreYVal = initialYVal + ((endYVal - initialYVal) / 2 - 32);
-      // } else {
-      //   scoreYVal = initialYVal + ((endYVal - initialYVal) / 2 - 16);
-      // }
       let indicatorScore =
         indicator.score > 0 ? indicator.score.toString() : "NA";
 
@@ -577,17 +568,6 @@ export async function generateScorecard(
         borderLineCap: LineCapStyle.Round,
         color: hexToRgb(getColorCodeForPhase(colorCodes, indicatorScore)),
       });
-
-      // page.drawRectangle({
-      //   x: 500,
-      //   y: page.getY() + 20,
-      //   width: 32,
-      //   height: 32,
-      //   color: hexToRgb(getColorCodeForPhase(colorCodes, indicatorScore)),
-      // });
-      // doc
-      //   .roundedRect(500, scoreYVal, 32, 32, 5)
-      //   .fill(getColorCodeForPhase(colorCodes, indicatorScore));
 
       page.drawText(indicatorScore, {
         x: indicatorScore.length > 1 ? 507 : 512,
@@ -619,65 +599,6 @@ export async function generateScorecard(
             lineHeight: 10,
           }
         );
-
-        switch (benchmarkData[indicator.id].benchmarkValue.toLowerCase()) {
-          case "at":
-            // TODO: align text center below
-            page.drawText(
-              i18n.t("countryProfile.benchmark.benchmarkValues.atAvg"),
-              {
-                size: 10,
-                color: hexToRgb("#999999"),
-                x: 500,
-                y: page.getY() + 57,
-                lineHeight: 10,
-                font: helveticaBoldFont,
-              }
-            );
-
-            break;
-          case "above":
-            page.drawSvgPath("M 3 9 L 9 9 L 6 3 z", {
-              x: 480,
-              y: page.getY() + 66,
-              color: hexToRgb("#92b35a"),
-            });
-
-            page.drawText(
-              i18n.t("countryProfile.benchmark.benchmarkValues.aboveAvg"),
-              {
-                size: 10,
-                color: hexToRgb("#92b35a"),
-                x: 490,
-                y: page.getY() + 57,
-                maxWidth: 60,
-                lineHeight: 10,
-                font: helveticaBoldFont,
-              }
-            );
-
-            break;
-          case "below":
-            page.drawSvgPath("M 3 3 L 9 3 L 6 9 z", {
-              x: 480,
-              y: page.getY() + 66,
-              color: hexToRgb("#ed4c57"),
-            });
-
-            page.drawText(
-              i18n.t("countryProfile.benchmark.benchmarkValues.belowAvg"),
-              {
-                size: 10,
-                color: hexToRgb("#ed4c57"),
-                x: 490,
-                y: page.getY() + 57,
-                maxWidth: 60,
-                lineHeight: 10,
-                font: helveticaBoldFont,
-              }
-            );
-            break;
-        }
       }
       // to reset doc.y position in PDFKit, As the doc.y position is updated as soon as we add text
       // page.moveTo(50, endYVal + 25);
