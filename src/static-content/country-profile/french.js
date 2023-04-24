@@ -25,6 +25,7 @@ export const countryProfile = {
       "Aucun pays dans la phase sélectionnée à comparer",
     serverErrorDescription:
       "Impossible de charger les données de référence. S'il vous plaît essayer après un certain temps",
+    average: "Moyenne",
   },
   indicator: "l'indicateur",
   score: "Score",
@@ -39,4 +40,5 @@ export const countryProfile = {
     indicatorGroupingDescription: "Sélectionnez un indicateur",
     globalAverage: "Moyenne globale",
   },
+  compareTo: "Comparer aux",
 };

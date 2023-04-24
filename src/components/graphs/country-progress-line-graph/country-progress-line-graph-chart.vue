@@ -41,7 +41,9 @@ export default Vue.extend({
     averageText() {
       return this.displayText || this.selectedRegion.regionName == null
         ? i18n.t("countryProfile.countryProgressLineChart.globalAverage")
-        : this.selectedRegion.regionName + " Average";
+        : this.selectedRegion.regionName +
+            " " +
+            i18n.t("countryProfile.benchmark.average");
     },
     countryData() {
       let val = [];

@@ -169,7 +169,9 @@ export default Vue.extend({
                 ? i18n.t(
                     "countryProfile.benchmark.benchmarkValues.globalAverage"
                   )
-                : this.selectedRegion.regionName + " Average",
+                : this.selectedRegion.regionName +
+                  " " +
+                  i18n.t("countryProfile.benchmark.average"),
             data: this.regionalPhaseData,
             fill: true,
             borderWidth: 1,

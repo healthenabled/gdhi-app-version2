@@ -256,7 +256,9 @@ export default Vue.extend({
           </div>
         </div>
         <div class="region-section">
-          <div class="compare-to-header">Comapre to</div>
+          <div class="compare-to-header">
+            {{ $t("countryProfile.compareTo") }}
+          </div>
           <RegionSelector></RegionSelector>
         </div>
 
@@ -438,7 +440,8 @@ export default Vue.extend({
                             }}
                           </p>
                           <p v-else class="score-global-average">
-                            {{ selectedRegion.regionName }} Average
+                            {{ selectedRegion.regionName }}
+                            {{ $t("countryProfile.benchmark.average") }}
                           </p>
                         </div>
 

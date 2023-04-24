@@ -24,6 +24,7 @@ export const countryProfile = {
       "No countries in the selected phase for benchmarking",
     serverErrorDescription:
       "Unable to load benchmark data. Please try after sometime",
+    average: "Average",
   },
   indicator: "Indicator",
   score: "Score",
@@ -38,4 +39,5 @@ export const countryProfile = {
     indicatorGroupingDescription: "Select an indicator",
     globalAverage: "Global average",
   },
+  compareTo: "Compare to",
 };

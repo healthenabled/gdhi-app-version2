@@ -23,6 +23,7 @@ export const countryProfile = {
     benchmarkNoCountryForSelectedPhase: "لا توجد دول في المرحلة المحددة للقياس",
     serverErrorDescription:
       "غير قادر على تحميل البيانات المرجعية. يرجى المحاولة بعد مرور بعض الوقت",
+    average: "متوسط",
   },
   indicator: "تفاصيل",
   score: "أحرز هدفا",
@@ -37,4 +38,5 @@ export const countryProfile = {
     indicatorGroupingDescription: "حدد مؤشرا",
     globalAverage: "المعدل العالمي",
   },
+  compareTo: "قارن ب",
 };

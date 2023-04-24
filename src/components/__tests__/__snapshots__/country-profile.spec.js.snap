@@ -35,7 +35,7 @@ exports[`Country Profile  > should populate the data after successfull API call 
         <div
           class="compare-to-header"
         >
-          Comapre to
+           Compare to 
         </div>
         <regionselector-stub />
       </div>
