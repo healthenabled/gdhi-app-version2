@@ -131,4 +131,30 @@ describe("Upload CSV", () => {
     await flushPromises();
     expect(wrapper.vm.validationStatus).toBe("INVALID");
   });
+
+  it("should set validation status to inValid when validateFields failed for one row and resolves for all other rows", async () => {
+    validateFieldsSpy
+      .mockRejectedValueOnce({
+        error: "error",
+        value: { "Country Name": "India" },
+      })
+      .mockRejectedValueOnce({
+        error: "error",
+        value: { "Country Name": "Germany" },
+      })
+      .mockResolvedValue({ data: "a" });
+    wrapper.vm.uploadFile(event);
+    papaParseSpy.mock.calls[0][1].complete({
+      data: ["a", "b", "c"],
+    });
+    await flushPromises();
+    expect(wrapper.vm.validationStatus).toBe("INVALID");
+  });
+
+  it("should set validation status to invalid when file is empty", async () => {
+    wrapper.vm.uploadFile(event);
+    papaParseSpy.mock.calls[0][1].complete({ data: [] });
+    expect(wrapper.vm.validationStatus).toBe("INVALID");
+    expect(wrapper.vm.description).toBe("Empty csv");
+  });
 });
