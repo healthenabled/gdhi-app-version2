@@ -5,6 +5,7 @@ import CountryProgressLineGraphChart from "./country-progress-line-graph-chart.v
 import indicatorFilter from "../../indicatorFilter/indicator-filter.vue";
 import { EventBus } from "../../common/event-bus";
 import { EVENTS } from "../../../constants";
+import common from "../../../common/common";
 
 export default Vue.extend({
   name: "CountryProgressLineGraphContainer",
@@ -25,6 +26,7 @@ export default Vue.extend({
     countryName: { type: String, required: true },
   },
   mounted() {
+    common.showLoading();
     this.getPublishedYears();
     this.getYearOnYearData(this.$route.params.countryCode);
     EventBus.$on(EVENTS.INDICATOR_FILTERED, () => {
@@ -53,6 +55,9 @@ export default Vue.extend({
         })
         .then(({ data }) => {
           this.yearOnYearData = data;
+        })
+        .finally(() => {
+          common.hideLoading();
         });
     },
   },
