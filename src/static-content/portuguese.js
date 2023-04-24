@@ -41,6 +41,8 @@ export const pt = {
     noteForBenchmark:
       "O indicador principal em cada categoria é utilizado para calcular a média global do país. Cada país pode ser " +
       "comparado com a média global ou com países dentro de uma fase selecionada.",
+    spiderGraphTitle: "Visão geral da fase",
+    lineChartTitle: "Comparação de países",
   },
   regionDropDown: {
     textSelectRegion: "Selecione a região",
