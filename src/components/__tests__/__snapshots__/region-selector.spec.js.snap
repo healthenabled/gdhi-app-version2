@@ -1,0 +1,34 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Region Selector > should render region selector 1`] = `
+<div
+  class="region"
+  data-v-2c57f00c=""
+>
+  <div
+    class="region-header"
+    data-v-2c57f00c=""
+  >
+    Region
+  </div>
+  <select
+    class="region-select"
+    data-v-2c57f00c=""
+    name="test_select3"
+    style="background-position-x: 5%;"
+  >
+    <option
+      data-v-2c57f00c=""
+      value=""
+    >
+      Select Region
+    </option>
+    <option
+      data-v-2c57f00c=""
+      value="PAHO"
+    >
+       Pan American Region 
+    </option>
+  </select>
+</div>
+`;
