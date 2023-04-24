@@ -36,6 +36,7 @@ export default Vue.extend({
         xAxisLabels: this.xAxisLabels,
         countryName: this.countryName,
         averageText: this.averageText,
+        regionName: this.regionName,
       };
     },
     averageText() {
