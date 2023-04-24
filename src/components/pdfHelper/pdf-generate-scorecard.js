@@ -62,28 +62,6 @@ const roundedRectData = function (w, h, tlr, trr, brr, blr) {
 };
 
 // Primitive line break algorithm
-const breakTextIntoLines = (text, size, font, maxWidth) => {
-  const lines = [];
-  let textIdx = 0;
-  while (textIdx < text.length) {
-    let line = "";
-    while (textIdx < text.length) {
-      if (text.charAt(textIdx) === "\n") {
-        lines.push(line);
-        textIdx += 1;
-        line = "";
-        continue;
-      }
-      const newLine = line + text.charAt(textIdx);
-      if (font.widthOfTextAtSize(newLine, size) > maxWidth) break;
-      line = newLine;
-      textIdx += 1;
-    }
-    lines.push(line);
-  }
-  return lines;
-};
-
 const hexToRgb = (h) => {
   let r = 0,
     g = 0,
@@ -240,83 +218,58 @@ export async function generateScorecard(
 
   // Write Document Summary Heading in bold
   page.moveDown(50);
-  page.drawText(i18n.t("countryProfile.countrySummary.text"), {
-    size: 14,
-    color: rgb(0, 0, 0),
-    font: helveticaBoldFont,
-    wordBreaks: [],
-    lineHeight: 14,
-  });
-
-  // Write country Summary in a Paginated way
-  page.moveDown(20);
-
+  drawTextWithPagination(
+    i18n.t("healthIndicatorQuestionnaire.contactForm.countrySummary"),
+    { font: helveticaBoldFont, size: 12, lineHeight: 12, maxWidth: 480 }
+  );
   if (countrySummary) {
-    const currentY = page.getY();
-    const maxY = 30;
-    const heightOfOneLine = helveticaFont.heightAtSize(14);
-    const numberOfLinesThatCanFit = Math.ceil(
-      (currentY - maxY) / heightOfOneLine
-    );
-    const linesToWrite = breakTextIntoLines(
-      countrySummary,
-      14,
-      helveticaFont,
-      480
-    );
-
-    if (linesToWrite.length < numberOfLinesThatCanFit) {
-      page.drawText(countrySummary, {
-        size: 14,
-        font: helveticaFont,
-        color: hexToRgb("#000"),
-        maxWidth: 480,
-        lineHeight: 14,
-      });
-    } else {
-      const delimiter =
-        countrySummary[numberOfLinesThatCanFit * 75] === " " ? null : "-";
-
-      page.drawText(
-        countrySummary.slice(0, numberOfLinesThatCanFit * 75) + delimiter,
-        {
-          size: 14,
-          font: helveticaFont,
-          color: hexToRgb("#000"),
-          maxWidth: 480,
-          lineHeight: 14,
-        }
-      );
-      page = pdfDoc.addPage();
-      page.moveTo(50, page.getHeight() - 30);
-      page.drawText(
-        delimiter +
-          countrySummary.slice(
-            numberOfLinesThatCanFit * 75,
-            countrySummary.length
-          ),
-        {
-          size: 14,
-          font: helveticaFont,
-          color: hexToRgb("#000"),
-          maxWidth: 480,
-          lineHeight: 14,
-        }
-      );
-    }
-    page = pdfDoc.addPage();
-    page.moveTo(50, page.getHeight() - 30);
+    drawTextWithPagination(countrySummary, {
+      font: helveticaFont,
+      size: 14,
+      maxWidth: 480,
+      lineHeight: 14,
+    });
   } else {
     page.drawText("-", {
       size: 14,
       font: helveticaFont,
       color: hexToRgb("#000"),
-      x: 50,
+      x: 70,
       y: page.getY(),
       maxWidth: 480,
       lineHeight: 14,
     });
+    page.moveDown(20);
   }
+  // Write country Summary in a Paginated way
+
+  page = pdfDoc.addPage();
+
+  page.moveTo(70, page.getHeight() - 80);
+
+  drawTextWithPagination(i18n.t("scoreCardPDF.spiderGraphTitle"), {
+    font: helveticaBoldFont,
+    size: 12,
+    lineHeight: 12,
+    maxWidth: 480,
+  });
+
+  let canvas = document.getElementById("phase-overview-spider-graph");
+  const imgSrc = canvas.toDataURL();
+  const pngImage = await pdfDoc.embedPng(imgSrc);
+  const pngDims = pngImage.scale(0.4);
+
+  page.moveDown(pngDims.height - 10);
+  page.drawImage(pngImage, {
+    x: 70,
+    y: page.getY(),
+    width: pngDims.width,
+    height: pngDims.height,
+  });
+
+  page = pdfDoc.addPage();
+
+  page.moveTo(70, page.getHeight() - 60);
 
   if (benchmarkPhase) {
     let benchMarkPhaseValue =
