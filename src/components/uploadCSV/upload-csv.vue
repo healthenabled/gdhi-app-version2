@@ -23,6 +23,7 @@ export default Vue.extend({
       importedToServer: false,
     };
   },
+
   methods: {
     uploadFile(event) {
       const self = this;
@@ -40,26 +41,32 @@ export default Vue.extend({
               self.description = "Empty csv";
               common.hideLoading();
             } else {
+              let validateFieldsPromiseArray = [];
               for (let i = 0; i < data.length; i++) {
-                validateFields(data[i])
-                  .then((response) => {
-                    self.payload.push(generatePayloadFromParsedJSON(response));
-                    self.validationStatus = status.VALID;
-                  })
-                  .catch((error) => {
-                    self.description =
-                      "On row " + (i + 1) + " " + error.toString();
-                    self.validationStatus = status.INVALID;
-                  })
-                  .finally(() => {
-                    common.hideLoading();
-                    event.target.value = null;
-                  });
+                validateFieldsPromiseArray.push(validateFields(data[i]));
               }
+              Promise.all(validateFieldsPromiseArray)
+                .then((responses) => {
+                  responses.forEach((response) => {
+                    self.payload.push(generatePayloadFromParsedJSON(response));
+                  });
+                  self.validationStatus = status.VALID;
+                })
+                .catch((error) => {
+                  self.description =
+                    "On row " +
+                    error.value["Country Name"] +
+                    " " +
+                    error.toString();
+                  self.validationStatus = status.INVALID;
+                })
+                .finally(() => {
+                  common.hideLoading();
+                  event.target.value = null;
+                  self.importedToServer = false;
+                  self.countryStatuses = null;
+                });
             }
-          },
-          error: function (error) {
-            console.log(error);
           },
         });
       }

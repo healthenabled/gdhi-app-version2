@@ -120,9 +120,14 @@ describe("Upload CSV", () => {
   });
 
   it("should set validation status to inValid when validateFields is failed", async () => {
-    validateFieldsSpy.mockRejectedValueOnce({ error: "error" });
+    validateFieldsSpy.mockRejectedValueOnce({
+      error: "error",
+      value: { "Country Name": "India" },
+    });
     wrapper.vm.uploadFile(event);
-    papaParseSpy.mock.calls[0][1].complete({ data: ["a"] });
+    papaParseSpy.mock.calls[0][1].complete({
+      data: ["a"],
+    });
     await flushPromises();
     expect(wrapper.vm.validationStatus).toBe("inValid");
   });
