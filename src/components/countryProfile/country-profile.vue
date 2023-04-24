@@ -256,7 +256,7 @@ export default Vue.extend({
           </div>
         </div>
         <div class="region-section">
-          <div>Comapre To</div>
+          <div class="compare-to-header">Comapre to</div>
           <RegionSelector></RegionSelector>
         </div>
 
@@ -324,7 +324,7 @@ export default Vue.extend({
           ></div>
         </div>
       </div>
-      <div class="comparison-graph-panel" v-if="showCountryProgressOverTime">
+      <div class="comparison-graph-panel" v-show="showCountryProgressOverTime">
         <CountryProgressLineGraphContainer
           :locale="locale"
           :countryName="healthIndicatorData.countryName"
@@ -438,7 +438,7 @@ export default Vue.extend({
                             }}
                           </p>
                           <p v-else class="score-global-average">
-                            {{ selectedRegion.regionName }}
+                            {{ selectedRegion.regionName }} Average
                           </p>
                         </div>
 

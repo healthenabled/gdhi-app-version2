@@ -276,12 +276,14 @@
           .score-benchmark {
             font-family: "InterBold", sans-serif;
             font-size: 16px;
-            @include margin-right(20px);
+            @include margin-right(10px);
           }
           .score-global-average {
             font-weight: 400;
             font-size: 12px;
-            @include margin-right(20px);
+            @include margin-right(10px);
+            display: block;
+            max-width: 150px;
           }
           .indicator-score {
             text-align: center;
@@ -291,7 +293,7 @@
             padding-top: 5px;
             display: inline-block;
             vertical-align: middle;
-            @include margin-left(30px);
+            @include margin-left(10px);
             align-self: center;
             justify-content: center;
           }
@@ -430,4 +432,9 @@
 
 .region-section {
   display: inline-flex;
+  margin-top: 10px;
+  .compare-to-header {
+    margin-top: 30px;
+    margin-right: 10px;
+  }
 }
