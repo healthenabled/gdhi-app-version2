@@ -12,6 +12,7 @@ export default Vue.extend({
     return {
       categoryValue: "",
       categories: [],
+      locale: "",
     };
   },
 
@@ -24,6 +25,7 @@ export default Vue.extend({
 
   created() {
     this.categoryValue = window.appProperties.getCategoryFilter();
+    this.locale = this.$i18n.locale;
     this.fetchCategoricalIndicators();
   },
 
