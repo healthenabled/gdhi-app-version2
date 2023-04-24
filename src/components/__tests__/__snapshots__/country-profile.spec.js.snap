@@ -32,8 +32,10 @@ exports[`Country Profile  > should populate the data after successfull API call 
       <div
         class="region-section"
       >
-        <div>
-          Comapre To
+        <div
+          class="compare-to-header"
+        >
+          Comapre to
         </div>
         <regionselector-stub />
       </div>
@@ -111,7 +113,15 @@ exports[`Country Profile  > should populate the data after successfull API call 
         />
       </div>
     </div>
-    <!---->
+    <div
+      class="comparison-graph-panel"
+      style="display: none;"
+    >
+      <countryprogresslinegraphcontainer-stub
+        countryname="India"
+        locale="en"
+      />
+    </div>
     <div
       class="box overall-card"
     >
