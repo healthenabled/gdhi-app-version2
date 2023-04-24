@@ -86,7 +86,7 @@ describe("Upload CSV", () => {
   });
 
   it("import to server button should be disabled at start", async () => {
-    expect(wrapper.vm.validationStatus).toBe(null);
+    expect(wrapper.vm.validationStatus).toBe("DEFAULT");
     const importButton = wrapper.find('[data-testid="import-button"]');
     expect(importButton.attributes().disabled).toEqual("disabled");
   });
@@ -116,7 +116,7 @@ describe("Upload CSV", () => {
     await flushPromises();
     expect(generatePayloadSpy).toHaveBeenCalledOnce();
     expect(generatePayloadSpy).toHaveBeenCalledWith({ data: "a" });
-    expect(wrapper.vm.validationStatus).toBe("valid");
+    expect(wrapper.vm.validationStatus).toBe("VALID");
   });
 
   it("should set validation status to inValid when validateFields is failed", async () => {
@@ -129,6 +129,6 @@ describe("Upload CSV", () => {
       data: ["a"],
     });
     await flushPromises();
-    expect(wrapper.vm.validationStatus).toBe("inValid");
+    expect(wrapper.vm.validationStatus).toBe("INVALID");
   });
 });

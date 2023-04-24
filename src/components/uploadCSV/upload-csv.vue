@@ -6,9 +6,9 @@ import common from "../../common/common";
 import axios from "axios";
 
 const status = Object.freeze({
-  VALID: "valid",
-  INVALID: "inValid",
-  DEFAULT: null,
+  VALID: "VALID",
+  INVALID: "INVALID",
+  DEFAULT: "DEFAULT",
 });
 
 export default Vue.extend({
@@ -43,9 +43,11 @@ export default Vue.extend({
               common.hideLoading();
             } else {
               let validateFieldsPromiseArray = [];
-              for (let i = 0; i < data.length; i++) {
-                validateFieldsPromiseArray.push(validateFields(data[i]));
-              }
+
+              data.forEach((d) =>
+                validateFieldsPromiseArray.push(validateFields(d))
+              );
+
               Promise.all(validateFieldsPromiseArray)
                 .then((responses) => {
                   responses.forEach((response) => {
@@ -54,11 +56,9 @@ export default Vue.extend({
                   self.validationStatus = status.VALID;
                 })
                 .catch((error) => {
-                  self.description =
-                    "On row " +
-                    error.value["Country Name"] +
-                    " " +
-                    error.toString();
+                  self.description = `On row ${
+                    error.value["Country Name"]
+                  }  ${error.toString()}`;
                   self.validationStatus = status.INVALID;
                 })
                 .finally(() => {
