@@ -39,4 +39,5 @@ export const countryProfile = {
     globalAverage: "المعدل العالمي",
   },
   compareTo: "قارن ب",
+  region: "منطقة",
 };

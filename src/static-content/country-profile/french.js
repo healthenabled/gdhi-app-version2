@@ -41,4 +41,5 @@ export const countryProfile = {
     globalAverage: "Moyenne globale",
   },
   compareTo: "Comparer aux",
+  region: "Région",
 };

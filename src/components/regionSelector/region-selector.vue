@@ -68,7 +68,7 @@ export default Vue.extend({
 </script>
 <template>
   <div class="region">
-    <div class="region-header">Region</div>
+    <div class="region-header">{{ $t("countryProfile.region") }}</div>
     <select
       class="region-select"
       name="test_select3"
