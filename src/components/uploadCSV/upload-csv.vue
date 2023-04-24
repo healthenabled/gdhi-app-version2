@@ -64,7 +64,6 @@ export default Vue.extend({
                   common.hideLoading();
                   event.target.value = null;
                   self.importedToServer = false;
-                  self.countryStatuses = null;
                 });
             }
           },
@@ -93,6 +92,7 @@ export default Vue.extend({
         })
         .finally(() => {
           common.hideLoading();
+          this.payload = [];
         });
     },
     notifier(props) {
