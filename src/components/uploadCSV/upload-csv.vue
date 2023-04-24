@@ -32,6 +32,7 @@ export default Vue.extend({
         common.showLoading();
         this.selectedFile = event.target.files[0].name;
         self.validationStatus = status.DEFAULT;
+        self.payload = [];
         Papa.parse(files[0], {
           worker: true,
           header: true,
