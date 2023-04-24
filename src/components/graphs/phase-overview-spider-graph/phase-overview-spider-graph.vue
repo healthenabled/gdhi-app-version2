@@ -17,7 +17,7 @@ export default Vue.extend({
     countryDataCategories: { type: Array, required: true },
     regionalDataCategories: { type: Array, required: true },
     countryName: { type: String, required: true },
-    selectedRegion: { type: Object, required: true },
+    regionName: { type: String, required: false, default: "" },
   },
 
   data() {
@@ -31,6 +31,7 @@ export default Vue.extend({
       return {
         countryDataCategories: this.countryDataCategories,
         regionalDataCategories: this.regionalDataCategories,
+        regionName: this.regionName,
       };
     },
     labels() {
@@ -165,11 +166,11 @@ export default Vue.extend({
           },
           {
             label:
-              this.selectedRegion.regionName == null
+              this.regionName == ""
                 ? i18n.t(
                     "countryProfile.benchmark.benchmarkValues.globalAverage"
                   )
-                : this.selectedRegion.regionName +
+                : this.regionName +
                   " " +
                   i18n.t("countryProfile.benchmark.average"),
             data: this.regionalPhaseData,

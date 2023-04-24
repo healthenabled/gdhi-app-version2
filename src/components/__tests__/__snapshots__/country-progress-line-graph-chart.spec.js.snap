@@ -5,6 +5,7 @@ exports[`Country Progress Line Chart > should render Graph when mounted and crea
   class="line-chart-container"
   data-v-d2870135=""
   defaultyear="2022"
+  selectedregion="[object Object]"
 >
   <canvas
     data-v-d2870135=""

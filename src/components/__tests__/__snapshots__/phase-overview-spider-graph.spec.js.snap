@@ -4,6 +4,7 @@ exports[`Phase OverView Spider Graph > should render Graph when mounted and crea
 <div
   class="canvas-container"
   data-v-a4c9761d=""
+  selectedregion="[object Object]"
 >
   <canvas
     data-v-a4c9761d=""

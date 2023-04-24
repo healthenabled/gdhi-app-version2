@@ -75,7 +75,7 @@ export default Vue.extend({
       :categoryFilter="category"
       :xAxisLabels="years"
       :countryName="countryName"
-      :selectedRegion="selectedRegion"
+      :regionName="selectedRegion.regionName"
     />
   </div>
 </template>

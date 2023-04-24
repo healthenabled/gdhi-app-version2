@@ -23,7 +23,7 @@ export default Vue.extend({
       type: String,
       required: false,
     },
-    selectedRegion: { type: Object, required: true },
+    regionName: { type: String, required: false, default: "" },
   },
 
   computed: {
@@ -39,11 +39,9 @@ export default Vue.extend({
       };
     },
     averageText() {
-      return this.displayText || this.selectedRegion.regionName == null
+      return this.displayText || this.regionName == ""
         ? i18n.t("countryProfile.countryProgressLineChart.globalAverage")
-        : this.selectedRegion.regionName +
-            " " +
-            i18n.t("countryProfile.benchmark.average");
+        : this.regionName + " " + i18n.t("countryProfile.benchmark.average");
     },
     countryData() {
       let val = [];
