@@ -87,10 +87,7 @@ export const generatePayloadFromParsedJSON = (formCSVRow) => ({
   updatedDate: "",
   countrySummary: {
     countryId: "",
-    countryName:
-      formCSVRow[csvDataMap.CountryName] &&
-      formCSVRow[csvDataMap.CountryName][0].toUpperCase() +
-        formCSVRow[csvDataMap.CountryName].slice(1).toLowerCase(),
+    countryName: formCSVRow[csvDataMap.CountryName].toUpperCase(),
     countryAlpha2Code: "",
     summary: formCSVRow[csvDataMap.CountrySummary],
     contactName: formCSVRow[csvDataMap.CountryContactName],
