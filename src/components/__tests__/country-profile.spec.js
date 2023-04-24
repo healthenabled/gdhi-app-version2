@@ -289,6 +289,7 @@ describe("Country Profile ", () => {
 
   it("should register event when country page is mounted", async () => {
     expect(eventBusOnSpy.mock.calls[0][0]).to.equal("year:filtered");
+    expect(eventBusOnSpy.mock.calls[1][0]).to.equal("region:filtered");
   });
 
   it("should call generateScorecard with the healthindicator data", async () => {
@@ -436,6 +437,10 @@ describe("Country Profile ", () => {
     );
 
     expect(wrapper.findAll(".category-phase").at(0).text()).equal("3");
+
+    expect(wrapper.findAll(".compare-to-header").at(0).text()).equal(
+      i18n.messages.en.countryProfile.compareTo
+    );
   });
 
   it.skip("should render localization benchmark error text", async () => {
