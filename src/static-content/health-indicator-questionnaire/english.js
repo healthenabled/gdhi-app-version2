@@ -7,9 +7,6 @@ export const healthIndicatorQuestionnaire = {
     "page will discard unsaved changes.",
   contactForm: {
     contactInformation: "Contact Information",
-    dateOnWhichDataWasCollected:
-      "Date on which data was collected (DD-MM-YYYY)",
-    dateFormat: "DD-MM-YYYY",
     nameOfPersonEnteringData: "Name of person entering data ",
     roleOfThePersonEnteringData: "Role of the person entering data",
     emailOfThePersonEnteringData: "Email of the person entering data",
@@ -21,8 +18,8 @@ export const healthIndicatorQuestionnaire = {
     emailOfTheCountryContact: "Email of the country contact",
     countrySummary: "Country Summary",
     organisationOfTheCountryContact: "Organisation of the country contact",
+    govtApprovedMessage: "Is the data approved by the government?",
     error: {
-      wrongDate: "Please enter a date between 2010 and current date",
       nameOfPersonEnteringData: "Name of person entering data is required",
       roleOfThePersonEnteringData:
         "Role of the person entering the data is required",
@@ -35,7 +32,6 @@ export const healthIndicatorQuestionnaire = {
       organisationOfTheCountryContact: "Please enter the organisation",
     },
     hoverText: {
-      date: "Please enter a date",
       nameOfPersonEnteringData:
         "Please enter the name of the person entering this data",
       roleOfThePersonEnteringData:
@@ -85,6 +81,17 @@ export const healthIndicatorQuestionnaire = {
     "Only the score for each indicator will be displayed publicly on the GDHI platform.",
   publishConfirmation:
     "You are about to publish digital health index form for {country}. This cannot be reverted. Do you want to continue?",
+  saveConfirmation:
+    "Are you sure you want to submit the data for {country}? Please check the options selected by you are reflecting Country's current year digital health maturity",
   rejectConfirmation:
     "You are about to reject digital health index form for {country}. This cannot be reverted. Do you want to continue?",
+  govtApprovedMessage: "Is the data approved by the government?",
+  QuestionnaireStateMessage: {
+    hasPrefillData:
+      "Data has been pre-populated in the questionnaire from year {updatedDate}. Please update the data for current year and provide relevant justification",
+    dataSubmittedAlready:
+      "Data is already submitted for the current year on {updatedDate}",
+    dataPublishedAlready:
+      "Data for current year is already published on {updatedDate}",
+  },
 };

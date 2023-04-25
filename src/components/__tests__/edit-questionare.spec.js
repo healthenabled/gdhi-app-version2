@@ -8,6 +8,7 @@ import sinon from "sinon";
 import VeeValidate from "vee-validate";
 import { i18n } from "../../plugins/i18n";
 import axios from "axios";
+import { EventBus } from "../common/event-bus";
 
 describe("EditQuestionaire", () => {
   let component;
@@ -19,10 +20,15 @@ describe("EditQuestionaire", () => {
   beforeEach(() => {
     axiosPostSpy.mockReset();
     Vue.use(VeeValidate);
-    const $route = { path: "test", params: { countryUUID: "random-uuid" } };
+    const $route = {
+      path: "test",
+      params: { countryUUID: "random-uuid", currentYear: "2023" },
+    };
     component = shallowMount(EditQuestionnaire, {
       propsData: {
         showEdit: true,
+        hasPreviousYearData: false,
+        updatedDate: "March 2023",
         countrySummary: {
           countryName: "India",
           resources: [""],
@@ -36,6 +42,7 @@ describe("EditQuestionaire", () => {
       router,
       i18n,
     });
+    component.vm.$route = $route;
   });
 
   it("should have default value when props are not there", () => {
@@ -49,6 +56,8 @@ describe("EditQuestionaire", () => {
     expect(component.vm.showEdit).to.deep.equal(true);
     expect(component.vm.status).to.deep.equal("");
     expect(component.vm.isAdmin).to.deep.equal(false);
+    expect(component.vm.hasPreviousYearData).to.deep.equal(false);
+    expect(component.vm.updatedDate).to.deep.equal("");
   });
 
   it("should contain the edit-questionnaire component", () => {
@@ -57,9 +66,10 @@ describe("EditQuestionaire", () => {
     );
   });
 
-  it("should save data as draft", async () => {
+  it("should save data as draft and emit event", async () => {
     axiosPostSpy.mockResolvedValue({});
     let notifier = sinon.spy();
+    vi.spyOn(EventBus, "$emit");
 
     await flushPromises();
 
@@ -71,6 +81,10 @@ describe("EditQuestionaire", () => {
       "some-random-uuid"
     );
     await flushPromises();
+
+    expect(EventBus.$emit.mock.calls[0][0]).to.equal(
+      "edit_questionnaire:saved"
+    );
 
     sinon.assert.calledWith(notifier, {
       group: "custom-template",
@@ -97,6 +111,136 @@ describe("EditQuestionaire", () => {
       text: component.vm.successMessages["submit"],
       type: "success",
     });
+  });
+
+  it("should set showEdit to false when save data is called with action submit and should not have previous data", async () => {
+    axiosPostSpy.mockResolvedValue({});
+    let notifier = sinon.spy();
+    await flushPromises();
+
+    component.vm.$notify = notifier;
+    component.vm.saveData("submit");
+
+    await flushPromises();
+
+    expect(component.vm.showEdit).to.equal(false);
+    expect(component.vm.hasPreviousYearData).to.equal(false);
+    sinon.assert.calledWith(notifier, {
+      group: "custom-template",
+      title: "Success",
+      text: component.vm.successMessages["submit"],
+      type: "success",
+    });
+  });
+
+  it("should send approver fields as empty when checkbox is set to false and the action is submit", async () => {
+    axiosPostSpy.mockResolvedValue({});
+    let notifier = sinon.spy();
+    component.vm.$notify = notifier;
+    await flushPromises();
+
+    const checkBoxInput = component.find('input[type="checkbox"]');
+    checkBoxInput.setChecked(true);
+    component.find("#nameofPersonApprovedData").setValue("hello");
+    component.vm.validate("submit");
+    expect(axiosPostSpy.mock.calls.length).to.equal(0);
+    await flushPromises();
+    sinon.assert.calledWith(notifier, {
+      group: "custom-template",
+      title: "Error",
+      text: "Please correct the highlighted fields.",
+      type: "error",
+    });
+
+    checkBoxInput.setChecked(false);
+    await flushPromises();
+
+    component.vm.saveData("submit");
+    expect(axiosPostSpy.mock.calls[0][0]).to.equal("/api/countries/submit");
+    expect(
+      axiosPostSpy.mock.calls[0][1].countrySummary.dataApproverName
+    ).to.equal("");
+  });
+
+  it("should send approver fields with respective data when checkbox is set to true and the action is submit", async () => {
+    axiosPostSpy.mockResolvedValue({});
+    let notifier = sinon.spy();
+    component.vm.$notify = notifier;
+    await flushPromises();
+
+    const checkBoxInput = component.find('input[type="checkbox"]');
+    checkBoxInput.setChecked(true);
+    component.find("#nameofPersonApprovedData").setValue("name");
+    component.find("#roleofPersonApprovedData").setValue("role");
+    component.find("#emailofPersonApprovedData").setValue("email");
+
+    await flushPromises();
+
+    component.vm.saveData("submit");
+    expect(axiosPostSpy.mock.calls[0][0]).to.equal("/api/countries/submit");
+    expect(
+      axiosPostSpy.mock.calls[0][1].countrySummary.dataApproverName
+    ).to.equal("name");
+    expect(
+      axiosPostSpy.mock.calls[0][1].countrySummary.dataApproverRole
+    ).to.equal("role");
+    expect(
+      axiosPostSpy.mock.calls[0][1].countrySummary.dataApproverEmail
+    ).to.equal("email");
+  });
+  it("should display warning message when the data is on review and isAdmin is false", async () => {
+    axiosPostSpy.mockResolvedValue({});
+    await flushPromises();
+    component.vm.status = "REVIEW_PENDING";
+    component.vm.isAdmin = false;
+    expect(component.vm.warningMessage).to.equal(
+      "Data is already submitted for the current year on March 2023"
+    );
+  });
+
+  it("should display warning message when the data is published and isAdmin is false", async () => {
+    axiosPostSpy.mockResolvedValue({});
+    await flushPromises();
+    component.vm.status = "PUBLISHED";
+    component.vm.isAdmin = false;
+    expect(component.vm.warningMessage).to.equal(
+      "Data for current year is already published on March 2023"
+    );
+  });
+
+  it("should display warning message when the data is prefilled for a questionnaire from a previous year", async () => {
+    axiosPostSpy.mockResolvedValue({});
+    await flushPromises();
+    component.vm.hasPreviousYearData = true;
+    expect(component.vm.warningMessage).to.equal(
+      "Data has been pre-populated in the questionnaire from year March 2023. Please update the data for current year and provide relevant justification"
+    );
+  });
+
+  it("should display approver fields when is government approved checkbox is set to true", async () => {
+    axiosPostSpy.mockResolvedValue({});
+    await flushPromises();
+    const checkBoxInput = component.find('input[type="checkbox"]');
+    checkBoxInput.setChecked(true);
+    await flushPromises();
+    expect(checkBoxInput.element.checked).toBeTruthy();
+    expect(component.find("#nameofPersonApprovedData").isVisible()).toBe(true);
+    expect(component.find("#roleofPersonApprovedData").isVisible()).toBe(true);
+    expect(component.find("#emailofPersonApprovedData").isVisible()).toBe(true);
+  });
+
+  it("should not display approver fields when is government approved checkbox is set to false", async () => {
+    axiosPostSpy.mockResolvedValue({});
+    await flushPromises();
+    const checkBoxInput = component.find('input[type="checkbox"]');
+    checkBoxInput.setChecked(false);
+    await flushPromises();
+    expect(checkBoxInput.element.checked).toBeFalsy();
+    expect(component.find("#nameofPersonApprovedData").isVisible()).toBe(false);
+    expect(component.find("#roleofPersonApprovedData").isVisible()).toBe(false);
+    expect(component.find("#emailofPersonApprovedData").isVisible()).toBe(
+      false
+    );
   });
 
   it("should display error notifier  when save data call is failed with error 400", async () => {
@@ -205,9 +349,11 @@ describe("EditQuestionaire", () => {
     });
   });
 
-  it("should submit data when data is valid", async () => {
+  it("should show submit confirmation dialog when submit is pressed", async () => {
+    let getConfirmationDialog = sinon.spy();
     let saveData = sinon.spy();
     component.vm.saveData = saveData;
+    component.vm.getConfirmationDialog = getConfirmationDialog;
 
     sinon
       .stub(component.vm.$validator, "validateAll")
@@ -215,7 +361,12 @@ describe("EditQuestionaire", () => {
     component.vm.validate("submit");
     await flushPromises();
 
-    sinon.assert.calledOnce(saveData);
+    sinon.assert.calledWith(getConfirmationDialog, {
+      message:
+        "Are you sure you want to submit the data for India? Please check the options selected by you are reflecting Country's current year digital health maturity",
+      callBackMethod: saveData,
+      callBackArgs: ["submit"],
+    });
   });
 
   it("should not submit data when data is invalid", async () => {
@@ -254,20 +405,34 @@ describe("EditQuestionaire", () => {
   });
 
   it("should call delete api and redirect to admin page", async () => {
-    let routerPush = sinon.spy(router, "push");
     let notifier = sinon.spy();
     component.vm.$notify = notifier;
     axiosDeleteSpy.mockResolvedValue({});
     component.vm.deleteData();
 
     await flushPromises();
-    let expectedUUID = component.vm?.$route?.params?.countryUUID;
     expect(axiosDeleteSpy.mock.calls[0][0]).to.equal(
-      `/api/countries/${expectedUUID}/delete`
+      `/api/countries/random-uuid/delete/2023`
     );
     // TODO: Check the below
     // await flushPromises();
     // sinon.assert.calledWith(routerPush, { path: `/admin` });
+  });
+
+  it("should call publish api and redirect to admin page", async () => {
+    let notifier = sinon.spy();
+    const mockPush = vi.fn();
+    axiosPostSpy.mockResolvedValue({});
+    component.vm.$notify = notifier;
+    component.vm.$router = { push: mockPush };
+    component.vm.saveData("publish");
+
+    await flushPromises();
+
+    expect(axiosPostSpy.mock.calls[0][0]).to.equal(
+      `/api/countries/publish/2023`
+    );
+    expect(mockPush.mock.calls[0][0].path).to.equal("/admin");
   });
 
   it("should call delete api and notify with error message on server error", async () => {
@@ -280,9 +445,8 @@ describe("EditQuestionaire", () => {
 
     await flushPromises();
 
-    let expectedUUID = component.vm?.$route?.params?.countryUUID;
     expect(axiosDeleteSpy.mock.calls[0][0]).to.equal(
-      `/api/countries/${expectedUUID}/delete`
+      `/api/countries/random-uuid/delete/2023`
     );
 
     await flushPromises();

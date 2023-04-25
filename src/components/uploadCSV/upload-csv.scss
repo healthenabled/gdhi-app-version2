@@ -1,0 +1,32 @@
+@import "../../assets/stylesheets/components/variables";
+
+.error-message {
+  color: $negative;
+}
+
+.button-section {
+  .upload-file {
+    display: none;
+  }
+  .btn {
+    margin-left: 0;
+    margin-right: 16px;
+  }
+}
+
+.download-section {
+  display: inline-flex;
+  .btn {
+    margin-left: 20px;
+  }
+}
+
+.import-status-table {
+  margin-top: 15px;
+}
+
+.note {
+  color: $gdhi-orange-shade1;
+  font-style: italic;
+  margin-bottom: 10px;
+}

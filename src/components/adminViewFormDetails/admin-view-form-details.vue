@@ -27,6 +27,12 @@ export default Vue.extend({
   mounted() {
     this.loadAdminViewFormDetails();
   },
+  computed: {
+    currentYear() {
+      return this.allData.currentYear;
+    },
+  },
+
   methods: {
     updateSelected(tab) {
       this.getTabData(tab);
@@ -49,14 +55,16 @@ export default Vue.extend({
           location.origin +
             "/admin/health_indicator_questionnaire/" +
             countryUUID +
-            "/review"
+            "/review/" +
+            this.currentYear
         );
       } else if (action === "View Live Data") {
         this.openUrl(
           location.origin +
             "/admin/health_indicator_questionnaire/" +
             countryUUID +
-            "/viewPublished"
+            "/viewPublished/" +
+            this.currentYear
         );
       }
     },
@@ -129,12 +137,13 @@ export default Vue.extend({
 
 <template>
   <div>
+    <div class="header-bold">Form Details for {{ currentYear }} year</div>
     <div class="tabs">
       <ul class="tablist">
         <li
           v-for="tab in tabs"
           v-on:click="updateSelected(tab)"
-          v-bind:class="{ current: selectedTab == tab.id }"
+          :class="{ current: selectedTab == tab.id }"
         >
           {{ tab.name }}
         </li>

@@ -12,11 +12,20 @@ export default Vue.extend({
     return {
       categoryValue: "",
       categories: [],
+      locale: "",
     };
+  },
+
+  props: {
+    title: {
+      type: String,
+      default: "",
+    },
   },
 
   created() {
     this.categoryValue = window.appProperties.getCategoryFilter();
+    this.locale = this.$i18n.locale;
     this.fetchCategoricalIndicators();
   },
 
@@ -70,7 +79,7 @@ export default Vue.extend({
 <template>
   <div class="filter-indicator">
     <div class="filter-indicator-header">
-      {{ $t("indicators.indicator") }}
+      {{ this.title === "" ? $t("indicators.indicator") : $t(`${this.title}`) }}
     </div>
     <select
       class="filter-indicator-select"

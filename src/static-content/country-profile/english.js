@@ -24,7 +24,21 @@ export const countryProfile = {
       "No countries in the selected phase for benchmarking",
     serverErrorDescription:
       "Unable to load benchmark data. Please try after sometime",
+    average: "Average",
   },
   indicator: "Indicator",
   score: "Score",
+  govtData: "Government Approved",
+  nonGovtData: "Pending Government Approval",
+  selectYear: "Select Year",
+  selectYearDescription:
+    "To view data for a specific year, please select the desired year",
+  phaseOverview: "Phase Overview",
+  countryProgressOverTime: "Country Progress Over Time",
+  countryProgressLineChart: {
+    indicatorGroupingDescription: "Select an indicator",
+    globalAverage: "Global average",
+  },
+  compareTo: "Compare to",
+  region: "Region",
 };

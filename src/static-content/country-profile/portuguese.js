@@ -24,7 +24,21 @@ export const countryProfile = {
       "Nenhum país na fase selecionada para comparar",
     serverErrorDescription:
       "Incapaz de carregar dados de referência. Por favor, tente depois de algum tempo",
+    average: "Média",
   },
   indicator: "Indicador",
   score: "PONTUAÇÃO",
+  govtData: "Aprovado pelo governo",
+  nonGovtData: "Aprovação governamental pendente",
+  selectYear: "Selecione o ano",
+  selectYearDescription:
+    "Para visualizar os dados de um ano específico, selecione o ano desejado",
+  phaseOverview: "Visão geral da fase",
+  countryProgressOverTime: "Progresso do país ao longo do tempo",
+  countryProgressLineChart: {
+    indicatorGroupingDescription: "Selecione um indicador",
+    globalAverage: "Média global",
+  },
+  compareTo: "Comparado a",
+  region: "Região",
 };

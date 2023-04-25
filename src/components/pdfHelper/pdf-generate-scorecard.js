@@ -62,28 +62,6 @@ const roundedRectData = function (w, h, tlr, trr, brr, blr) {
 };
 
 // Primitive line break algorithm
-const breakTextIntoLines = (text, size, font, maxWidth) => {
-  const lines = [];
-  let textIdx = 0;
-  while (textIdx < text.length) {
-    let line = "";
-    while (textIdx < text.length) {
-      if (text.charAt(textIdx) === "\n") {
-        lines.push(line);
-        textIdx += 1;
-        line = "";
-        continue;
-      }
-      const newLine = line + text.charAt(textIdx);
-      if (font.widthOfTextAtSize(newLine, size) > maxWidth) break;
-      line = newLine;
-      textIdx += 1;
-    }
-    lines.push(line);
-  }
-  return lines;
-};
-
 const hexToRgb = (h) => {
   let r = 0,
     g = 0,
@@ -130,7 +108,7 @@ export async function generateScorecard(
     country: healthIndicatorData.countryName,
   });
   // Move cursor to 60 points below the top of the page
-  page.moveTo(50, page.getHeight() - 60);
+  page.moveTo(70, page.getHeight() - 60);
 
   // Add Title in the document
   page.drawText(title, {
@@ -140,11 +118,96 @@ export async function generateScorecard(
     maxWidth: 480,
   });
 
+  const handlePagination = () => {
+    if (page.getY() <= 70) {
+      page = pdfDoc.addPage();
+      page.moveTo(70, page.getHeight() - 60);
+    }
+  };
+  const breakTextIntoLines = (text, size, font, maxWidth) => {
+    const lines = [];
+    let textIdx = 0;
+    while (textIdx < text.length) {
+      let line = "";
+      while (textIdx < text.length) {
+        if (text.charAt(textIdx) === "\n") {
+          lines.push(line);
+          textIdx += 1;
+          line = "";
+          continue;
+        }
+        const newLine = line + text.charAt(textIdx);
+        if (font.widthOfTextAtSize(newLine, size) > maxWidth) break;
+        line = newLine;
+        textIdx += 1;
+      }
+      lines.push(line);
+    }
+    return lines;
+  };
+
+  const drawTextWithPagination = (payloadText, options) => {
+    let currentY = page.getY();
+    const maxY = 70;
+    const heightOfOneLine = options.font.heightAtSize(options.size);
+    const numberOfLinesThatCanFit = Math.ceil(
+      (currentY - maxY) / heightOfOneLine
+    );
+    const numberOfLinesToWrite = breakTextIntoLines(
+      payloadText,
+      options.size,
+      options.font,
+      options.maxWidth
+    ).length;
+    if (numberOfLinesToWrite < numberOfLinesThatCanFit) {
+      //lines fit in one page
+      page.drawText(payloadText, options);
+      page.moveDown(15 + heightOfOneLine * numberOfLinesToWrite);
+      handlePagination();
+    } else {
+      //and lines will overflow in this case.Hence, we need delimiters
+      const numberOfCharactersInOneLine =
+        payloadText.length / numberOfLinesToWrite;
+      const firstPartOfLines = payloadText.slice(
+        0,
+        numberOfLinesThatCanFit * numberOfCharactersInOneLine
+      );
+      const secondPartOfLines = payloadText.slice(
+        numberOfLinesThatCanFit * numberOfCharactersInOneLine,
+        payloadText.length
+      );
+
+      let delimiter = "";
+      if (
+        firstPartOfLines[firstPartOfLines.length - 1]?.match(/[a-z]/i) &&
+        secondPartOfLines[0]?.match(/[a-z]/i)
+      ) {
+        delimiter = "-";
+      }
+
+      page.drawText(firstPartOfLines + delimiter, options);
+      page = pdfDoc.addPage();
+      page.moveTo(70, page.getHeight() - 60);
+      const numberOfLinesInTheSecondPart = breakTextIntoLines(
+        secondPartOfLines,
+        options.size,
+        options.font,
+        options.maxWidth
+      ).length;
+      page.drawText(delimiter + secondPartOfLines, {
+        ...options,
+        x: 70,
+        y: page.getHeight() - 60,
+      });
+      page.moveDown(30 + heightOfOneLine * numberOfLinesInTheSecondPart);
+    }
+  };
+
   page.moveDown(20 + Math.ceil(title.length / 50) * 10);
 
   // Write Collected Data in the document
   page.drawText(
-    common.dateInLocaleFormat(healthIndicatorData.collectedDate, i18n),
+    common.dateInLocaleFormat(healthIndicatorData.updatedDate, i18n),
     {
       font: helveticaBoldObliqueFont,
       size: 14,
@@ -155,83 +218,83 @@ export async function generateScorecard(
 
   // Write Document Summary Heading in bold
   page.moveDown(50);
-  page.drawText(i18n.t("countryProfile.countrySummary.text"), {
-    size: 14,
-    color: rgb(0, 0, 0),
-    font: helveticaBoldFont,
-    wordBreaks: [],
-    lineHeight: 14,
-  });
-
-  // Write country Summary in a Paginated way
-  page.moveDown(20);
-
+  drawTextWithPagination(
+    i18n.t("healthIndicatorQuestionnaire.contactForm.countrySummary"),
+    { font: helveticaBoldFont, size: 12, lineHeight: 12, maxWidth: 480 }
+  );
   if (countrySummary) {
-    const currentY = page.getY();
-    const maxY = 30;
-    const heightOfOneLine = helveticaFont.heightAtSize(14);
-    const numberOfLinesThatCanFit = Math.ceil(
-      (currentY - maxY) / heightOfOneLine
-    );
-    const linesToWrite = breakTextIntoLines(
-      countrySummary,
-      14,
-      helveticaFont,
-      480
-    );
-
-    if (linesToWrite.length < numberOfLinesThatCanFit) {
-      page.drawText(countrySummary, {
-        size: 14,
-        font: helveticaFont,
-        color: hexToRgb("#000"),
-        maxWidth: 480,
-        lineHeight: 14,
-      });
-    } else {
-      const delimiter =
-        countrySummary[numberOfLinesThatCanFit * 75] === " " ? null : "-";
-
-      page.drawText(
-        countrySummary.slice(0, numberOfLinesThatCanFit * 75) + delimiter,
-        {
-          size: 14,
-          font: helveticaFont,
-          color: hexToRgb("#000"),
-          maxWidth: 480,
-          lineHeight: 14,
-        }
-      );
-      page = pdfDoc.addPage();
-      page.moveTo(50, page.getHeight() - 30);
-      page.drawText(
-        delimiter +
-          countrySummary.slice(
-            numberOfLinesThatCanFit * 75,
-            countrySummary.length
-          ),
-        {
-          size: 14,
-          font: helveticaFont,
-          color: hexToRgb("#000"),
-          maxWidth: 480,
-          lineHeight: 14,
-        }
-      );
-    }
-    page = pdfDoc.addPage();
-    page.moveTo(50, page.getHeight() - 30);
+    drawTextWithPagination(countrySummary, {
+      font: helveticaFont,
+      size: 14,
+      maxWidth: 480,
+      lineHeight: 14,
+    });
   } else {
     page.drawText("-", {
       size: 14,
       font: helveticaFont,
       color: hexToRgb("#000"),
-      x: 50,
+      x: 70,
       y: page.getY(),
       maxWidth: 480,
       lineHeight: 14,
     });
+    page.moveDown(20);
   }
+  // Write country Summary in a Paginated way
+
+  page = pdfDoc.addPage();
+
+  page.moveTo(70, page.getHeight() - 80);
+
+  drawTextWithPagination(i18n.t("scoreCardPDF.spiderGraphTitle"), {
+    font: helveticaBoldFont,
+    size: 12,
+    lineHeight: 12,
+    maxWidth: 480,
+  });
+
+  let canvas = document.getElementById("phase-overview-spider-graph");
+  const imgSrc = canvas.toDataURL();
+  const pngImage = await pdfDoc.embedPng(imgSrc);
+  const pngDims = pngImage.scale(0.4);
+
+  page.moveDown(pngDims.height - 10);
+  page.drawImage(pngImage, {
+    x: 70,
+    y: page.getY(),
+    width: pngDims.width,
+    height: pngDims.height,
+  });
+
+  let canvasTwo = document.getElementById("line-chart");
+  const imgSrcTwo = canvasTwo.toDataURL();
+  const dataUrlMinLength = 6;
+  if (imgSrcTwo.length > dataUrlMinLength) {
+    page = pdfDoc.addPage();
+
+    page.moveTo(70, page.getHeight() - 60);
+
+    drawTextWithPagination(i18n.t("scoreCardPDF.lineChartTitle"), {
+      font: helveticaBoldFont,
+      size: 12,
+      lineHeight: 12,
+      maxWidth: 480,
+    });
+
+    const pngImageTwo = await pdfDoc.embedPng(imgSrcTwo);
+    const pngDimsTwo = pngImageTwo.scale(0.17);
+    page.drawImage(pngImageTwo, {
+      x: page.getWidth() / 2 - pngDimsTwo.width / 2,
+      y: page.getHeight() / 2 - pngDimsTwo.height / 2,
+      width: pngDimsTwo.width,
+      height: pngDimsTwo.height,
+    });
+  }
+
+  page = pdfDoc.addPage();
+
+  page.moveTo(70, page.getHeight() - 60);
 
   if (benchmarkPhase) {
     let benchMarkPhaseValue =
@@ -242,7 +305,7 @@ export async function generateScorecard(
           });
     if (page.getY() <= 30) {
       page = pdfDoc.addPage();
-      page.moveTo(50, page.getHeight() - 30);
+      page.moveTo(70, page.getHeight() - 30);
     }
     page.moveDown(20);
     page.drawText(
@@ -253,7 +316,7 @@ export async function generateScorecard(
         size: 14,
         color: hexToRgb("#000"),
         font: helveticaBoldFont,
-        x: 50,
+        x: 70,
         y: page.getY(),
         maxWidth: 500,
         lineHeight: 14,
@@ -261,7 +324,7 @@ export async function generateScorecard(
     );
     if (page.getY() <= 30) {
       page = pdfDoc.addPage();
-      page.moveTo(50, page.getHeight() - 30);
+      page.moveTo(70, page.getHeight() - 30);
     }
     page.moveDown(20);
 
@@ -272,7 +335,7 @@ export async function generateScorecard(
       color: hexToRgb("#666"),
       font: helveticaBoldObliqueFont,
       maxWidth: 500,
-      x: 50,
+      x: 70,
       y: page.getY(),
       lineHeight: 12,
     });
@@ -280,7 +343,7 @@ export async function generateScorecard(
     if (!hasBenchmarkData) {
       if (page.getY() <= 30) {
         page = pdfDoc.addPage();
-        page.moveTo(50, page.getHeight() - 30);
+        page.moveTo(70, page.getHeight() - 30);
       }
       page.moveDown(40);
       page.drawText(
@@ -289,7 +352,7 @@ export async function generateScorecard(
           size: 12,
           color: hexToRgb("#ed4c57"),
           font: helveticaBoldObliqueFont,
-          x: 50,
+          x: 70,
           y: page.getY(),
           lineHeight: 12,
         }
@@ -299,7 +362,7 @@ export async function generateScorecard(
 
   if (page.getY() <= 30) {
     page = pdfDoc.addPage();
-    page.moveTo(50, page.getHeight() - 30);
+    page.moveTo(70, page.getHeight() - 30);
   }
   // Write overall digital health phase in the doc
   page.moveDown(20);
@@ -308,7 +371,7 @@ export async function generateScorecard(
     size: 14,
     color: hexToRgb("#000"),
     font: helveticaBoldFont,
-    x: 50,
+    x: 70,
     y: page.getY(),
     lineHeight: 14,
   });
@@ -339,7 +402,7 @@ export async function generateScorecard(
   // Draw seperator between overall phase score and rest
   page.moveDown(30);
   page.drawLine({
-    start: { x: 50, y: page.getY() },
+    start: { x: 70, y: page.getY() },
     end: {
       x: 560,
       y: page.getY(),
@@ -353,7 +416,7 @@ export async function generateScorecard(
   healthIndicatorData.categories.forEach((category) => {
     if (page.getY() <= 200) {
       page = pdfDoc.addPage();
-      page.moveTo(50, page.getHeight() - 30);
+      page.moveTo(70, page.getHeight() - 30);
     }
 
     // Write Phase name
@@ -362,7 +425,7 @@ export async function generateScorecard(
       font: helveticaBoldFont,
       size: 14,
       color: rgb(0, 0, 0),
-      x: 50,
+      x: 70,
       y: page.getY() + 5,
       maxWidth: 500,
       lineHeight: 14,
@@ -370,7 +433,7 @@ export async function generateScorecard(
 
     if (page.getY() <= 120) {
       page = pdfDoc.addPage();
-      page.moveTo(50, page.getHeight() - 30);
+      page.moveTo(70, page.getHeight() - 30);
     }
 
     // Add  a Progress bar rounded line
@@ -421,7 +484,7 @@ export async function generateScorecard(
     category.indicators.forEach((indicator, index) => {
       if (page.getY() <= 120) {
         page = pdfDoc.addPage();
-        page.moveTo(50, page.getHeight() - 30);
+        page.moveTo(70, page.getHeight() - 30);
       }
 
       // Write category Code and Name
@@ -430,7 +493,7 @@ export async function generateScorecard(
         font: helveticaFont,
         size: 12,
         color: hexToRgb("#000"),
-        x: 50,
+        x: 70,
         y: page.getY() + 5,
         maxWidth: 420,
         lineHeight: 12,
@@ -442,7 +505,7 @@ export async function generateScorecard(
           160
       ) {
         page = pdfDoc.addPage();
-        page.moveTo(50, page.getHeight() - 30);
+        page.moveTo(70, page.getHeight() - 30);
       }
 
       // Write category description into the Doc
@@ -451,7 +514,7 @@ export async function generateScorecard(
         size: 12,
         color: hexToRgb("#666"),
         font: helveticaObliqueFont,
-        x: 50,
+        x: 70,
         y: page.getY() + 5,
         maxWidth: 420,
         lineHeight: 12,
@@ -462,7 +525,7 @@ export async function generateScorecard(
         page.getY() + Math.floor(indicator.scoreDescription.length / 83) <= 160
       ) {
         page = pdfDoc.addPage();
-        page.moveTo(50, page.getHeight() - 30);
+        page.moveTo(70, page.getHeight() - 30);
       }
 
       // Write score description into the Doc
@@ -471,7 +534,7 @@ export async function generateScorecard(
       );
       page.drawText(indicator.scoreDescription, {
         font: helveticaFont,
-        x: 50,
+        x: 70,
         y: page.getY() + 5,
         maxWidth: 420,
         color: hexToRgb("#4A90E2"),
@@ -481,7 +544,7 @@ export async function generateScorecard(
 
       if (page.getY() <= 80) {
         page = pdfDoc.addPage();
-        page.moveTo(50, page.getHeight() - 30);
+        page.moveTo(70, page.getHeight() - 30);
       }
 
       page.moveDown(
@@ -489,22 +552,13 @@ export async function generateScorecard(
       );
 
       if (index !== category.indicators.length - 1) {
-        // page.setLineWidth(0.5);
         page.drawLine({
-          start: { x: 50, y: page.getY() },
+          start: { x: 70, y: page.getY() },
           end: { x: 560, y: page.getY() },
           color: hexToRgb("#CCC"),
         });
       }
 
-      //score box yValue computation startYVal + ((endYVal - startYVal) / 2) - ((scoreBoxHeight / 2) + (benchmark text height/ 2))
-
-      // if (benchmarkData[indicator.id]) {
-      //   //adjust benchmark height to align center (12px)
-      //   scoreYVal = initialYVal + ((endYVal - initialYVal) / 2 - 32);
-      // } else {
-      //   scoreYVal = initialYVal + ((endYVal - initialYVal) / 2 - 16);
-      // }
       let indicatorScore =
         indicator.score > 0 ? indicator.score.toString() : "NA";
 
@@ -514,17 +568,6 @@ export async function generateScorecard(
         borderLineCap: LineCapStyle.Round,
         color: hexToRgb(getColorCodeForPhase(colorCodes, indicatorScore)),
       });
-
-      // page.drawRectangle({
-      //   x: 500,
-      //   y: page.getY() + 20,
-      //   width: 32,
-      //   height: 32,
-      //   color: hexToRgb(getColorCodeForPhase(colorCodes, indicatorScore)),
-      // });
-      // doc
-      //   .roundedRect(500, scoreYVal, 32, 32, 5)
-      //   .fill(getColorCodeForPhase(colorCodes, indicatorScore));
 
       page.drawText(indicatorScore, {
         x: indicatorScore.length > 1 ? 507 : 512,
@@ -538,7 +581,7 @@ export async function generateScorecard(
 
       if (page.getY() <= 80) {
         page = pdfDoc.addPage();
-        page.moveTo(50, page.getHeight() - 30);
+        page.moveTo(70, page.getHeight() - 30);
       }
 
       if (benchmarkData[indicator.id]) {
@@ -556,65 +599,6 @@ export async function generateScorecard(
             lineHeight: 10,
           }
         );
-
-        switch (benchmarkData[indicator.id].benchmarkValue.toLowerCase()) {
-          case "at":
-            // TODO: align text center below
-            page.drawText(
-              i18n.t("countryProfile.benchmark.benchmarkValues.atAvg"),
-              {
-                size: 10,
-                color: hexToRgb("#999999"),
-                x: 500,
-                y: page.getY() + 57,
-                lineHeight: 10,
-                font: helveticaBoldFont,
-              }
-            );
-
-            break;
-          case "above":
-            page.drawSvgPath("M 3 9 L 9 9 L 6 3 z", {
-              x: 480,
-              y: page.getY() + 66,
-              color: hexToRgb("#92b35a"),
-            });
-
-            page.drawText(
-              i18n.t("countryProfile.benchmark.benchmarkValues.aboveAvg"),
-              {
-                size: 10,
-                color: hexToRgb("#92b35a"),
-                x: 490,
-                y: page.getY() + 57,
-                maxWidth: 60,
-                lineHeight: 10,
-                font: helveticaBoldFont,
-              }
-            );
-
-            break;
-          case "below":
-            page.drawSvgPath("M 3 3 L 9 3 L 6 9 z", {
-              x: 480,
-              y: page.getY() + 66,
-              color: hexToRgb("#ed4c57"),
-            });
-
-            page.drawText(
-              i18n.t("countryProfile.benchmark.benchmarkValues.belowAvg"),
-              {
-                size: 10,
-                color: hexToRgb("#ed4c57"),
-                x: 490,
-                y: page.getY() + 57,
-                maxWidth: 60,
-                lineHeight: 10,
-                font: helveticaBoldFont,
-              }
-            );
-            break;
-        }
       }
       // to reset doc.y position in PDFKit, As the doc.y position is updated as soon as we add text
       // page.moveTo(50, endYVal + 25);

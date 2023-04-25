@@ -1,0 +1,36 @@
+@import "../../assets/stylesheets/rtl-support";
+@import "../../assets/stylesheets/components/variables";
+
+.region {
+  height: 100%;
+  width: 20vw;
+  @include margin-right(2.5vw);
+  @include margin-left(0.5vw);
+
+  &-header {
+    font-size: 1.15em;
+    font-family: "InterBold", sans-serif;
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+}
+
+.region-select {
+  color: $cool-gray;
+  background-color: $white;
+  width: 60%;
+  height: 35px;
+  @include padding-left(20px);
+  @include padding-right(20px);
+  border: $table-border;
+  -webkit-appearance: none;
+  appearance: none;
+  -moz-appearance: none;
+  background: url("/static/img/arrowDown.svg") no-repeat;
+  background-position-y: 50%;
+  background-size: 15px;
+}
+
+select::-ms-expand {
+  display: none;
+}

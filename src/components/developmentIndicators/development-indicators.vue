@@ -45,10 +45,11 @@ export default Vue.extend({
       <div v-for="indicators in indicatorCategory" class="row">
         <div
           v-for="(indicator, key) in indicators"
-          class="text-center indicator"
+          class="indicator"
+          :key="key"
         >
           <div class="highlight-text">{{ indicator }}</div>
-          <div class="copy-grey">
+          <div class="indicator-category">
             {{
               $t(
                 "worldMap.indicatorPanel." +

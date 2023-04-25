@@ -1,0 +1,51 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Country Profile Year Selector  > should render Year Selector 1`] = `
+<div
+  class="year-select-container"
+>
+  <div
+    class="title"
+  >
+    <div
+      class="sub-header-country-profile"
+    >
+       Select Year 
+    </div>
+    <div
+      class="select-year-desc"
+    >
+      <p>
+        To view data for a specific year, please select the desired year
+      </p>
+    </div>
+  </div>
+  <div
+    class="year-indicator year-indicator-select"
+  >
+    <div>
+      <select
+        class="year-indicator-select ltr width"
+        name="test_select3"
+      >
+        <option
+          value="2023"
+        >
+           2023 
+        </option>
+        <option
+          value="2021"
+        >
+           2021 
+        </option>
+        <option
+          value="Version1"
+        >
+           Version1 
+        </option>
+      </select>
+        
+    </div>
+  </div>
+</div>
+`;

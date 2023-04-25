@@ -139,8 +139,8 @@ export default Vue.extend({
           document.body.scrollTop = document.documentElement.scrollTop = 0;
           if (response.data.success) {
             this.message = "URL Generated Successfully";
-            if (response.data.existingStatus == "PUBLISHED") {
-              this.warningMessage = "Already Published";
+            if (response.data.existingStatus === "PUBLISHED") {
+              this.warningMessage = "Data has already been published";
             }
             this.notifier({
               group: "custom-template",
@@ -150,10 +150,12 @@ export default Vue.extend({
             });
           } else {
             if (
-              response.data.existingStatus == "NEW" ||
-              response.data.existingStatus == "DRAFT"
+              response.data.existingStatus === "NEW" ||
+              response.data.existingStatus === "DRAFT"
             ) {
               this.warningMessage = "Submission under process";
+            } else if (response.data.existingStatus === "PUBLISHED") {
+              this.warningMessage = "Data has already been published";
             } else {
               this.warningMessage = "Review Pending";
             }

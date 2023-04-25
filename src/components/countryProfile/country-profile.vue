@@ -7,11 +7,25 @@ import { generateScorecard } from "../pdfHelper/pdf-generate-scorecard";
 import isEmpty from "lodash/isEmpty";
 import Notifications from "vue-notification";
 import common from "../../common/common";
+import CountryProfileYearSelector from "./country-profile-year-selector.vue";
+import CountryProgressLineGraphContainer from "../graphs/country-progress-line-graph/country-progress-line-graph-container.vue";
+import { EventBus } from "../common/event-bus";
+import { EVENTS } from "../../constants";
+import PhaseOverviewSpiderGraph from "../graphs/phase-overview-spider-graph/phase-overview-spider-graph.vue";
+import RegionSelector from "../regionSelector/region-selector.vue";
 
 Vue.use(Notifications);
 
 export default Vue.extend({
-  components: { developmentIndicators, countrySummary, Notifications },
+  components: {
+    developmentIndicators,
+    countrySummary,
+    Notifications,
+    PhaseOverviewSpiderGraph,
+    CountryProfileYearSelector,
+    CountryProgressLineGraphContainer,
+    RegionSelector,
+  },
   data() {
     return {
       healthIndicatorData: {
@@ -21,25 +35,48 @@ export default Vue.extend({
       },
       url: "",
       benchmarkData: {},
-      benchmarkPhase: "",
+      benchmarkPhase: -1,
       phases: [],
       countrySummary: "",
+      govtApproved: false,
       hasBenchmarkData: true,
-      collectedDate: "",
+      updatedDate: "",
+      showCountryProgressOverTime: false,
       locale: "en",
+      selectedYear: null,
+      globalData: {},
+      yearOnYearData: {},
+      selectedRegion: {},
     };
   },
 
   mounted() {
+    common.showLoading();
     this.getHealthIndicatorsFor(this.$route.params.countryCode);
+    this.getBenchmarkData();
+    this.getGlobalAverage();
     this.url = `/api/export_country_data/${this.$route.params.countryCode}`;
     this.fetchPhases();
+    EventBus.$on(EVENTS.YEAR_FILTERED, (selectedYear) => {
+      common.showLoading();
+      this.selectedYear = selectedYear;
+      this.getHealthIndicatorsFor(this.$route.params.countryCode);
+      this.getBenchmarkData();
+      this.getGlobalAverage();
+    });
+    EventBus.$on(EVENTS.REGION_FILTERED, () => {
+      common.showLoading();
+      this.selectedRegion = window.appProperties.getRegion();
+      this.getBenchmarkData();
+      this.getHealthIndicatorsFor(this.$route.params.countryCode);
+      this.getGlobalAverage();
+    });
   },
   updated() {
     if (this.locale !== this.$i18n.locale) {
       this.getHealthIndicatorsFor(this.$route.params.countryCode);
-      if (this.healthIndicatorData && this.healthIndicatorData.collectedDate) {
-        this.updateCollectedDate(this.healthIndicatorData.collectedDate);
+      if (this.healthIndicatorData && this.healthIndicatorData.updatedDate) {
+        this.setUpdatedDate(this.healthIndicatorData.updatedDate);
       }
       this.locale = this.$i18n.locale;
     }
@@ -50,31 +87,56 @@ export default Vue.extend({
         this.phases = response.data;
       });
     },
-    onSummaryLoaded(countrySummary) {
+    onSummaryLoaded(countrySummary, govtApproved) {
       this.countrySummary = countrySummary;
+      this.govtApproved = govtApproved;
     },
+    getGlobalAverage() {
+      const globalHealthIndicatorsUrl = `/api/global_health_indicators`;
+      axios
+        .get(
+          globalHealthIndicatorsUrl,
+          common.configWithUserLanguageAndNoCacheHeader(
+            this.$i18n.locale,
+            this.selectedYear,
+            this.selectedRegion.region_id
+          )
+        )
+        .then((response) => {
+          this.globalData = response.data;
+        });
+    },
+
     getHealthIndicatorsFor(countryCode) {
       axios
         .get(
           `/api/countries/${countryCode}/health_indicators`,
-          common.configWithUserLanguageAndNoCacheHeader(this.$i18n.locale)
+          common.configWithUserLanguageAndNoCacheHeader(
+            this.$i18n.locale,
+            this.selectedYear,
+            this.selectedRegion.region_id
+          )
         )
         .then((response) => {
           this.healthIndicatorCallback(response);
+          common.hideLoading();
         });
     },
-    updateCollectedDate(date) {
-      this.collectedDate = common.dateInLocaleFormat(date, this.$i18n);
+    setUpdatedDate(date) {
+      this.updatedDate = common.dateInLocaleFormat(date, this.$i18n);
     },
 
     healthIndicatorCallback(response) {
       this.healthIndicatorData = response.data;
-      this.updateCollectedDate(this.healthIndicatorData.collectedDate);
+      this.setUpdatedDate(this.healthIndicatorData.updatedDate);
 
       this.initialise();
     },
     onCategoryExpand(category) {
       category.showCategory = !category.showCategory;
+    },
+    expandCountryProgress() {
+      this.showCountryProgressOverTime = !this.showCountryProgressOverTime;
     },
     initialise() {
       this.healthIndicatorData.categories.forEach((category) => {
@@ -111,9 +173,15 @@ export default Vue.extend({
       }
       axios
         .get(
-          `/api/countries/${this.$route.params.countryCode}/benchmark/${this.benchmarkPhase}`
+          `/api/bff/countries/${this.$route.params.countryCode}/benchmark/${this.benchmarkPhase}`,
+          common.configWithUserLanguageAndNoCacheHeader(
+            this.$i18n.locale,
+            this.selectedYear,
+            this.selectedRegion.region_id
+          )
         )
         .then((response) => {
+          common.hideLoading();
           this.benchmarkData = response.data;
           if (isEmpty(this.benchmarkData)) {
             this.hasBenchmarkData = false;
@@ -126,7 +194,7 @@ export default Vue.extend({
             });
           } else {
             this.healthIndicatorData.categories.forEach((category) => {
-              this.$set(category, "showCategory", true);
+              this.$set(category, "showCategory", false);
             });
           }
         })
@@ -165,7 +233,7 @@ export default Vue.extend({
 <template>
   <div class="country-detail content-width content-centered">
     <div class="health-indicator-section">
-      <div class="clearfix header-section">
+      <div class="header-section">
         <div class="country-name page-title">
           <div
             class="flag"
@@ -175,156 +243,176 @@ export default Vue.extend({
                 `/static/img/flags/${this.healthIndicatorData?.countryAlpha2Code?.toLowerCase()}.svg` +
                 ')',
             }"
-          ></div>
-          {{ healthIndicatorData.countryName }}
-        </div>
-        <span
-          id="collected-date"
-          v-if="healthIndicatorData.collectedDate !== ''"
-          class="copy-italics copy-grey"
-        >
-          {{ collectedDate }}
-        </span>
-        <div class="button-container float-right">
-          <div class="export">
+          />
+          <div class="country-name-and-date">
+            {{ healthIndicatorData.countryName }}
             <span
-              ><a v-bind:href="countryDataSheetUrl()" class="btn btn-primary"
-                ><i class="fa fa-file-excel-o fa-lg"></i
-                >{{ $t("countryProfile.exportCountryDataButton") }}</a
-              ></span
+              id="collected-date"
+              v-if="healthIndicatorData.updatedDate !== ''"
+              class="copy-italics"
             >
+              {{ updatedDate }}
+            </span>
           </div>
-          <button class="download-btn btn btn-primary" @click="generatePDF()">
-            <i class="fa fa-download" aria-hidden="true"></i>
-            {{ $t("countryProfile.downloadScorecard") }}
-          </button>
+        </div>
+        <div class="region-section">
+          <div class="compare-to-header">
+            {{ $t("countryProfile.compareTo") }}
+          </div>
+          <RegionSelector></RegionSelector>
+        </div>
+
+        <div class="header-section-button-container">
+          <a :href="countryDataSheetUrl()" class="header-section-button">
+            <img
+              src="/static/img/downloadFile.svg"
+              height="35"
+              width="35"
+              style="align-self: center"
+              loading="lazy"
+            />
+            <p style="text-align: center">
+              {{ $t("countryProfile.exportCountryDataButton") }}
+            </p>
+          </a>
+          <div
+            class="header-section-button"
+            @click="generatePDF()"
+            style="align-self: center"
+          >
+            <img
+              src="/static/img/downloadPDF.svg"
+              height="35"
+              width="35"
+              style="align-self: center"
+              loading="lazy"
+            />
+            <p style="text-align: center">
+              {{ $t("countryProfile.downloadScorecard") }}
+            </p>
+          </div>
         </div>
       </div>
+      <div class="box overall-card">
+        <div class="title">
+          <div class="sub-header-country-profile">
+            {{ $t("countryProfile.overallDigitalHealthPhase") }}
+          </div>
+          <div class="phase-desc">
+            <p>
+              {{ $t("countryProfile.overallDigitalHealthPhaseDescription") }}
+            </p>
+          </div>
+        </div>
+        <div
+          :class="
+            'overall-score ' + ' phase' + healthIndicatorData.countryPhase
+          "
+        >
+          {{
+            healthIndicatorData.countryPhase
+              ? healthIndicatorData.countryPhase
+              : "NA"
+          }}
+        </div>
+        <div class="country-progress-over-time" @click="expandCountryProgress">
+          <p>{{ $t("countryProfile.countryProgressOverTime") }}</p>
+          <div
+            :class="
+              showCountryProgressOverTime
+                ? 'progress-accordion-expanded'
+                : 'progress-accordion'
+            "
+          ></div>
+        </div>
+      </div>
+      <div class="comparison-graph-panel" v-show="showCountryProgressOverTime">
+        <CountryProgressLineGraphContainer
+          :locale="locale"
+          :countryName="healthIndicatorData.countryName"
+        />
+      </div>
+      <div class="box overall-card">
+        <CountryProfileYearSelector></CountryProfileYearSelector>
+      </div>
+
       <div class="row">
         <div class="column-60percent">
-          <div class="box overall-card">
-            <div class="title">
-              <div class="title sub-header">
-                {{ $t("countryProfile.overallDigitalHealthPhase") }}
-              </div>
-              <div class="phase-desc copy-italics copy-grey">
-                <p>
-                  {{
-                    $t("countryProfile.overallDigitalHealthPhaseDescription")
-                  }}
-                </p>
-              </div>
+          <div class="legend">
+            <div class="government-data">
+              <div class="bar" />
+              <p>{{ $t("countryProfile.govtData") }}</p>
             </div>
-            <div :class="'overall-score ' + locale">
-              <div
-                :class="'score ' + ' phase' + healthIndicatorData.countryPhase"
-              >
-                {{
-                  healthIndicatorData.countryPhase
-                    ? healthIndicatorData.countryPhase
-                    : "NA"
-                }}
-              </div>
-            </div>
-          </div>
-          <div class="box">
-            <div class="title sub-header">
-              <span class="benchmark-dropdown-container">{{
-                $t("countryProfile.benchmark.text")
-              }}</span>
-              <div v-if="healthIndicatorData" class="float-right">
-                <select
-                  class="benchmarkDropDown"
-                  name="benchmarkDropDown"
-                  v-model="benchmarkPhase"
-                  @change="getBenchmarkData()"
-                >
-                  <option value="">-</option>
-                  <option value="-1">
-                    {{
-                      $t(
-                        "countryProfile.benchmark.benchmarkValues.globalAverage"
-                      )
-                    }}
-                  </option>
-                  <option
-                    v-for="phase in phases"
-                    v-bind:value="phase.phaseValue"
-                  >
-                    {{ $t("mixed.phaseN", { number: phase.phaseValue }) }}
-                  </option>
-                </select>
-              </div>
-            </div>
-            <div class="phase-desc copy-italics copy-grey">
-              <p>
-                {{ $t("countryProfile.benchmark.benchmarkDescription") }}
-              </p>
-              <span v-if="!hasBenchmarkData" class="error-info">{{
-                $t(
-                  "countryProfile.benchmark.benchmarkNoCountryForSelectedPhase"
-                )
-              }}</span>
+            <div class="non-government-data">
+              <div class="bar" />
+              <p>{{ $t("countryProfile.nonGovtData") }}</p>
             </div>
           </div>
           <div v-if="healthIndicatorData" class="health-indicators">
             <div
               v-for="(category, index) in healthIndicatorData.categories"
-              class="indicator-panel-container-category-section"
+              :key="index"
+              class="country-profile-indicator-panel-container-category-section"
             >
               <div class="category-bar box">
                 <div
-                  v-bind:class="
+                  :class="
                     category.showCategory ? 'accordion expanded' : 'accordion'
                   "
+                  @click="onCategoryExpand(category, index)"
                 >
-                  <div
-                    class="indicator-panel-container-category-section-name sub-header"
-                    @click="onCategoryExpand(category, index)"
-                  >
-                    {{ category.name }}
-                  </div>
-                  <div
-                    :class="
-                      'indicator-panel-container-category-section-phase phase' +
-                      category.phase
-                    "
-                    :value="category.phase"
-                    :data-phase="$t('mixed.phaseN', { number: category.phase })"
-                  ></div>
-                  <div class="accordion-content">
-                    <div class="heading-row sub-header">
-                      <div class="indicator-id">#</div>
-                      <div class="indicator-name">
-                        {{ $t("countryProfile.indicator") }}
-                      </div>
-                      <div :class="'indicator-score-heading ' + locale">
-                        {{ $t("countryProfile.score") }}
-                      </div>
+                  <div class="category-name-and-phase-value">
+                    <div
+                      class="indicator-panel-container-category-name-and-icon sub-header-country-profile"
+                    >
+                      <img
+                        :src="`/static/indicator-icons/${category.id}.svg`"
+                        width="30"
+                        height="30"
+                        loading="lazy"
+                      />
+                      <p>{{ category.name }}</p>
                     </div>
                     <div
-                      v-for="(
-                        indicator, index_indicator
-                      ) in category.indicators"
-                      class="indicator"
+                      :class="
+                        category.phase >= 0
+                          ? 'category-phase phase' + category.phase
+                          : 'category-phase phaseNA'
+                      "
                     >
-                      <div class="indicator-id">{{ indicator.code }}</div>
-                      <div class="indicator-desc">
-                        <span class="indicator-name-value">{{
-                          indicator.name
-                        }}</span>
-                        <div
-                          class="indicator-score-desc copy-italics copy-grey"
-                        >
+                      {{ category.phase >= 0 ? category.phase : "NA" }}
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="category-accordion-content"
+                  v-show="category.showCategory"
+                >
+                  <div
+                    v-for="(indicator, index_indicator) in category.indicators"
+                    :key="index_indicator"
+                    class="indicator"
+                    :class="`govt-approved-` + govtApproved"
+                  >
+                    <div class="indicator-details-container">
+                      <div class="indicator-id">
+                        {{ indicator.code }}
+                      </div>
+                      <div>
+                        <div class="indicator-name-value">
+                          {{ indicator.name }}
+                        </div>
+                        <div class="indicator-description">
                           {{ indicator.indicatorDescription }}
                         </div>
-                        <div
-                          class="indicator-score-desc copy-italics copy-blue"
-                        >
+                        <div class="indicator-score-description">
                           {{ indicator.scoreDescription }}
                         </div>
                       </div>
-                      <div :class="'text-center score-container ' + locale">
+                    </div>
+                    <div :class="'score-container ' + locale">
+                      <div class="score">
+                        <p class="score-benchmark">Score</p>
                         <div
                           :class="
                             'indicator-score' + ' phase' + indicator.score
@@ -332,28 +420,44 @@ export default Vue.extend({
                         >
                           {{ indicator.score >= 0 ? indicator.score : "NA" }}
                         </div>
+                      </div>
+
+                      <div class="separator" />
+
+                      <div class="score">
+                        <div v-if="benchmarkData[indicator.id.toString()]">
+                          <p class="score-benchmark">
+                            {{ $t("countryProfile.benchmark.text") }}
+                          </p>
+                          <p
+                            v-if="selectedRegion.regionName == null"
+                            class="score-global-average"
+                          >
+                            {{
+                              $t(
+                                "countryProfile.benchmark.benchmarkValues.globalAverage"
+                              )
+                            }}
+                          </p>
+                          <p v-else class="score-global-average">
+                            {{ selectedRegion.regionName }}
+                            {{ $t("countryProfile.benchmark.average") }}
+                          </p>
+                        </div>
+
                         <div
                           v-if="benchmarkData[indicator.id.toString()]"
-                          class="benchmark copy-small"
+                          :class="
+                            'indicator-score' +
+                            ' phase' +
+                            benchmarkData[indicator.id].benchmarkScore
+                          "
                         >
-                          <div class="benchmark-score">
-                            <span>{{
-                              $t("countryProfile.benchmark.textWithData", {
-                                data: benchmarkData[indicator.id]
-                                  .benchmarkScore,
-                              })
-                            }}</span>
-                          </div>
-                          <div
-                            :class="
-                              'benchmarkCompare ' +
-                              benchmarkData[
-                                indicator.id
-                              ].benchmarkValue.toLowerCase()
-                            "
-                          >
-                            {{ getLocaleBenchmarkValue(indicator.id) }}
-                          </div>
+                          {{
+                            benchmarkData[indicator.id].benchmarkScore != -1
+                              ? benchmarkData[indicator.id].benchmarkScore
+                              : "NA"
+                          }}
                         </div>
                       </div>
                     </div>
@@ -364,6 +468,18 @@ export default Vue.extend({
           </div>
         </div>
         <div class="column-40percent">
+          <div class="phase-overview box">
+            <div class="header-bold">
+              {{ $t("countryProfile.phaseOverview") }}
+            </div>
+            <phase-overview-spider-graph
+              v-if="healthIndicatorData.categories && globalData.categories"
+              :countryDataCategories="healthIndicatorData.categories"
+              :regionalDataCategories="globalData.categories"
+              :countryName="healthIndicatorData.countryName"
+              :regionName="selectedRegion.regionName"
+            />
+          </div>
           <div class="health-indicator-container">
             <development-indicators></development-indicators>
           </div>
@@ -375,3 +491,7 @@ export default Vue.extend({
     </div>
   </div>
 </template>
+
+<style lang="scss">
+@import "country-profile";
+</style>

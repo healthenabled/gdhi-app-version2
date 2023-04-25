@@ -82,14 +82,15 @@
   }
 
   .sub-content {
-    margin-top: 120px;
+    margin-top: 10px;
   }
 
   .questionnaire-title {
     position: absolute;
-    bottom: 20px;
-    @include left(80px);
+    left: 80px;
+    top: 230px;
     font-size: 1.2em;
+    @include margin-left(2%);
   }
 
   /* Create a custom radio button */
@@ -122,9 +123,8 @@
   }
 
   .fixed-sub-header {
-    position: fixed;
     top: 70px;
-    width: 90%;
+    width: 100%;
     background: $body-bg;
     z-index: 2;
   }

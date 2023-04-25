@@ -1,0 +1,171 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Country Progress Line Chart > should render Graph when mounted and create a new Chart instance 1`] = `
+<div
+  class="line-chart-container"
+  data-v-d2870135=""
+  defaultyear="2022"
+  selectedregion="[object Object]"
+>
+  <canvas
+    data-v-d2870135=""
+    id="line-chart"
+  />
+</div>
+`;
+
+exports[`Country Progress Line Chart > should render Graph when mounted and create a new Chart instance 2`] = `
+{
+  "data": {
+    "datasets": [
+      {
+        "borderColor": "black",
+        "borderWidth": 1.5,
+        "data": [
+          null,
+          null,
+          null,
+          null,
+          null,
+        ],
+        "fill": false,
+        "label": "India",
+        "pointBackgroundColor": [Function],
+        "pointBorderColor": "transparent",
+        "pointHoverRadius": 16,
+        "pointRadius": 14,
+        "pointStyle": "rectRot",
+        "spanGaps": true,
+      },
+      {
+        "borderColor": "#6C757D",
+        "borderDash": [
+          5,
+          4,
+        ],
+        "borderWidth": 1.5,
+        "data": [
+          null,
+          null,
+          null,
+          undefined,
+          null,
+        ],
+        "fill": false,
+        "label": "Global average",
+        "pointBackgroundColor": "black",
+        "pointHoverRadius": 8,
+        "pointRadius": 1,
+        "pointStyle": "circle",
+        "spanGaps": true,
+        "tension": 0.1,
+      },
+    ],
+    "labels": [
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024",
+    ],
+  },
+  "options": {
+    "animation": false,
+    "clip": false,
+    "layout": {
+      "padding": {
+        "bottom": 0,
+        "left": 60,
+        "right": 80,
+        "top": 60,
+      },
+    },
+    "maintainAspectRatio": false,
+    "plugins": {
+      "annotation": {
+        "annotations": {
+          "line": {
+            "borderColor": "#415BA3",
+            "borderDash": [
+              20,
+              16,
+            ],
+            "borderWidth": 1.5,
+            "drawTime": "beforeDatasetsDraw",
+            "type": "line",
+            "xMax": "2023",
+            "xMin": "2023",
+          },
+        },
+      },
+      "legend": {
+        "labels": {
+          "boxHeight": 0,
+        },
+        "position": "bottom",
+        "rtl": false,
+      },
+      "tooltip": {
+        "rtl": false,
+      },
+    },
+    "responsive": true,
+    "scales": {
+      "x": {
+        "border": {
+          "color": "#ced4da",
+          "dash": [
+            2,
+            4,
+          ],
+          "width": 1.5,
+        },
+        "grid": {
+          "display": true,
+          "drawTicks": true,
+          "lineWidth": 0,
+          "tickColor": "white",
+          "tickLength": 16,
+          "tickWidth": 1.5,
+        },
+        "reverse": false,
+        "ticks": {
+          "beginAtZero": true,
+          "color": "black",
+          "font": {
+            "weight": "bold",
+          },
+          "min": 1,
+          "stepSize": 1,
+        },
+      },
+      "y": {
+        "border": {
+          "color": "#ced4da",
+          "dash": [
+            2,
+            2,
+          ],
+          "width": 1,
+        },
+        "grid": {
+          "drawTicks": true,
+          "lineWidth": 1,
+          "tickColor": "white",
+          "tickLength": 16,
+        },
+        "max": 5,
+        "min": 0,
+        "position": "left",
+        "ticks": {
+          "beginAtZero": false,
+          "callback": [Function],
+          "color": "black",
+          "stepSize": 1,
+        },
+      },
+    },
+  },
+  "type": "line",
+}
+`;

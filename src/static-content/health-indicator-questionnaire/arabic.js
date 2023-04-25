@@ -4,8 +4,6 @@ export const healthIndicatorQuestionnaire = {
   note: "ملاحظة: سيكون عرض بيانات مؤشر الصحة الرقمية العالمية متاحا للعموم. وعلى هذا النحو، يرجى الحصول على موافقة لتقديمها من الوكالة الحكومية ذات الصلة (وزارة الصحة، وكالة الصحة الرقمية، إلخ) وتقديم معلومات الاتصال الخاصة بالجهة التي منحت الموافقة. سيؤدي ترك هذه الصفحة إلى تجاهل التغييرات غير المحفوظة.",
   contactForm: {
     contactInformation: "معلومات الاتصال",
-    dateOnWhichDataWasCollected: "تاريخ جمع البيانات (DD-MM-YYYY)",
-    dateFormat: "DD-MM-YYYY",
     nameOfPersonEnteringData: "اسم الشخص الذي يدخل البيانات",
     roleOfThePersonEnteringData: "دور الشخص الذي يدخل البيانات",
     emailOfThePersonEnteringData: "البريد الإلكتروني للشخص الذي يدخل البيانات",
@@ -17,8 +15,9 @@ export const healthIndicatorQuestionnaire = {
     emailOfTheCountryContact: "البريد الإلكتروني لجهة الاتصال بالبلد",
     countrySummary: "ملخص البلد",
     organisationOfTheCountryContact: "المنظمة التي يتبع لها جهة الاتصال بالبلد",
+    govtApprovedMessage: "هل البيانات معتمدة من الحكومة؟",
+
     error: {
-      wrongDate: "الرجاء إدخال تاريخ بين عام 2010 والتاريخ الحالي",
       nameOfPersonEnteringData: "اسم الشخص الذي يدخل البيانات مطلوب",
       roleOfThePersonEnteringData: "مطلوب دور الشخص الذي يدخل البيانات",
       email: "يرجى إدخال البريد الإلكتروني الصحيح",
@@ -30,7 +29,6 @@ export const healthIndicatorQuestionnaire = {
       organisationOfTheCountryContact: "يرجى إدخال المنظمة",
     },
     hoverText: {
-      date: "الرجاء إدخال تاريخ",
       nameOfPersonEnteringData: "الرجاء إدخال اسم الشخص الذي يدخل هذه البيانات",
       roleOfThePersonEnteringData: "يرجى إدخال دور الشخص الذي يدخل البيانات",
       email: "أدخل البريد الإلكتروني",
@@ -73,6 +71,16 @@ export const healthIndicatorQuestionnaire = {
   note3: "سيتم عرض نقاط كل مؤشر علنًا فقط على منصة GDHI.",
   publishConfirmation:
     "أنت على وشك نشر نموذج فهرس الصحة الرقمية لـ {country}. هذا لا يمكن التراجع عنه. هل تريد الاستمرار؟",
+  saveConfirmation:
+    "هل أنت متأكد أنك تريد إرسال البيانات الخاصة بـ {country}؟ يرجى التحقق من الخيارات التي حددتها والتي تعكس النضج الصحي الرقمي للدولة للعام الحالي",
   rejectConfirmation:
     "أنت على وشك رفض نموذج مؤشر الصحة لـ {country}. هذا لا يمكن التراجع عنه. هل تريد الاستمرار؟",
+  govtApprovedMessage: "هل البيانات معتمدة من الحكومة؟",
+  QuestionnaireStateMessage: {
+    hasPrefillData:
+      "تمت تعبئة البيانات مسبقًا في الاستبيان منذ عام {updatedDate}. يرجى تحديث بيانات العام الحالي وتقديم المبررات ذات الصلة",
+    dataSubmittedAlready:
+      "تم بالفعل إرسال البيانات الخاصة بالسنة الحالية بتاريخ {updatedDate}",
+    dataPublishedAlready: "تم نشر بيانات العام الحالي بالفعل في {updatedDate}",
+  },
 };

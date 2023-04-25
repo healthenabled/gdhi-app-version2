@@ -1,4 +1,4 @@
-// Vitest Snapshot v1
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`year-filter > should render default Year Selector 1`] = `
 <div>
@@ -8,7 +8,7 @@ exports[`year-filter > should render default Year Selector 1`] = `
     <div
       class="header-bold"
     >
-       Select year for which date is to be displayed on the Homepage 
+      Select default year for home page view
     </div>
     <yearfilter-stub
       selectedyear="2022"

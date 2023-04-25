@@ -1,0 +1,132 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Phase OverView Spider Graph > should render Graph when mounted and create a new Chart instance 1`] = `
+<div
+  class="canvas-container"
+  data-v-a4c9761d=""
+  selectedregion="[object Object]"
+>
+  <canvas
+    data-v-a4c9761d=""
+    id="phase-overview-spider-graph"
+  />
+</div>
+`;
+
+exports[`Phase OverView Spider Graph > should render Graph when mounted and create a new Chart instance 2`] = `
+{
+  "data": {
+    "datasets": [
+      {
+        "backgroundColor": "rgba(65,91,163,0.5)",
+        "borderColor": "rgba(65,91,163,0.5)",
+        "borderWidth": 1,
+        "data": [
+          1,
+          2,
+          3,
+          4,
+        ],
+        "fill": true,
+        "label": "Sample Country Name",
+        "pointBackgroundColor": "rgba(65,91,163,0.5)",
+        "pointBorderColor": "#fff",
+        "pointHoverBackgroundColor": "#fff",
+        "pointHoverBorderColor": "rgba(65,91,163,0.5)",
+        "pointRadius": 5,
+        "spanGaps": true,
+      },
+      {
+        "backgroundColor": "rgba(108,117,125,0.5)",
+        "borderColor": "rgba(108,117,125,0.5)",
+        "borderWidth": 1,
+        "data": [
+          1,
+          1,
+          2,
+          2,
+        ],
+        "fill": true,
+        "label": "Global Average",
+        "pointBackgroundColor": "rgba(108,117,125,0.5)",
+        "pointBorderColor": "#fff",
+        "pointHoverBackgroundColor": "#fff",
+        "pointHoverBorderColor": "rgba(108,117,125,0.5)",
+        "pointRadius": 5,
+        "spanGaps": true,
+      },
+    ],
+    "labels": [
+      "Phase1",
+      "Phase2",
+      "Phase3",
+      "Phase4",
+    ],
+  },
+  "options": {
+    "elements": {
+      "point": {
+        "borderWidth": 10,
+        "radius": 10,
+      },
+    },
+    "layout": {
+      "autoPadding": false,
+      "padding": 0,
+    },
+    "plugins": {
+      "legend": {
+        "align": "center",
+        "display": true,
+        "fullSize": false,
+        "labels": {
+          "boxHeight": 20,
+          "boxWidth": 20,
+          "font": {
+            "family": "'InterRegular', sans-serif",
+            "size": 12,
+            "weight": 900,
+          },
+          "padding": 10,
+        },
+        "position": "bottom",
+        "rtl": false,
+      },
+      "tooltip": {
+        "rtl": false,
+      },
+    },
+    "scales": {
+      "r": {
+        "alignToPixels": true,
+        "angleLines": {
+          "display": true,
+        },
+        "beginAtZero": true,
+        "grid": {
+          "color": "#CED4DA",
+          "lineWidth": 1,
+        },
+        "pointLabels": {
+          "backdropPadding": 0,
+          "callback": [Function],
+          "font": {
+            "family": "'InterRegularN', sans-serif",
+            "size": 10,
+            "weight": 600,
+          },
+          "padding": 2,
+        },
+        "suggestedMax": 5,
+        "suggestedMin": -1,
+        "ticks": {
+          "display": false,
+          "format": "",
+          "precision": 0,
+        },
+      },
+    },
+  },
+  "type": "radar",
+}
+`;

@@ -23,7 +23,21 @@ export const countryProfile = {
     benchmarkNoCountryForSelectedPhase: "لا توجد دول في المرحلة المحددة للقياس",
     serverErrorDescription:
       "غير قادر على تحميل البيانات المرجعية. يرجى المحاولة بعد مرور بعض الوقت",
+    average: "متوسط",
   },
   indicator: "تفاصيل",
   score: "أحرز هدفا",
+  govtData: "وافقت الحكومة",
+  nonGovtData: "في انتظار موافقة الحكومة",
+  selectYear: "حدد السنة",
+  selectYearDescription:
+    "لعرض البيانات الخاصة بسنة معينة ، يرجى تحديد السنة المطلوبة",
+  phaseOverview: "نظرة عامة على المرحلة",
+  countryProgressOverTime: "تقدم الدولة بمرور الوقت",
+  countryProgressLineChart: {
+    indicatorGroupingDescription: "حدد مؤشرا",
+    globalAverage: "المعدل العالمي",
+  },
+  compareTo: "قارن ب",
+  region: "منطقة",
 };

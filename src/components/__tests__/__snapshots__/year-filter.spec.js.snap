@@ -1,24 +1,27 @@
-// Vitest Snapshot v1
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`year-filter > should render Years and default Year passed to it 1`] = `
-<select
-  class="year-indicator-select"
-  name="test_select3"
->
-  <option
-    value="Version 1"
+<div>
+  <select
+    class="year-indicator-select ltr"
+    name="test_select3"
   >
-     Version 1 
-  </option>
-  <option
-    value="2022"
-  >
-     2022 
-  </option>
-  <option
-    value="2023"
-  >
-     2023 
-  </option>
-</select>
+    <option
+      value="Version 1"
+    >
+       Version 1 
+    </option>
+    <option
+      value="2022"
+    >
+       2022 
+    </option>
+    <option
+      value="2023"
+    >
+       2023 
+    </option>
+  </select>
+    
+</div>
 `;

@@ -1,0 +1,84 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Upload CSV > should render upload csv 1`] = `
+<div
+  data-v-901d73fd=""
+>
+  <div
+    class="download-section"
+    data-v-901d73fd=""
+  >
+    <div
+      class="header-bold"
+      data-v-901d73fd=""
+    >
+      Template
+    </div>
+    <button
+      class="btn btn-primary"
+      data-v-901d73fd=""
+      onclick="location.href = 'https://docs.google.com/spreadsheets/d/1AZ_5oYOCokiI4xosVPCZU3jSZUYjt4MB/edit?usp=sharing&ouid=105807527850921178070&rtpof=true&sd=true';"
+    >
+      <i
+        aria-hidden="true"
+        class="fa fa-download"
+        data-v-901d73fd=""
+      />
+      Download 
+    </button>
+  </div>
+  <div
+    class="header-bold"
+    data-v-901d73fd=""
+  >
+    Upload File
+  </div>
+  <div
+    class="note"
+    data-v-901d73fd=""
+  >
+     * The indicator values should be between 1 and 5 else they will be converted to "Not available" 
+  </div>
+  <div
+    class="file-name-and-error"
+    data-v-901d73fd=""
+  >
+    <p
+      data-v-901d73fd=""
+    >
+      
+    </p>
+    <!---->
+  </div>
+  <div
+    class="button-section"
+    data-v-901d73fd=""
+  >
+    <input
+      accept="text/csv"
+      class="upload-file"
+      data-v-901d73fd=""
+      height="100"
+      type="file"
+      width="100"
+    />
+    <button
+      class="btn btn-primary"
+      data-v-901d73fd=""
+      onclick="document.getElementsByClassName('upload-file')[0].click();"
+    >
+       Select File 
+    </button>
+    <button
+      class="btn btn-primary disabled "
+      data-testid="import-button"
+      data-v-901d73fd=""
+      disabled="disabled"
+    >
+       Import to server 
+    </button>
+  </div>
+  <!---->
+  <!---->
+</div>
+`;

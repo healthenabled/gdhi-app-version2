@@ -85,14 +85,14 @@ export default new Router({
           },
         },
         {
-          path: "/admin/health_indicator_questionnaire/:countryUUID/review",
+          path: "/admin/health_indicator_questionnaire/:countryUUID/review/:currentYear",
           components: {
             routecontent: healthIndicatorQuestionnaire,
             languageSelect: languageSelector,
           },
         },
         {
-          path: "/admin/health_indicator_questionnaire/:countryUUID/viewPublished",
+          path: "/admin/health_indicator_questionnaire/:countryUUID/viewPublished/:currentYear",
           components: {
             routecontent: healthIndicatorQuestionnaire,
             languageSelect: languageSelector,

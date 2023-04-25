@@ -16,7 +16,7 @@ export default defineConfig({
     coverage: {
       all: false,
       include: ["src/components/*"],
-      exclude: ["src/components/pdfHelper/*"],
+      exclude: ["src/components/pdfHelper/*", "src/components/__tests__/*"],
       lines: 80,
       functions: 80,
       branches: 80,

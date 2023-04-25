@@ -1,0 +1,25 @@
+#!/usr/bin/env ruby
+
+$regex = /\A(GDHI-\w{1,10})+(.* )+(<\w+(\/\s?)?\w*>)$/i
+message_file = ARGV[0]
+message = File.read(message_file)
+
+# enforced short and crisp commit message
+if message.length > 250
+  puts "Commit message should be short and crisp
+    Maximum:250 Characters
+    If you really need to add content to your message use git description and add `--no-verify` at end of commit command"
+  exit 1
+end
+
+# enforced custom commit message format
+unless $regex.match(message)
+  puts "Please Check your message is not formatted correctly.....
+
+    1) Should start with GDHI-`storyNumber OR Tech OR Anything else`
+    2) Then your commit message
+    3) Should end with `<YourName>`
+
+    Example: `GDHI-000 Blah Blah Blah....... <Name1/Name2>`"
+  exit 1
+end

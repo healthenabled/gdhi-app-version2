@@ -41,5 +41,10 @@ export const fr = {
     noteForBenchmark:
       "L'indicateur principal de chaque catégorie est utilisé pour calculer la moyenne nationale globale. Chaque pays peut " +
       "être comparé à la moyenne mondiale ou à des pays dans une phase donnée.",
+    spiderGraphTitle: "Aperçu des phases",
+    lineChartTitle: "Comparaison des pays",
+  },
+  regionDropDown: {
+    textSelectRegion: "Choisissez une région",
   },
 };

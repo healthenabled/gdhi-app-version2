@@ -9,6 +9,8 @@
       :healthIndicators="healthIndicators"
       :status="status"
       :isAdmin="isAdmin"
+      :hasPreviousYearData="hasPreviousYearData"
+      :updatedDate="updatedDate"
     ></edit-questionnaire>
   </div>
 </template>
@@ -20,6 +22,8 @@ import EditQuestionnaire from "./edit-questionare.vue";
 import axios from "axios";
 import VeeValidate from "vee-validate";
 import common from "../../common/common";
+import { EventBus } from "../common/event-bus";
+import { EVENTS } from "../../constants";
 
 const config = {
   fieldsBagName: "fieldBags",
@@ -38,13 +42,13 @@ export default Vue.extend({
       dataApproverName: "",
       dataApproverRole: "",
       dataApproverEmail: "",
-      collectedDate: "",
       summary: "",
       resources: [],
       contactName: "",
       contactDesignation: "",
       contactOrganization: "",
       contactEmail: "",
+      govtApproved: "",
     };
     const healthIndicators = {};
     return {
@@ -53,7 +57,9 @@ export default Vue.extend({
       healthIndicators,
       showEdit: true,
       status: "",
-      isAdmin: false,
+      hasPreviousYearData: false,
+      isAdmin: this.$route.path.match("admin") != null,
+      updatedDate: "",
       isViewPublish: false,
       locale: "en",
     };
@@ -62,23 +68,47 @@ export default Vue.extend({
     this.showEdit = true;
     common.showLoading();
     this.isViewPublish = this.$route.path.match("viewPublished") != null;
-    this.prepareDataForViewForm(this.$route.params.countryUUID);
+    this.prepareDataForViewForm(
+      this.$route.params.countryUUID,
+      this.$route.params.currentYear
+    );
+  },
+  mounted() {
+    EventBus.$on(EVENTS.QUESTIONNAIRE_DATA_SAVED, () => {
+      this.prepareDataForViewForm(
+        this.$route.params.countryUUID,
+        this.$route.params.currentYear
+      );
+    });
   },
   updated() {
     if (this.locale !== this.$i18n.locale) {
-      this.prepareDataForViewForm(this.$route.params.countryUUID);
+      this.prepareDataForViewForm(
+        this.$route.params.countryUUID,
+        this.$route.params.currentYear
+      );
       this.locale = this.$i18n.locale;
     }
   },
   methods: {
-    fetchHealthScoresFor(countryUUID) {
+    checkIfPreviousDataisAvailable(currentYear, dataAvaibleForYear) {
+      if (currentYear === dataAvaibleForYear) {
+        this.hasPreviousYearData = false;
+      } else {
+        this.hasPreviousYearData = true;
+      }
+    },
+    fetchHealthScoresFor(countryUUID, currentYear) {
       let config = common.configWithUserLanguageAndNoCacheHeader(
         this.$i18n.locale
       );
       if (!this.isViewPublish)
         return axios.get(`/api/countries/${countryUUID}`, config);
       else
-        return axios.get(`/api/countries/viewPublish/${countryUUID}`, config);
+        return axios.get(
+          `/api/countries/viewPublish/${countryUUID}/${currentYear}`,
+          config
+        );
     },
     setUpHealthIndicators(data, isExpanded) {
       data.forEach((category) => {
@@ -119,15 +149,25 @@ export default Vue.extend({
     },
     viewFormCallback(options, scores) {
       this.status = scores.data.status;
-      this.isAdmin = this.$route.path.match("review") != null;
-      if (this.status === "PUBLISHED" && !this.isViewPublish)
-        this.$router.push({ path: "/error" });
+      // this.isAdmin = this.$route.path.match("admin") != null;
+      this.updatedDate = scores.data.updatedDate;
+      this.checkIfPreviousDataisAvailable(
+        scores.data.currentYear,
+        scores.data.dataAvailableForYear
+      );
       this.questionnaire = options.data;
       this.countrySummary = scores.data.countrySummary;
-      if (scores.data.status == "REVIEW_PENDING" && !this.isAdmin) {
+      if (
+        scores.data.status == "REVIEW_PENDING" &&
+        !this.isAdmin &&
+        !this.hasPreviousYearData
+      ) {
         this.showEdit = false;
       }
-      if (this.isViewPublish) {
+      if (
+        (scores.data.status == "PUBLISHED" || this.isViewPublish) &&
+        !this.hasPreviousYearData
+      ) {
         this.showEdit = false;
       }
       if (scores.data.healthIndicators.length == 0) {
@@ -144,14 +184,14 @@ export default Vue.extend({
       }
       common.hideLoading();
     },
-    prepareDataForViewForm(countryUUID) {
+    prepareDataForViewForm(countryUUID, currentYear) {
       axios
         .all([
           axios.get(
             "/api/health_indicator_options",
             common.configWithUserLanguageAndNoCacheHeader(this.$i18n.locale)
           ),
-          this.fetchHealthScoresFor(countryUUID),
+          this.fetchHealthScoresFor(countryUUID, currentYear),
         ])
         .then(axios.spread(this.viewFormCallback.bind(this)))
         .catch(() => {

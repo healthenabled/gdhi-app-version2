@@ -7,9 +7,6 @@ export const healthIndicatorQuestionnaire = {
     "coordonnées de l'approbateur. Si vous quittez cette page, les modifications non sauvegardées ne seront pas prises en compte.",
   contactForm: {
     contactInformation: "Coordonnées des personnes-ressources",
-    dateOnWhichDataWasCollected:
-      "Date à laquelle les données ont été recueillies (JJ-MM-AAAA)",
-    dateFormat: "JJ-MM-AAAA",
     nameOfPersonEnteringData: "Nom de la personne qui saisit les données",
     roleOfThePersonEnteringData: "Rôle de la personne qui saisit les données",
     emailOfThePersonEnteringData: "Email de la personne qui saisit les données",
@@ -21,8 +18,9 @@ export const healthIndicatorQuestionnaire = {
     emailOfTheCountryContact: "Email du contact pays",
     countrySummary: "Résumé par pays",
     organisationOfTheCountryContact: "Organisation de l'interlocuteur pays",
+    govtApprovedMessage:
+      "Les données sont-elles approuvées par le gouvernement ?",
     error: {
-      wrongDate: "Veuillez entrer une date entre 2010 et la date du jour",
       nameOfPersonEnteringData:
         "Le nom de la personne qui saisit les données est requis",
       roleOfThePersonEnteringData:
@@ -40,7 +38,6 @@ export const healthIndicatorQuestionnaire = {
         "Veuillez entrer le nom de l'organisation",
     },
     hoverText: {
-      date: "Veuillez entrer une date",
       nameOfPersonEnteringData:
         "Veuillez entrer le nom de la personne qui saisit les données",
       roleOfThePersonEnteringData:
@@ -91,6 +88,18 @@ export const healthIndicatorQuestionnaire = {
     "Somente a pontuação de cada indicador será exibida publicamente na plataforma GDHI.",
   publishConfirmation:
     "Vous êtes sur le point de publier le formulaire de l'indice numérique de santé pour {country}. Cela ne peut pas être annulé. Voulez-vous continuer?",
+  saveConfirmation:
+    "Voulez-vous vraiment envoyer les données pour {country}? Veuillez vérifier que les options que vous avez sélectionnées reflètent la maturité de la santé numérique du pays pour l'année en cours",
   rejectConfirmation:
     "Vous êtes sur le point de rejeter le formulaire d'indice-santé pour {country}. Cela ne peut pas être annulé. Voulez-vous continuer?",
+  govtApprovedMessage:
+    "Les données sont-elles approuvées par le gouvernement ?",
+  QuestionnaireStateMessage: {
+    hasPrefillData:
+      "Les données ont été préremplies dans le questionnaire à partir de l'année {updatedDate}. Veuillez mettre à jour les données pour l'année en cours et fournir une justification pertinente",
+    dataSubmittedAlready:
+      "Les données sont déjà soumises pour l'année en cours le {updatedDate}",
+    dataPublishedAlready:
+      "Les données pour l'année en cours sont déjà publiées le {updatedDate}",
+  },
 };

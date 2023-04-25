@@ -1,7 +1,13 @@
 <template>
   <div class="health-indicator-questionnaire content-centered">
-    <div class="clearfix fixed-sub-header">
-      <div class="page-title">
+    <div
+      class="clearfix fixed-sub-header"
+      style="display: flex; justify-content: space-between; align-items: center"
+    >
+      <div
+        class="page-title"
+        style="display: flex; align-items: center; width: 40vw"
+      >
         <div
           v-if="countrySummary.countryAlpha2Code"
           class="flag"
@@ -12,7 +18,15 @@
               ')',
           }"
         ></div>
-        {{ countrySummary.countryName }}
+        <div
+          class="country-name-and-description"
+          style="display: flex; flex-direction: column; margin-left: 30px"
+        >
+          {{ countrySummary.countryName }}
+          <div class="copy-italics copy-grey" style="font-size: 12px">
+            {{ $t("healthIndicatorQuestionnaire.digitalHeathQuestionnaire") }}
+          </div>
+        </div>
       </div>
       <div class="pdf-title">
         {{
@@ -21,10 +35,8 @@
           })
         }}
       </div>
-      <span class="copy-italics copy-grey questionnaire-title">{{
-        $t("healthIndicatorQuestionnaire.digitalHeathQuestionnaire")
-      }}</span>
-      <div class="float-right button-container">
+
+      <div class="float-right button-container" style="margin-top: 0">
         <span
           ><button class="submit-btn btn btn-primary" @click="generatePDF()">
             <i class="fa fa-download" aria-hidden="true"></i
@@ -86,56 +98,15 @@
       <div class="copy-small-italics copy-blue note">
         {{ $t("healthIndicatorQuestionnaire.note") }}
       </div>
+      <div id="info-box" v-if="warningMessage.length">
+        <i class="fa fa-lg fa-exclamation-triangle" />{{ warningMessage }}
+      </div>
       <div
         class="health-indicator-questionnaire-contact-info-heading header-bold"
       >
         {{ $t("healthIndicatorQuestionnaire.contactForm.contactInformation") }}
       </div>
       <div class="box contact-info">
-        <div class="row">
-          <div class="collected-date column-33percent">
-            <label for="date">{{
-              $t(
-                "healthIndicatorQuestionnaire.contactForm.dateOnWhichDataWasCollected"
-              )
-            }}</label>
-            <span class="mandatory-field">*</span>
-            <span
-              class="fa fa-eye publish"
-              :title="$t('healthIndicatorQuestionnaire.note1')"
-            ></span>
-            <input
-              type="text"
-              :disabled="!showEdit"
-              :class="
-                errors.has('collectedDate')
-                  ? 'has-error form-control'
-                  : 'form-control'
-              "
-              name="collectedDate"
-              id="date"
-              :placeholder="
-                $t('healthIndicatorQuestionnaire.contactForm.dateFormat')
-              "
-              v-model="countrySummary.collectedDate"
-              v-validate.disable="
-                'required|date_format:DD-MM-YYYY|date_between:01-01-2010,' +
-                today +
-                ',true'
-              "
-              :title="
-                $t('healthIndicatorQuestionnaire.contactForm.hoverText.date')
-              "
-            />
-            <div v-if="errors.has('collectedDate')" class="error-info">
-              {{
-                $t("healthIndicatorQuestionnaire.contactForm.error.wrongDate")
-              }}
-            </div>
-          </div>
-          <div class="column-33percent"></div>
-          <div class="column-33percent"></div>
-        </div>
         <div class="row">
           <div class="form-group column-33percent">
             <label for="nameofPersonEnteringData">{{
@@ -238,6 +209,22 @@
           </div>
         </div>
         <div class="row">
+          <input
+            type="checkbox"
+            :disabled="!showEdit"
+            v-model="countrySummary.govtApproved"
+            id="govtApproved"
+            class="form-check-input"
+          />
+          <label class="form-check-label" for="govtApproved">
+            {{ $t("healthIndicatorQuestionnaire.govtApprovedMessage") }}
+          </label>
+          <span
+            class="fa fa-eye publish"
+            :title="$t('healthIndicatorQuestionnaire.note1')"
+          ></span>
+        </div>
+        <div class="row" v-show="countrySummary.govtApproved">
           <div class="form-group column-33percent">
             <label for="nameofPersonApprovedData">{{
               $t("healthIndicatorQuestionnaire.contactForm.nameOfTheApprover")
@@ -259,7 +246,7 @@
                   ? 'has-error form-control'
                   : 'form-control'
               "
-              v-validate.disable="'required'"
+              v-validate.disable="countrySummary.govtApproved ? 'required' : ''"
               :title="
                 errors.has('approvername')
                   ? $t(
@@ -292,7 +279,7 @@
                   ? 'has-error form-control'
                   : 'form-control'
               "
-              v-validate.disable="'required'"
+              v-validate.disable="countrySummary.govtApproved ? 'required' : ''"
               :title="
                 errors.has('approverrole')
                   ? $t(
@@ -325,7 +312,9 @@
                   ? 'has-error form-control'
                   : 'form-control'
               "
-              v-validate.disable="'required|email'"
+              v-validate.disable="
+                countrySummary.govtApproved ? 'required|email' : ''
+              "
               :title="
                 $t('healthIndicatorQuestionnaire.contactForm.hoverText.email')
               "
@@ -342,9 +331,8 @@
                 "healthIndicatorQuestionnaire.contactForm.nameOfTheCountryContact"
               )
             }}</label>
-            <span class="mandatory-field">*</span>
             <span
-              class="fa fa-eye publish"
+              class="fa fa-eye-slash publish even-margin"
               :title="$t('healthIndicatorQuestionnaire.note1')"
             ></span>
             <input
@@ -357,7 +345,6 @@
                   : 'custom-form-control'
               "
               id="nameofCountryContact"
-              v-validate.disable="'required'"
               v-model="countrySummary.contactName"
               :title="
                 errors.has('countryContact')
@@ -376,9 +363,8 @@
                 "healthIndicatorQuestionnaire.contactForm.roleOfTheCountryContact"
               )
             }}</label>
-            <span class="mandatory-field">*</span>
             <span
-              class="fa fa-eye publish"
+              class="fa fa-eye-slash publish even-margin"
               :title="$t('healthIndicatorQuestionnaire.note1')"
             ></span>
             <input
@@ -391,7 +377,6 @@
                   : 'form-control'
               "
               id="roleofCountryContact"
-              v-validate.disable="'required'"
               :title="
                 errors.has('contactRole')
                   ? $t(
@@ -410,9 +395,8 @@
                 "healthIndicatorQuestionnaire.contactForm.emailOfTheCountryContact"
               )
             }}</label>
-            <span class="mandatory-field">*</span>
             <span
-              class="fa fa-eye publish"
+              class="fa fa-eye-slash publish even-margin"
               :title="$t('healthIndicatorQuestionnaire.note1')"
             ></span>
             <input
@@ -425,7 +409,7 @@
                   : 'form-control'
               "
               id="emailofCountryContact"
-              v-validate.disable="'required|email'"
+              v-validate.disable="'email'"
               v-model="countrySummary.contactEmail"
               :title="
                 $t('healthIndicatorQuestionnaire.contactForm.hoverText.email')
@@ -475,9 +459,8 @@
                 "healthIndicatorQuestionnaire.contactForm.organisationOfTheCountryContact"
               )
             }}</label>
-            <span class="mandatory-field">*</span>
             <span
-              class="fa fa-eye publish"
+              class="fa fa-eye-slash publish even-margin"
               :title="$t('healthIndicatorQuestionnaire.note1')"
             ></span>
             <input
@@ -485,7 +468,6 @@
               :disabled="!showEdit"
               id="Organisation"
               name="Organisation"
-              v-validate.disable="'required'"
               :class="
                 errors.has('Organisation')
                   ? 'has-error form-control'
@@ -538,15 +520,14 @@
               $t("healthIndicatorQuestionnaire.resourceForm.resource", {
                 number: 1,
               })
-            }}</label
-            ><span class="mandatory-field">*</span>
+            }}</label>
             <input
               type="text"
               :disabled="!showEdit"
               name="resource1"
               id="resource1"
               v-model="countrySummary.resources[0]"
-              v-validate.disable="'required|url'"
+              v-validate.disable="'url'"
               :class="
                 errors.has('resource1')
                   ? 'has-error form-control'
@@ -780,6 +761,8 @@ import VuejsDialog from "vuejs-dialog";
 import common from "../../common/common";
 import dateFormat from "dateformat";
 import { generateFormPDF } from "../pdfHelper/pdf-generate-form.js";
+import { EventBus } from "../common/event-bus";
+import { EVENTS } from "../../constants";
 
 const config = {
   fieldsBagName: "fieldBags",
@@ -828,6 +811,18 @@ export default Vue.extend({
         return false;
       },
     },
+    hasPreviousYearData: {
+      type: Boolean,
+      default() {
+        return false;
+      },
+    },
+    updatedDate: {
+      type: String,
+      default() {
+        return "";
+      },
+    },
     today: {
       type: String,
       default() {
@@ -848,6 +843,51 @@ export default Vue.extend({
       this.successMessages = this.getSuccessMessages();
       this.locale = this.$i18n.locale;
     }
+  },
+  computed: {
+    warningMessage() {
+      if (this.hasPreviousYearData) {
+        return this.$i18n.t(
+          "healthIndicatorQuestionnaire.QuestionnaireStateMessage.hasPrefillData",
+          { updatedDate: this.updatedDate }
+        );
+      } else if (
+        this.status === "REVIEW_PENDING" &&
+        !this.hasPreviousYearData &&
+        !this.isAdmin
+      ) {
+        return this.$i18n.t(
+          "healthIndicatorQuestionnaire.QuestionnaireStateMessage.dataSubmittedAlready",
+          { updatedDate: this.updatedDate }
+        );
+      } else if (
+        this.status === "PUBLISHED" &&
+        !this.hasPreviousYearData &&
+        !this.isAdmin
+      ) {
+        return this.$i18n.t(
+          "healthIndicatorQuestionnaire.QuestionnaireStateMessage.dataPublishedAlready",
+          { updatedDate: this.updatedDate }
+        );
+      } else {
+        return "";
+      }
+    },
+  },
+  watch: {
+    "countrySummary.govtApproved": {
+      handler() {
+        if (!this.countrySummary.govtApproved) {
+          if (this.countrySummary["dataApproverName"])
+            this.countrySummary["dataApproverName"] = "";
+          if (this.countrySummary["dataApproverRole"])
+            this.countrySummary["dataApproverRole"] = "";
+          if (this.countrySummary["dataApproverEmail"])
+            this.countrySummary["dataApproverEmail"] = "";
+        }
+      },
+      immediate: true,
+    },
   },
   methods: {
     getSuccessMessages() {
@@ -877,7 +917,9 @@ export default Vue.extend({
       document.body.scrollTop = document.documentElement.scrollTop = 0;
 
       let url = "/api/countries/" + action;
-
+      if (action === "publish") {
+        url += "/" + this.$route.params.currentYear;
+      }
       axios
         .post(
           url,
@@ -893,6 +935,7 @@ export default Vue.extend({
             this.showEdit = false;
           }
           common.hideLoading();
+          EventBus.$emit(EVENTS.QUESTIONNAIRE_DATA_SAVED);
           this.notifier({
             title: "Success",
             message: this.successMessages[action],
@@ -924,7 +967,7 @@ export default Vue.extend({
     deleteData() {
       common.showLoading();
       document.body.scrollTop = document.documentElement.scrollTop = 0;
-      let url = `/api/countries/${this.$route?.params.countryUUID}/delete`;
+      let url = `/api/countries/${this.$route?.params.countryUUID}/delete/${this.$route?.params.currentYear}`;
 
       axios
         .delete(url)
@@ -971,14 +1014,23 @@ export default Vue.extend({
       this.expandAllCategories();
       this.$validator.validateAll().then((isValid) => {
         if (isValid) {
-          if (action == "submit") {
-            this.saveData(action);
+          if (action === "submit") {
+            this.checkAndSubmit();
           } else {
             this.checkAndPublish();
           }
         } else {
           this.showValidationError();
         }
+      });
+    },
+    checkAndSubmit() {
+      this.getConfirmationDialog({
+        message: this.$i18n.t("healthIndicatorQuestionnaire.saveConfirmation", {
+          country: this.countrySummary.countryName,
+        }),
+        callBackMethod: this.saveData,
+        callBackArgs: ["submit"],
       });
     },
     checkAndPublish() {
@@ -1038,8 +1090,18 @@ export default Vue.extend({
   margin-left: 3px;
   margin-right: 3px;
 }
+
+.even-margin {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
 .score-content {
   margin-left: 2px;
   margin-right: 2px;
+}
+
+.clearfix::after {
+  content: none;
 }
 </style>

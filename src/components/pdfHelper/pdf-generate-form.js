@@ -156,11 +156,6 @@ export async function generateFormPDF(
     maxWidth: 480,
   });
   moveDownAndPopulateData(
-    "healthIndicatorQuestionnaire.contactForm.dateOnWhichDataWasCollected",
-    countrySummary.collectedDate
-  );
-  page.moveDown(20);
-  moveDownAndPopulateData(
     "healthIndicatorQuestionnaire.contactForm.nameOfPersonEnteringData",
     countrySummary.dataFeederName
   );
@@ -171,20 +166,27 @@ export async function generateFormPDF(
   );
   page.moveDown(20);
   moveDownAndPopulateData(
-    "healthIndicatorQuestionnaire.contactForm.nameOfTheApprover",
-    countrySummary.dataApproverName
+    "healthIndicatorQuestionnaire.contactForm.govtApprovedMessage",
+    String(countrySummary.govtApproved)
   );
   page.moveDown(20);
-  moveDownAndPopulateData(
-    "healthIndicatorQuestionnaire.contactForm.roleOfTheApprover",
-    countrySummary.dataApproverRole
-  );
-  page.moveDown(20);
-  moveDownAndPopulateData(
-    "healthIndicatorQuestionnaire.contactForm.emailOfTheApprover",
-    countrySummary.dataApproverEmail
-  );
-  page.moveDown(20);
+  if (countrySummary.govtApproved) {
+    moveDownAndPopulateData(
+      "healthIndicatorQuestionnaire.contactForm.nameOfTheApprover",
+      countrySummary.dataApproverName
+    );
+    page.moveDown(20);
+    moveDownAndPopulateData(
+      "healthIndicatorQuestionnaire.contactForm.roleOfTheApprover",
+      countrySummary.dataApproverRole
+    );
+    page.moveDown(20);
+    moveDownAndPopulateData(
+      "healthIndicatorQuestionnaire.contactForm.emailOfTheApprover",
+      countrySummary.dataApproverEmail
+    );
+    page.moveDown(20);
+  }
   moveDownAndPopulateData(
     "healthIndicatorQuestionnaire.contactForm.nameOfTheCountryContact",
     countrySummary.contactName
@@ -222,7 +224,7 @@ export async function generateFormPDF(
       size: 14,
       font: helveticaFont,
       color: hexToRgb("#000"),
-      x: 50,
+      x: 70,
       y: page.getY(),
       maxWidth: 480,
       lineHeight: 14,

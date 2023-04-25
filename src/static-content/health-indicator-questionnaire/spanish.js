@@ -7,9 +7,6 @@ export const healthIndicatorQuestionnaire = {
     "persona encargada de la aprobación. Al salir de esta página se descartarán los cambios no guardados.",
   contactForm: {
     contactInformation: "Información de contacto",
-    dateOnWhichDataWasCollected:
-      "Fecha en la que se recopilaron los datos (DD-MM-AAAA)",
-    dateFormat: "DD-MM-AAAA",
     nameOfPersonEnteringData: "Nombre de la persona que introduce los datos",
     roleOfThePersonEnteringData: "Cargo de la persona que introduce los datos",
     emailOfThePersonEnteringData:
@@ -26,8 +23,8 @@ export const healthIndicatorQuestionnaire = {
       "Correo electrónico de la persona de contacto en el país",
     countrySummary: "Resumen del país ",
     organisationOfTheCountryContact: "Organización de contacto en el país",
+    govtApprovedMessage: "¿Los datos están aprobados por el gobierno?",
     error: {
-      wrongDate: "Por favor, introduzca una fecha entre 2010 y la fecha actual",
       nameOfPersonEnteringData:
         "Nombre de la persona que introduce los datos es obligatorio",
       roleOfThePersonEnteringData:
@@ -44,7 +41,6 @@ export const healthIndicatorQuestionnaire = {
       organisationOfTheCountryContact: "Por favor, introduzca la organización",
     },
     hoverText: {
-      date: "Por favor, introduzca una fecha",
       nameOfPersonEnteringData:
         "Por favor, introduzca el nombre de la persona que introduce los datos",
       roleOfThePersonEnteringData:
@@ -94,6 +90,17 @@ export const healthIndicatorQuestionnaire = {
     "Seul le score de chaque indicateur sera affiché publiquement sur la plateforme GDHI.",
   publishConfirmation:
     "Está a punto de publicar un formulario de índice de salud digital para {country}. Que no se puede revertir. ¿Quieres continuar?",
+  saveConfirmation:
+    "¿Está seguro de que desea enviar los datos de {country}? Verifique que las opciones seleccionadas por usted reflejen la madurez de salud digital del año actual del país",
   rejectConfirmation:
     "Está a punto de rechazar un formulario de índice de salud digital para {country. Que no se puede revertir. ¿Quieres continuar?",
+  govtApprovedMessage: "¿Los datos están aprobados por el gobierno?",
+  QuestionnaireStateMessage: {
+    hasPrefillData:
+      "Los datos se han rellenado previamente en el cuestionario desde el año {updatedDate}. Actualice los datos del año actual y proporcione la justificación pertinente.",
+    dataSubmittedAlready:
+      "Los datos ya se enviaron para el año actual el {updatedDate}",
+    dataPublishedAlready:
+      "Los datos del año en curso ya están publicados el {updatedDate}",
+  },
 };

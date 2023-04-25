@@ -21,4 +21,11 @@ window.appProperties = {
   setDefaultYear(opts) {
     this.filter.defaultYear = opts.defaultYear;
   },
+  getRegion() {
+    const region = this.filter.region;
+    return region === undefined ? {} : region;
+  },
+  setRegion(opts) {
+    this.filter.region = opts.region;
+  },
 };

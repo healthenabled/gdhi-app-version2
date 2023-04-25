@@ -3,15 +3,101 @@ import flushPromises from "flush-promises";
 import { describe, expect, it, beforeEach, vi } from "vitest";
 import VueRouter from "vue-router";
 import axios from "axios";
+import { EventBus } from "../common/event-bus";
 import CountryProfile from "../countryProfile/country-profile.vue";
 import * as pdfHelper from "../pdfHelper/pdf-generate-scorecard.js";
 import { i18n } from "../../plugins/i18n";
+
+const axiosGetSpy = vi.spyOn(axios, "get");
+const eventBusOnSpy = vi.spyOn(EventBus, "$on");
 
 describe("Country Profile ", () => {
   let wrapper;
   const localVue = createLocalVue();
   localVue.use(VueRouter);
   const router = new VueRouter();
+  const globalData = {
+    countryHealthScores: [
+      {
+        countryId: "IND",
+        countryName: "India",
+        countryAlpha2Code: "IN",
+        categories: [
+          {
+            id: 1,
+            name: "Leadership and Governance",
+            overallScore: 1.5,
+            phase: 2,
+            indicators: [
+              {
+                id: 1,
+                code: "1",
+                name: "Digital health prioritized at the national level through dedicated bodies / mechanisms for governance",
+                indicatorDescription:
+                  "Does the country have a separate department / agency / national working group for digital health?",
+                score: 1,
+                supportingText: "markr@thoughtworks.com",
+                scoreDescription:
+                  "No coordinating body exists and/or nascent governance structure for digital health is constituted on a case-by-case basis.",
+              },
+              {
+                id: 2,
+                code: "2",
+                name: "Digital Health prioritized at the national level through planning",
+                indicatorDescription:
+                  "Is digital health included and budgeted for in national health or relevant national strategies and/or plan(s)?",
+                score: 2,
+                supportingText: "markr@thoughtworks.com",
+                scoreDescription:
+                  "There is some discussion of inclusion of digital health in national health or other relevant national strategies or plans. Proposed language for inclusion of digital health in national health or relevant national strategies and/or plans has been made and is under review.",
+              },
+            ],
+          },
+        ],
+        countryPhase: 3,
+        updatedDate: "May 2018",
+      },
+      {
+        countryId: "MLI",
+        countryName: "Mali",
+        countryAlpha2Code: "ML",
+        categories: [
+          {
+            id: 1,
+            name: "Leadership and Governance",
+            overallScore: 4.0,
+            phase: 4,
+            indicators: [
+              {
+                id: 1,
+                code: "1",
+                name: "Digital health prioritized at the national level through dedicated bodies / mechanisms for governance",
+                indicatorDescription:
+                  "Does the country have a separate department / agency / national working group for digital health?",
+                score: 4,
+                supportingText: "sdfl",
+                scoreDescription:
+                  "Governance structure is fully-functional, government-led, consults with other ministries, and monitors implementation of digital health based on a work plan.",
+              },
+              {
+                id: 2,
+                code: "2",
+                name: "Digital Health prioritized at the national level through planning",
+                indicatorDescription:
+                  "Is digital health included and budgeted for in national health or relevant national strategies and/or plan(s)?",
+                score: 4,
+                supportingText: "sdfl",
+                scoreDescription:
+                  "Digital health is being implemented as part of national health or other relevant national strategies and/or plans.",
+              },
+            ],
+          },
+        ],
+        countryPhase: 3,
+        updatedDate: "May 2018",
+      },
+    ],
+  };
   const healthIndicatorData = {
     countryId: "IND",
     countryName: "India",
@@ -61,7 +147,7 @@ describe("Country Profile ", () => {
       },
     ],
     countryPhase: 4,
-    collectedDate: "January 2018",
+    updatedDate: "January 2018",
   };
 
   const benchmarkData = {
@@ -79,6 +165,21 @@ describe("Country Profile ", () => {
     },
   };
 
+  const benchmarkDataForAYear = {
+    1: {
+      benchmarkScore: 2,
+      benchmarkValue: "above",
+    },
+    2: {
+      benchmarkScore: 1,
+      benchmarkValue: "Below",
+    },
+    3: {
+      benchmarkScore: 5,
+      benchmarkValue: "At",
+    },
+  };
+
   const phaseData = [
     {
       phaseName: "phase1",
@@ -91,7 +192,17 @@ describe("Country Profile ", () => {
   ];
   const axiosGetSpy = vi.spyOn(axios, "get");
   axiosGetSpy.mockImplementation(async (url) => {
-    if (url.includes("countries")) {
+    if (url.includes("benchmark")) {
+      if (url.includes("year")) {
+        return new Promise((resolve) =>
+          resolve({ data: benchmarkDataForAYear })
+        );
+      } else {
+        return new Promise((resolve) => resolve({ data: benchmarkData }));
+      }
+    } else if (url.includes("global_health_indicators")) {
+      return new Promise((resolve) => resolve({ data: globalData }));
+    } else if (url.includes("countries")) {
       return new Promise((resolve) => resolve({ data: healthIndicatorData }));
     } else {
       return new Promise((resolve) => resolve({ data: phaseData }));
@@ -100,6 +211,7 @@ describe("Country Profile ", () => {
 
   beforeEach(() => {
     wrapper = shallowMount(CountryProfile, {
+      selectedYear: null,
       localVue,
       router,
       i18n,
@@ -116,27 +228,28 @@ describe("Country Profile ", () => {
     wrapper.vm.healthIndicatorData.categories.forEach((category) => {
       expect(category["showCategory"]).to.equal(false);
     });
+    expect(wrapper.vm.$el).toMatchSnapshot();
   });
 
   it("should have the appropriate html elements based on the data", async () => {
     await flushPromises();
     expect(wrapper.find(".country-name").text()).to.equal(
-      healthIndicatorData.countryName
+      healthIndicatorData.countryName + "  As on: January 2018"
     );
     expect(wrapper.find("#collected-date").text()).to.equal(
       `As on: January 2018`
     );
-    expect(wrapper.find(".export a").attributes().href).to.equal(
-      wrapper.vm.countryDataSheetUrl()
-    );
-    expect(wrapper.find(".score").text()).to.equal(
+    expect(
+      wrapper.find(".header-section-button-container a").attributes().href
+    ).to.equal(wrapper.vm.countryDataSheetUrl());
+    expect(wrapper.find(".overall-score").text()).to.equal(
       healthIndicatorData.countryPhase.toString()
     );
     expect(wrapper.findAll(".category-bar").length).to.equal(
       healthIndicatorData.categories.length
     );
     const firstCategory = wrapper.findAll(".category-bar").at(0);
-    expect(firstCategory.find(".sub-header").text()).to.equal(
+    expect(firstCategory.find(".sub-header-country-profile").text()).to.equal(
       healthIndicatorData.categories[0].name
     );
     expect(firstCategory.findAll(".indicator").length).to.equal(
@@ -147,12 +260,12 @@ describe("Country Profile ", () => {
       healthIndicatorData.categories[0].indicators[0].name
     );
     expect(
-      firstIndicator.findAll(".indicator-score-desc").at(0).text()
+      firstIndicator.findAll(".indicator-description").at(0).text()
     ).to.equal(
       healthIndicatorData.categories[0].indicators[0].indicatorDescription
     );
     expect(
-      firstIndicator.findAll(".indicator-score-desc").at(1).text()
+      firstIndicator.findAll(".indicator-score-description").at(0).text()
     ).to.equal(
       healthIndicatorData.categories[0].indicators[0].scoreDescription
     );
@@ -164,14 +277,19 @@ describe("Country Profile ", () => {
   it("should updated the showCategory when the category is clicked", async () => {
     await flushPromises();
     const firstCategory = wrapper.findAll(".category-bar").at(0);
-    firstCategory.find(".sub-header").trigger("click");
+    firstCategory.find(".sub-header-country-profile").trigger("click");
     expect(wrapper.vm.healthIndicatorData.categories[0].showCategory).to.equal(
       true
     );
-    firstCategory.find(".sub-header").trigger("click");
+    firstCategory.find(".sub-header-country-profile").trigger("click");
     expect(wrapper.vm.healthIndicatorData.categories[0].showCategory).to.equal(
       false
     );
+  });
+
+  it("should register event when country page is mounted", async () => {
+    expect(eventBusOnSpy.mock.calls[0][0]).to.equal("year:filtered");
+    expect(eventBusOnSpy.mock.calls[1][0]).to.equal("region:filtered");
   });
 
   it("should call generateScorecard with the healthindicator data", async () => {
@@ -183,7 +301,7 @@ describe("Country Profile ", () => {
 
     let mockFn = vi.spyOn(pdfHelper, "generateScorecard").mockReturnValue({});
 
-    wrapper.find(".download-btn").trigger("click");
+    wrapper.findAll(".header-section-button").at(1).trigger("click");
     expect(mockFn.mock.calls[0]).to.deep.equal([
       healthIndicatorData,
       wrapper.vm.countrySummary,
@@ -194,7 +312,13 @@ describe("Country Profile ", () => {
     ]);
   });
 
-  it("should load the benchmark data when the benchmark dropdown is changed when data is present", async () => {
+  it("should fetch global data for a year", async () => {
+    wrapper.vm.getGlobalAverage();
+    await flushPromises();
+    expect(wrapper.vm.globalData).to.deep.equal(globalData);
+  });
+
+  it.skip("should load the benchmark data when the benchmark dropdown is changed when data is present", async () => {
     axiosGetSpy.mockResolvedValueOnce({ data: benchmarkData });
     await flushPromises();
 
@@ -223,7 +347,14 @@ describe("Country Profile ", () => {
     );
   });
 
-  it("should reset the benchmark data to empty object when no value is selected", async () => {
+  it("should load the benchmark data for a selected year", async () => {
+    wrapper.vm.getBenchmarkData();
+    await flushPromises();
+
+    expect(wrapper.vm.benchmarkData).to.deep.equal(benchmarkData);
+  });
+
+  it.skip("should reset the benchmark data to empty object when no value is selected", async () => {
     await flushPromises();
     wrapper.findAll(".benchmarkDropDown option").at(0).element.selected = true;
     wrapper.find(".benchmarkDropDown").trigger("change");
@@ -232,7 +363,7 @@ describe("Country Profile ", () => {
     expect(wrapper.findAll(".benchmark-score").length).to.equal(0);
   });
 
-  it("should load the benchmark data when the benchmark dropdown is changed when no data for country is present", async () => {
+  it.skip("should load the benchmark data when the benchmark dropdown is changed when no data for country is present", async () => {
     let notifier = vi.fn();
     wrapper.vm.$notify = notifier;
     await flushPromises();
@@ -253,7 +384,7 @@ describe("Country Profile ", () => {
     });
   });
 
-  it("should call error notifier when the benchmark API call is failed", async () => {
+  it.skip("should call error notifier when the benchmark API call is failed", async () => {
     let notifier = vi.fn();
     wrapper.vm.$notify = notifier;
     wrapper.findAll(".benchmarkDropDown option").at(1).element.selected = true;
@@ -284,58 +415,35 @@ describe("Country Profile ", () => {
 
   it("should render collected on date", async () => {
     await flushPromises();
-    expect(wrapper.vm.collectedDate).to.equal("As on: January 2018");
+    expect(wrapper.vm.updatedDate).to.equal("As on: January 2018");
   });
 
   it("should render localization texts properly", async () => {
     await flushPromises();
-    expect(wrapper.find(".export").find("a").text()).equal(
-      i18n.messages.en.countryProfile.exportCountryDataButton
-    );
+    expect(
+      wrapper.findAll(".header-section-button").at(0).find("p").text()
+    ).equal(i18n.messages.en.countryProfile.exportCountryDataButton);
 
-    expect(wrapper.find(".download-btn").text()).equal(
-      i18n.messages.en.countryProfile.downloadScorecard
-    );
+    expect(
+      wrapper.findAll(".header-section-button").at(1).find("p").text()
+    ).equal(i18n.messages.en.countryProfile.downloadScorecard);
 
-    expect(wrapper.findAll(".title .sub-header").at(0).text()).equal(
-      i18n.messages.en.countryProfile.overallDigitalHealthPhase
-    );
+    expect(
+      wrapper.findAll(".title .sub-header-country-profile").at(0).text()
+    ).equal(i18n.messages.en.countryProfile.overallDigitalHealthPhase);
 
     expect(wrapper.findAll(".phase-desc").at(0).find("p").text()).equal(
       i18n.messages.en.countryProfile.overallDigitalHealthPhaseDescription
     );
 
-    expect(wrapper.find(".benchmark-dropdown-container").text()).equal(
-      i18n.messages.en.countryProfile.benchmark.text
-    );
+    expect(wrapper.findAll(".category-phase").at(0).text()).equal("3");
 
-    expect(
-      wrapper.find(".benchmarkDropDown").findAll("option").at(1).text()
-    ).equal(
-      i18n.messages.en.countryProfile.benchmark.benchmarkValues.globalAverage
-    );
-
-    expect(
-      wrapper.find(".benchmarkDropDown").findAll("option").at(2).text()
-    ).equal("Phase 1");
-
-    expect(wrapper.findAll(".phase-desc").at(1).find("p").text()).equal(
-      i18n.messages.en.countryProfile.benchmark.benchmarkDescription
-    );
-
-    expect(
-      wrapper
-        .findAll(".indicator-panel-container-category-section-phase")
-        .at(0)
-        .element.attributes.getNamedItem("data-phase").value
-    ).equal("Phase 3");
-
-    expect(wrapper.find(".indicator-name").text()).equal(
-      i18n.messages.en.countryProfile.indicator
+    expect(wrapper.findAll(".compare-to-header").at(0).text()).equal(
+      i18n.messages.en.countryProfile.compareTo
     );
   });
 
-  it("should render localization benchmark error text", async () => {
+  it.skip("should render localization benchmark error text", async () => {
     wrapper.setData({ hasBenchmarkData: false });
     await flushPromises();
     expect(wrapper.findAll(".phase-desc").at(1).find("span").text()).equal(

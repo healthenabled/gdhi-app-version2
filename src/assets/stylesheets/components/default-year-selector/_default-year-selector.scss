@@ -17,9 +17,17 @@
     appearance: none;
     -moz-appearance: none;
     background: url("/static/img/arrowDown.svg") no-repeat;
-    background-position-x: 95%;
     background-position-y: 50%;
     background-size: 15px;
+  }
+  .ltr {
+    background-position-x: 95%;
+  }
+  .rtl {
+    background-position-x: 5%;
+  }
+  .width {
+    width: 12vw;
   }
 }
 

@@ -1,5 +1,5 @@
 import { createLocalVue, mount } from "@vue/test-utils";
-import { describe, beforeEach, it, expect, afterEach, vi } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import VueRouter from "vue-router";
 import CountrySummary from "../countrySummary/country-summary.vue";
 import { i18n } from "../../plugins/i18n";
@@ -29,7 +29,6 @@ describe("Country Summary ", () => {
     dataApproverName: "k",
     dataApproverRole: "kkh",
     dataApproverEmail: "khk",
-    collectedDate: "2018-11-12",
     resources: ["sdfsd"],
   };
 
@@ -53,15 +52,6 @@ describe("Country Summary ", () => {
     });
     await flushPromises();
 
-    expect(wrapper.find(".country-summary-link").text()).to.equal(
-      responseData.contactName + ","
-    );
-    expect(wrapper.find(".country-designation").text()).to.equal(
-      responseData.contactDesignation + ","
-    );
-    expect(wrapper.find(".country-org").text()).to.equal(
-      responseData.contactOrganization
-    );
     expect(wrapper.find(".country-summary-text").text()).to.equal(
       responseData.summary
     );
@@ -69,7 +59,7 @@ describe("Country Summary ", () => {
       responseData.resources.length
     );
     expect(wrapper.find(".link-blue").attributes().href).to.equal(
-      "mailto:" + responseData.contactEmail
+      "http://sdfsd"
     );
   });
 
@@ -93,9 +83,7 @@ describe("Country Summary ", () => {
       i18n,
     });
     await flushPromises();
-    expect(wrapper.find(".country-contact").text()).equal(
-      i18n.messages.en.countryProfile.countrySummary.keyContacts
-    );
+
     expect(wrapper.find(".country-summary-title").text()).equal(
       i18n.messages.en.countryProfile.countrySummary.text
     );
@@ -113,14 +101,8 @@ describe("Country Summary ", () => {
       i18n,
     });
     await flushPromises();
-    expect(wrapper.findAll(".error").length).to.equal(3);
+    expect(wrapper.findAll(".error").length).to.equal(1);
     expect(wrapper.findAll(".error").at(0).text()).equal(
-      i18n.messages.en.mixed.noDataAvailable
-    );
-    expect(wrapper.findAll(".error").at(1).text()).equal(
-      i18n.messages.en.mixed.noDataAvailable
-    );
-    expect(wrapper.findAll(".error").at(2).text()).equal(
       i18n.messages.en.mixed.noDataAvailable
     );
   });

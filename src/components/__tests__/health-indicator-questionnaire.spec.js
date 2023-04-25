@@ -5,8 +5,10 @@ import VueRouter from "vue-router";
 import { i18n } from "../../plugins/i18n";
 import axios from "axios";
 import flushPromises from "flush-promises";
+import { EventBus } from "../common/event-bus";
 
 const axiosGetSpy = vi.spyOn(axios, "get");
+const eventBusOnSpy = vi.spyOn(EventBus, "$on");
 
 describe("Health Indicator Questionnaire", () => {
   let wrapper;
@@ -101,7 +103,10 @@ describe("Health Indicator Questionnaire", () => {
   ];
   let countryData = {
     countryId: "AFG",
+    currentYear: "2023",
+    dataAvailableForYear: "2018",
     status: "NEW",
+    updatedDate: "March 2018",
     countrySummary: {
       countryId: "AFG",
       countryName: "Afghanistan",
@@ -117,7 +122,6 @@ describe("Health Indicator Questionnaire", () => {
       dataApproverName: null,
       dataApproverRole: null,
       dataApproverEmail: null,
-      collectedDate: null,
       resources: [],
     },
     healthIndicators: [],
@@ -125,7 +129,10 @@ describe("Health Indicator Questionnaire", () => {
 
   let draftCountryData = {
     countryId: "AFG",
+    currentYear: "2023",
+    dataAvailableForYear: "2023",
     status: "NEW",
+    updatedDate: "March 2018",
     countrySummary: {
       countryId: "AFG",
       countryName: "Afghanistan",
@@ -141,7 +148,6 @@ describe("Health Indicator Questionnaire", () => {
       dataApproverName: null,
       dataApproverRole: null,
       dataApproverEmail: null,
-      collectedDate: null,
       resources: [],
     },
     healthIndicators: [
@@ -194,6 +200,17 @@ describe("Health Indicator Questionnaire", () => {
         expect(category.showCategory).to.be.equal(false);
       });
     });
+
+    it("should register event when health indicator questionnaire is mounted", () => {
+      expect(eventBusOnSpy.mock.calls[0][0]).to.equal(
+        "edit_questionnaire:saved"
+      );
+      eventBusOnSpy.mock.calls[0][1]();
+      expect(axiosGetSpy.mock.calls[0][0]).to.equal(
+        "/api/health_indicator_options"
+      );
+      expect(axiosGetSpy.mock.calls[1][0]).to.contains("/api/countries/");
+    });
   });
 
   describe(" Draft Form Data", () => {
@@ -231,15 +248,26 @@ describe("Health Indicator Questionnaire", () => {
       });
     });
 
-    it("should set showEdit based on isViewPublish", async () => {
+    it("should set showEdit based on isViewPublish and hasPreviousYearData", async () => {
       wrapper = shallowMount(HealthIndicatorQuestionnaire, {
         localVue,
         router,
         i18n,
       });
       wrapper.vm.isViewPublish = true;
+      wrapper.vm.hasPreviousYearData = false;
+      expect(wrapper.vm.hasPreviousYearData).to.equal(false);
       await flushPromises();
       expect(wrapper.vm.showEdit).to.equal(false);
+    });
+    it("should set hasPreviousYearData based on currentYear and dataAvailableForYear", async () => {
+      wrapper = shallowMount(HealthIndicatorQuestionnaire, {
+        localVue,
+        router,
+        i18n,
+      });
+      await flushPromises();
+      expect(wrapper.vm.hasPreviousYearData).to.equal(false);
     });
   });
 
