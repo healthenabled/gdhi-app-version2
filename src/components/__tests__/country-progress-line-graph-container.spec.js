@@ -70,7 +70,6 @@ describe("Country Progress Line Graph Container", () => {
   });
 
   it("should fetch distinct years on mount", async () => {
-    wrapper.vm.getPublishedYears();
     await flushPromises();
     expect(wrapper.vm.years).to.deep.equal(yearsResponse.years);
   });

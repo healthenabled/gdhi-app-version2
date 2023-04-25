@@ -27,8 +27,17 @@ export default Vue.extend({
   },
   mounted() {
     common.showLoading();
-    this.getPublishedYears();
-    this.getYearOnYearData(this.$route.params.countryCode);
+    Promise.all([
+      this.getPublishedYearsPromise(),
+      this.getYearOnYearDataPromise(this.$route.params.countryCode),
+    ])
+      .then(([publishedYearsResponse, yearOnYearDataResponse]) => {
+        this.getPublishedYearSuccessCallback(publishedYearsResponse);
+        this.getYearOnYearDataSuccessCallback(yearOnYearDataResponse);
+      })
+      .finally(() => {
+        common.hideLoading();
+      });
     EventBus.$on(EVENTS.INDICATOR_FILTERED, () => {
       this.category = window.appProperties.getCategoryFilter() - 1;
     });
@@ -38,27 +47,31 @@ export default Vue.extend({
     });
   },
   methods: {
-    getPublishedYears() {
-      axios.get("/api/bff/distinct_year").then(({ data: { years } }) => {
-        this.years = years.reverse();
-        const lastElement = Number(this.years[this.years.length - 1]);
-        this.years.push(String(lastElement + 1));
-        this.years.unshift("");
+    getPublishedYearSuccessCallback({ data: { years } }) {
+      this.years = years.reverse();
+      const lastElement = Number(this.years[this.years.length - 1]);
+      this.years.push(String(lastElement + 1));
+      this.years.unshift("");
+    },
+    getPublishedYearsPromise() {
+      return axios.get("/api/bff/distinct_year");
+    },
+    getYearOnYearDataSuccessCallback({ data }) {
+      this.yearOnYearData = data;
+    },
+
+    getYearOnYearData(countryCode) {
+      this.getYearOnYearDataPromise(countryCode).then((response) => {
+        this.getYearOnYearDataSuccessCallback(response);
       });
     },
-    getYearOnYearData(countryCode) {
-      axios
-        .get(`/api/countries/${countryCode}/year_on_year`, {
-          params: {
-            regionId: this.selectedRegion.region_id,
-          },
-        })
-        .then(({ data }) => {
-          this.yearOnYearData = data;
-        })
-        .finally(() => {
-          common.hideLoading();
-        });
+
+    getYearOnYearDataPromise(countryCode) {
+      return axios.get(`/api/countries/${countryCode}/year_on_year`, {
+        params: {
+          regionId: this.selectedRegion.region_id,
+        },
+      });
     },
   },
 });
