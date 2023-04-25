@@ -150,6 +150,8 @@ describe("Country Profile ", () => {
     updatedDate: "January 2018",
   };
 
+  const governmentData = true;
+  const selectedYear = "2023";
   const benchmarkData = {
     1: {
       benchmarkScore: 5,
@@ -298,6 +300,8 @@ describe("Country Profile ", () => {
     wrapper.vm.countrySummary = "Country Summary";
     wrapper.vm.benchmarkPhase = "Global";
     wrapper.vm.benchmarkData = benchmarkData;
+    wrapper.vm.governmentData = governmentData;
+    wrapper.vm.selectedYear = selectedYear;
 
     let mockFn = vi.spyOn(pdfHelper, "generateScorecard").mockReturnValue({});
 
@@ -309,6 +313,8 @@ describe("Country Profile ", () => {
       wrapper.vm.benchmarkPhase,
       wrapper.vm.hasBenchmarkData,
       i18n,
+      governmentData,
+      selectedYear,
     ]);
   });
 
