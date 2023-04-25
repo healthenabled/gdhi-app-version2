@@ -70,11 +70,7 @@ export default Vue.extend({
         },
         position:
           LayoutDirectionConfig[i18n.locale] === "rtl" ? "right" : "left",
-        min: 0,
-        max: 5,
         ticks: {
-          stepSize: 1,
-          beginAtZero: false,
           callback: function (value) {
             const labels = [
               "",
@@ -86,7 +82,12 @@ export default Vue.extend({
             ];
             return labels[value];
           },
-          color: "black",
+          color: "#0A0A0A",
+          font: {
+            family: "Inter",
+            weight: 400,
+            size: 14,
+          },
         },
       };
       let scalesXOptions = {
@@ -105,13 +106,16 @@ export default Vue.extend({
           lineWidth: 0,
         },
         ticks: {
-          beginAtZero: true,
-          stepSize: 1,
-          min: 1,
+          //   beginAtZero: true,
+          //   stepSize: 1,
           font: {
-            weight: "bold",
+            family: "Inter",
+            weight: 400,
+            size: 14,
+            lineHeight: "16.94px",
           },
-          color: "black",
+          //   min: 1,
+          color: "#0A0A0A",
         },
       };
       return {
