@@ -135,7 +135,6 @@ export default Vue.extend({
             data: this.globalData,
             fill: false,
             borderColor: "#6C757D",
-            tension: 0.1,
             borderDash: [5, 4],
             borderWidth: 1.5,
             pointStyle: "circle",
