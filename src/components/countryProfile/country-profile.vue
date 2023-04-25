@@ -99,7 +99,7 @@ export default Vue.extend({
           common.configWithUserLanguageAndNoCacheHeader(
             this.$i18n.locale,
             this.selectedYear,
-            this.selectedRegion.region_id
+            this.selectedRegion.regionId
           )
         )
         .then((response) => {
@@ -114,7 +114,7 @@ export default Vue.extend({
           common.configWithUserLanguageAndNoCacheHeader(
             this.$i18n.locale,
             this.selectedYear,
-            this.selectedRegion.region_id
+            this.selectedRegion.regionId
           )
         )
         .then((response) => {
@@ -177,7 +177,7 @@ export default Vue.extend({
           common.configWithUserLanguageAndNoCacheHeader(
             this.$i18n.locale,
             this.selectedYear,
-            this.selectedRegion.region_id
+            this.selectedRegion.regionId
           )
         )
         .then((response) => {

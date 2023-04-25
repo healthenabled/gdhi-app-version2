@@ -48,7 +48,7 @@ export default Vue.extend({
           if (self.selectedRegion) {
             let index = 0;
             self.regions.forEach((region, i) => {
-              if (region.region_id == self.selectedRegion.region_id) {
+              if (region.regionId == self.selectedRegion.regionId) {
                 index = i;
               }
             });
@@ -82,8 +82,8 @@ export default Vue.extend({
       <option value="">{{ $t("regionDropDown.textSelectRegion") }}</option>
       <option
         v-for="region in regions"
-        :key="region.region_id"
-        :value="region.region_id"
+        :key="region.regionId"
+        :value="region.regionId"
       >
         {{ region.regionName }}
       </option>

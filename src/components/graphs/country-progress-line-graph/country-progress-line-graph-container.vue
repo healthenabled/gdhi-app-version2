@@ -69,7 +69,7 @@ export default Vue.extend({
     getYearOnYearDataPromise(countryCode) {
       return axios.get(`/api/countries/${countryCode}/year_on_year`, {
         params: {
-          regionId: this.selectedRegion.region_id,
+          regionId: this.selectedRegion.regionId,
         },
       });
     },
