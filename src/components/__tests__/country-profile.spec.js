@@ -8,7 +8,6 @@ import CountryProfile from "../countryProfile/country-profile.vue";
 import * as pdfHelper from "../pdfHelper/pdf-generate-scorecard.js";
 import { i18n } from "../../plugins/i18n";
 
-const axiosGetSpy = vi.spyOn(axios, "get");
 const eventBusOnSpy = vi.spyOn(EventBus, "$on");
 
 describe("Country Profile ", () => {
@@ -150,7 +149,7 @@ describe("Country Profile ", () => {
     updatedDate: "January 2018",
   };
 
-  const governmentData = true;
+  const govtApproved = true;
   const selectedYear = "2023";
   const benchmarkData = {
     1: {
@@ -193,6 +192,10 @@ describe("Country Profile ", () => {
     },
   ];
   const axiosGetSpy = vi.spyOn(axios, "get");
+  const generateScoreCardSpy = vi
+    .spyOn(pdfHelper, "generateScorecard")
+    .mockReturnValue({});
+
   axiosGetSpy.mockImplementation(async (url) => {
     if (url.includes("benchmark")) {
       if (url.includes("year")) {
@@ -300,20 +303,19 @@ describe("Country Profile ", () => {
     wrapper.vm.countrySummary = "Country Summary";
     wrapper.vm.benchmarkPhase = "Global";
     wrapper.vm.benchmarkData = benchmarkData;
-    wrapper.vm.governmentData = governmentData;
+    wrapper.vm.govtApproved = govtApproved;
     wrapper.vm.selectedYear = selectedYear;
 
-    let mockFn = vi.spyOn(pdfHelper, "generateScorecard").mockReturnValue({});
-
     wrapper.findAll(".header-section-button").at(1).trigger("click");
-    expect(mockFn.mock.calls[0]).to.deep.equal([
+
+    expect(generateScoreCardSpy.mock.calls[0]).to.deep.equal([
       healthIndicatorData,
       wrapper.vm.countrySummary,
       benchmarkData,
       wrapper.vm.benchmarkPhase,
       wrapper.vm.hasBenchmarkData,
       i18n,
-      governmentData,
+      govtApproved,
       selectedYear,
     ]);
   });

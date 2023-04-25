@@ -94,7 +94,6 @@ export async function generateScorecard(
   govtApproved,
   selectedYear
 ) {
-  console.log("govtApproved", govtApproved);
   const pdfDoc = await PDFDocument.create();
   // TODO: check how to add a margin of 50
   const helveticaBoldFont = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
