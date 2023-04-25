@@ -106,15 +106,12 @@ export default Vue.extend({
           lineWidth: 0,
         },
         ticks: {
-          //   beginAtZero: true,
-          //   stepSize: 1,
           font: {
             family: "Inter",
             weight: 400,
             size: 14,
             lineHeight: "16.94px",
           },
-          //   min: 1,
           color: "#0A0A0A",
         },
       };
