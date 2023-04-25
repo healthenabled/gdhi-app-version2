@@ -147,16 +147,17 @@ export default Vue.extend({
       if (this.$i18n.locale === "ar") {
         window.print();
       } else {
-        generateScorecard(
-          this.healthIndicatorData,
-          this.countrySummary,
-          this.benchmarkData,
-          this.benchmarkPhase,
-          this.hasBenchmarkData,
-          this.$i18n,
-          this.govtApproved,
-          this.selectedYear || window.appProperties.getDefaultYear()
-        );
+        generateScorecard({
+          healthIndicatorData: this.healthIndicatorData,
+          countrySummary: this.countrySummary,
+          benchmarkData: this.benchmarkData,
+          benchmarkPhase: this.benchmarkPhase,
+          hasBenchmarkData: this.hasBenchmarkData,
+          i18n: this.$i18n,
+          govtApproved: this.govtApproved,
+          selectedYear:
+            this.selectedYear || window.appProperties.getDefaultYear(),
+        });
       }
     },
     notifier(props) {

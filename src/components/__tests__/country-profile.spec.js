@@ -309,14 +309,16 @@ describe("Country Profile ", () => {
     wrapper.findAll(".header-section-button").at(1).trigger("click");
 
     expect(generateScoreCardSpy.mock.calls[0]).to.deep.equal([
-      healthIndicatorData,
-      wrapper.vm.countrySummary,
-      benchmarkData,
-      wrapper.vm.benchmarkPhase,
-      wrapper.vm.hasBenchmarkData,
-      i18n,
-      govtApproved,
-      selectedYear,
+      {
+        healthIndicatorData,
+        countrySummary: wrapper.vm.countrySummary,
+        benchmarkData,
+        benchmarkPhase: wrapper.vm.benchmarkPhase,
+        hasBenchmarkData: wrapper.vm.hasBenchmarkData,
+        i18n,
+        govtApproved,
+        selectedYear,
+      },
     ]);
   });
 
