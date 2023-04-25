@@ -1,6 +1,7 @@
 import { PDFDocument, StandardFonts, rgb, LineCapStyle } from "pdf-lib";
 import colorObj from "../common/color-codes.js";
 import common from "../../common/common";
+import { countryProfile } from "../../static-content/country-profile/english.js";
 
 /**
  * Get path data for a rounded rectangle. Allows for different radius on each corner.
@@ -89,7 +90,9 @@ export async function generateScorecard(
   benchmarkData,
   benchmarkPhase,
   hasBenchmarkData,
-  i18n
+  i18n,
+  govtApproved,
+  selectedYear
 ) {
   const pdfDoc = await PDFDocument.create();
   // TODO: check how to add a margin of 50
@@ -216,8 +219,24 @@ export async function generateScorecard(
     }
   );
 
+  page.moveDown(20);
+  if (govtApproved == true) {
+    drawTextWithPagination("Government Approved: True", {
+      font: helveticaBoldFont,
+      size: 14,
+      maxWidth: 480,
+      lineHeight: 14,
+    });
+  } else {
+    drawTextWithPagination("Government Approved: False", {
+      font: helveticaBoldFont,
+      size: 14,
+      maxWidth: 480,
+      lineHeight: 14,
+    });
+  }
   // Write Document Summary Heading in bold
-  page.moveDown(50);
+  page.moveDown(30);
   drawTextWithPagination(
     i18n.t("healthIndicatorQuestionnaire.contactForm.countrySummary"),
     { font: helveticaBoldFont, size: 12, lineHeight: 12, maxWidth: 480 }
@@ -275,8 +294,15 @@ export async function generateScorecard(
 
     page.moveTo(70, page.getHeight() - 60);
 
-    drawTextWithPagination(i18n.t("scoreCardPDF.lineChartTitle"), {
+    page.drawText(i18n.t("scoreCardPDF.lineChartTitle"), {
       font: helveticaBoldFont,
+      size: 12,
+      lineHeight: 12,
+      maxWidth: 480,
+    });
+    page.drawText(selectedYear, {
+      font: helveticaBoldFont,
+      x: 260,
       size: 12,
       lineHeight: 12,
       maxWidth: 480,
