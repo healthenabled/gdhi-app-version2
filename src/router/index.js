@@ -6,6 +6,7 @@ import headerComp from "@/components/header/header.vue";
 import languageSelector from "@/components/language-selector/language-selector.vue";
 import footerComp from "@/components/footer/footer.vue";
 import countryProfile from "@/components/countryProfile/country-profile.vue";
+import regionBarGraph from "@/components/graphs/region-bar-Graph/region-bar-Graph.vue";
 import landingMap from "@/components/landing-map/map.vue";
 import methodologyComp from "@/components/methodology/methodology.vue";
 import healthIndicatorQuestionnaire from "@/components/healthIndicatorQuestionnaire/health-indicator-questionnare.vue";
@@ -46,6 +47,13 @@ export default new Router({
           path: "country_profile/:countryCode",
           components: {
             routecontent: countryProfile,
+            languageSelect: languageSelector,
+          },
+        },
+        {
+          path: "barGraph",
+          components: {
+            routecontent: regionBarGraph,
             languageSelect: languageSelector,
           },
         },
