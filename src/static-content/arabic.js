@@ -40,7 +40,7 @@ export const ar = {
     noteForBenchmark:
       "يستخدم المؤشر الرئيسي في كل فئة لحساب المتوسط العام للبلد. يمكن قياس كل بلد مقابل المتوسط العالمي أو البلدان ضمن مرحلة محددة.",
     spiderGraphTitle: "نظرة عامة على المرحلة",
-    lineChartTitle: "مقارنة الدول",
+    lineChartTitle: "مقارنة الدول للسنة",
   },
   regionDropDown: {
     textSelectRegion: "اختر المنطقة",
