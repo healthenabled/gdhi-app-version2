@@ -32,16 +32,6 @@ export async function generateScorecard({
   const title = i18n.t("scoreCardPDF.title", {
     country: healthIndicatorData.countryName,
   });
-  // Move cursor to 60 points below the top of the page
-  page.moveTo(70, page.getHeight() - 60);
-
-  // Add Title in the document
-  page.drawText(title, {
-    font: helveticaBoldFont,
-    size: 20,
-    lineHeight: 20,
-    maxWidth: MAX_WIDTH,
-  });
 
   const handlePagination = () => {
     if (page.getY() <= 70) {
@@ -106,11 +96,21 @@ export async function generateScorecard({
       page.moveDown(30 + heightOfOneLine * numberOfLinesInTheSecondPart);
     }
   };
+  // Move cursor to 60 points below the top of the page
+  page.moveTo(70, page.getHeight() - 60);
+
+  // Add Title in the document
+  drawTextWithPagination(title, {
+    font: helveticaBoldFont,
+    size: 20,
+    lineHeight: 20,
+    maxWidth: MAX_WIDTH,
+  });
 
   page.moveDown(20 + Math.ceil(title.length / 50) * 10);
 
   // Write Collected Data in the document
-  page.drawText(
+  drawTextWithPagination(
     common.dateInLocaleFormat(healthIndicatorData.updatedDate, i18n),
     {
       font: helveticaBoldObliqueFont,
@@ -150,7 +150,7 @@ export async function generateScorecard({
       lineHeight: 14,
     });
   } else {
-    page.drawText("-", {
+    drawTextWithPagination("-", {
       size: 14,
       font: helveticaFont,
       color: hexToRgb("#000"),
@@ -197,13 +197,13 @@ export async function generateScorecard({
 
     page.moveTo(MIN_X, page.getHeight() - 60);
 
-    page.drawText(i18n.t("scoreCardPDF.lineChartTitle"), {
+    drawTextWithPagination(i18n.t("scoreCardPDF.lineChartTitle"), {
       font: helveticaBoldFont,
       size: 12,
       lineHeight: 12,
       maxWidth: MAX_WIDTH,
     });
-    page.drawText(selectedYear, {
+    drawTextWithPagination(selectedYear, {
       font: helveticaBoldFont,
       x: 260,
       size: 12,
@@ -237,7 +237,7 @@ export async function generateScorecard({
       page.moveTo(MIN_X, page.getHeight() - 30);
     }
     page.moveDown(20);
-    page.drawText(
+    drawTextWithPagination(
       i18n.t("scoreCardPDF.benchmarkAgainstBenchmarkValue", {
         benchMarkPhaseValue: benchMarkPhaseValue,
       }),
@@ -259,7 +259,7 @@ export async function generateScorecard({
 
     const noteForBenchmark = i18n.t("scoreCardPDF.noteForBenchmark");
     const noteForBenchmarkLength = noteForBenchmark.length;
-    page.drawText(i18n.t("scoreCardPDF.noteForBenchmark"), {
+    drawTextWithPagination(i18n.t("scoreCardPDF.noteForBenchmark"), {
       size: 12,
       color: hexToRgb("#666"),
       font: helveticaBoldObliqueFont,
@@ -275,7 +275,7 @@ export async function generateScorecard({
         page.moveTo(MIN_X, page.getHeight() - 30);
       }
       page.moveDown(40);
-      page.drawText(
+      drawTextWithPagination(
         i18n.t("countryProfile.benchmark.benchmarkNoCountryForSelectedPhase"),
         {
           size: 12,
@@ -295,7 +295,7 @@ export async function generateScorecard({
   }
   // Write overall digital health phase in the doc
   page.moveDown(20);
-  page.drawText(i18n.t("countryProfile.overallDigitalHealthPhase"), {
+  drawTextWithPagination(i18n.t("countryProfile.overallDigitalHealthPhase"), {
     maxWidth: 500,
     size: 14,
     color: hexToRgb("#000"),
@@ -318,7 +318,7 @@ export async function generateScorecard({
   });
 
   //  Write the country phase within the square
-  page.drawText(countryPhase, {
+  drawTextWithPagination(countryPhase, {
     size: 14,
     font: helveticaFont,
     x: 512,
@@ -350,7 +350,7 @@ export async function generateScorecard({
 
     // Write Phase name
     page.moveDown(40);
-    page.drawText(category.name, {
+    drawTextWithPagination(category.name, {
       font: helveticaBoldFont,
       size: 14,
       color: rgb(0, 0, 0),
@@ -379,7 +379,7 @@ export async function generateScorecard({
 
     // TODO: Add text align center here
     if (!category.phase) {
-      page.drawText(categoryPhase, {
+      drawTextWithPagination(categoryPhase, {
         font: helveticaFont,
         color: hexToRgb("#FFF"),
         size: 12,
@@ -400,14 +400,17 @@ export async function generateScorecard({
       });
 
       // Write PhaseN in white in the Progress bar
-      page.drawText(i18n.t("mixed.phaseN", { number: categoryPhase }), {
-        font: helveticaFont,
-        color: hexToRgb("#FFF"),
-        size: 12,
-        x: progressFillWidth - 50,
-        y: page.getY() + 5,
-        lineHeight: 12,
-      });
+      drawTextWithPagination(
+        i18n.t("mixed.phaseN", { number: categoryPhase }),
+        {
+          font: helveticaFont,
+          color: hexToRgb("#FFF"),
+          size: 12,
+          x: progressFillWidth - 50,
+          y: page.getY() + 5,
+          lineHeight: 12,
+        }
+      );
     }
 
     category.indicators.forEach((indicator, index) => {
@@ -418,7 +421,7 @@ export async function generateScorecard({
 
       // Write category Code and Name
       page.moveDown(30);
-      page.drawText(`${indicator.code}. ${indicator.name}`, {
+      drawTextWithPagination(`${indicator.code}. ${indicator.name}`, {
         font: helveticaFont,
         size: 12,
         color: hexToRgb("#000"),
@@ -439,7 +442,7 @@ export async function generateScorecard({
 
       // Write category description into the Doc
       page.moveDown(30 + 20 * Math.floor(indicator.name.length / 83));
-      page.drawText(indicator.indicatorDescription, {
+      drawTextWithPagination(indicator.indicatorDescription, {
         size: 12,
         color: hexToRgb("#666"),
         font: helveticaObliqueFont,
@@ -461,7 +464,7 @@ export async function generateScorecard({
       page.moveDown(
         30 + 20 * Math.floor(indicator.indicatorDescription.length / 83)
       );
-      page.drawText(indicator.scoreDescription, {
+      drawTextWithPagination(indicator.scoreDescription, {
         font: helveticaFont,
         x: MIN_X,
         y: page.getY() + 5,
@@ -498,7 +501,7 @@ export async function generateScorecard({
         color: hexToRgb(getColorCodeForPhase(colorCodes, indicatorScore)),
       });
 
-      page.drawText(indicatorScore, {
+      drawTextWithPagination(indicatorScore, {
         x: indicatorScore.length > 1 ? 507 : 512,
         y: page.getY() + 75,
         size: 14,
@@ -515,7 +518,7 @@ export async function generateScorecard({
 
       if (benchmarkData[indicator.id]) {
         page.moveDown(20);
-        page.drawText(
+        drawTextWithPagination(
           i18n.t("countryProfile.benchmark.textWithData", {
             data: benchmarkData[indicator.id].benchmarkScore,
           }),
