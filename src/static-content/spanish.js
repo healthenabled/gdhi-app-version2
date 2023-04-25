@@ -43,7 +43,7 @@ export const es = {
       "El indicador principal de cada categoría se utiliza para calcular el promedio general del país. Cada país puede ser " +
       "comparado con el promedio mundial o con los países dentro de una fase seleccionada.",
     spiderGraphTitle: "Resumen de fases",
-    lineChartTitle: "Comparación de países",
+    lineChartTitle: "Comparación de países para el año",
   },
   regionDropDown: {
     textSelectRegion: "Seleccione región",
