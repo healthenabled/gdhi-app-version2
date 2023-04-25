@@ -149,6 +149,7 @@ describe("Upload CSV", () => {
     });
     await flushPromises();
     expect(wrapper.vm.validationStatus).toBe("INVALID");
+    expect(wrapper.vm.description).toContain("India");
   });
 
   it("should set validation status to invalid when file is empty", async () => {
