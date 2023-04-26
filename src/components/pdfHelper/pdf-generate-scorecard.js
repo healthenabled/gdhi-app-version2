@@ -372,44 +372,9 @@ export async function generateScorecard({
       start: { x: 60, y: page.getY() + 10 },
       end: { x: 560, y: page.getY() + 10 },
       thickness: 10,
-      color: hexToRgb("#CCC"),
+      color: govtApproved ? hexToRgb("#415ba3") : hexToRgb("#a0add1"),
     });
-
-    const categoryPhase = category.phase ? category.phase.toString() : "NA";
-
-    // TODO: Add text align center here
-    if (!category.phase) {
-      page.drawText(categoryPhase, {
-        font: helveticaFont,
-        color: hexToRgb("#FFF"),
-        size: 12,
-        x: 60,
-        y: page.getY() + 5,
-        maxWidth: 560,
-        lineHeight: 12,
-      });
-    } else {
-      // total width is 560px, 60 is the starting point
-      const progressFillWidth = 60 + ((560 - 60) / 5) * Number(category.phase);
-      page.drawLine({
-        lineCap: LineCapStyle.Round,
-        start: { x: 60, y: page.getY() + 10 },
-        end: { x: progressFillWidth, y: page.getY() + 10 },
-        thickness: 10,
-        color: hexToRgb(getColorCodeForPhase(colorCodes, categoryPhase)),
-      });
-
-      // Write PhaseN in white in the Progress bar
-      page.drawText(i18n.t("mixed.phaseN", { number: categoryPhase }), {
-        font: helveticaFont,
-        color: hexToRgb("#FFF"),
-        size: 12,
-        x: progressFillWidth - 50,
-        y: page.getY() + 5,
-        lineHeight: 12,
-      });
-    }
-
+    
     category.indicators.forEach((indicator, index) => {
       if (page.getY() <= 120) {
         page = pdfDoc.addPage();
@@ -465,7 +430,7 @@ export async function generateScorecard({
         font: helveticaFont,
         x: MIN_X,
         y: page.getY() + 5,
-        maxWidth: 420,
+        maxWidth: 400,
         color: hexToRgb("#4A90E2"),
         size: 12,
         lineHeight: 12,
