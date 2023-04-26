@@ -1,6 +1,9 @@
 <script>
 import Vue from "vue";
+import axios from "axios";
 import MapLegend from "../legend/legend.vue";
+import common from "../../common/common";
+import { LayoutDirectionConfig } from "../../plugins/i18n";
 
 export default Vue.extend({
   components: {
@@ -10,10 +13,55 @@ export default Vue.extend({
 
   data() {
     return {
-      countries: {},
-      developmentIndicators: [],
-      healthIndicators: {},
+      regions: [],
+      selectedRegion: {},
     };
+  },
+
+  created() {
+    this.fetchRegions();
+  },
+  updated() {
+    if (this.locale !== this.$i18n.locale) {
+      this.fetchRegions();
+    }
+    this.locale = this.$i18n.locale;
+  },
+
+  methods: {
+    fetchRegions: function () {
+      common.showLoading();
+      const self = this;
+      axios
+        .get(
+          "/api/regions",
+          common.configWithUserLanguageAndNoCacheHeader(this.$i18n.locale)
+        )
+        .then(({ data }) => {
+          self.regions = data;
+          console.log(self.selectedRegion);
+          if (self.selectedRegion) {
+            let index = 0;
+            self.regions.forEach((region, i) => {
+              if (region.regionId == self.selectedRegion.regionId) {
+                self.onClick(region);
+              }
+            });
+          }
+        })
+        .finally(() => {
+          common.hideLoading();
+        });
+    },
+    getBackgroundPositionX: function () {
+      return LayoutDirectionConfig[this.locale] === "ltr" ? "95%" : "5%";
+    },
+    onClick(selectedRegion) {
+      console.log(selectedRegion);
+      this.$router.push({
+        path: `/regional_overview/${selectedRegion.regionName}`,
+      });
+    },
   },
 });
 </script>
@@ -131,8 +179,23 @@ export default Vue.extend({
               </svg> </a
           ></span>
           <router-link :to="{ path: '/map' }" class="hd-element header-link"
-            ><span>{{ $t("headers.worldMap") }}</span></router-link
-          >
+            ><span>{{ $t("headers.worldMap") }}</span>
+          </router-link>
+          <div class="dropdown">
+            <button class="dropbtn">
+              {{ $t("headers.regionalOverview") }}
+              <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+              <a
+                v-for="region in regions"
+                :key="region.regionId"
+                :value="region.regionId"
+                @click="onClick(region)"
+                >{{ region.regionName }}</a
+              >
+            </div>
+          </div>
           <router-link
             :to="{ path: '/indicators_info' }"
             class="hd-element header-link"
@@ -165,3 +228,6 @@ export default Vue.extend({
     </div>
   </div>
 </template>
+<style scoped lang="scss">
+@import "header";
+</style>
