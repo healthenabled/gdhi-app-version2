@@ -18,6 +18,7 @@ export const ar = {
     worldMap: "خريطة العالم",
     indicators: "المؤشرات",
     searchBoxPlaceholder: "البحث عن طريق اسم البلد",
+    regionOverview: "نظرة عامة إقليمية",
   },
   mixed: {
     textOverAll: "المؤشر العام",
