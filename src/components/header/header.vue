@@ -181,19 +181,21 @@ export default Vue.extend({
           <router-link :to="{ path: '/map' }" class="hd-element header-link"
             ><span>{{ $t("headers.worldMap") }}</span>
           </router-link>
-          <div class="dropdown">
-            <button class="dropbtn">
-              {{ $t("headers.regionalOverview") }}
-              <i class="fa fa-caret-down"></i>
-            </button>
-            <div class="dropdown-content">
-              <a
-                v-for="region in regions"
-                :key="region.regionId"
-                :value="region.regionId"
-                @click="onClick(region)"
-                >{{ region.regionName }}</a
-              >
+          <div class="hd-element header-link">
+            <div class="dropdown">
+              <button class="dropbtn">
+                {{ $t("headers.regionalOverview") }}
+                <i class="fa fa-caret-down"></i>
+              </button>
+              <div class="dropdown-content">
+                <a
+                  v-for="region in regions"
+                  :key="region.regionId"
+                  :value="region.regionId"
+                  @click="onClick(region)"
+                  >{{ region.regionName }}</a
+                >
+              </div>
             </div>
           </div>
           <router-link
