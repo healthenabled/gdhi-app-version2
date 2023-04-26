@@ -41,7 +41,9 @@ export const en = {
       "The main indicator in each category is used to calculate overall country average. Each country can be benchmarked " +
       "against global average or countries within a selected phase.",
     spiderGraphTitle: "Phase Overview",
-    lineChartTitle: "Country Comparison for the year",
+    lineChartTitle: "Country Comparison for the year {selectedYear}",
+    govtApprovedTrue: "Government Approved: True",
+    govtApprovedFalse: "Government Approved: False",
   },
   regionDropDown: {
     textSelectRegion: "Select Region",

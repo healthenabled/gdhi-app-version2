@@ -122,14 +122,14 @@ export async function generateScorecard({
 
   page.moveDown(20);
   if (govtApproved) {
-    drawTextWithPagination("Government Approved: True", {
+    drawTextWithPagination(i18n.t("scoreCardPDF.govtApprovedTrue"), {
       font: helveticaBoldFont,
       size: 14,
       maxWidth: MAX_WIDTH,
       lineHeight: 14,
     });
   } else {
-    drawTextWithPagination("Government Approved: False", {
+    drawTextWithPagination(i18n.t("scoreCardPDF.govtApprovedFalse"), {
       font: helveticaBoldFont,
       size: 14,
       maxWidth: MAX_WIDTH,
@@ -197,15 +197,8 @@ export async function generateScorecard({
 
     page.moveTo(MIN_X, page.getHeight() - 60);
 
-    page.drawText(i18n.t("scoreCardPDF.lineChartTitle"), {
+    page.drawText(i18n.t("scoreCardPDF.lineChartTitle", { selectedYear }), {
       font: helveticaBoldFont,
-      size: 12,
-      lineHeight: 12,
-      maxWidth: MAX_WIDTH,
-    });
-    page.drawText(selectedYear, {
-      font: helveticaBoldFont,
-      x: 260,
       size: 12,
       lineHeight: 12,
       maxWidth: MAX_WIDTH,
@@ -374,7 +367,7 @@ export async function generateScorecard({
       thickness: 10,
       color: govtApproved ? hexToRgb("#415ba3") : hexToRgb("#a0add1"),
     });
-    
+
     category.indicators.forEach((indicator, index) => {
       if (page.getY() <= 120) {
         page = pdfDoc.addPage();
