@@ -3,7 +3,7 @@
 
 .region {
   height: 100%;
-  width: 20vw;
+  width: 25vw;
   @include margin-right(2.5vw);
   @include margin-left(0.5vw);
 
@@ -23,6 +23,7 @@
   @include padding-left(20px);
   @include padding-right(20px);
   border: $table-border;
+  border-color: $black;
   -webkit-appearance: none;
   appearance: none;
   -moz-appearance: none;
