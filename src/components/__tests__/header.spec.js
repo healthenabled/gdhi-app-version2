@@ -16,6 +16,10 @@ describe("Header ", () => {
   ];
   const axiosGetSpy = vi.spyOn(axios, "get");
   axiosGetSpy.mockResolvedValue({ data: countryData });
+  const setRegionSpy = vi.fn();
+  window.appProperties = {
+    setRegions: setRegionSpy,
+  };
 
   it("should have the data", () => {
     wrapper = mount(Header, {

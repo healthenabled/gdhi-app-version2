@@ -28,4 +28,11 @@ window.appProperties = {
   setRegion(opts) {
     this.filter.region = opts.region;
   },
+  getRegions() {
+    const regions = this.filter.regions;
+    return regions === undefined ? [] : regions;
+  },
+  setRegions(opts) {
+    this.filter.regions = opts;
+  },
 };

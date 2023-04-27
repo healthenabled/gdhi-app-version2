@@ -6,14 +6,35 @@ export default Vue.extend({
   data() {
     return {
       regions: [],
-      selectedRegion: "",
+      regionName: "",
     };
   },
+  computed: {
+    getRegionNameFromRegionId() {
+      const regionId = this.$route.params.regionId;
+      if (self.regions.length > 0) {
+        self.regions.forEach((region, i) => {
+          if (region.regionId == regionId) {
+            this.regionName = region.regionName;
+          }
+        });
+      }
+      return this.regionName;
+    },
+  },
+  // updated() {
+  //   this.getRegionNameFromRegionId(this.$route.params.regionId);
+  // },
+  created() {
+    self.regions = window.appProperties.getRegions();
+    //   this.getRegionNameFromRegionId(this.$route.params.regionId);
+  },
+  // methods: {},
 });
 </script>
 <template>
   <div class="heading">
-    <h3>{{ $route.params.regionName }}</h3>
+    <h3>{{ getRegionNameFromRegionId }}</h3>
   </div>
 </template>
 

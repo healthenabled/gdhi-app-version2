@@ -100,7 +100,7 @@ export default new Router({
           },
         },
         {
-          path: "/regional_overview/:regionName",
+          path: "/regional_overview/:regionId",
           components: {
             routecontent: RegionalOverview,
             languageSelect: languageSelector,

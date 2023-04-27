@@ -39,13 +39,7 @@ export default Vue.extend({
         )
         .then(({ data }) => {
           self.regions = data;
-          if (self.selectedRegion) {
-            self.regions.forEach((region, i) => {
-              if (region.regionId == self.selectedRegion.regionId) {
-                self.onClick(region);
-              }
-            });
-          }
+          window.appProperties.setRegions(self.regions);
         })
         .finally(() => {
           common.hideLoading();
@@ -56,7 +50,7 @@ export default Vue.extend({
     },
     onClick(selectedRegion) {
       this.$router.push({
-        path: `/regional_overview/${selectedRegion.regionName}`,
+        path: `/regional_overview/${selectedRegion.regionId}`,
       });
     },
   },
