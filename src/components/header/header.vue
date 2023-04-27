@@ -2,6 +2,8 @@
 import Vue from "vue";
 import axios from "axios";
 import MapLegend from "../legend/legend.vue";
+import { EventBus } from "../common/event-bus";
+import { EVENTS } from "../../constants";
 import common from "../../common/common";
 import { LayoutDirectionConfig } from "../../plugins/i18n";
 
@@ -40,6 +42,7 @@ export default Vue.extend({
         .then(({ data }) => {
           self.regions = data;
           window.appProperties.setRegions(self.regions);
+          EventBus.$emit(EVENTS.REGION_TRANSLATED);
         })
         .finally(() => {
           common.hideLoading();
