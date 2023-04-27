@@ -39,9 +39,7 @@ export default Vue.extend({
         )
         .then(({ data }) => {
           self.regions = data;
-          console.log(self.selectedRegion);
           if (self.selectedRegion) {
-            let index = 0;
             self.regions.forEach((region, i) => {
               if (region.regionId == self.selectedRegion.regionId) {
                 self.onClick(region);
@@ -57,7 +55,6 @@ export default Vue.extend({
       return LayoutDirectionConfig[this.locale] === "ltr" ? "95%" : "5%";
     },
     onClick(selectedRegion) {
-      console.log(selectedRegion);
       this.$router.push({
         path: `/regional_overview/${selectedRegion.regionName}`,
       });
@@ -181,7 +178,7 @@ export default Vue.extend({
           <router-link :to="{ path: '/map' }" class="hd-element header-link"
             ><span>{{ $t("headers.worldMap") }}</span>
           </router-link>
-          <div class="hd-element header-link">
+          <a class="hd-element header-link">
             <div class="dropdown">
               <button class="dropbtn">
                 {{ $t("headers.regionalOverview") }}
@@ -197,7 +194,8 @@ export default Vue.extend({
                 >
               </div>
             </div>
-          </div>
+          </a>
+
           <router-link
             :to="{ path: '/indicators_info' }"
             class="hd-element header-link"

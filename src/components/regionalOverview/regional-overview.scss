@@ -1,0 +1,20 @@
+/* Africa Regional Overview */
+.heading {
+  position: absolute;
+  width: 440px;
+  height: 40px;
+  left: 20px;
+  top: 200px;
+
+  /* GDHI H1 - Regular 36 */
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 36px;
+  line-height: 44px;
+  display: flex;
+  align-items: center;
+
+  /* GDHI Black */
+  color: #0a0a0a;
+}

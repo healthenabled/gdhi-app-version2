@@ -1,8 +1,5 @@
 <script>
 import Vue from "vue";
-import { EventBus } from "../common/event-bus";
-import { EVENTS } from "../../constants";
-import { LayoutDirectionConfig } from "../../plugins/i18n";
 
 export default Vue.extend({
   name: "RegionalOverview",
@@ -15,7 +12,7 @@ export default Vue.extend({
 });
 </script>
 <template>
-  <div>
+  <div class="heading">
     <h3>{{ $route.params.regionName }}</h3>
   </div>
 </template>
