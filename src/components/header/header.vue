@@ -17,6 +17,8 @@ export default Vue.extend({
     return {
       regions: [],
       selectedRegion: {},
+      dropdownClicked: false,
+      keepTrack: "",
     };
   },
 
@@ -29,7 +31,11 @@ export default Vue.extend({
     }
     this.locale = this.$i18n.locale;
   },
-
+  watch: {
+    $route(to) {
+      this.dropdownClicked = to.fullPath.includes("regional_overview");
+    },
+  },
   methods: {
     fetchRegions: function () {
       common.showLoading();
@@ -51,10 +57,12 @@ export default Vue.extend({
     getBackgroundPositionX: function () {
       return LayoutDirectionConfig[this.locale] === "ltr" ? "95%" : "5%";
     },
-    onClick(selectedRegion) {
-      this.$router.push({
-        path: `/regional_overview/${selectedRegion.regionId}`,
-      });
+    onClick({ regionId }) {
+      if (!this.$route.path.includes(regionId)) {
+        this.$router.push({
+          path: `/regional_overview/${regionId}`,
+        });
+      }
     },
   },
 });
@@ -175,7 +183,10 @@ export default Vue.extend({
           <router-link :to="{ path: '/map' }" class="hd-element header-link"
             ><span>{{ $t("headers.worldMap") }}</span>
           </router-link>
-          <a class="hd-element header-link">
+          <a
+            class="hd-element header-link"
+            v-bind:class="{ colorOnSelect: dropdownClicked }"
+          >
             <div class="dropdown">
               <button class="dropbtn">
                 {{ $t("headers.regionalOverview") }}

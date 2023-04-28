@@ -1,3 +1,5 @@
+@import "../../assets/stylesheets/rtl-support";
+@import "../../assets/stylesheets/components/variables";
 /* Dropdown button */
 .dropdown .dropbtn {
   font-size: 16px;
@@ -38,4 +40,8 @@
 /* Show the dropdown menu on hover */
 .dropdown:hover .dropdown-content {
   display: block;
+}
+.colorOnSelect {
+  border-bottom: 4px solid $logo-blue;
+  background: $selected-menu;
 }

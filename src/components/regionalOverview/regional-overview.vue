@@ -19,12 +19,18 @@ export default Vue.extend({
           this.regionName = region.regionName;
         }
       });
+      this.regionName = this.regionName.replace("Region", "Regional Overview");
     },
   },
   mounted() {
     EventBus.$on(EVENTS.REGION_TRANSLATED, () => {
       this.getRegionNameFromRegionId();
     });
+  },
+  watch: {
+    $route() {
+      this.getRegionNameFromRegionId();
+    },
   },
   created() {
     this.getRegionNameFromRegionId();
@@ -33,7 +39,7 @@ export default Vue.extend({
 </script>
 <template>
   <div class="heading">
-    <h3>{{ regionName }}</h3>
+    <p>{{ regionName }}</p>
   </div>
 </template>
 
