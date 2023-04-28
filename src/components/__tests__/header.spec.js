@@ -30,7 +30,14 @@ describe("Header ", () => {
   window.appProperties = {
     setRegions: setRegionSpy,
   };
-  beforeEach(() => {});
+  beforeEach(() => {
+    axiosGetSpy.mockReset();
+    axiosGetSpy.mockResolvedValue({ data: regionData });
+    wrapper = shallowMount(Header, {
+      i18n,
+      router,
+    });
+  });
 
   it("should have the data", () => {
     wrapper = mount(Header, {
@@ -47,12 +54,6 @@ describe("Header ", () => {
   });
 
   it("should invoke fetch all the regions api for different language", async () => {
-    axiosGetSpy.mockReset();
-    axiosGetSpy.mockResolvedValue({ data: regionData });
-    wrapper = shallowMount(Header, {
-      i18n,
-      router,
-    });
     wrapper.vm.fetchRegions();
     await flushPromises();
     const mockPush = vi.fn();
