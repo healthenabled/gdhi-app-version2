@@ -14,7 +14,6 @@ export async function generateScorecard({
   hasBenchmarkData,
   i18n,
   govtApproved,
-  selectedYear,
 }) {
   const pdfDoc = await PDFDocument.create();
   // TODO: check how to add a margin of 50
@@ -197,7 +196,7 @@ export async function generateScorecard({
 
     page.moveTo(MIN_X, page.getHeight() - 60);
 
-    page.drawText(i18n.t("scoreCardPDF.lineChartTitle", { selectedYear }), {
+    page.drawText(i18n.t("scoreCardPDF.lineChartTitle"), {
       font: helveticaBoldFont,
       size: 12,
       lineHeight: 12,

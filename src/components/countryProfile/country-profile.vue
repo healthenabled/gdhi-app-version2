@@ -153,8 +153,6 @@ export default Vue.extend({
           hasBenchmarkData: this.hasBenchmarkData,
           i18n: this.$i18n,
           govtApproved: this.govtApproved,
-          selectedYear:
-            this.selectedYear || window.appProperties.getDefaultYear(),
         });
       }
     },

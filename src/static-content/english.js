@@ -18,7 +18,6 @@ export const en = {
     worldMap: "World Map",
     indicators: "Indicators",
     searchBoxPlaceholder: "Search by country name",
-    regionalOverview: "Regional Overview",
   },
   mixed: {
     textOverAll: "Overall",
@@ -42,7 +41,7 @@ export const en = {
       "The main indicator in each category is used to calculate overall country average. Each country can be benchmarked " +
       "against global average or countries within a selected phase.",
     spiderGraphTitle: "Phase Overview",
-    lineChartTitle: "Country Comparison for the year {selectedYear}",
+    lineChartTitle: "Country Progress over the years",
     govtApprovedTrue: "Government Approved: True",
     govtApprovedFalse: "Government Approved: False",
   },
