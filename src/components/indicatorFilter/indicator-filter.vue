@@ -47,6 +47,10 @@ export default Vue.extend({
       window.appProperties.setCategoryFilter({
         categoryId: this.categoryValue,
       });
+      window.appProperties.setCategory({
+        category: this.categories[this.categoryValue - 1],
+      });
+
       EventBus.$emit(EVENTS.INDICATOR_FILTERED);
     },
 

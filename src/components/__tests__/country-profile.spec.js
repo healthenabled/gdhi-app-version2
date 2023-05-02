@@ -150,7 +150,10 @@ describe("Country Profile ", () => {
   };
 
   const govtApproved = true;
-  const selectedYear = "2023";
+  const selectedRegion = {
+    regionId: "PAHO",
+    regionName: "Pan American Region",
+  };
   const benchmarkData = {
     1: {
       benchmarkScore: 5,
@@ -304,6 +307,7 @@ describe("Country Profile ", () => {
     wrapper.vm.benchmarkPhase = "Global";
     wrapper.vm.benchmarkData = benchmarkData;
     wrapper.vm.govtApproved = govtApproved;
+    wrapper.vm.selectedRegion = selectedRegion;
 
     wrapper.findAll(".header-section-button").at(1).trigger("click");
 
@@ -316,6 +320,7 @@ describe("Country Profile ", () => {
         hasBenchmarkData: wrapper.vm.hasBenchmarkData,
         i18n,
         govtApproved,
+        selectedRegion,
       },
     ]);
   });
