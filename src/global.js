@@ -35,4 +35,11 @@ window.appProperties = {
   setRegions(opts) {
     this.filter.regions = opts;
   },
+  setCategory(opts) {
+    this.filter.category = opts.category;
+  },
+  getCategory() {
+    const category = this.filter.category;
+    return category === undefined ? {} : category;
+  },
 };

@@ -203,7 +203,17 @@ export async function generateScorecard({
       lineHeight: 12,
       maxWidth: MAX_WIDTH,
     });
-
+    page.moveDown(20);
+    const categoryName =
+      window.appProperties.getCategory().categoryName == undefined
+        ? i18n.t("mixed.textOverAll")
+        : window.appProperties.getCategory().categoryName;
+    page.drawText("Selected Indicator : " + categoryName, {
+      font: helveticaFont,
+      size: 10,
+      lineHeight: 10,
+      maxWidth: MAX_WIDTH,
+    });
     const pngImageTwo = await pdfDoc.embedPng(imgSrcTwo);
     const pngDimsTwo = pngImageTwo.scale(0.17);
     page.drawImage(pngImageTwo, {
@@ -491,7 +501,7 @@ export async function generateScorecard({
             i18n.t("countryProfile.benchmark.benchmarkValues.globalAverage"),
             {
               size: 10,
-              font: helveticaBoldFont,
+              font: helveticaFont,
               x: MAX_WIDTH + 5,
               y: page.getY() + 60,
               lineHeight: 10,
@@ -500,7 +510,7 @@ export async function generateScorecard({
         } else {
           page.drawText(selectedRegion.regionName, {
             size: 10,
-            font: helveticaBoldFont,
+            font: helveticaFont,
             x: MAX_WIDTH + 5,
             y: page.getY() + 60,
             lineHeight: 10,
