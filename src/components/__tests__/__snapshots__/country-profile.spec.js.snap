@@ -93,7 +93,7 @@ exports[`Country Profile  > should populate the data after successfull API call 
           class="phase-desc"
         >
           <p>
-             The overall score is an average of the scores for the GDHI indicators 
+             The overall score is an average of the scores for the GDHM indicators 
           </p>
         </div>
       </div>

@@ -8,7 +8,7 @@ export const countryProfile = {
   downloadScorecard: "تحميل بطاقة النتائج",
   overallDigitalHealthPhase: "المرحلة العامة للصحة الرقمية",
   overallDigitalHealthPhaseDescription:
-    "النتيجة الإجمالية هي متوسط درجات مؤشرات GDHI",
+    "النتيجة الإجمالية هي متوسط درجات مؤشرات GDHM",
   benchmark: {
     text: "المؤشر",
     textWithData: "المؤشر: {data}",

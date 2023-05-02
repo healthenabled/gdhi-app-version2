@@ -9,7 +9,7 @@ export const countryProfile = {
     "TÉLÉCHARGER CARTOGRAPHIE ET TABLEAU DE BORD - MATURITÉ SANTÉ NUMÉRIQUE",
   overallDigitalHealthPhase: "NIVEAU GLOBAL DE MATURITÉ DE LA SANTÉ NUMÉRIQUE",
   overallDigitalHealthPhaseDescription:
-    "Le score global est une moyenne des scores des indicateurs de l'indice GDHI",
+    "Le score global est une moyenne des scores des indicateurs de l'indice GDHM",
   benchmark: {
     text: "RÉFÉRENCE",
     textWithData: "RÉFÉRENCE: {data}",

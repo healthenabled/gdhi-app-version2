@@ -8,7 +8,7 @@ export const countryProfile = {
   downloadScorecard: "DESCARREGAR QUADRO DE PONTUAÇÃO",
   overallDigitalHealthPhase: "FASE GLOBAL DE SAÚDE DIGITAL",
   overallDigitalHealthPhaseDescription:
-    "A nota global é uma média das notas dos indicadores GDHI.",
+    "A nota global é uma média das notas dos indicadores GDHM",
   benchmark: {
     text: "DINAMARCA",
     textWithData: "DINAMARCA: {data}",
