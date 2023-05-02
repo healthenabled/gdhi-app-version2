@@ -14,6 +14,7 @@ export async function generateScorecard({
   hasBenchmarkData,
   i18n,
   govtApproved,
+  selectedRegion,
 }) {
   const pdfDoc = await PDFDocument.create();
   // TODO: check how to add a margin of 50
@@ -480,11 +481,32 @@ export async function generateScorecard({
             size: 10,
             font: helveticaBoldFont,
             color: hexToRgb("#000"),
-            x: MAX_WIDTH,
+            x: MAX_WIDTH + 5,
             y: page.getY() + 70,
             lineHeight: 10,
           }
         );
+        if (selectedRegion.regionId == null || selectedRegion.regionId == "") {
+          page.drawText(
+            i18n.t("countryProfile.benchmark.benchmarkValues.globalAverage"),
+            {
+              size: 10,
+              font: helveticaBoldFont,
+              x: MAX_WIDTH + 5,
+              y: page.getY() + 60,
+              lineHeight: 10,
+            }
+          );
+        } else {
+          page.drawText(selectedRegion.regionName, {
+            size: 10,
+            font: helveticaBoldFont,
+            x: MAX_WIDTH + 5,
+            y: page.getY() + 60,
+            lineHeight: 10,
+            maxWidth: page.getWidth() - MAX_WIDTH - 30,
+          });
+        }
       }
       // to reset doc.y position in PDFKit, As the doc.y position is updated as soon as we add text
       // page.moveTo(50, endYVal + 25);
