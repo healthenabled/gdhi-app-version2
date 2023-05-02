@@ -33,7 +33,7 @@ export const fr = {
       "Sélectionnez l'année pour laquelle la date doit être affichée sur la page d'accueil",
   },
   footer: {
-    contactEmail: "Contact: info@digitalhealthindex.org",
+    contactEmail: "Contact: info@digitalhealthmonitor.org",
   },
   scoreCardPDF: {
     title: "{country} - Tableau de Bord National de la Santé Numérique ",

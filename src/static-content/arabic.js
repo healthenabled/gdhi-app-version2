@@ -32,7 +32,7 @@ export const ar = {
     selectYear: "حدد السنة التي سيتم عرض التاريخ فيها على الصفحة الرئيسية",
   },
   footer: {
-    contactEmail: "الاتصال: info@digitalhealthindex.org",
+    contactEmail: "الاتصال: info@digitalhealthmonitor.org",
   },
   scoreCardPDF: {
     title: "{country} - بطاقة نتائج الصحة الرقمية الوطنية",

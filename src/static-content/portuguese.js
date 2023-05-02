@@ -33,7 +33,7 @@ export const pt = {
       "Selecione o ano para o qual a data deve ser exibida na página inicial",
   },
   footer: {
-    contactEmail: "Contacto: info@digitalhealthindex.org",
+    contactEmail: "Contato: info@digitalhealthmonitor.org",
   },
   scoreCardPDF: {
     title: "{country} - Quadro de Pontuação Nacional de Saúde Digital",

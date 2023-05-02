@@ -32,7 +32,7 @@ export const en = {
     selectYear: "Select year for which date is to be displayed on the Homepage",
   },
   footer: {
-    contactEmail: "Contact : info@digitalhealthindex.org",
+    contactEmail: "Contact: info@digitalhealthmonitor.org",
   },
   scoreCardPDF: {
     title: "{country} - National Digital Health Scorecard",

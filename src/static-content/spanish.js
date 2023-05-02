@@ -33,7 +33,7 @@ export const es = {
       "Seleccione el año para el que se mostrará la fecha en la página de inicio",
   },
   footer: {
-    contactEmail: "Contacto: info@digitalhealthindex.org",
+    contactEmail: "Contacto: info@digitalhealthmonitor.org",
   },
   scoreCardPDF: {
     title: "{country} - Cuadro de Mando de la Salud Digital Nacional",
