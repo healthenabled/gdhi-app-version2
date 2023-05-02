@@ -239,10 +239,10 @@ describe("Country Profile ", () => {
   it("should have the appropriate html elements based on the data", async () => {
     await flushPromises();
     expect(wrapper.find(".country-name").text()).to.equal(
-      healthIndicatorData.countryName + "  As on: January 2018"
+      healthIndicatorData.countryName + "  Updated on: January 2018"
     );
     expect(wrapper.find("#collected-date").text()).to.equal(
-      `As on: January 2018`
+      `Updated on: January 2018`
     );
     expect(
       wrapper.find(".header-section-button-container a").attributes().href
@@ -423,7 +423,7 @@ describe("Country Profile ", () => {
 
   it("should render collected on date", async () => {
     await flushPromises();
-    expect(wrapper.vm.updatedDate).to.equal("As on: January 2018");
+    expect(wrapper.vm.updatedDate).to.equal("Updated on: January 2018");
   });
 
   it("should render localization texts properly", async () => {

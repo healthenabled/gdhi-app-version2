@@ -1,5 +1,5 @@
 export const date = {
-  dateFormat1: "En: {month} {year}",
+  dateFormat1: "Actualizado en: {month} {year}",
   month: {
     January: "enero",
     February: "febrero",
