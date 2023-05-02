@@ -304,7 +304,6 @@ describe("Country Profile ", () => {
     wrapper.vm.benchmarkPhase = "Global";
     wrapper.vm.benchmarkData = benchmarkData;
     wrapper.vm.govtApproved = govtApproved;
-    wrapper.vm.selectedYear = selectedYear;
 
     wrapper.findAll(".header-section-button").at(1).trigger("click");
 
@@ -317,7 +316,6 @@ describe("Country Profile ", () => {
         hasBenchmarkData: wrapper.vm.hasBenchmarkData,
         i18n,
         govtApproved,
-        selectedYear,
       },
     ]);
   });
