@@ -1,5 +1,5 @@
 export const indicators = {
-  gdhi: "Índice Global de Saúde Digital",
+  gdhi: "Monitor de saúde digital global",
   indicatorGuide: "Guia do Indicador",
   paragraph1:
     "O <a class='link-blue' href='http://digitalhealthindex.org' target='_blank'>Global Digital Health Index (GDHI)</a> é um " +
