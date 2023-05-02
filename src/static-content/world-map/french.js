@@ -30,7 +30,7 @@ export const worldMap = {
     },
 
     description:
-      "L’Index Global de Santé Numérique (GDHI) est une ressource interactive en ligne qui vise à suivre, surveiller et évaluer " +
+      "L’Moniteur de santé numérique mondial (GDHM) est une ressource interactive en ligne qui vise à suivre, surveiller et évaluer " +
       "l'environnement favorable à la santé numérique dans le monde.",
   },
 };

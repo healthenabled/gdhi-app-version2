@@ -28,7 +28,7 @@ export const worldMap = {
         "Taxa de mortalidade, menores de 5 anos (por 1,000 nados vivos)",
     },
     description:
-      "O Global Digital Health Index (GDHI) ou Índice Global de Saúde Digital é um recurso interativo baseado na web, que " +
+      "O Monitor de saúde digital global (GDHM) ou Índice Global de Saúde Digital é um recurso interativo baseado na web, que " +
       "pretende acompanhar, monitorizar e avaliar um ambiente que seja propício à saúde digital em todo o mundo.",
   },
 };
