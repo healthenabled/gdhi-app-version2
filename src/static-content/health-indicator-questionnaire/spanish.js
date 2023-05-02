@@ -2,7 +2,7 @@ export const healthIndicatorQuestionnaire = {
   digitalHeathQuestionnaire: "Cuestionario de Salud Digital",
   pdfTitle: "{country} - Cuestionario de Salud Digital",
   note:
-    "Nota: Los datos del Índice Global de Salud Digital se mostrarán públicamente. Por tal razón, por favor obtenga la aprobación de la " +
+    "Nota: Los datos del Monitor de salud digital mundial se mostrarán públicamente. Por tal razón, por favor obtenga la aprobación de la " +
     "agencia gubernamental pertinente (Ministerio de Salud, Agencia de Salud Digital, etc.) y proporcione la información de contacto de la " +
     "persona encargada de la aprobación. Al salir de esta página se descartarán los cambios no guardados.",
   contactForm: {
