@@ -76,10 +76,10 @@ export default Vue.extend({
           <span class="logo-name hd-element">
             <a href="http://www.digitalhealthmonitor.org" target="_blank">
               <img
-                src="/static/img/GDHMLogo.png"
+                src="/static/img/GDHMLogo.svg"
                 alt="GDHM Logo"
                 width="200px"
-                height="40px"
+                height="45px"
               /> </a
           ></span>
           <router-link :to="{ path: '/map' }" class="hd-element header-link"
