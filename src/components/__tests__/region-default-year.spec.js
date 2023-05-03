@@ -1,6 +1,4 @@
 import { shallowMount } from "@vue/test-utils";
-import phaseFilter from "../phaseFilter/phase-filter.vue";
-import sinon from "sinon";
 import regionDefaultYear from "../regionYearComponent/region-default-year.vue";
 import { describe, it, expect, beforeEach, vi } from "vitest";
 import axios from "axios";

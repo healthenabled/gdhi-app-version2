@@ -26,7 +26,4 @@ describe("region-year-selector ", () => {
   it("should fetch latest year available for a region", async () => {
     expect(wrapper.vm.latestYear).to.deep.equal("2023");
   });
-  it("should render year-filter component", async () => {
-    const yearFilter = wrapper.findAl;
-  });
 });
