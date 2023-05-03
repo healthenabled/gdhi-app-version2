@@ -6,4 +6,5 @@ export const indicators = {
     "recurso digital interactivo que rastrea, monitorea y evalúa el uso de la tecnología digital para la salud en todos los países. El GDHM " +
     "utiliza siete categorías de indicadores clave para seguir el progreso.",
   indicator: "Indicador",
+  selected_indicator: "indicador seleccionado",
 };

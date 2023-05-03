@@ -208,12 +208,15 @@ export async function generateScorecard({
       window.appProperties.getCategory().categoryName == undefined
         ? i18n.t("mixed.textOverAll")
         : window.appProperties.getCategory().categoryName;
-    page.drawText("Selected Indicator : " + categoryName, {
-      font: helveticaFont,
-      size: 10,
-      lineHeight: 10,
-      maxWidth: MAX_WIDTH,
-    });
+    page.drawText(
+      i18n.t("indicators.selected_indicator") + " : " + categoryName,
+      {
+        font: helveticaFont,
+        size: 10,
+        lineHeight: 10,
+        maxWidth: MAX_WIDTH,
+      }
+    );
     const pngImageTwo = await pdfDoc.embedPng(imgSrcTwo);
     const pngDimsTwo = pngImageTwo.scale(0.17);
     page.drawImage(pngImageTwo, {

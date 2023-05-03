@@ -6,4 +6,5 @@ export const indicators = {
     " est une ressource numérique interactive qui suit, surveille et évalue l'utilisation de la technologie numérique pour la santé dans tous " +
     "les pays. Le GDHM utilise sept catégories d'indicateurs clés pour suivre les progrès.",
   indicator: "l'indicateur",
+  selected_indicator: "indicateur sélectionné",
 };

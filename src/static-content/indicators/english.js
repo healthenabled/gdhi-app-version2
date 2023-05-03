@@ -6,4 +6,5 @@ export const indicators = {
     "interactive digital resource that tracks, monitors, and evaluates the use of digital technology for health across countries. GDHM uses " +
     "seven key indicator categories to track progress.",
   indicator: "Indicator",
+  selected_indicator: "Selected Indicator",
 };
