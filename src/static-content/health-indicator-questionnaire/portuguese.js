@@ -73,11 +73,11 @@ export const healthIndicatorQuestionnaire = {
   publish: "Publicar",
   confirm: "Confirmar",
   cancel: "Cancelar",
-  note1: "Estes detalhes serão exibidos publicamente na plataforma GDHI.",
+  note1: "Estes detalhes serão exibidos publicamente na plataforma GDHM.",
   note2:
-    "Estes detalhes não serão apresentados na plataforma GDHI e são para nosso propósito informativo.",
+    "Estes detalhes não serão apresentados na plataforma GDHM e são para nosso propósito informativo.",
   note3:
-    "Somente a pontuação de cada indicador será exibida publicamente na plataforma GDHI.",
+    "Somente a pontuação de cada indicador será exibida publicamente na plataforma GDHM.",
   publishConfirmation:
     "Você está prestes a publicar o formulário de índice digital de saúde para {country}. Que não pode ser revertido. Você quer continuar?",
   saveConfirmation:
