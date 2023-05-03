@@ -1,5 +1,5 @@
 export const date = {
-  dateFormat1: "كما في: {month} {year}",
+  dateFormat1: "تحديث في: {month} {year}",
   month: {
     January: "يناير",
     February: "فبراير",

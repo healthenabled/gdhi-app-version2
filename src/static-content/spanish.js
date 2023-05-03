@@ -18,6 +18,7 @@ export const es = {
     worldMap: "Mapa del mundo",
     indicators: "Indicadores",
     searchBoxPlaceholder: "Búsqueda por nombre de país",
+    regionalOverview: "Resumen regional",
   },
   mixed: {
     textOverAll: "En general",
@@ -32,7 +33,7 @@ export const es = {
       "Seleccione el año para el que se mostrará la fecha en la página de inicio",
   },
   footer: {
-    contactEmail: "Contacto: info@digitalhealthindex.org",
+    contactEmail: "Contacto: info@digitalhealthmonitor.org",
   },
   scoreCardPDF: {
     title: "{country} - Cuadro de Mando de la Salud Digital Nacional",
@@ -43,7 +44,9 @@ export const es = {
       "El indicador principal de cada categoría se utiliza para calcular el promedio general del país. Cada país puede ser " +
       "comparado con el promedio mundial o con los países dentro de una fase seleccionada.",
     spiderGraphTitle: "Resumen de fases",
-    lineChartTitle: "Comparación de países",
+    lineChartTitle: "Progreso del país a lo largo de los años",
+    govtApprovedTrue: "Aprobada por el gobierno: Verdadera",
+    govtApprovedFalse: "Aprobado por el gobierno: Falso",
   },
   regionDropDown: {
     textSelectRegion: "Seleccione región",

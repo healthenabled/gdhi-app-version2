@@ -12,7 +12,7 @@ describe("Region Selector", () => {
   const axiosGetSpy = vi.spyOn(axios, "get");
   const eventBusSpy = vi.spyOn(EventBus, "$emit");
   const responseData = [
-    { region_id: "PAHO", regionName: "Pan American Region" },
+    { regionId: "PAHO", regionName: "Pan American Region" },
   ];
   const onChangeStub = sinon.stub();
 
@@ -47,7 +47,7 @@ describe("Region Selector", () => {
 
   it("should invoke fetch all the regions api for different language", async () => {
     wrapper.vm.selectedRegion = {
-      region_id: "PAHO",
+      regionId: "PAHO",
       regionName: "Pan American Region",
     };
     wrapper.setMethods({ onChange: onChangeStub });

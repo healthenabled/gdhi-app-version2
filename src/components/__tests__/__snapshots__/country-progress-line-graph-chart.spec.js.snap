@@ -48,7 +48,7 @@ exports[`Country Progress Line Chart > should render Graph when mounted and crea
           null,
           null,
           null,
-          undefined,
+          null,
           null,
         ],
         "fill": false,
@@ -58,7 +58,6 @@ exports[`Country Progress Line Chart > should render Graph when mounted and crea
         "pointRadius": 1,
         "pointStyle": "circle",
         "spanGaps": true,
-        "tension": 0.1,
       },
     ],
     "labels": [

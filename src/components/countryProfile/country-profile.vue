@@ -41,7 +41,7 @@ export default Vue.extend({
       govtApproved: false,
       hasBenchmarkData: true,
       updatedDate: "",
-      showCountryProgressOverTime: false,
+      showCountryProgressOverTime: true,
       locale: "en",
       selectedYear: null,
       globalData: {},
@@ -68,7 +68,6 @@ export default Vue.extend({
       common.showLoading();
       this.selectedRegion = window.appProperties.getRegion();
       this.getBenchmarkData();
-      this.getHealthIndicatorsFor(this.$route.params.countryCode);
       this.getGlobalAverage();
     });
   },
@@ -99,7 +98,7 @@ export default Vue.extend({
           common.configWithUserLanguageAndNoCacheHeader(
             this.$i18n.locale,
             this.selectedYear,
-            this.selectedRegion.region_id
+            this.selectedRegion.regionId
           )
         )
         .then((response) => {
@@ -113,8 +112,7 @@ export default Vue.extend({
           `/api/countries/${countryCode}/health_indicators`,
           common.configWithUserLanguageAndNoCacheHeader(
             this.$i18n.locale,
-            this.selectedYear,
-            this.selectedRegion.region_id
+            this.selectedYear
           )
         )
         .then((response) => {
@@ -147,14 +145,16 @@ export default Vue.extend({
       if (this.$i18n.locale === "ar") {
         window.print();
       } else {
-        generateScorecard(
-          this.healthIndicatorData,
-          this.countrySummary,
-          this.benchmarkData,
-          this.benchmarkPhase,
-          this.hasBenchmarkData,
-          this.$i18n
-        );
+        generateScorecard({
+          healthIndicatorData: this.healthIndicatorData,
+          countrySummary: this.countrySummary,
+          benchmarkData: this.benchmarkData,
+          benchmarkPhase: this.benchmarkPhase,
+          hasBenchmarkData: this.hasBenchmarkData,
+          i18n: this.$i18n,
+          govtApproved: this.govtApproved,
+          selectedRegion: this.selectedRegion,
+        });
       }
     },
     notifier(props) {
@@ -177,7 +177,7 @@ export default Vue.extend({
           common.configWithUserLanguageAndNoCacheHeader(
             this.$i18n.locale,
             this.selectedYear,
-            this.selectedRegion.region_id
+            this.selectedRegion.regionId
           )
         )
         .then((response) => {

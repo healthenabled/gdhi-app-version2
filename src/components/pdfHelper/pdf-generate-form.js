@@ -1,25 +1,9 @@
-import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
+import { PDFDocument, StandardFonts } from "pdf-lib";
+import { hexToRgb, breakTextIntoLines } from "./pdfUtils";
 
-const hexToRgb = (h) => {
-  let r = 0,
-    g = 0,
-    b = 0;
+const MIN_X = 70;
+const MAX_WIDTH = 480;
 
-  // 3 digits
-  if (h.length == 4) {
-    r = "0x" + h[1] + h[1];
-    g = "0x" + h[2] + h[2];
-    b = "0x" + h[3] + h[3];
-
-    // 6 digits
-  } else if (h.length == 7) {
-    r = "0x" + h[1] + h[2];
-    g = "0x" + h[3] + h[4];
-    b = "0x" + h[5] + h[6];
-  }
-
-  return rgb(+r / 255, +g / 255, +b / 255);
-};
 export async function generateFormPDF(
   countrySummary,
   questionnaire,
@@ -34,27 +18,6 @@ export async function generateFormPDF(
     StandardFonts.HelveticaBoldOblique
   );
 
-  const breakTextIntoLines = (text, size, font, maxWidth) => {
-    const lines = [];
-    let textIdx = 0;
-    while (textIdx < text.length) {
-      let line = "";
-      while (textIdx < text.length) {
-        if (text.charAt(textIdx) === "\n") {
-          lines.push(line);
-          textIdx += 1;
-          line = "";
-          continue;
-        }
-        const newLine = line + text.charAt(textIdx);
-        if (font.widthOfTextAtSize(newLine, size) > maxWidth) break;
-        line = newLine;
-        textIdx += 1;
-      }
-      lines.push(line);
-    }
-    return lines;
-  };
   const drawTextWithPagination = (payloadText, options) => {
     let currentY = page.getY();
     const maxY = 70;
@@ -96,7 +59,7 @@ export async function generateFormPDF(
 
       page.drawText(firstPartOfLines + delimiter, options);
       page = pdfDoc.addPage();
-      page.moveTo(70, page.getHeight() - 60);
+      page.moveTo(MIN_X, page.getHeight() - 60);
       const numberOfLinesInTheSecondPart = breakTextIntoLines(
         secondPartOfLines,
         options.size,
@@ -105,16 +68,16 @@ export async function generateFormPDF(
       ).length;
       page.drawText(delimiter + secondPartOfLines, {
         ...options,
-        x: 70,
+        x: MIN_X,
         y: page.getHeight() - 60,
       });
       page.moveDown(30 + heightOfOneLine * numberOfLinesInTheSecondPart);
     }
   };
   const handlePagination = () => {
-    if (page.getY() <= 70) {
+    if (page.getY() <= MIN_X) {
       page = pdfDoc.addPage();
-      page.moveTo(70, page.getHeight() - 60);
+      page.moveTo(MIN_X, page.getHeight() - 60);
     }
   };
   const moveDownAndPopulateData = (i18nText, summaryData) => {
@@ -124,14 +87,14 @@ export async function generateFormPDF(
       font: helveticaBoldFont,
       size: 12,
       lineHeight: 12,
-      maxWidth: 480,
+      maxWidth: MAX_WIDTH,
     });
     page.moveDown(20);
     page.drawText(summaryData || "-", {
       font: helveticaFont,
       size: 12,
       lineHeight: 12,
-      maxWidth: 480,
+      maxWidth: MAX_WIDTH,
     });
   };
 
@@ -139,12 +102,12 @@ export async function generateFormPDF(
   const title = i18n.t("healthIndicatorQuestionnaire.pdfTitle", {
     country: countrySummary.countryName,
   });
-  page.moveTo(70, page.getHeight() - 60);
+  page.moveTo(MIN_X, page.getHeight() - 60);
   drawTextWithPagination(title, {
     font: helveticaBoldFont,
     size: 20,
     lineHeight: 20,
-    maxWidth: 480,
+    maxWidth: MAX_WIDTH,
   });
   const contact = i18n.t(
     "healthIndicatorQuestionnaire.contactForm.contactInformation"
@@ -153,7 +116,7 @@ export async function generateFormPDF(
     font: helveticaFont,
     size: 16,
     lineHeight: 16,
-    maxWidth: 480,
+    maxWidth: MAX_WIDTH,
   });
   moveDownAndPopulateData(
     "healthIndicatorQuestionnaire.contactForm.nameOfPersonEnteringData",
@@ -210,13 +173,13 @@ export async function generateFormPDF(
   page.moveDown(20);
   drawTextWithPagination(
     i18n.t("healthIndicatorQuestionnaire.contactForm.countrySummary"),
-    { font: helveticaBoldFont, size: 12, lineHeight: 12, maxWidth: 480 }
+    { font: helveticaBoldFont, size: 12, lineHeight: 12, maxWidth: MAX_WIDTH }
   );
   if (countrySummary.summary) {
     drawTextWithPagination(countrySummary.summary, {
       font: helveticaFont,
       size: 12,
-      maxWidth: 480,
+      maxWidth: MAX_WIDTH,
       lineHeight: 12,
     });
   } else {
@@ -224,9 +187,9 @@ export async function generateFormPDF(
       size: 14,
       font: helveticaFont,
       color: hexToRgb("#000"),
-      x: 70,
+      x: MIN_X,
       y: page.getY(),
-      maxWidth: 480,
+      maxWidth: MAX_WIDTH,
       lineHeight: 14,
     });
     page.moveDown(20);
@@ -236,10 +199,10 @@ export async function generateFormPDF(
     {
       font: helveticaBoldFont,
       size: 16,
-      x: 70,
+      x: MIN_X,
       y: page.getY(),
       lineHeight: 16,
-      maxWidth: 480,
+      maxWidth: MAX_WIDTH,
     }
   );
   if (countrySummary.resources.length === 0)
@@ -254,18 +217,18 @@ export async function generateFormPDF(
       size: 12,
       lineHeight: 12,
       font: helveticaFont,
-      maxWidth: 480,
+      maxWidth: MAX_WIDTH,
     });
   }
   page = pdfDoc.addPage();
-  page.moveTo(70, page.getHeight() - 80);
+  page.moveTo(MIN_X, page.getHeight() - 80);
   drawTextWithPagination(
     i18n.t("healthIndicatorQuestionnaire.indicatorDetails"),
     {
       size: 16,
       lineHeight: 16,
       font: helveticaBoldFont,
-      maxWidth: 480,
+      maxWidth: MAX_WIDTH,
     }
   );
   questionnaire.forEach((category) => {
@@ -273,7 +236,7 @@ export async function generateFormPDF(
       size: 16,
       lineHeight: 16,
       font: helveticaBoldObliqueFont,
-      maxWidth: 480,
+      maxWidth: MAX_WIDTH,
     });
     //   // TODO: Explore adding of underline
 
@@ -341,7 +304,7 @@ export async function generateFormPDF(
         {
           font: helveticaFont,
           size: 12,
-          maxWidth: 480,
+          maxWidth: MAX_WIDTH,
           lineHeight: 12,
         }
       );

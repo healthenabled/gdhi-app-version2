@@ -2,7 +2,7 @@ export const healthIndicatorQuestionnaire = {
   digitalHeathQuestionnaire: "Cuestionario de Salud Digital",
   pdfTitle: "{country} - Cuestionario de Salud Digital",
   note:
-    "Nota: Los datos del Índice Global de Salud Digital se mostrarán públicamente. Por tal razón, por favor obtenga la aprobación de la " +
+    "Nota: Los datos del Monitor de salud digital mundial se mostrarán públicamente. Por tal razón, por favor obtenga la aprobación de la " +
     "agencia gubernamental pertinente (Ministerio de Salud, Agencia de Salud Digital, etc.) y proporcione la información de contacto de la " +
     "persona encargada de la aprobación. Al salir de esta página se descartarán los cambios no guardados.",
   contactForm: {
@@ -83,11 +83,11 @@ export const healthIndicatorQuestionnaire = {
   publish: "Publicar",
   confirm: "Confirmar",
   cancel: "Cancelar",
-  note1: "Estos detalles se mostrarán públicamente en la plataforma GDHI.",
+  note1: "Estos detalles se mostrarán públicamente en la plataforma GDHM.",
   note2:
-    "Estos detalles no aparecerán en la plataforma de GDHI y son para nuestro propósito informativo.",
+    "Estos detalles no aparecerán en la plataforma de GDHM y son para nuestro propósito informativo.",
   note3:
-    "Seul le score de chaque indicateur sera affiché publiquement sur la plateforme GDHI.",
+    "Seul le score de chaque indicateur sera affiché publiquement sur la plateforme GDHM.",
   publishConfirmation:
     "Está a punto de publicar un formulario de índice de salud digital para {country}. Que no se puede revertir. ¿Quieres continuar?",
   saveConfirmation:

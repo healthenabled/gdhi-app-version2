@@ -18,6 +18,7 @@ export const ar = {
     worldMap: "خريطة العالم",
     indicators: "المؤشرات",
     searchBoxPlaceholder: "البحث عن طريق اسم البلد",
+    regionalOverview: "نظرة عامة إقليمية",
   },
   mixed: {
     textOverAll: "المؤشر العام",
@@ -31,7 +32,7 @@ export const ar = {
     selectYear: "حدد السنة التي سيتم عرض التاريخ فيها على الصفحة الرئيسية",
   },
   footer: {
-    contactEmail: "الاتصال: info@digitalhealthindex.org",
+    contactEmail: "الاتصال: info@digitalhealthmonitor.org",
   },
   scoreCardPDF: {
     title: "{country} - بطاقة نتائج الصحة الرقمية الوطنية",
@@ -40,7 +41,9 @@ export const ar = {
     noteForBenchmark:
       "يستخدم المؤشر الرئيسي في كل فئة لحساب المتوسط العام للبلد. يمكن قياس كل بلد مقابل المتوسط العالمي أو البلدان ضمن مرحلة محددة.",
     spiderGraphTitle: "نظرة عامة على المرحلة",
-    lineChartTitle: "مقارنة الدول",
+    lineChartTitle: "تقدم الدولة على مر السنين",
+    govtApprovedTrue: "المعتمدة من الحكومة: صحيح",
+    govtApprovedFalse: "وافقت الحكومة: خطأ",
   },
   regionDropDown: {
     textSelectRegion: "اختر المنطقة",

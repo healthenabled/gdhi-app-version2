@@ -8,7 +8,6 @@ import CountryProfile from "../countryProfile/country-profile.vue";
 import * as pdfHelper from "../pdfHelper/pdf-generate-scorecard.js";
 import { i18n } from "../../plugins/i18n";
 
-const axiosGetSpy = vi.spyOn(axios, "get");
 const eventBusOnSpy = vi.spyOn(EventBus, "$on");
 
 describe("Country Profile ", () => {
@@ -150,6 +149,11 @@ describe("Country Profile ", () => {
     updatedDate: "January 2018",
   };
 
+  const govtApproved = true;
+  const selectedRegion = {
+    regionId: "PAHO",
+    regionName: "Pan American Region",
+  };
   const benchmarkData = {
     1: {
       benchmarkScore: 5,
@@ -191,6 +195,10 @@ describe("Country Profile ", () => {
     },
   ];
   const axiosGetSpy = vi.spyOn(axios, "get");
+  const generateScoreCardSpy = vi
+    .spyOn(pdfHelper, "generateScorecard")
+    .mockReturnValue({});
+
   axiosGetSpy.mockImplementation(async (url) => {
     if (url.includes("benchmark")) {
       if (url.includes("year")) {
@@ -234,10 +242,10 @@ describe("Country Profile ", () => {
   it("should have the appropriate html elements based on the data", async () => {
     await flushPromises();
     expect(wrapper.find(".country-name").text()).to.equal(
-      healthIndicatorData.countryName + "  As on: January 2018"
+      healthIndicatorData.countryName + "  Updated on: January 2018"
     );
     expect(wrapper.find("#collected-date").text()).to.equal(
-      `As on: January 2018`
+      `Updated on: January 2018`
     );
     expect(
       wrapper.find(".header-section-button-container a").attributes().href
@@ -298,17 +306,22 @@ describe("Country Profile ", () => {
     wrapper.vm.countrySummary = "Country Summary";
     wrapper.vm.benchmarkPhase = "Global";
     wrapper.vm.benchmarkData = benchmarkData;
-
-    let mockFn = vi.spyOn(pdfHelper, "generateScorecard").mockReturnValue({});
+    wrapper.vm.govtApproved = govtApproved;
+    wrapper.vm.selectedRegion = selectedRegion;
 
     wrapper.findAll(".header-section-button").at(1).trigger("click");
-    expect(mockFn.mock.calls[0]).to.deep.equal([
-      healthIndicatorData,
-      wrapper.vm.countrySummary,
-      benchmarkData,
-      wrapper.vm.benchmarkPhase,
-      wrapper.vm.hasBenchmarkData,
-      i18n,
+
+    expect(generateScoreCardSpy.mock.calls[0]).to.deep.equal([
+      {
+        healthIndicatorData,
+        countrySummary: wrapper.vm.countrySummary,
+        benchmarkData,
+        benchmarkPhase: wrapper.vm.benchmarkPhase,
+        hasBenchmarkData: wrapper.vm.hasBenchmarkData,
+        i18n,
+        govtApproved,
+        selectedRegion,
+      },
     ]);
   });
 
@@ -415,7 +428,7 @@ describe("Country Profile ", () => {
 
   it("should render collected on date", async () => {
     await flushPromises();
-    expect(wrapper.vm.updatedDate).to.equal("As on: January 2018");
+    expect(wrapper.vm.updatedDate).to.equal("Updated on: January 2018");
   });
 
   it("should render localization texts properly", async () => {

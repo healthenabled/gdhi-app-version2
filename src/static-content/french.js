@@ -18,6 +18,7 @@ export const fr = {
     worldMap: "Carte du monde",
     indicators: "Indicateurs",
     searchBoxPlaceholder: "Recherche par nom de pays",
+    regionalOverview: "Visão geral regional",
   },
   mixed: {
     textOverAll: "Dans l'ensemble",
@@ -32,7 +33,7 @@ export const fr = {
       "Sélectionnez l'année pour laquelle la date doit être affichée sur la page d'accueil",
   },
   footer: {
-    contactEmail: "Contact: info@digitalhealthindex.org",
+    contactEmail: "Contact: info@digitalhealthmonitor.org",
   },
   scoreCardPDF: {
     title: "{country} - Tableau de Bord National de la Santé Numérique ",
@@ -42,7 +43,9 @@ export const fr = {
       "L'indicateur principal de chaque catégorie est utilisé pour calculer la moyenne nationale globale. Chaque pays peut " +
       "être comparé à la moyenne mondiale ou à des pays dans une phase donnée.",
     spiderGraphTitle: "Aperçu des phases",
-    lineChartTitle: "Comparaison des pays",
+    lineChartTitle: "Progrès du pays au fil des ans",
+    govtApprovedTrue: "Approuvé par le gouvernement : Vrai",
+    govtApprovedFalse: "Approuvé par le gouvernement : faux",
   },
   regionDropDown: {
     textSelectRegion: "Choisissez une région",

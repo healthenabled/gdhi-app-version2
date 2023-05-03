@@ -1,26 +1,42 @@
-import { shallowMount, mount, RouterLinkStub } from "@vue/test-utils";
-import { describe, expect, it, vi } from "vitest";
+import { mount, RouterLinkStub } from "@vue/test-utils";
+import { shallowMount } from "@vue/test-utils";
+import VueRouter from "vue-router";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import Header from "../header/header.vue";
 import { i18n } from "../../plugins/i18n";
+import { EventBus } from "../common/event-bus";
+import flushPromises from "flush-promises";
 import axios from "axios";
 
 describe("Header ", () => {
   let wrapper;
-
-  let countryData = [
-    { id: "IND", name: "India", countryAlpha2Code: "IN" },
-    { id: "USA", name: "United States of America", countryAlpha2Code: "US" },
-    { id: "POL", name: "Poland", countryAlpha2Code: "PL" },
-    { id: "AUS", name: "Australia", countryAlpha2Code: "AU" },
-  ];
+  const setRegionSpy = vi.fn();
   const axiosGetSpy = vi.spyOn(axios, "get");
-  axiosGetSpy.mockResolvedValue({ data: countryData });
+  const eventBusSpy = vi.spyOn(EventBus, "$emit");
+  const router = new VueRouter();
+  const PAHO = {
+    regionId: "PAHO",
+    regionName: "Pan American Region",
+  };
 
-  it("should have the data", () => {
-    wrapper = shallowMount(Header, { i18n });
-    expect(wrapper.vm.countries).to.deep.equal({});
-    expect(wrapper.vm.developmentIndicators).to.deep.equal([]);
-    expect(wrapper.vm.healthIndicators).to.deep.equal({});
+  const regionData = [
+    PAHO,
+    { regionId: "AFRO", regionName: "African Region" },
+    { regionId: "EURO", regionName: "European Region" },
+    { regionId: "WPRO", regionName: "Western Pacific Region" },
+    { regionId: "SEARO", regionName: "South-East Asian Region" },
+    { regionId: "EMRO", regionName: "Eastern Mediterranean Region" },
+  ];
+  window.appProperties = {
+    setRegions: setRegionSpy,
+  };
+  beforeEach(() => {
+    axiosGetSpy.mockReset();
+    axiosGetSpy.mockResolvedValue({ data: regionData });
+    wrapper = shallowMount(Header, {
+      i18n,
+      router,
+    });
   });
 
   it("should have the data", () => {
@@ -29,7 +45,20 @@ describe("Header ", () => {
         "router-link": RouterLinkStub,
       },
       i18n,
+      router,
     });
-    expect(wrapper.findAll(".hd-element").length).to.equal(4);
+
+    const mockPush = vi.fn();
+    wrapper.vm.$router = { push: mockPush };
+    expect(wrapper.findAll(".hd-element").length).to.equal(5);
+  });
+
+  it("should invoke fetch all the regions api for different language", async () => {
+    wrapper.vm.fetchRegions();
+    await flushPromises();
+    const mockPush = vi.fn();
+    wrapper.vm.$router = { push: mockPush };
+    expect(wrapper.vm.regions).to.deep.equal(regionData);
+    expect(eventBusSpy.mock.calls[0][0]).toBe("region:translated");
   });
 });

@@ -12,6 +12,7 @@ import healthIndicatorQuestionnaire from "@/components/healthIndicatorQuestionna
 import countryListComp from "@/components/countryList/country-list.vue";
 import ErrorComp from "@/components/error-handler/404-error.vue";
 import adminPageComp from "@/components/adminPage/admin-page.vue";
+import RegionalOverview from "@/components/regionalOverview/regional-overview.vue";
 
 Vue.use(Router);
 
@@ -95,6 +96,13 @@ export default new Router({
           path: "/admin/health_indicator_questionnaire/:countryUUID/viewPublished/:currentYear",
           components: {
             routecontent: healthIndicatorQuestionnaire,
+            languageSelect: languageSelector,
+          },
+        },
+        {
+          path: "/regional_overview/:regionId",
+          components: {
+            routecontent: RegionalOverview,
             languageSelect: languageSelector,
           },
         },

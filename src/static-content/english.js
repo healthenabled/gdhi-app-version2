@@ -18,6 +18,7 @@ export const en = {
     worldMap: "World Map",
     indicators: "Indicators",
     searchBoxPlaceholder: "Search by country name",
+    regionalOverview: "Regional Overview",
   },
   mixed: {
     textOverAll: "Overall",
@@ -31,7 +32,7 @@ export const en = {
     selectYear: "Select year for which date is to be displayed on the Homepage",
   },
   footer: {
-    contactEmail: "Contact : info@digitalhealthindex.org",
+    contactEmail: "Contact: info@digitalhealthmonitor.org",
   },
   scoreCardPDF: {
     title: "{country} - National Digital Health Scorecard",
@@ -41,7 +42,9 @@ export const en = {
       "The main indicator in each category is used to calculate overall country average. Each country can be benchmarked " +
       "against global average or countries within a selected phase.",
     spiderGraphTitle: "Phase Overview",
-    lineChartTitle: "Country Comparison",
+    lineChartTitle: "Country Progress over the years",
+    govtApprovedTrue: "Government Approved: True",
+    govtApprovedFalse: "Government Approved: False",
   },
   regionDropDown: {
     textSelectRegion: "Select Region",

@@ -78,9 +78,19 @@ export default Vue.extend({
       let val = [];
       let yearPhaseMap = new Map();
       this.yearOnYearData.map(({ data, year }) => {
-        if (data.average.overAllScore === -1) yearPhaseMap.set(year, 0);
-        else {
-          yearPhaseMap.set(year, data.average.overAllScore);
+        if (this.categoryFilter < 0 && data.average.categories) {
+          if (data.average.overAllScore === -1) yearPhaseMap.set(year, 0);
+          else {
+            yearPhaseMap.set(year, data.average.overAllScore);
+          }
+        } else if (data.average.categories) {
+          const categoryPhaseValue =
+            data.average.categories[this.categoryFilter].phase;
+          if (categoryPhaseValue >= 0)
+            yearPhaseMap.set(year, categoryPhaseValue);
+          else if (categoryPhaseValue === -1) {
+            yearPhaseMap.set(year, 0);
+          }
         }
       });
       this.xAxisLabels.map((label) => {
@@ -125,7 +135,6 @@ export default Vue.extend({
             data: this.globalData,
             fill: false,
             borderColor: "#6C757D",
-            tension: 0.1,
             borderDash: [5, 4],
             borderWidth: 1.5,
             pointStyle: "circle",

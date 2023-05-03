@@ -4,4 +4,5 @@ export const EVENTS = {
   YEAR_FILTERED: "year:filtered",
   QUESTIONNAIRE_DATA_SAVED: "edit_questionnaire:saved",
   REGION_FILTERED: "region:filtered",
+  REGION_TRANSLATED: "region:translated",
 };

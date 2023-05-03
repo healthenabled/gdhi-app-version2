@@ -8,7 +8,7 @@ export const countryProfile = {
   downloadScorecard: "DESCARGAR CUADRO DE MANDO",
   overallDigitalHealthPhase: "Fase General De Salud Digital",
   overallDigitalHealthPhaseDescription:
-    "La puntuación global es una media de las puntuaciones de los indicadores del GDHI",
+    "La puntuación global es una media de las puntuaciones de los indicadores del GDHM",
   benchmark: {
     text: "PUNTO DE REFERENCIA",
     textWithData: "PUNTO DE REFERENCIA: {data}",

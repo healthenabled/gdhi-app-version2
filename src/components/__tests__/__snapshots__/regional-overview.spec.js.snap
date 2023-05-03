@@ -1,0 +1,14 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Region Overview > should render regional overview 1`] = `
+<div
+  class="heading"
+  data-v-e090c329=""
+>
+  <p
+    data-v-e090c329=""
+  >
+    
+  </p>
+</div>
+`;

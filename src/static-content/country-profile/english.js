@@ -8,7 +8,7 @@ export const countryProfile = {
   downloadScorecard: "Download Scorecard",
   overallDigitalHealthPhase: "Overall Digital Health Phase",
   overallDigitalHealthPhaseDescription:
-    "The overall score is an average of the scores for the GDHI indicators",
+    "The overall score is an average of the scores for the GDHM indicators",
   benchmark: {
     text: "Benchmark",
     textWithData: "Benchmark: {data}",
