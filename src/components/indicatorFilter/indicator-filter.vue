@@ -30,6 +30,7 @@ export default Vue.extend({
   },
 
   mounted: function () {
+    this.resetFilters();
     EventBus.$on("Reset:Filters", () => {
       this.resetFilters();
     });
@@ -44,13 +45,9 @@ export default Vue.extend({
 
   methods: {
     filter: function () {
-      window.appProperties.setCategoryFilter({
-        categoryId: this.categoryValue,
-      });
       window.appProperties.setCategory({
         category: this.categories[this.categoryValue - 1],
       });
-
       EventBus.$emit(EVENTS.INDICATOR_FILTERED);
     },
 
@@ -60,9 +57,7 @@ export default Vue.extend({
 
     resetFilters: function () {
       this.categoryValue = "";
-      window.appProperties.setCategoryFilter({
-        categoryId: this.categoryValue,
-      });
+      window.appProperties.setCategory({});
     },
 
     fetchCategoricalIndicators: function () {

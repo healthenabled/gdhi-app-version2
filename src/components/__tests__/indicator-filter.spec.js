@@ -10,12 +10,12 @@ const axiosGetSpy = vi.spyOn(axios, "get");
 
 describe("indicator-filter", () => {
   let wrapper;
-  let setCategoryFilterMock = sinon.spy();
+  let setCategoryMock = sinon.spy();
   window.appProperties = {
     getCategoryFilter: () => {
       return "";
     },
-    setCategoryFilter: setCategoryFilterMock,
+    setCategory: setCategoryMock,
   };
 
   let healthIndicatorData = [

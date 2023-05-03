@@ -1,11 +1,11 @@
 window.appProperties = {
   filter: {},
-  setCategoryFilter(opts) {
-    this.filter.categoryId = opts.categoryId;
-  },
   getCategoryFilter() {
-    const categoryId = this.filter.categoryId;
-    return categoryId === undefined ? "" : categoryId;
+    let categoryId = null;
+    if (this.filter.category != null) {
+      categoryId = this.filter.category.categoryId;
+    }
+    return categoryId === null ? "" : categoryId;
   },
   getPhaseFilter() {
     const phaseId = this.filter.phaseId;
