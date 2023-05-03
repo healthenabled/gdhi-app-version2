@@ -1,21 +1,22 @@
+.region-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
 .heading {
   /* Africa Regional Overview */
-
-  position: absolute;
-  // width: 440px;
-  height: 40px;
-  left: 20px;
-  top: 200px;
+  margin: 20px;
 
   /* GDHI H1 - Regular 36 */
-  font-family: "InterRegular";
   font-style: normal;
   font-weight: 400;
   font-size: 36px;
   line-height: 44px;
-  display: flex;
-  align-items: center;
-
-  /* GDHI Black */
   color: #0a0a0a;
+}
+
+.region-year-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 40px;
 }

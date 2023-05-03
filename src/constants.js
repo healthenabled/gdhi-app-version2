@@ -5,4 +5,5 @@ export const EVENTS = {
   QUESTIONNAIRE_DATA_SAVED: "edit_questionnaire:saved",
   REGION_FILTERED: "region:filtered",
   REGION_TRANSLATED: "region:translated",
+  DEFAULT_YEAR: "default_year",
 };

@@ -2,9 +2,12 @@
 import Vue from "vue";
 import { EventBus } from "../common/event-bus";
 import { EVENTS } from "../../constants";
+import RegionYearSelector from "../regionYearComponent/region-year-selector.vue";
+import RegionDefaultYear from "../regionYearComponent/region-default-year.vue";
 
 export default Vue.extend({
   name: "RegionalOverview",
+  components: { RegionYearSelector, RegionDefaultYear },
   data() {
     return {
       regions: [],
@@ -38,8 +41,12 @@ export default Vue.extend({
 });
 </script>
 <template>
-  <div class="heading">
-    <p>{{ regionName }}</p>
+  <div class="region-container">
+    <p class="heading">{{ regionName }}</p>
+    <div class="region-year-container">
+      <region-default-year />
+      <region-year-selector />
+    </div>
   </div>
 </template>
 

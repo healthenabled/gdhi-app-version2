@@ -2,13 +2,25 @@
 
 exports[`Region Overview > should render regional overview 1`] = `
 <div
-  class="heading"
+  class="region-container"
   data-v-e090c329=""
 >
   <p
+    class="heading"
     data-v-e090c329=""
   >
     
   </p>
+  <div
+    class="region-year-container"
+    data-v-e090c329=""
+  >
+    <region-default-year-stub
+      data-v-e090c329=""
+    />
+    <region-year-selector-stub
+      data-v-e090c329=""
+    />
+  </div>
 </div>
 `;

@@ -1,0 +1,39 @@
+@import "../../assets/stylesheets/rtl-support";
+
+.default-year-container {
+  display: flex;
+  flex-direction: column;
+}
+.default-year {
+  display: flex;
+}
+.text {
+  height: 40px;
+  width: 148px;
+  left: 992px;
+  top: 200px;
+  border-radius: 0px;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 19px;
+  letter-spacing: 0em;
+  text-align: left;
+  margin: 0 10px 0 10px;
+  color: #0a0a0a;
+}
+.default-year-value {
+  @include margin-left(40px);
+  // @include margin-right(40px);
+  margin-top: 11px;
+  height: 40px;
+  width: 160px;
+  left: 1000px;
+  top: 260px;
+  border-radius: 0px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 19px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #6c757d;
+}

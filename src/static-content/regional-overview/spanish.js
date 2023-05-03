@@ -1,0 +1,4 @@
+export const regionalOverview = {
+  defaultYear: "Año predeterminado",
+  selectYear: "Seleccione el año para comparar",
+};

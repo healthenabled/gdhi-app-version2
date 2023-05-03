@@ -5,6 +5,7 @@ import { countryProfile } from "./country-profile/arabic";
 import { indicators } from "./indicators/arabic";
 import { date } from "./date/arabic";
 import { healthIndicatorQuestionnaire } from "./health-indicator-questionnaire/arabic";
+import { regionalOverview } from "./regional-overview/arabic";
 
 export const ar = {
   worldMap,
@@ -48,4 +49,5 @@ export const ar = {
   regionDropDown: {
     textSelectRegion: "اختر المنطقة",
   },
+  regionalOverview,
 };

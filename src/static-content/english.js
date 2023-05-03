@@ -5,6 +5,7 @@ import { countryProfile } from "./country-profile/english";
 import { indicators } from "./indicators/english";
 import { date } from "./date/english";
 import { healthIndicatorQuestionnaire } from "./health-indicator-questionnaire/english";
+import { regionalOverview } from "./regional-overview/english";
 
 export const en = {
   worldMap,
@@ -49,4 +50,5 @@ export const en = {
   regionDropDown: {
     textSelectRegion: "Select Region",
   },
+  regionalOverview,
 };

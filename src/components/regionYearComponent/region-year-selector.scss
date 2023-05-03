@@ -1,0 +1,63 @@
+@import "../../assets/stylesheets/rtl-support";
+@import "../../assets/stylesheets/components/variables";
+
+.year-indicator {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 100%;
+
+  .year-indicator-select {
+    @include margin-right(2.5vw);
+    @include margin-left(0.5vw);
+    color: $cool-gray;
+    background-color: red;
+    //
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19px;
+    letter-spacing: 0em;
+    text-align: left;
+    //
+    width: 16vw;
+    height: 40px;
+    @include padding-left(20px);
+    @include padding-right(20px);
+    border: 1px solid #0a0a0a;
+    // border: $table-border;
+    -webkit-appearance: none;
+    appearance: none;
+    -moz-appearance: none;
+    background: url("/static/img/arrowDown.svg") no-repeat;
+    background-position-y: 50%;
+    background-size: 15px;
+  }
+  .ltr {
+    background-position-x: 95%;
+  }
+  .rtl {
+    background-position-x: 5%;
+  }
+  .width {
+    width: 12vw;
+  }
+}
+
+.year-text {
+  display: flex;
+}
+
+.text {
+  height: 40px;
+  width: 225px;
+  left: 35px;
+  top: 0px;
+  border-radius: 0px;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 19px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #0a0a0a;
+  margin: 0 10px 0 10px;
+}
