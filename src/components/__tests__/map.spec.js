@@ -14,7 +14,6 @@ const eventBusSpy = vi.spyOn(EventBus, "$emit");
 describe("Map ", () => {
   let wrapper;
   let mockWorldMap;
-  let setCategoryFilterMock = sinon.spy();
   let setPhaseFilterMock = sinon.spy();
   window.appProperties = {
     getCategoryFilter: () => {
@@ -23,7 +22,6 @@ describe("Map ", () => {
     getPhaseFilter: () => {
       return "";
     },
-    setCategoryFilter: setCategoryFilterMock,
     setPhaseFilter: setPhaseFilterMock,
   };
   let globalData = {
