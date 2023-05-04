@@ -5,7 +5,6 @@ import { defineConfig } from "vite";
 import legacy from "@vitejs/plugin-legacy";
 import vue2 from "@vitejs/plugin-vue2";
 import vue2Jsx from "@vitejs/plugin-vue2-jsx";
-import { uglify } from "rollup-plugin-uglify";
 import { visualizer } from "rollup-plugin-visualizer";
 import { dependencies } from "../package.json";
 import { viteStaticCopy } from "vite-plugin-static-copy";
@@ -30,9 +29,9 @@ export default defineConfig({
     sourcemap: true,
     cssCodeSplit: true,
     assetsDir: "static",
-    minify: true,
+    minify: "esbuild",
     rollupOptions: {
-      plugins: [uglify(), visualizer({ template: "sunburst" })],
+      plugins: [visualizer({ template: "sunburst" })],
       output: {
         manualChunks: {
           ...renderChunks(dependencies),
