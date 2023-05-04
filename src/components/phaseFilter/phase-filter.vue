@@ -11,6 +11,7 @@ export default Vue.extend({
     return {
       phaseValue: "",
       phases: [],
+      locale: "en",
     };
   },
 
@@ -25,13 +26,6 @@ export default Vue.extend({
     });
   },
 
-  updated() {
-    if (this.locale !== this.$i18n.locale) {
-      this.fetchPhases();
-    }
-    this.locale = this.$i18n.locale;
-  },
-
   methods: {
     filter: function () {
       window.appProperties.setPhaseFilter({ phaseId: this.phaseValue });
@@ -39,7 +33,7 @@ export default Vue.extend({
     },
 
     getBackgroundPositionX: function () {
-      return LayoutDirectionConfig[this.locale] === "ltr" ? "95%" : "5%";
+      return LayoutDirectionConfig[this.$i18n.locale] === "ltr" ? "95%" : "5%";
     },
 
     resetFilters: function () {
