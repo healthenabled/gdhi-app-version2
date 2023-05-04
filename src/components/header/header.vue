@@ -19,6 +19,8 @@ export default Vue.extend({
       selectedRegion: {},
       dropdownClicked: false,
       keepTrack: "",
+      onHover: false,
+      locale: "en",
     };
   },
 
@@ -86,13 +88,17 @@ export default Vue.extend({
             ><span>{{ $t("headers.worldMap") }}</span>
           </router-link>
           <a
+            @mouseenter="onHover = true"
+            @mouseleave="onHover = false"
             class="hd-element header-link"
             v-bind:class="{ colorOnSelect: dropdownClicked }"
           >
             <div class="dropdown">
               <button class="dropbtn">
                 {{ $t("headers.regionalOverview") }}
-                <i class="fa fa-caret-down"></i>
+                <span
+                  :class="onHover ? 'dropDown-expanded' : 'dropDown'"
+                ></span>
               </button>
               <div class="dropdown-content">
                 <a

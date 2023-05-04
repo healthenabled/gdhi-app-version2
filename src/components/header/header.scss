@@ -9,7 +9,16 @@
   padding: 14px 16px;
   background-color: inherit;
   font-family: inherit; /* Important for vertical align on mobile phones */
-  margin: 0; /* Important for vertical align on mobile phones */
+  margin: 0px; /* Important for vertical align on mobile phones */
+}
+
+.dropDown::after {
+  content: "\f0d7";
+  font-family: "FontAwesome", serif;
+}
+.dropDown-expanded::after {
+  content: "\f0d8";
+  font-family: "FontAwesome", serif;
 }
 
 /* Dropdown content (hidden by default) */
