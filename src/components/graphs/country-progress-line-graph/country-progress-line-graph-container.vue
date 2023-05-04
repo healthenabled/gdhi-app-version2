@@ -95,7 +95,7 @@ export default Vue.extend({
       :countryName="countryName"
       :regionName="selectedRegion.regionName"
     />
-    <div v-else style="text-align: center; font-size: 15px; margin-top: 50px">
+    <div v-else class="spinner">
       <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
     </div>
   </div>
