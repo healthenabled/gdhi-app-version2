@@ -1,0 +1,27 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Country Progress Line Graph Container > should render country progress line graph container 1`] = `
+<div
+  class="container"
+  data-v-b2657d67=""
+>
+  <div
+    class="indicator-filter-container"
+    data-v-b2657d67=""
+  >
+    <indicatorfilter-stub
+      data-v-b2657d67=""
+      title="countryProfile.countryProgressLineChart.indicatorGroupingDescription"
+    />
+  </div>
+  <div
+    class="spinner"
+    data-v-b2657d67=""
+  >
+    <i
+      class="fa fa-spinner fa-pulse fa-3x fa-fw"
+      data-v-b2657d67=""
+    />
+  </div>
+</div>
+`;

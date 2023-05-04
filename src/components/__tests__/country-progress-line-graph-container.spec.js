@@ -63,6 +63,10 @@ describe("Country Progress Line Graph Container", () => {
     });
   });
 
+  it("should render country progress line graph container", async () => {
+    expect(wrapper.vm.$el).toMatchSnapshot();
+  });
+
   it("should fetch yearOnYearData on mount", async () => {
     wrapper.vm.getYearOnYearData("IND");
     await flushPromises();
