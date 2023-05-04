@@ -20,6 +20,11 @@ export default Vue.extend({
   mounted() {
     this.getYearsForARegion();
   },
+  watch: {
+    $route() {
+      this.getYearsForARegion();
+    },
+  },
   methods: {
     getYearsForARegion() {
       const regionId = this.$route.params.regionId;
