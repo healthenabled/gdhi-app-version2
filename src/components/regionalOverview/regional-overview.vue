@@ -4,14 +4,20 @@ import { EventBus } from "../common/event-bus";
 import { EVENTS } from "../../constants";
 import RegionYearSelector from "../regionYearComponent/region-year-selector.vue";
 import RegionDefaultYear from "../regionYearComponent/region-default-year.vue";
+import RegionBarGraphContainer from "../graphs/region-bar-graph/region-bar-graph-container.vue";
 
 export default Vue.extend({
   name: "RegionalOverview",
-  components: { RegionYearSelector, RegionDefaultYear },
+  components: {
+    RegionYearSelector,
+    RegionDefaultYear,
+    RegionBarGraphContainer,
+  },
   data() {
     return {
       regions: [],
       regionName: "",
+      defaultYear: "",
     };
   },
   methods: {
@@ -28,6 +34,9 @@ export default Vue.extend({
   mounted() {
     EventBus.$on(EVENTS.REGION_TRANSLATED, () => {
       this.getRegionNameFromRegionId();
+    });
+    EventBus.$on(EVENTS.DEFAULT_YEAR, (defaultYear) => {
+      this.defaultYear = defaultYear;
     });
   },
   watch: {
@@ -46,6 +55,7 @@ export default Vue.extend({
     <div class="region-year-container">
       <region-default-year />
       <region-year-selector />
+      <RegionBarGraphContainer v-if="defaultYear" :defaultYear="defaultYear" />
     </div>
   </div>
 </template>

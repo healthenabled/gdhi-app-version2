@@ -31,6 +31,7 @@ export default Vue.extend({
       axios.get(`/api/region/${regionId}/get_years`).then(({ data }) => {
         this.years = data;
         this.latestYear = data[0];
+        EventBus.$emit(EVENTS.LATEST_YEAR, this.latestYear);
       });
     },
   },

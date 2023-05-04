@@ -6,4 +6,5 @@ export const EVENTS = {
   REGION_FILTERED: "region:filtered",
   REGION_TRANSLATED: "region:translated",
   DEFAULT_YEAR: "default_year",
+  LATEST_YEAR: "latest_year",
 };

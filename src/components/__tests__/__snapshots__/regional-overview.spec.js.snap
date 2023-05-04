@@ -21,6 +21,7 @@ exports[`Region Overview > should render regional overview 1`] = `
     <region-year-selector-stub
       data-v-e090c329=""
     />
+    <!---->
   </div>
 </div>
 `;
