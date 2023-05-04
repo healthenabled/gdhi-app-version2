@@ -497,6 +497,7 @@ export async function generateScorecard({
             x: MAX_WIDTH + 5,
             y: page.getY() + 70,
             lineHeight: 10,
+            maxWidth: page.getWidth() - MAX_WIDTH - 25,
           }
         );
         if (selectedRegion.regionId == null || selectedRegion.regionId == "") {
@@ -506,7 +507,7 @@ export async function generateScorecard({
               size: 10,
               font: helveticaFont,
               x: MAX_WIDTH + 5,
-              y: page.getY() + 60,
+              y: page.getY() + 51,
               lineHeight: 10,
             }
           );
@@ -515,7 +516,7 @@ export async function generateScorecard({
             size: 10,
             font: helveticaFont,
             x: MAX_WIDTH + 5,
-            y: page.getY() + 60,
+            y: page.getY() + 51,
             lineHeight: 10,
             maxWidth: page.getWidth() - MAX_WIDTH - 30,
           });
