@@ -125,7 +125,7 @@ export async function generateFormPDF(
   page.moveDown(20);
   moveDownAndPopulateData(
     "healthIndicatorQuestionnaire.contactForm.roleOfThePersonEnteringData",
-    countrySummary.dataFeederName
+    countrySummary.dataFeederRole
   );
   page.moveDown(20);
   moveDownAndPopulateData(
