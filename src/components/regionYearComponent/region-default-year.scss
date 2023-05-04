@@ -22,9 +22,8 @@
   color: #0a0a0a;
 }
 .default-year-value {
-  @include margin-left(40px);
-  // @include margin-right(40px);
-  margin-top: 11px;
+  margin-left: 40px;
+  margin-top: 10px;
   height: 40px;
   width: 160px;
   left: 1000px;

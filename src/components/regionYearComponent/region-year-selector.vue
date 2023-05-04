@@ -46,7 +46,11 @@ export default Vue.extend({
       </svg>
       <div class="text">{{ $t("regionalOverview.selectYear") }}</div>
     </div>
-    <YearFilter :selectedYear="latestYear" :years="years" />
+    <YearFilter
+      :selectedYear="latestYear"
+      :years="years"
+      shouldRespectTranslation
+    />
   </div>
 </template>
 

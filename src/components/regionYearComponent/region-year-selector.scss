@@ -6,41 +6,39 @@
   flex-direction: column;
   justify-content: flex-start;
   height: 100%;
-
-  .year-indicator-select {
-    @include margin-right(2.5vw);
-    @include margin-left(0.5vw);
-    color: $cool-gray;
-    background-color: red;
-    //
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 19px;
-    letter-spacing: 0em;
-    text-align: left;
-    //
-    width: 16vw;
-    height: 40px;
-    @include padding-left(20px);
-    @include padding-right(20px);
-    border: 1px solid #0a0a0a;
-    // border: $table-border;
-    -webkit-appearance: none;
-    appearance: none;
-    -moz-appearance: none;
-    background: url("/static/img/arrowDown.svg") no-repeat;
-    background-position-y: 50%;
-    background-size: 15px;
-  }
-  .ltr {
-    background-position-x: 95%;
-  }
-  .rtl {
-    background-position-x: 5%;
-  }
-  .width {
-    width: 12vw;
-  }
+}
+.year-indicator::v-deep .year-indicator-select {
+  @include margin-right(2.5vw);
+  @include margin-left(0vw);
+  color: $cool-gray;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 19px;
+  letter-spacing: 0em;
+  @include text-align(left);
+  height: 40px;
+  width: 260px;
+  left: 0px;
+  top: 40px;
+  border-radius: 0px;
+  @include padding-left(20px);
+  @include padding-right(20px);
+  border: 1px solid #0a0a0a;
+  -webkit-appearance: none;
+  appearance: none;
+  -moz-appearance: none;
+  background: url("/static/img/arrowDown.svg") no-repeat;
+  background-position-y: 50%;
+  background-size: 15px;
+}
+.year-indicator::v-deep .ltr {
+  background-position-x: 95%;
+}
+.year-indicator::v-deep .rtl {
+  background-position-x: 5%;
+}
+.year-indicator::v-deep .width {
+  width: 12vw;
 }
 
 .year-text {
