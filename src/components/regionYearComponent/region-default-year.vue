@@ -1,8 +1,6 @@
 <script>
 import Vue from "vue";
 import axios from "axios";
-import { EventBus } from "../common/event-bus";
-import { EVENTS } from "../../constants";
 
 export default Vue.extend({
   data() {
@@ -17,7 +15,7 @@ export default Vue.extend({
     getDefaultYear() {
       axios.get("/api/bff/distinct_year").then(({ data }) => {
         this.defaultYear = data.defaultYear;
-        EventBus.$emit(EVENTS.DEFAULT_YEAR, this.defaultYear);
+        this.$emit("defaultYear", this.defaultYear);
       });
     },
   },

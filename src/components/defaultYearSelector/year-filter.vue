@@ -2,7 +2,7 @@
   <div>
     <select
       class="year-indicator-select"
-      @change="filter"
+      @change="filter($event.target.value)"
       name="test_select3"
       :class="[
         shouldRespectTranslation ? direction : 'ltr',
@@ -50,8 +50,9 @@ export default {
     this.direction = LayoutDirectionConfig[this.$i18n.locale];
   },
   methods: {
-    filter: (event) => {
-      EventBus.$emit(EVENTS.YEAR_FILTERED, event.target.value);
+    filter(value) {
+      EventBus.$emit(EVENTS.YEAR_FILTERED, value);
+      this.$emit("selectedYear", value);
     },
   },
 };

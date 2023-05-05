@@ -1,9 +1,7 @@
 <script>
 import Vue from "vue";
 import axios from "axios";
-import { EventBus } from "../common/event-bus";
 import YearFilter from "../defaultYearSelector/year-filter.vue";
-import { EVENTS } from "../../constants";
 
 export default Vue.extend({
   components: {
@@ -31,8 +29,11 @@ export default Vue.extend({
       axios.get(`/api/region/${regionId}/get_years`).then(({ data }) => {
         this.years = data;
         this.latestYear = data[0];
-        EventBus.$emit(EVENTS.LATEST_YEAR, this.latestYear);
+        this.$emit("selectedYear", this.latestYear);
       });
+    },
+    getSelectedYear(year) {
+      this.$emit("selectedYear", year);
     },
   },
 });
@@ -56,6 +57,7 @@ export default Vue.extend({
       :selectedYear="latestYear"
       :years="years"
       shouldRespectTranslation
+      @selectedYear="getSelectedYear"
     />
   </div>
 </template>

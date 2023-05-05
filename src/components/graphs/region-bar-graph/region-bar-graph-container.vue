@@ -1,8 +1,5 @@
 <script>
 import Vue from "vue";
-import indicatorFilter from "../../indicatorFilter/indicator-filter.vue";
-import { EventBus } from "../../common/event-bus";
-import { EVENTS } from "../../../constants";
 import axios from "axios";
 
 export default Vue.extend({
@@ -11,30 +8,36 @@ export default Vue.extend({
     return {
       category: window.appProperties.getCategoryFilter() - 1,
       regionCountriesData: {},
-      selectedYear: "",
     };
   },
   props: {
     defaultYear: { type: String, required: true },
+    year: { type: String, required: false, default: "" },
+    locale: { type: String, required: true },
   },
   mounted() {
-    EventBus.$on(EVENTS.YEAR_FILTERED, (selectedYear) => {
-      this.selectedYear = selectedYear;
+    this.getRegionCountriesData();
+  },
+  watch: {
+    locale() {
       this.getRegionCountriesData();
-    });
-    EventBus.$on(EVENTS.LATEST_YEAR, (latestYear) => {
-      this.selectedYear = latestYear;
+    },
+    year() {
       this.getRegionCountriesData();
-    });
+    },
   },
   methods: {
     getRegionCountriesData() {
       const regionId = this.$route.params.regionId;
-      const years = [this.defaultYear, this.selectedYear];
+      const years = [this.defaultYear, this.year];
       axios
         .get(`/api/region/${regionId}`, {
           params: {
             list_of_years: years.reduce((f, s) => `${f},${s}`),
+          },
+          headers: {
+            "Cache-Control": "no-cache",
+            user_language: this.$i18n.locale,
           },
         })
         .then(({ data }) => {
@@ -46,5 +49,5 @@ export default Vue.extend({
 </script>
 
 <template>
-  <div>Hello</div>
+  <div></div>
 </template>

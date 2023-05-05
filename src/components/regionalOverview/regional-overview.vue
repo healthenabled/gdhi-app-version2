@@ -18,6 +18,8 @@ export default Vue.extend({
       regions: [],
       regionName: "",
       defaultYear: "",
+      year: "",
+      locale: this.$i18n.locale,
     };
   },
   methods: {
@@ -30,18 +32,25 @@ export default Vue.extend({
       });
       this.regionName = this.regionName.replace("Region", "Regional Overview");
     },
+    getSelectedYear(year) {
+      this.year = year;
+    },
+    getDefaultYear(defaultYear) {
+      this.defaultYear = defaultYear;
+    },
+  },
+  updated() {
+    this.locale = this.$i18n.locale;
   },
   mounted() {
     EventBus.$on(EVENTS.REGION_TRANSLATED, () => {
       this.getRegionNameFromRegionId();
     });
-    EventBus.$on(EVENTS.DEFAULT_YEAR, (defaultYear) => {
-      this.defaultYear = defaultYear;
-    });
   },
   watch: {
     $route() {
       this.getRegionNameFromRegionId();
+      this.year = "";
     },
   },
   created() {
@@ -53,9 +62,14 @@ export default Vue.extend({
   <div class="region-container">
     <p class="heading">{{ regionName }}</p>
     <div class="region-year-container">
-      <region-default-year />
-      <region-year-selector />
-      <RegionBarGraphContainer v-if="defaultYear" :defaultYear="defaultYear" />
+      <region-default-year @defaultYear="getDefaultYear" />
+      <region-year-selector @selectedYear="getSelectedYear" />
+      <RegionBarGraphContainer
+        v-if="defaultYear && year"
+        :defaultYear="defaultYear"
+        :year="year"
+        :locale="locale"
+      />
     </div>
   </div>
 </template>
