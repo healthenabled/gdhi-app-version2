@@ -60,7 +60,6 @@
     "jsdom": "^20.0.0",
     "pinst": "^3.0.0",
     "prettier": "^2.8.7",
-    "rollup-plugin-uglify": "^6.0.4",
     "rollup-plugin-visualizer": "^5.9.0",
     "sass": "^1.57.1",
     "semver": "^7.3.8",
