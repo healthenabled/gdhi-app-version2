@@ -14,10 +14,10 @@ exports[`Upload CSV > should render upload csv 1`] = `
     >
       Template
     </div>
-    <button
+    <a
       class="btn btn-primary"
       data-v-901d73fd=""
-      onclick="location.href = 'https://docs.google.com/spreadsheets/d/1AZ_5oYOCokiI4xosVPCZU3jSZUYjt4MB/edit?usp=sharing&ouid=105807527850921178070&rtpof=true&sd=true';"
+      href="/api/export_csv_template"
     >
       <i
         aria-hidden="true"
@@ -25,7 +25,7 @@ exports[`Upload CSV > should render upload csv 1`] = `
         data-v-901d73fd=""
       />
       Download 
-    </button>
+    </a>
   </div>
   <div
     class="header-bold"

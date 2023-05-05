@@ -96,6 +96,9 @@ export default Vue.extend({
           this.payload = [];
         });
     },
+    downloadCsvTemplate() {
+      return "/api/export_csv_template";
+    },
     notifier(props) {
       this.$notify({
         group: props.group,
@@ -113,12 +116,9 @@ export default Vue.extend({
   <div>
     <div class="download-section">
       <div class="header-bold">Template</div>
-      <button
-        class="btn btn-primary"
-        onclick="location.href = 'https://docs.google.com/spreadsheets/d/1AZ_5oYOCokiI4xosVPCZU3jSZUYjt4MB/edit?usp=sharing&ouid=105807527850921178070&rtpof=true&sd=true';"
-      >
+      <a class="btn btn-primary" :href="downloadCsvTemplate()">
         <i class="fa fa-download" aria-hidden="true"></i>Download
-      </button>
+      </a>
     </div>
     <div class="header-bold">Upload File</div>
     <div class="note">
