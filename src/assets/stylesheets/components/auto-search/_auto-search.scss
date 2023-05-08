@@ -3,7 +3,7 @@
 .search-box {
   display: flex;
   justify-content: space-between;
-  width: 20vw;
+  width: max(20vw, 130px);
   flex-direction: column;
   @extend .copy;
 

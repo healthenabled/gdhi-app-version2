@@ -2,7 +2,7 @@
 
 .filter-indicator {
   height: 100%;
-  width: 20vw;
+  width: max(20vw, 120px);
   @include margin-right(2.5vw);
   @include margin-left(0.5vw);
 
