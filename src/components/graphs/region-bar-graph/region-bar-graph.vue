@@ -42,13 +42,21 @@ export default Vue.extend({
       let val = [];
       this.labels.map((country) => {
         if (this.defaultYearData.get(country)) {
-          if (this.categoryFilter == -1 || this.categoryFilter == null) {
-            val.push(this.defaultYearData.get(country).countryPhase);
+          if (this.isOverallIndicatorSelected(this.categoryFilter)) {
+            this.isValidPhase(this.defaultYearData.get(country).countryPhase)
+              ? val.push(this.defaultYearData.get(country).countryPhase)
+              : val.push(0);
           } else {
-            val.push(
+            this.isValidPhase(
               this.defaultYearData.get(country).categories[this.categoryFilter]
                 .phase
-            );
+            )
+              ? val.push(
+                  this.defaultYearData.get(country).categories[
+                    this.categoryFilter
+                  ].phase
+                )
+              : val.push(0);
           }
         } else {
           val.push(0);
@@ -60,13 +68,21 @@ export default Vue.extend({
       let val = [];
       this.labels.map((country) => {
         if (this.selectedYearData.get(country)) {
-          if (this.categoryFilter == -1 || this.categoryFilter == null) {
-            val.push(this.selectedYearData.get(country).countryPhase);
+          if (this.isOverallIndicatorSelected(this.categoryFilter)) {
+            this.isValidPhase(this.selectedYearData.get(country).countryPhase)
+              ? val.push(this.selectedYearData.get(country).countryPhase)
+              : val.push(0);
           } else {
-            val.push(
+            this.isValidPhase(
               this.selectedYearData.get(country).categories[this.categoryFilter]
                 .phase
-            );
+            )
+              ? val.push(
+                  this.selectedYearData.get(country).categories[
+                    this.categoryFilter
+                  ].phase
+                )
+              : val.push(0);
           }
         } else {
           val.push(0);
@@ -220,6 +236,18 @@ export default Vue.extend({
         document.getElementById("bar-graph"),
         this.barGraphConfig
       );
+    },
+    isValidPhase(phase) {
+      if (phase === -1 || phase === null) {
+        return false;
+      }
+      return true;
+    },
+    isOverallIndicatorSelected(categoryFilter) {
+      if (categoryFilter === -1 || categoryFilter === null) {
+        return true;
+      }
+      return false;
     },
   },
 });
