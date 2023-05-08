@@ -15,10 +15,10 @@ exports[`Region Overview > should render regional overview 1`] = `
     class="region-year-container"
     data-v-e090c329=""
   >
-    <region-default-year-stub
+    <regiondefaultyear-stub
       data-v-e090c329=""
     />
-    <region-year-selector-stub
+    <regionyearselector-stub
       data-v-e090c329=""
     />
     <!---->

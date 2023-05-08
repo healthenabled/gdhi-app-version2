@@ -52,7 +52,7 @@ export default {
   methods: {
     filter(value) {
       EventBus.$emit(EVENTS.YEAR_FILTERED, value);
-      this.$emit("selectedYear", value);
+      this.$emit("yearChanged", value);
     },
   },
 };

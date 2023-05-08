@@ -25,17 +25,17 @@ export default Vue.extend({
   methods: {
     getRegionNameFromRegionId() {
       const regionId = this.$route.params.regionId;
-      window.appProperties.getRegions().forEach((region, i) => {
-        if (region.regionId == regionId) {
+      window.appProperties.getRegions().forEach((region) => {
+        if (region.regionId === regionId) {
           this.regionName = region.regionName;
         }
       });
       this.regionName = this.regionName.replace("Region", "Regional Overview");
     },
-    getSelectedYear(year) {
+    setYear(year) {
       this.year = year;
     },
-    getDefaultYear(defaultYear) {
+    setDefaultYear(defaultYear) {
       this.defaultYear = defaultYear;
     },
   },
@@ -62,8 +62,8 @@ export default Vue.extend({
   <div class="region-container">
     <p class="heading">{{ regionName }}</p>
     <div class="region-year-container">
-      <region-default-year @defaultYear="getDefaultYear" />
-      <region-year-selector @selectedYear="getSelectedYear" />
+      <RegionDefaultYear @defaultYearChanged="setDefaultYear" />
+      <RegionYearSelector @selectedYearChanged="setYear" />
       <RegionBarGraphContainer
         v-if="defaultYear && year"
         :defaultYear="defaultYear"

@@ -15,7 +15,7 @@ export default Vue.extend({
     getDefaultYear() {
       axios.get("/api/bff/distinct_year").then(({ data }) => {
         this.defaultYear = data.defaultYear;
-        this.$emit("defaultYear", this.defaultYear);
+        this.$emit("defaultYearChanged", this.defaultYear);
       });
     },
   },

@@ -29,11 +29,11 @@ export default Vue.extend({
       axios.get(`/api/region/${regionId}/get_years`).then(({ data }) => {
         this.years = data;
         this.latestYear = data[0];
-        this.$emit("selectedYear", this.latestYear);
+        this.$emit("selectedYearChanged", this.latestYear);
       });
     },
-    getSelectedYear(year) {
-      this.$emit("selectedYear", year);
+    yearChanged(year) {
+      this.$emit("selectedYearChanged", year);
     },
   },
 });
@@ -57,7 +57,7 @@ export default Vue.extend({
       :selectedYear="latestYear"
       :years="years"
       shouldRespectTranslation
-      @selectedYear="getSelectedYear"
+      @yearChanged="yearChanged"
     />
   </div>
 </template>
