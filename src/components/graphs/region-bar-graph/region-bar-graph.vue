@@ -33,8 +33,9 @@ export default Vue.extend({
   },
   computed: {
     cssProps() {
+      let multiplier = this.labels.length <= 5 ? 10 : 120;
       return {
-        "--width": 1500 + this.labels.length * 30 + "px",
+        "--width": 1500 + this.labels.length * multiplier + "px",
       };
     },
     barMetaData() {
@@ -104,16 +105,16 @@ export default Vue.extend({
           {
             barPercentage: 1,
             categoryPercentage: 0.5,
-            backgroundColor: "#CED4DA",
-            label: "Previous year Data",
-            data: this.defaultYearCountriesData,
+            label: "Selected Year",
+            data: this.selectedYearCountriesData,
             barThickness: 40,
+            backgroundColor: "#CED4DA",
           },
           {
             barPercentage: 1,
             categoryPercentage: 0.5,
-            label: "CountryData",
-            data: this.selectedYearCountriesData,
+            label: "Default Year",
+            data: this.defaultYearCountriesData,
             barThickness: 40,
             backgroundColor: ({ parsed: { y } }) => {
               const phaseToColorMap = {
@@ -145,7 +146,7 @@ export default Vue.extend({
         border: {
           dash: [2, 2],
           color: "#ced4da",
-          width: 1,
+          width: 0,
         },
         position:
           LayoutDirectionConfig[i18n.locale] === "rtl" ? "right" : "left",
@@ -166,7 +167,7 @@ export default Vue.extend({
           color: "#0A0A0A",
           font: {
             weight: 400,
-            size: 14,
+            size: 16,
           },
         },
       };
@@ -188,7 +189,7 @@ export default Vue.extend({
         ticks: {
           font: {
             weight: 400,
-            size: 14,
+            size: 16,
             lineHeight: "16.94px",
           },
           color: "#0A0A0A",
@@ -212,7 +213,7 @@ export default Vue.extend({
           },
         },
         responsive: true,
-        maintainAspectRatio: true,
+        maintainAspectRatio: false,
         scales: {
           y: scalesYOptions,
           x: scalesXOptions,

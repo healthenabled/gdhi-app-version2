@@ -96,7 +96,7 @@ export default Vue.extend({
 </script>
 
 <template>
-  <div class="box overall-card">
+  <div class="box overall-card container content-width">
     <div class="indicator-filter-container">
       <indicatorFilter
         title="countryProfile.countryProgressLineChart.indicatorGroupingDescription"
@@ -117,6 +117,10 @@ export default Vue.extend({
 
 .container {
   height: 100%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border-radius: 0px;
+
   .indicator-filter-container {
     @include padding-left(16px);
     padding-top: 2px;
