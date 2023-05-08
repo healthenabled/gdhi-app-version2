@@ -2,7 +2,6 @@
 
 import { fileURLToPath, URL } from "node:url";
 import { defineConfig, splitVendorChunkPlugin } from "vite";
-import { uglify } from "rollup-plugin-uglify";
 import legacy from "@vitejs/plugin-legacy";
 import vue2 from "@vitejs/plugin-vue2";
 import vue2Jsx from "@vitejs/plugin-vue2-jsx";
@@ -35,7 +34,7 @@ export default defineConfig({
     cssCodeSplit: true,
     assetsDir: "static",
     rollupOptions: {
-      plugins: [uglify(), visualizer()],
+      plugins: [visualizer()],
       output: {
         manualChunks: {
           ...renderChunks(dependencies),
