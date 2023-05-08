@@ -41,13 +41,13 @@
   text-align: left;
 }
 
-/* Add a grey background color to dropdown links on hover */
+/* Add a blue background color to dropdown links on hover */
 .dropdown-content a:hover {
   background-color: #415ba3;
 }
 
-/* Show the dropdown menu on hover */
-.dropdown:hover .dropdown-content {
+/* Show the dropdown menu on hover of a tag CSS class*/
+.hd-element:hover .dropdown-content {
   display: block;
 }
 .colorOnSelect {
