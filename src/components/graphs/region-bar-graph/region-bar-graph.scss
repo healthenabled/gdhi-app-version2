@@ -1,0 +1,10 @@
+.graph-container {
+  height: 1000px;
+  width: var(--width);
+}
+
+.graph {
+  height: 1000px;
+  width: 1600px;
+  overflow: scroll;
+}

@@ -1,6 +1,8 @@
 <template>
-  <div class="container">
-    <canvas id="bar-graph" style="height: 700px; width: 1700px"></canvas>
+  <div class="graph">
+    <div class="graph-container" :style="cssProps">
+      <canvas id="bar-graph"></canvas>
+    </div>
   </div>
 </template>
 <script>
@@ -30,6 +32,11 @@ export default Vue.extend({
     },
   },
   computed: {
+    cssProps() {
+      return {
+        "--width": 1500 + this.labels.length * 30 + "px",
+      };
+    },
     barMetaData() {
       return {
         labels: this.labels,
@@ -100,12 +107,14 @@ export default Vue.extend({
             backgroundColor: "#CED4DA",
             label: "Previous year Data",
             data: this.defaultYearCountriesData,
+            barThickness: 40,
           },
           {
             barPercentage: 1,
             categoryPercentage: 0.5,
             label: "CountryData",
             data: this.selectedYearCountriesData,
+            barThickness: 40,
             backgroundColor: ({ parsed: { y } }) => {
               const phaseToColorMap = {
                 1: "#FCAB9C",
@@ -156,7 +165,6 @@ export default Vue.extend({
           },
           color: "#0A0A0A",
           font: {
-            family: "Inter",
             weight: 400,
             size: 14,
           },
@@ -179,7 +187,6 @@ export default Vue.extend({
         },
         ticks: {
           font: {
-            family: "Inter",
             weight: 400,
             size: 14,
             lineHeight: "16.94px",
@@ -205,7 +212,7 @@ export default Vue.extend({
           },
         },
         responsive: true,
-        maintainAspectRatio: false,
+        maintainAspectRatio: true,
         scales: {
           y: scalesYOptions,
           x: scalesXOptions,
@@ -252,8 +259,7 @@ export default Vue.extend({
   },
 });
 </script>
-<style lang scoped="scss">
-/* .container {
-  height: 800px;
-} */
+
+<style scoped lang="scss">
+@import "region-bar-graph";
 </style>
