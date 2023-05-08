@@ -59,18 +59,20 @@ export default Vue.extend({
 });
 </script>
 <template>
-  <div class="region-container">
-    <p class="heading">{{ regionName }}</p>
-    <div class="region-year-container">
-      <RegionDefaultYear @defaultYearChanged="setDefaultYear" />
-      <RegionYearSelector @selectedYearChanged="setYear" />
-      <RegionBarGraphContainer
-        v-if="defaultYear && year"
-        :defaultYear="defaultYear"
-        :year="year"
-        :locale="locale"
-      />
+  <div>
+    <div class="region-container">
+      <p class="heading">{{ regionName }}</p>
+      <div class="region-year-container">
+        <RegionDefaultYear @defaultYearChanged="setDefaultYear" />
+        <RegionYearSelector @selectedYearChanged="setYear" />
+      </div>
     </div>
+    <RegionBarGraphContainer
+      v-if="defaultYear && year"
+      :defaultYear="defaultYear"
+      :year="year"
+      :locale="locale"
+    />
   </div>
 </template>
 
