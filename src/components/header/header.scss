@@ -45,7 +45,7 @@
 
 /* Add a blue background color to dropdown links on hover */
 .dropdown-content a:hover {
-  background-color: #415ba3;
+  background-color: $selected-menu;
 }
 
 /* Show the dropdown menu on hover of a tag CSS class*/
