@@ -120,10 +120,12 @@ export default Vue.extend({
         border: {
           dash: [2, 2],
           color: "#ced4da",
-          width: 0,
+          width: 1,
         },
         position:
           LayoutDirectionConfig[i18n.locale] === "rtl" ? "right" : "left",
+        min: 0,
+        max: 5,
         ticks: {
           callback: function (value) {
             const labels = [
@@ -213,7 +215,6 @@ export default Vue.extend({
   },
   methods: {
     drawBarGraph() {
-      console.log("drawChart called");
       barGraphInstance?.destroy();
       barGraphInstance = new Chart(
         document.getElementById("bar-graph"),

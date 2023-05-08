@@ -2,12 +2,13 @@
 import Vue from "vue";
 import axios from "axios";
 import RegionBarGraph from "./region-bar-graph.vue";
-import IndicatorFilter from "../../indicatorFilter/indicator-filter.vue";
+import indicatorFilter from "../../indicatorFilter/indicator-filter.vue";
 import { EventBus } from "../../common/event-bus";
 import { EVENTS } from "../../../constants";
 
 export default Vue.extend({
   name: "RegionBarGraphContainer",
+  components: { RegionBarGraph, indicatorFilter },
   data() {
     return {
       category: window.appProperties.getCategoryFilter() - 1,
@@ -63,9 +64,6 @@ export default Vue.extend({
         let countryName = country.countryName;
         country.countryYearsData.map((countryYearsData) => {
           if (countryYearsData.year === this.year) {
-            console.log(
-              "CountryName: " + countryName + "if : " + countryYearsData.year
-            );
             this.selectedYearCountriesScore.set(
               countryName,
               countryYearsData.country
@@ -94,13 +92,16 @@ export default Vue.extend({
         });
     },
   },
-  components: { RegionBarGraph, IndicatorFilter },
 });
 </script>
 
 <template>
   <div class="box overall-card">
-    <IndicatorFilter />
+    <div class="indicator-filter-container">
+      <indicatorFilter
+        title="countryProfile.countryProgressLineChart.indicatorGroupingDescription"
+      />
+    </div>
     <RegionBarGraph
       v-if="defaultYearCountriesScore.size || selectedYearCountriesScore.size"
       :labels="countries"
@@ -110,3 +111,15 @@ export default Vue.extend({
     />
   </div>
 </template>
+
+<style scoped lang="scss">
+@import "../../../assets/stylesheets/rtl-support";
+
+.container {
+  height: 100%;
+  .indicator-filter-container {
+    @include padding-left(16px);
+    padding-top: 2px;
+  }
+}
+</style>
