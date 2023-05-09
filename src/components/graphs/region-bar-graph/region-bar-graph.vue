@@ -105,7 +105,7 @@ export default Vue.extend({
           {
             barPercentage: 1,
             categoryPercentage: 0.5,
-            label: "Selected Year",
+            label: i18n.t("regionalOverview.selectedYear"),
             data: this.selectedYearCountriesData,
             barThickness: 40,
             backgroundColor: "#CED4DA",
@@ -113,7 +113,7 @@ export default Vue.extend({
           {
             barPercentage: 1,
             categoryPercentage: 0.5,
-            label: "Default Year",
+            label: i18n.t("regionalOverview.defaultYear"),
             data: this.defaultYearCountriesData,
             barThickness: 40,
             backgroundColor: ({ parsed: { y } }) => {
