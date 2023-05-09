@@ -50,7 +50,7 @@ describe("Header ", () => {
 
     const mockPush = vi.fn();
     wrapper.vm.$router = { push: mockPush };
-    expect(wrapper.findAll(".hd-element").length).to.equal(5);
+    expect(wrapper.findAll(".hd-element").length).to.equal(6);
   });
 
   it("should invoke fetch all the regions api for different language", async () => {
