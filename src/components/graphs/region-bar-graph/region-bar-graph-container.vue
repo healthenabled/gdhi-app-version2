@@ -13,7 +13,6 @@ export default Vue.extend({
   data() {
     return {
       category: window.appProperties.getCategoryFilter() - 1,
-      regionCountriesData: [],
       countries: [],
       defaultYearCountriesScore: new Map(),
       selectedYearCountriesScore: new Map(),
@@ -120,7 +119,7 @@ export default Vue.extend({
 
 <style scoped lang="scss">
 @import "../../../assets/stylesheets/rtl-support";
-
+@import "../../../assets/stylesheets/components/variables";
 .container {
   height: 100%;
   margin-top: 20px;
@@ -130,12 +129,40 @@ export default Vue.extend({
   .indicator-filter-container {
     @include padding-left(16px);
     padding-top: 2px;
+    font-weight: bold;
   }
+}
+.indicator-filter-container::v-deep .filter-indicator {
+  height: 100%;
+  width: max(20vw, 120px);
+  @include margin-right(2.5vw);
+  @include margin-left(0.5vw);
 
-  .spinner {
-    text-align: center;
-    font-size: 15px;
-    margin-top: 50px;
+  &-header {
+    margin-top: 20px;
+    padding-bottom: 10px;
+    font-weight: 900;
+    font-size: 18px;
   }
+}
+.indicator-filter-container::v-deep .filter-indicator-select {
+  color: $cool-gray;
+  background-color: $white;
+  width: 100%;
+  height: 40px;
+  @include padding-left(20px);
+  @include padding-right(20px);
+  border: 1px solid #0a0a0a;
+  -webkit-appearance: none;
+  appearance: none;
+  -moz-appearance: none;
+  background: url("/static/img/arrowDown.svg") no-repeat;
+  background-position-y: 50%;
+  background-size: 15px;
+}
+.spinner {
+  text-align: center;
+  font-size: 15px;
+  margin-top: 50px;
 }
 </style>

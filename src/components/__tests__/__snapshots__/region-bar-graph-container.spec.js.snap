@@ -1,0 +1,27 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Region Bar Graph Container > should render region bar graph container 1`] = `
+<div
+  class="box overall-card container content-width"
+  data-v-f3f39466=""
+>
+  <div
+    class="indicator-filter-container"
+    data-v-f3f39466=""
+  >
+    <indicatorfilter-stub
+      data-v-f3f39466=""
+      title="countryProfile.countryProgressLineChart.indicatorGroupingDescription"
+    />
+  </div>
+  <div
+    class="spinner"
+    data-v-f3f39466=""
+  >
+    <i
+      class="fa fa-spinner fa-pulse fa-3x fa-fw"
+      data-v-f3f39466=""
+    />
+  </div>
+</div>
+`;

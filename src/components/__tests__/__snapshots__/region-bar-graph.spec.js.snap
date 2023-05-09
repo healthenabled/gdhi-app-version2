@@ -1,0 +1,124 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Region Bar Graph Liner > should render Graph when mounted and create a new Chart instance 1`] = `
+<div
+  class="graph"
+  data-v-6edbe18b=""
+>
+  <div
+    class="graph-container"
+    data-v-6edbe18b=""
+    style="--width: 1500px;"
+  >
+    <canvas
+      data-v-6edbe18b=""
+      id="bar-graph"
+    />
+  </div>
+</div>
+`;
+
+exports[`Region Bar Graph Liner > should render Graph when mounted and create a new Chart instance 2`] = `
+{
+  "data": {
+    "datasets": [
+      {
+        "backgroundColor": "#CED4DA",
+        "barPercentage": 1,
+        "barThickness": 40,
+        "categoryPercentage": 0.5,
+        "data": [],
+        "label": "Selected year",
+      },
+      {
+        "backgroundColor": [Function],
+        "barPercentage": 1,
+        "barThickness": 40,
+        "categoryPercentage": 0.5,
+        "data": [],
+        "label": "Default year",
+      },
+    ],
+    "labels": [],
+  },
+  "options": {
+    "animation": false,
+    "clip": false,
+    "layout": {
+      "padding": {
+        "bottom": 0,
+        "left": 60,
+        "right": 80,
+        "top": 60,
+      },
+    },
+    "maintainAspectRatio": false,
+    "plugins": {
+      "legend": {
+        "display": false,
+      },
+      "tooltip": {
+        "rtl": false,
+      },
+    },
+    "responsive": true,
+    "scales": {
+      "x": {
+        "border": {
+          "color": "#ced4da",
+          "dash": [
+            2,
+            4,
+          ],
+          "width": 1,
+        },
+        "grid": {
+          "display": true,
+          "drawTicks": true,
+          "lineWidth": 0,
+          "tickColor": "white",
+          "tickLength": 16,
+          "tickWidth": 1.5,
+        },
+        "reverse": false,
+        "ticks": {
+          "color": "#0A0A0A",
+          "font": {
+            "lineHeight": "16.94px",
+            "size": 16,
+            "weight": 400,
+          },
+        },
+      },
+      "y": {
+        "border": {
+          "color": "#ced4da",
+          "dash": [
+            2,
+            2,
+          ],
+          "width": 0,
+        },
+        "grid": {
+          "drawTicks": true,
+          "lineWidth": 1,
+          "tickColor": "white",
+          "tickLength": 16,
+        },
+        "max": 5,
+        "min": 0,
+        "position": "left",
+        "ticks": {
+          "callback": [Function],
+          "color": "#0A0A0A",
+          "font": {
+            "size": 16,
+            "weight": 400,
+          },
+        },
+      },
+    },
+  },
+  "type": "bar",
+}
+`;
