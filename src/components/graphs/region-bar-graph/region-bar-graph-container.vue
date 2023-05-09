@@ -102,7 +102,6 @@ export default Vue.extend({
   <div class="box overall-card container content-width">
     <div class="indicator-filter-container">
       <indicatorFilter
-        class="title"
         title="countryProfile.countryProgressLineChart.indicatorGroupingDescription"
       />
     </div>

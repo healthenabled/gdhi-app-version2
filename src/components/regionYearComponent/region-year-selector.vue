@@ -40,7 +40,7 @@ export default Vue.extend({
 </script>
 
 <template>
-  <div class="year-indicator">
+  <div class="year-indicator" v-if="years.length">
     <div class="year-text">
       <svg
         width="20"

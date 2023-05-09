@@ -73,6 +73,9 @@ export default Vue.extend({
       :year="year"
       :locale="locale"
     />
+    <div v-else class="error">
+      {{ $t("worldMap.indicatorPanel.noDigitalIndicatorAvailable") }}
+    </div>
   </div>
 </template>
 

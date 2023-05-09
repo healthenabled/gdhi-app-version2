@@ -1,3 +1,4 @@
+@import "../../assets/stylesheets/components/variables";
 .region-container {
   display: flex;
   flex-direction: row;
@@ -19,4 +20,12 @@
   display: flex;
   justify-content: flex-end;
   margin-top: 40px;
+}
+
+.error {
+  text-transform: capitalize;
+  color: $negative;
+  margin-top: 50px;
+  text-align: center;
+  font-size: 20px;
 }

@@ -26,6 +26,11 @@ exports[`Region Overview > should render regional overview 1`] = `
       />
     </div>
   </div>
-  <!---->
+  <div
+    class="error"
+    data-v-e090c329=""
+  >
+     No Digital Health Indicators Available 
+  </div>
 </div>
 `;
