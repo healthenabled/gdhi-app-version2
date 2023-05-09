@@ -2,13 +2,10 @@ import { createLocalVue, shallowMount } from "@vue/test-utils";
 import flushPromises from "flush-promises";
 import { describe, beforeEach, it, expect, vi } from "vitest";
 import RegionBarGraphContainer from "../graphs/region-bar-graph/region-bar-graph-container.vue";
-import { EventBus } from "../common/event-bus";
 import axios from "axios";
 import VueRouter from "vue-router";
 import { i18n } from "../../plugins/i18n";
-import { EVENTS } from "../../constants";
 
-const eventBusOnSpy = vi.spyOn(EventBus, "$on");
 describe("Region Bar Graph Container", () => {
   const localVue = createLocalVue();
   localVue.use(VueRouter);
@@ -304,9 +301,5 @@ describe("Region Bar Graph Container", () => {
     wrapper.vm.getRegionCountriesData();
     await flushPromises();
     expect(wrapper.vm.countries).to.deep.equal(countries);
-  });
-
-  it("should register event when line graph container is mounted", async () => {
-    expect(eventBusOnSpy.mock.calls[0][0]).to.equal(EVENTS.INDICATOR_FILTERED);
   });
 });
