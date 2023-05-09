@@ -10,13 +10,3 @@
   overflow-x: scroll;
   overflow-y: hidden;
 }
-
-::-webkit-scrollbar {
-  width: 0px;
-  height: 6px;
-}
-
-::-webkit-scrollbar-thumb:horizontal {
-  border-radius: 10px;
-  background: #ccc;
-}

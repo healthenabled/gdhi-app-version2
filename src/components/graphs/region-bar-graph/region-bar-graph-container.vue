@@ -5,6 +5,7 @@ import RegionBarGraph from "./region-bar-graph.vue";
 import indicatorFilter from "../../indicatorFilter/indicator-filter.vue";
 import { EventBus } from "../../common/event-bus";
 import { EVENTS } from "../../../constants";
+import common from "../../../common/common";
 
 export default Vue.extend({
   name: "RegionBarGraphContainer",
@@ -73,6 +74,7 @@ export default Vue.extend({
       });
     },
     getRegionCountriesData() {
+      common.showLoading();
       const regionId = this.$route.params.regionId;
       const years = [this.defaultYear, this.year];
       axios
@@ -89,6 +91,7 @@ export default Vue.extend({
           this.getCountriesNames(regionCountriesData);
           this.getDefaultYearCountriesData(regionCountriesData);
           this.getSelectedYearCountriesData(regionCountriesData);
+          common.hideLoading();
         });
     },
   },
@@ -99,6 +102,7 @@ export default Vue.extend({
   <div class="box overall-card container content-width">
     <div class="indicator-filter-container">
       <indicatorFilter
+        class="title"
         title="countryProfile.countryProgressLineChart.indicatorGroupingDescription"
       />
     </div>
@@ -109,6 +113,9 @@ export default Vue.extend({
       :selectedYearData="selectedYearCountriesScore"
       :categoryFilter="category"
     />
+    <div v-else class="spinner">
+      <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+    </div>
   </div>
 </template>
 
@@ -124,6 +131,12 @@ export default Vue.extend({
   .indicator-filter-container {
     @include padding-left(16px);
     padding-top: 2px;
+  }
+
+  .spinner {
+    text-align: center;
+    font-size: 15px;
+    margin-top: 50px;
   }
 }
 </style>
