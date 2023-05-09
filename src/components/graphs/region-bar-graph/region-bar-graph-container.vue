@@ -3,8 +3,6 @@ import Vue from "vue";
 import axios from "axios";
 import RegionBarGraph from "./region-bar-graph.vue";
 import indicatorFilter from "../../indicatorFilter/indicator-filter.vue";
-import { EventBus } from "../../common/event-bus";
-import { EVENTS } from "../../../constants";
 import common from "../../../common/common";
 
 export default Vue.extend({
@@ -25,9 +23,6 @@ export default Vue.extend({
   },
   mounted() {
     this.getRegionCountriesData();
-    EventBus.$on(EVENTS.INDICATOR_FILTERED, () => {
-      this.category = window.appProperties.getCategoryFilter() - 1;
-    });
   },
   watch: {
     locale() {
@@ -93,6 +88,9 @@ export default Vue.extend({
           common.hideLoading();
         });
     },
+    categoryChange() {
+      this.category = window.appProperties.getCategoryFilter() - 1;
+    },
   },
 });
 </script>
@@ -101,6 +99,7 @@ export default Vue.extend({
   <div class="box overall-card container content-width">
     <div class="indicator-filter-container">
       <indicatorFilter
+        @categoryFiltered="categoryChange"
         title="countryProfile.countryProgressLineChart.indicatorGroupingDescription"
       />
     </div>

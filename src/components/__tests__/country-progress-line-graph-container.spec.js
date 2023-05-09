@@ -2,11 +2,9 @@ import { createLocalVue, shallowMount } from "@vue/test-utils";
 import flushPromises from "flush-promises";
 import { describe, beforeEach, it, expect, vi } from "vitest";
 import CountryProgressLineGraphContainer from "../graphs/country-progress-line-graph/country-progress-line-graph-container.vue";
-import { EventBus } from "../common/event-bus";
 import axios from "axios";
 import VueRouter from "vue-router";
 
-const eventBusOnSpy = vi.spyOn(EventBus, "$on");
 describe("Country Progress Line Graph Container", () => {
   const localVue = createLocalVue();
   localVue.use(VueRouter);
@@ -76,9 +74,5 @@ describe("Country Progress Line Graph Container", () => {
   it("should fetch distinct years on mount", async () => {
     await flushPromises();
     expect(wrapper.vm.years).to.deep.equal(yearsResponse.years);
-  });
-
-  it("should register event when line graph container is mounted", async () => {
-    expect(eventBusOnSpy.mock.calls[0][0]).to.equal("indicator:filtered");
   });
 });

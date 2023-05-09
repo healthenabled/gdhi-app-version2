@@ -53,6 +53,7 @@ export default Vue.extend({
   },
   beforeDestroy() {
     EventBus.$off("Map:Searched", this.onSearchTriggered);
+    EventBus.$off(EVENTS.INDICATOR_FILTERED);
   },
   methods: {
     resetFilters() {

@@ -49,6 +49,7 @@ export default Vue.extend({
         category: this.categories[this.categoryValue - 1],
       });
       EventBus.$emit(EVENTS.INDICATOR_FILTERED);
+      this.$emit("categoryFiltered");
     },
 
     getBackgroundPositionX: function () {
