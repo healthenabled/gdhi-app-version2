@@ -122,7 +122,9 @@ export default Vue.extend({
             class="hd-element header-link"
             ><span>{{ $t("methodology.text") }}</span></router-link
           >
-          <router-link :to="{ path: '/' }" class="hd-element header-link"
+          <router-link
+            :to="{ path: '/country_list' }"
+            class="hd-element header-link"
             ><span style="padding-left: 20px">{{
               $t("headers.viewAllCountries")
             }}</span></router-link
