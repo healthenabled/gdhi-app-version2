@@ -13,7 +13,7 @@
     margin-top: 20px;
     &:after {
       z-index: 2;
-      color: $white;
+      color: $black;
       @include right(20px);
     }
     .sub-header {
