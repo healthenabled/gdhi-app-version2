@@ -116,6 +116,13 @@ export default Vue.extend({
               </div>
             </div>
           </a>
+          <router-link
+            :to="{ path: '/country_list' }"
+            class="hd-element header-link"
+            ><span style="margin: 0px 20px">{{
+              $t("headers.countries")
+            }}</span></router-link
+          >
 
           <router-link
             :to="{ path: '/indicators_info' }"
@@ -126,13 +133,6 @@ export default Vue.extend({
             :to="{ path: '/methodology' }"
             class="hd-element header-link"
             ><span>{{ $t("methodology.text") }}</span></router-link
-          >
-          <router-link
-            :to="{ path: '/country_list' }"
-            class="hd-element header-link"
-            ><span style="margin: 0px 20px">{{
-              $t("headers.viewAllCountries")
-            }}</span></router-link
           >
         </div>
         <div class="header-language-selector">
