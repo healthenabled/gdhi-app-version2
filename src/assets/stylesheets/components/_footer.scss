@@ -26,9 +26,13 @@
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: $mobile-width) {
   .contact-info {
     display: none;
+  }
+  .footer {
+    position: fixed;
+    bottom: 0;
   }
   .website-info {
     display: contents;

@@ -185,7 +185,7 @@
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: $mobile-width) {
   .header {
     .sub-header-description {
       display: none;

@@ -34,7 +34,7 @@
 select::-ms-expand {
   display: none;
 }
-@media (max-width: 480px) {
+@media (max-width: $mobile-width) {
   .filter-indicator {
     display: none;
   }

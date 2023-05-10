@@ -47,7 +47,7 @@
     background: $autocomplete-highlight;
   }
 }
-@media (max-width: 480px) {
+@media (max-width: $mobile-width) {
   .search-box {
     width: max(20vw, 100%);
   }
