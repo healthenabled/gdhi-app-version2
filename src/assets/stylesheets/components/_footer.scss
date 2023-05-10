@@ -16,9 +16,24 @@
     @extend .copy-italics;
   }
 }
+.website-info {
+  display: none;
+}
 
 @media print {
   .footer {
     display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-info {
+    display: none;
+  }
+  .website-info {
+    display: contents;
+    font-size: 1em;
+    font-weight: $regular;
+    font-family: "InterItalic", sans-serif;
   }
 }

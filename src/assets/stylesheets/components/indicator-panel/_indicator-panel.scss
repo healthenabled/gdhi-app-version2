@@ -213,3 +213,11 @@
     top: 40px;
   }
 }
+@media (max-width: 480px) {
+  .indicator-panel {
+    width: max(20vw, 100%);
+  }
+  .indicator-panel-filter-container {
+    width: max(20vw, 100%);
+  }
+}

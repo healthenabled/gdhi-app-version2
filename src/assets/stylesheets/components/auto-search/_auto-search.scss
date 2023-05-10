@@ -47,3 +47,8 @@
     background: $autocomplete-highlight;
   }
 }
+@media (max-width: 480px) {
+  .search-box {
+    width: max(20vw, 100%);
+  }
+}

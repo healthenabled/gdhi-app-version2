@@ -184,3 +184,37 @@
     display: none;
   }
 }
+
+@media (max-width: 480px) {
+  .header {
+    .sub-header-description {
+      display: none;
+    }
+    .sub-header {
+      display: flex;
+      flex-direction: row;
+    }
+    .sub-header-title {
+      font-size: 18px;
+      padding-right: 5px;
+    }
+    .sub-header-map-legend {
+      width: 45%;
+    }
+    .hd-element:nth-child(3) {
+      display: none;
+    }
+    .hd-element:nth-child(4) {
+      display: none;
+    }
+    .hd-element:nth-child(5) {
+      display: none;
+    }
+    .hd-element:nth-child(6) {
+      display: none;
+    }
+    .header-language-selector {
+      display: none;
+    }
+  }
+}

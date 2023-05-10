@@ -34,3 +34,8 @@
 select::-ms-expand {
   display: none;
 }
+@media (max-width: 480px) {
+  .phase-indicator {
+    display: none;
+  }
+}
