@@ -201,6 +201,9 @@
     .sub-header-map-legend {
       width: 45%;
     }
+    .hd-element:nth-child(2) {
+      min-width: 120px;
+    }
     .hd-element:nth-child(3) {
       display: none;
     }
