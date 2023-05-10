@@ -1,12 +1,23 @@
 .graph-container {
-  height: 900px;
+  height: 850px;
   width: var(--width);
 }
 
 .graph {
-  height: 1000px;
+  height: 900px;
   width: 1600px;
-  overflow: -moz-scrollbars-vertical;
   overflow-x: scroll;
   overflow-y: hidden;
+}
+::-webkit-scrollbar {
+  width: 0px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #e9e5e58d;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:horizontal {
+  border-radius: 10px;
+  background: #ccc;
 }

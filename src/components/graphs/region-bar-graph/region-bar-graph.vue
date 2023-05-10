@@ -33,7 +33,7 @@ export default Vue.extend({
   },
   computed: {
     cssProps() {
-      let multiplier = this.labels.length <= 5 ? 10 : 120;
+      let multiplier = this.labels.length <= 5 ? 10 : 125;
       return {
         "--width": 1500 + this.labels.length * multiplier + "px",
       };
