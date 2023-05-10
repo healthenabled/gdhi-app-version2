@@ -20,7 +20,7 @@ export const ar = {
     indicators: "المؤشرات",
     searchBoxPlaceholder: "البحث عن طريق اسم البلد",
     regionalOverview: "نظرة عامة إقليمية",
-    viewAllCountries: "عرض جميع البلدان",
+    countries: "بلدان",
   },
   mixed: {
     textOverAll: "المؤشر العام",

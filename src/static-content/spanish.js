@@ -20,7 +20,7 @@ export const es = {
     indicators: "Indicadores",
     searchBoxPlaceholder: "Búsqueda por nombre de país",
     regionalOverview: "Resumen regional",
-    viewAllCountries: "Ver todos los países",
+    countries: "Países",
   },
   mixed: {
     textOverAll: "En general",
