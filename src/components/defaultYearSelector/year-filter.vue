@@ -11,7 +11,7 @@
     >
       <option
         v-for="(year, index) in years"
-        :key="index"
+        :key="index + $route?.params?.regionId"
         :value="year"
         :selected="year === selectedYear"
       >

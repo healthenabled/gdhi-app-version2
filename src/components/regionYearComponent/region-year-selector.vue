@@ -55,7 +55,6 @@ export default Vue.extend({
     </div>
     <YearFilter
       :selectedYear="latestYear"
-      :key="latestYear"
       :years="years"
       shouldRespectTranslation
       @yearChanged="yearChanged"

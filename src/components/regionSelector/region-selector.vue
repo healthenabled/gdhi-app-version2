@@ -12,6 +12,7 @@ export default Vue.extend({
     return {
       regions: [],
       selectedRegion: "",
+      locale: "en",
     };
   },
 

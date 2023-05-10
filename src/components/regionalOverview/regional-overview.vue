@@ -19,7 +19,7 @@ export default Vue.extend({
       regionName: "",
       defaultYear: "",
       year: "",
-      locale: this.$i18n.locale,
+      locale: "en",
     };
   },
   methods: {
