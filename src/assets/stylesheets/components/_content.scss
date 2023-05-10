@@ -34,7 +34,8 @@
       width: 100%;
     }
     .hero-title {
-      background-color: rgba(#ced4da, 0.5);
+      background-color: $gdhi-light-gray;
+      opacity: 0.5;
       color: $black;
       position: absolute;
       font-size: 2.5rem;
