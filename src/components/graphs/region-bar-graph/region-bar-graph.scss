@@ -6,7 +6,7 @@
 .graph {
   height: 900px;
   width: 1600px;
-  overflow-x: scroll;
+  overflow-x: auto;
   overflow-y: hidden;
 }
 ::-webkit-scrollbar {
