@@ -209,7 +209,7 @@
   .accordion::after {
     @include margin-left(10vw);
     cursor: pointer;
-    top: 29px;
+    top: 10px;
   }
   .category-accordion-content {
     margin-top: 20px;
