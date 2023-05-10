@@ -36,6 +36,11 @@ export default Vue.extend({
   watch: {
     $route(to) {
       this.dropdownClicked = to.fullPath.includes("regional_overview");
+      if (to.fullPath.includes("regional_overview")) {
+        document.getElementsByClassName("dropbtn")[0].style.color = "white";
+      } else {
+        document.getElementsByClassName("dropbtn")[0].style.color = "black";
+      }
     },
   },
   methods: {

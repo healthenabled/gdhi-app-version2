@@ -138,6 +138,7 @@
   .router-link-exact-active {
     border-bottom: 4px solid $logo-blue;
     background: $selected-menu;
+    color: $white;
   }
 
   .language-selector {
