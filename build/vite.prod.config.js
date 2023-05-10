@@ -11,11 +11,16 @@ import { viteStaticCopy } from "vite-plugin-static-copy";
 
 const renderChunks = (deps) => {
   let chunks = {};
-
+  chunks["vue"] = [];
+  chunks["chart"] = [];
+  chunks["utils"] = [];
   Object.keys(deps).forEach((key) => {
-    if (key.includes("vuejs") || key.includes("dateformat")) return;
-    if (key.includes("vue")) return;
-    chunks[key] = [key];
+    if (key.includes("vue") || key.includes("vee") || key.includes("date"))
+      chunks["vue"].push(key);
+    else if (key.includes("chart")) chunks["chart"].push(key);
+    else if (key.includes("yup") || key.includes("papaparse"))
+      chunks["utils"].push(key);
+    else chunks[key] = [key];
   });
   return chunks;
 };
