@@ -19,7 +19,7 @@ export const es = {
     worldMap: "Mapa del mundo",
     indicators: "Indicadores",
     searchBoxPlaceholder: "Búsqueda por nombre de país",
-    regionalOverview: "Resumen regional",
+    regions: "Regiones",
     countries: "Países",
   },
   mixed: {

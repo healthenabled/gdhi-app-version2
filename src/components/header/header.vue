@@ -100,7 +100,7 @@ export default Vue.extend({
           >
             <div class="dropdown">
               <button class="dropbtn">
-                {{ $t("headers.regionalOverview") }}
+                {{ $t("headers.regions") }}
                 <span
                   :class="onHover ? 'dropDown-expanded' : 'dropDown'"
                 ></span>

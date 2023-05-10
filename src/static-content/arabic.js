@@ -19,7 +19,7 @@ export const ar = {
     worldMap: "خريطة العالم",
     indicators: "المؤشرات",
     searchBoxPlaceholder: "البحث عن طريق اسم البلد",
-    regionalOverview: "نظرة عامة إقليمية",
+    regions: "المناطق",
     countries: "بلدان",
   },
   mixed: {
