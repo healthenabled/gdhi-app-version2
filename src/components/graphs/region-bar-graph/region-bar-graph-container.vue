@@ -129,6 +129,7 @@ export default Vue.extend({
     @include padding-left(16px);
     padding-top: 2px;
     font-weight: bold;
+    margin-bottom: 20px;
   }
 }
 .indicator-filter-container::v-deep .filter-indicator {

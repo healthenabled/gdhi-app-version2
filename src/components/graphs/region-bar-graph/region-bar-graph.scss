@@ -1,11 +1,10 @@
 .graph-container {
-  height: 850px;
+  height: 750px;
   width: var(--width);
 }
-
 .graph {
   height: 900px;
-  width: 1600px;
+  width: 100%;
   overflow-x: auto;
   overflow-y: hidden;
 }
