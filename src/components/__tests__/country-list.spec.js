@@ -1,5 +1,5 @@
 import { createLocalVue, mount } from "@vue/test-utils";
-import { describe, expect, it, beforeEach, afterEach, vi } from "vitest";
+import { describe, expect, it, beforeEach, vi } from "vitest";
 import VueRouter from "vue-router";
 import CountryList from "../countryList/country-list.vue";
 import { i18n } from "../../plugins/i18n";
@@ -14,14 +14,7 @@ describe("Country List", () => {
   const localVue = createLocalVue();
   localVue.use(VueRouter);
   const router = new VueRouter();
-  window.appProperties = {
-    getCategoryFilter: function () {
-      return "";
-    },
-    getPhaseFilter: function () {
-      return "";
-    },
-  };
+
   let responseData = {
     countryHealthScores: [
       {
