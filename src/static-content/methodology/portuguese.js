@@ -35,4 +35,37 @@ export const methodology = {
     "O GDHM utiliza os principais indicadores em cada categoria para calcular a média geral do país. Embora os subindicadores sejam " +
     "incluídos para adicionar maior especificidade a indicadores GDHM específicos, estes não são usados no cálculo da Fase Componente ou das Médias " +
     "Globais ou do País. O GDHM permite que os países se comparem com a Média Global ou com uma fase geral específica.",
+  title4: "Dados pré-preenchidos de fontes publicamente disponíveis",
+  paragraph5:
+    "Para os países que não concluíram uma pesquisa no Global Digital Health Monitor, os dados foram extraídos de informações publicamente disponíveis para pré-preencher os indicadores abaixo para dar uma noção geral de maturidade mais ampla do ecossistema digital em alinhamento com indicadores relevantes. Embora esses dados sirvam como um proxy para esses indicadores de saúde digital para os países, os dados preenchidos por funcionários do governo fornecem uma imagem mais precisa e robusta do progresso da saúde digital em cada país. Encorajamos os países que não enviaram dados completos a solicitar um link de país para fazê-lo o mais cedo possível.",
+  indicators: {
+    bulletin: {
+      title:
+        "Indicadores que usaram dados de proxy de fontes publicamente disponíveis para pré-preencher países que não concluíram uma pesquisa: ",
+      line1:
+        "Indicador 2a: A saúde é priorizada nas políticas nacionais de transformação digital e governança de dados",
+      line2:
+        "Indicador 4: Análise, planejamento e monitoramento de diversidade, equidade e direitos humanos incluídos nas estratégias e planos nacionais de saúde digital",
+      line3:
+        "Indicador 6a: participação do setor privado e investimentos em saúde digital",
+      line4: "Indicador 7: quadro jurídico para proteção de dados (segurança)",
+      line5:
+        "Indicador 8: Leis ou regulamentos para privacidade, consentimento, confidencialidade e acesso a informações de saúde (Privacidade)",
+      line6:
+        "Indicador 9: Protocolo para regulamentar ou certificar dispositivos e/ou serviços de saúde - incluindo provisões para IA e algoritmos (em estágios mais altos de maturidade)",
+      line7: "Indicador 17: prontidão da rede",
+      line8:
+        "Indicador 18: Planejamento e suporte para manutenção contínua da infraestrutura de saúde digital",
+    },
+    paragraph: {
+      start: "As fontes de dados incluíram o ",
+      govTech: "Indicador de Maturidade GovTech",
+      GTMI: "(GTMI)",
+      NRI: "Índice de prontidão de rede",
+      GCI: "Índice Global de Cibersegurança",
+      GSMA: "Índice de Conectividade Móvel GSMA",
+      the: "a",
+      andThe: "e a",
+    },
+  },
 };
