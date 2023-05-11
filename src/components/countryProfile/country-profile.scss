@@ -444,3 +444,16 @@
     margin-right: 10px;
   }
 }
+
+@media (max-width: $mobile-width) {
+  .country-detail {
+    .header-section {
+      .header-section-button-container {
+        display: none;
+      }
+      .region-section {
+        display: none;
+      }
+    }
+  }
+}
