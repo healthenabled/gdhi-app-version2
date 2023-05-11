@@ -35,3 +35,11 @@
 select::-ms-expand {
   display: none;
 }
+
+@media (max-width: $mobile-width) {
+  .year-indicator {
+    .width {
+      width: 100%;
+    }
+  }
+}

@@ -455,5 +455,17 @@
         display: none;
       }
     }
+    .overall-card {
+      .title {
+        width: 100%;
+      }
+      .year-select-container {
+        flex-direction: column;
+      }
+    }
+    .select-year-desc {
+      width: 100%;
+      margin-bottom: 10px;
+    }
   }
 }
