@@ -36,4 +36,38 @@ export const methodology = {
     "        While sub-indicators are included to add greater specificity to specific GDHM indicators,\n" +
     "        they are not used in calculating the Component Phase or the Country or Global Averages.\n" +
     "        The GDHM enables countries to benchmark themselves against the Global Average or a specific overall phase.",
+
+  title4: "Pre-populated data from publicly available sources",
+  paragraph5:
+    "For countries that have not completed a survey in the Global Digital Health Monitor, data was extracted from publicly available information to pre-populate the indicators below to give a general sense of broader digital ecosystem maturity in alignment with relevant indicators. While this data serves as a proxy for these digital health indicators for countries, data completed by government officials provide a more accurate and robust picture of the digital health progress in each country. We encourage countries that have not submitted full data to request a country link to do so at their earliest convenience.\n",
+  indicators: {
+    bulletin: {
+      title:
+        "Indicators that used proxy data from publicly available sources to pre-populate countries that have not completed a survey: ",
+      line1:
+        "Indicator 2a: Health is prioritized in national digital transformation and data governance policies",
+      line2:
+        "Indicator 4: Diversity, Equity, and human rights analysis, planning and monitoring included in national digital health strategies and plans",
+      line3:
+        "Indicator 6a: private sector participation and investments in digital health",
+      line4: "Indicator 7: legal framework for data protection (security)",
+      line5:
+        "Indicator 8: Laws or Regulations for privacy, consent, confidentiality, and access to health information (Privacy)",
+      line6:
+        "Indicator 9: Protocol for regulating or certifying devices and/or health services- including provisions for AI and algorithms (at higher stages of maturity)",
+      line7: "Indicator 17: Network readiness",
+      line8:
+        "Indicator 18: Planning and support for ongoing digital health infrastructure maintenance",
+    },
+    paragraph: {
+      start: "Data sources included the ",
+      govTech: "GovTech Maturity Indicator",
+      GTMI: "(GTMI)",
+      NRI: "Network Readiness Index",
+      GCI: "Global Cybersecurity Index",
+      GSMA: "GSMA Mobile Connectivity Index",
+      the: "the",
+      andThe: "and the",
+    },
+  },
 };
