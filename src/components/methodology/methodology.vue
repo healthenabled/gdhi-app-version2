@@ -96,14 +96,6 @@
             {{ $t("methodology.indicators.paragraph.NRI") }}</a
           >,
 
-          {{ $t("methodology.indicators.paragraph.the") }}
-          <a
-            href="https://www.mobileconnectivityindex.com/connectivityIndex.html"
-            target="_blank"
-            class="link-blue"
-          >
-            {{ $t("methodology.indicators.paragraph.GCI") }}</a
-          >,
           {{ $t("methodology.indicators.paragraph.andThe") }}
           <a
             href="https://www.mobileconnectivityindex.com/connectivityIndex.html"
