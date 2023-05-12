@@ -8,6 +8,7 @@ import vue2Jsx from "@vitejs/plugin-vue2-jsx";
 import { visualizer } from "rollup-plugin-visualizer";
 import { dependencies } from "../package.json";
 import { viteStaticCopy } from "vite-plugin-static-copy";
+import sri from "rollup-plugin-sri";
 
 const renderChunks = (deps) => {
   let chunks = {};
@@ -60,6 +61,17 @@ export default defineConfig({
         },
       ],
     }),
+    {
+      enforce: "post",
+      ...sri({
+        publicPath: "/",
+        selectors: [
+          "script",
+          "link[rel=stylesheet]",
+          "link[rel=modulepreload]",
+        ],
+      }),
+    },
   ],
   resolve: {
     alias: {
