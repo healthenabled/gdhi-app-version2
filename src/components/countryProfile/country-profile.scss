@@ -450,6 +450,9 @@
 
 @media (max-width: $mobile-width) {
   .country-detail {
+    .comparison-graph-panel {
+      height: 60vh;
+    }
     .category-accordion-content {
       flex-direction: column;
       .indicator {

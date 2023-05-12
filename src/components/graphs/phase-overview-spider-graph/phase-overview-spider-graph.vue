@@ -226,7 +226,7 @@ export default Vue.extend({
 
 <style scoped lang="scss">
 @import "../../../assets/stylesheets/_rtl-support.scss";
-
+@import "../../../assets/stylesheets/components/variables";
 .canvas-container {
   height: 60vh;
   width: 110%;
@@ -234,5 +234,11 @@ export default Vue.extend({
 canvas {
   margin-top: -8vh;
   @include margin-left(10px);
+}
+@media (max-width: $mobile-width) {
+  .canvas-container {
+    height: auto;
+    width: 100%;
+  }
 }
 </style>

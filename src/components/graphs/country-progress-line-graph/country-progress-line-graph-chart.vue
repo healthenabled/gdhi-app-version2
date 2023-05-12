@@ -287,8 +287,16 @@ export default Vue.extend({
 });
 </script>
 <style scoped lang="scss">
+@import "../../../assets/stylesheets/components/variables";
 .line-chart-container {
   height: 85%;
   width: 95%;
+}
+@media (max-width: $mobile-width) {
+  .line-chart-container {
+    height: 100%;
+    width: 95%;
+    margin-left: -30px;
+  }
 }
 </style>
