@@ -6,7 +6,13 @@ import router from "./router";
 import {} from "./global.js";
 import { i18n } from "./plugins/i18n";
 import VueCookies from "vue-cookies";
+import VueGtag from "vue-gtag";
 
+if (import.meta.env.VITE_IS_GOOGLE_ANALYTICS_ENABLED === "true") {
+  Vue.use(VueGtag, {
+    config: { id: import.meta.env.VITE_GOOGLE_ANALYTICS_ID },
+  });
+}
 Vue.use(VueCookies);
 VueCookies.config("7d");
 

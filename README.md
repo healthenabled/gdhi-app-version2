@@ -22,7 +22,10 @@ See [Vite Configuration Reference](https://vitejs.dev/config/).
 ### Install and setup nvm using [the link](https://github.com/nvm-sh/nvm#installing-and-updating)
 
 The project uses Node v16 and YarnV2 as package manager
+Environment variables:
+`VITE_IS_GOOGLE_ANALYTICS_ENABLED=true or false`
 
+`VITE_GOOGLE_ANALYTICS_ID={analytics gid}`
 ```sh
 nvm use
 ```
