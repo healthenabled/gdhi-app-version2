@@ -67,7 +67,6 @@ export default Vue.extend({
             this.currentYear
         );
       } else if (action === "Edit Live Data") {
-        console.log("EDIT LIVE DATA");
         this.openUrl(
           location.origin +
             "/admin/health_indicator_questionnaire/" +

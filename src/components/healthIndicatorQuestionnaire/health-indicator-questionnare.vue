@@ -11,6 +11,7 @@
       :isAdmin="isAdmin"
       :hasPreviousYearData="hasPreviousYearData"
       :updatedDate="updatedDate"
+      :isEditPublish="isEditPublish"
     ></edit-questionnaire>
   </div>
 </template>
@@ -61,6 +62,7 @@ export default Vue.extend({
       isAdmin: this.$route.path.match("admin") != null,
       updatedDate: "",
       isViewPublish: false,
+      isEditPublish: false,
       locale: "en",
     };
   },
@@ -68,6 +70,7 @@ export default Vue.extend({
     this.showEdit = true;
     common.showLoading();
     this.isViewPublish = this.$route.path.match("viewPublished") != null;
+    this.isEditPublish = this.$route.path.match("editPublished") != null;
     this.prepareDataForViewForm(
       this.$route.params.countryUUID,
       this.$route.params.currentYear
@@ -169,6 +172,13 @@ export default Vue.extend({
         !this.hasPreviousYearData
       ) {
         this.showEdit = false;
+      }
+      if (
+        scores.data.status == "PUBLISHED" &&
+        this.isEditPublish &&
+        this.isAdmin
+      ) {
+        this.showEdit = true;
       }
       if (scores.data.healthIndicators.length == 0) {
         this.setUpHealthIndicators(options.data, false);

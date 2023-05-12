@@ -43,8 +43,19 @@
             >{{ $t("healthIndicatorQuestionnaire.downloadPDF") }}
           </button></span
         >
-        <span v-if="status === 'REVIEW_PENDING' && isAdmin">
+        <span v-if="status === 'PUBLISHED' && isAdmin && isEditPublish">
           <span v-if="showEdit"
+            ><button
+              class="submit-btn btn btn-green"
+              @click="validate('publish')"
+            >
+              <i class="fa fa-check" aria-hidden="true"></i
+              >{{ $t("healthIndicatorQuestionnaire.republish") }}
+            </button></span
+          >
+        </span>
+        <span v-if="status === 'REVIEW_PENDING' && isAdmin">
+          <span v-if="showEdit && !isEditPublish"
             ><button
               class="submit-btn btn btn-primary"
               @click="saveData('saveCorrection')"
@@ -53,7 +64,7 @@
               >{{ $t("healthIndicatorQuestionnaire.save") }}
             </button></span
           >
-          <span v-if="showEdit"
+          <span v-if="showEdit && !isEditPublish"
             ><button
               class="submit-btn btn btn-green"
               @click="validate('publish')"
@@ -62,7 +73,7 @@
               >{{ $t("healthIndicatorQuestionnaire.publish") }}
             </button></span
           >
-          <span v-if="showEdit"
+          <span v-if="showEdit && !isEditPublish"
             ><button class="submit-btn btn btn-red" @click="reject()">
               <i class="fa fa-times" aria-hidden="true"></i
               >{{ $t("healthIndicatorQuestionnaire.reject") }}
@@ -71,7 +82,7 @@
           <v-dialog />
         </span>
         <span v-else>
-          <span v-if="showEdit"
+          <span v-if="showEdit && !isEditPublish"
             ><button
               class="submit-btn btn btn-primary"
               @click="saveData('save')"
@@ -80,7 +91,7 @@
               >{{ $t("healthIndicatorQuestionnaire.saveAsDraft") }}
             </button></span
           >
-          <span v-if="showEdit"
+          <span v-if="showEdit && !isEditPublish"
             ><button
               class="submit-btn btn btn-green"
               @click="validate('submit')"
@@ -827,6 +838,12 @@ export default Vue.extend({
       type: String,
       default() {
         return dateFormat(new Date(), "dd-mm-yyyy");
+      },
+    },
+    isEditPublish: {
+      type: Boolean,
+      default() {
+        return true;
       },
     },
   },

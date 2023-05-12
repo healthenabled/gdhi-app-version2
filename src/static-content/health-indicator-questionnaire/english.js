@@ -72,6 +72,7 @@ export const healthIndicatorQuestionnaire = {
   save: "Save",
   reject: "Reject",
   publish: "Publish",
+  republish: "Republish",
   confirm: "Confirm",
   cancel: "Cancel",
   note1: "These details will be displayed publicly on the GDHM platform.",
