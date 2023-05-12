@@ -294,26 +294,28 @@ export default Vue.extend({
         </div>
       </div>
       <div class="box overall-card">
-        <div class="title">
-          <div class="sub-header-country-profile">
-            {{ $t("countryProfile.overallDigitalHealthPhase") }}
+        <div class="overall-info-container">
+          <div class="title">
+            <div class="sub-header-country-profile">
+              {{ $t("countryProfile.overallDigitalHealthPhase") }}
+            </div>
+            <div class="phase-desc">
+              <p>
+                {{ $t("countryProfile.overallDigitalHealthPhaseDescription") }}
+              </p>
+            </div>
           </div>
-          <div class="phase-desc">
-            <p>
-              {{ $t("countryProfile.overallDigitalHealthPhaseDescription") }}
-            </p>
+          <div
+            :class="
+              'overall-score ' + ' phase' + healthIndicatorData.countryPhase
+            "
+          >
+            {{
+              healthIndicatorData.countryPhase
+                ? healthIndicatorData.countryPhase
+                : "NA"
+            }}
           </div>
-        </div>
-        <div
-          :class="
-            'overall-score ' + ' phase' + healthIndicatorData.countryPhase
-          "
-        >
-          {{
-            healthIndicatorData.countryPhase
-              ? healthIndicatorData.countryPhase
-              : "NA"
-          }}
         </div>
         <div class="country-progress-over-time" @click="expandCountryProgress">
           <p>{{ $t("countryProfile.countryProgressOverTime") }}</p>

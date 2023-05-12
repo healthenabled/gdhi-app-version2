@@ -444,30 +444,8 @@
     margin-right: 10px;
   }
 }
-
-@media (max-width: $mobile-width) {
-  .country-detail {
-    .header-section {
-      .header-section-button-container {
-        display: none;
-      }
-      .region-section {
-        display: none;
-      }
-    }
-    .overall-card {
-      .title {
-        width: 100%;
-      }
-      .year-select-container {
-        flex-direction: column;
-      }
-    }
-    .select-year-desc {
-      width: 100%;
-      margin-bottom: 10px;
-    }
-  }
+.overall-info-container {
+  display: flex;
 }
 
 @media (max-width: $mobile-width) {
@@ -480,6 +458,32 @@
           width: 100%;
         }
       }
+    }
+    .header-section {
+      .header-section-button-container {
+        display: none;
+      }
+      .region-section {
+        display: none;
+      }
+    }
+    .overall-card {
+      display: flex;
+      flex-direction: column;
+      .overall-info-container {
+        display: flex;
+        margin-bottom: 10px;
+      }
+      .title {
+        width: 90%;
+      }
+      .year-select-container {
+        flex-direction: column;
+      }
+    }
+    .select-year-desc {
+      width: 100%;
+      margin-bottom: 10px;
     }
   }
 }

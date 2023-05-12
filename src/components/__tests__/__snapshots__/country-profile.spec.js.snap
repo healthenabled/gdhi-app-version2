@@ -82,25 +82,29 @@ exports[`Country Profile  > should populate the data after successfull API call 
       class="box overall-card"
     >
       <div
-        class="title"
+        class="overall-info-container"
       >
         <div
-          class="sub-header-country-profile"
+          class="title"
         >
-           Overall Digital Health Phase 
+          <div
+            class="sub-header-country-profile"
+          >
+             Overall Digital Health Phase 
+          </div>
+          <div
+            class="phase-desc"
+          >
+            <p>
+               The overall score is an average of the scores for the GDHM indicators 
+            </p>
+          </div>
         </div>
         <div
-          class="phase-desc"
+          class="overall-score  phase4"
         >
-          <p>
-             The overall score is an average of the scores for the GDHM indicators 
-          </p>
+           4 
         </div>
-      </div>
-      <div
-        class="overall-score  phase4"
-      >
-         4 
       </div>
       <div
         class="country-progress-over-time"
