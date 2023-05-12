@@ -469,3 +469,17 @@
     }
   }
 }
+
+@media (max-width: $mobile-width) {
+  .country-detail {
+    .category-accordion-content {
+      flex-direction: column;
+      .indicator {
+        width: auto;
+        .score-container {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
