@@ -2,6 +2,11 @@
 import Vue from "vue";
 
 export default Vue.extend({
+  data() {
+    return {
+      editLiveData: "Edit Live Data",
+    };
+  },
   props: {
     columns: {
       type: Array,
@@ -64,6 +69,13 @@ export default Vue.extend({
               @click="actionHandler(action, row.countryUUID)"
             >
               {{ action }}
+            </button>
+            <button
+              v-if="action === 'View Live Data'"
+              class="btn btn-primary"
+              @click="actionHandler(editLiveData, row.countryUUID)"
+            >
+              {{ editLiveData }}
             </button>
           </td>
           <td v-else>{{ row.url }}</td>

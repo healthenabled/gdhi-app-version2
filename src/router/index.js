@@ -100,6 +100,13 @@ export default new Router({
           },
         },
         {
+          path: "/admin/health_indicator_questionnaire/:countryUUID/editPublished/:currentYear",
+          components: {
+            routecontent: healthIndicatorQuestionnaire,
+            languageSelect: languageSelector,
+          },
+        },
+        {
           path: "/regional_overview/:regionId",
           components: {
             routecontent: RegionalOverview,
