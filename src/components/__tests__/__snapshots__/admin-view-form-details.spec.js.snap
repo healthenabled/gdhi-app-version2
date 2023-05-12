@@ -50,6 +50,7 @@ exports[`AdminViewFormDetails > should get admin view form details data 1`] = `
                   URL
                 </span>
               </th>
+              <!---->
             </tr>
           </thead>
           <tbody>
@@ -63,6 +64,7 @@ exports[`AdminViewFormDetails > should get admin view form details data 1`] = `
               <td>
                 http://localhost:3000/health_indicator_questionnaire/1b9f0f33-9c69-4bfc-8730-8bcbb5c06d88
               </td>
+              <!---->
             </tr>
             <tr>
               <td>
@@ -74,6 +76,7 @@ exports[`AdminViewFormDetails > should get admin view form details data 1`] = `
               <td>
                 http://localhost:3000/health_indicator_questionnaire/5a1f8e8c-7ebd-499a-b6b0-015828695796
               </td>
+              <!---->
             </tr>
             <tr>
               <td>
@@ -85,6 +88,7 @@ exports[`AdminViewFormDetails > should get admin view form details data 1`] = `
               <td>
                 http://localhost:3000/health_indicator_questionnaire/5a1f8e8c-7ebd-499a-b6b0-015828695796
               </td>
+              <!---->
             </tr>
           </tbody>
         </table>
@@ -112,6 +116,7 @@ exports[`AdminViewFormDetails > should get admin view form details data 1`] = `
                   URL
                 </span>
               </th>
+              <!---->
             </tr>
           </thead>
           <tbody>
@@ -125,6 +130,7 @@ exports[`AdminViewFormDetails > should get admin view form details data 1`] = `
               <td>
                 http://localhost:3000/health_indicator_questionnaire/1b9f0f33-9c69-4bfc-8730-8bcbb5c06d88
               </td>
+              <!---->
             </tr>
             <tr>
               <td>
@@ -136,6 +142,7 @@ exports[`AdminViewFormDetails > should get admin view form details data 1`] = `
               <td>
                 http://localhost:3000/health_indicator_questionnaire/5a1f8e8c-7ebd-499a-b6b0-015828695796
               </td>
+              <!---->
             </tr>
             <tr>
               <td>
@@ -147,6 +154,7 @@ exports[`AdminViewFormDetails > should get admin view form details data 1`] = `
               <td>
                 http://localhost:3000/health_indicator_questionnaire/5a1f8e8c-7ebd-499a-b6b0-015828695796
               </td>
+              <!---->
             </tr>
           </tbody>
         </table>
@@ -174,6 +182,7 @@ exports[`AdminViewFormDetails > should get admin view form details data 1`] = `
                   URL
                 </span>
               </th>
+              <!---->
             </tr>
           </thead>
           <tbody>
@@ -187,6 +196,7 @@ exports[`AdminViewFormDetails > should get admin view form details data 1`] = `
               <td>
                 http://localhost:3000/health_indicator_questionnaire/1b9f0f33-9c69-4bfc-8730-8bcbb5c06d88
               </td>
+              <!---->
             </tr>
             <tr>
               <td>
@@ -198,6 +208,7 @@ exports[`AdminViewFormDetails > should get admin view form details data 1`] = `
               <td>
                 http://localhost:3000/health_indicator_questionnaire/5a1f8e8c-7ebd-499a-b6b0-015828695796
               </td>
+              <!---->
             </tr>
             <tr>
               <td>
@@ -209,6 +220,7 @@ exports[`AdminViewFormDetails > should get admin view form details data 1`] = `
               <td>
                 http://localhost:3000/health_indicator_questionnaire/5a1f8e8c-7ebd-499a-b6b0-015828695796
               </td>
+              <!---->
             </tr>
           </tbody>
         </table>

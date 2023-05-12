@@ -53,8 +53,12 @@ export default Vue.extend({
         <tr>
           <th v-for="(col, id) in columns" :key="id">{{ col.displayName }}</th>
           <th v-if="rows.length > 0">
-            <span v-if="action !== 'View Data'">Action</span
-            ><span v-else>URL</span>
+            <span v-if="action !== 'View Data'">Action</span>
+
+            <span v-else>URL</span>
+          </th>
+          <th v-if="action === 'View Live Data'">
+            <span>Edit</span>
           </th>
         </tr>
       </thead>
@@ -70,15 +74,16 @@ export default Vue.extend({
             >
               {{ action }}
             </button>
+          </td>
+          <td v-else>{{ row.url }}</td>
+          <td v-if="action === 'View Live Data'">
             <button
-              v-if="action === 'View Live Data'"
               class="btn btn-primary"
               @click="actionHandler(editLiveData, row.countryUUID)"
             >
               {{ editLiveData }}
             </button>
           </td>
-          <td v-else>{{ row.url }}</td>
         </tr>
       </tbody>
     </table>
