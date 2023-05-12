@@ -1,14 +1,13 @@
-# gdhi-app-clone
+# gdhi-app-version-2
 
 [![GDHI-Frontend](https://github.com/healthenabled/gdhi-app-version2/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/healthenabled/gdhi-app-version2/actions/workflows/build.yml)
 
-
-This app uses template that should help get you started developing with Vue 2 in Vite.
+The App is build using Vue2, Vite and Vitest. It uses Yarn as a package manager and github actions for CI/CD.
 
 ## Pre-requisites
 
-- brew install nvm
-- brew install yarn
+- `brew install nvm`
+- `brew install yarn`
 
 ## Recommended IDE Setup
 
@@ -22,7 +21,7 @@ See [Vite Configuration Reference](https://vitejs.dev/config/).
 
 ### Install and setup nvm using [the link](https://github.com/nvm-sh/nvm#installing-and-updating)
 
-The project uses Node v16 and YarnV1 as package manager
+The project uses Node v16 and YarnV2 as package manager
 
 ```sh
 nvm use
