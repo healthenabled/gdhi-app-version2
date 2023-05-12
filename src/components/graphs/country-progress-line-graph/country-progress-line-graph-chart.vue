@@ -294,8 +294,8 @@ export default Vue.extend({
 }
 @media (max-width: $mobile-width) {
   .line-chart-container {
-    height: 100%;
-    width: 95%;
+    height: 98%;
+    width: 100vw;
     margin-left: -30px;
   }
 }
