@@ -1,7 +1,7 @@
 import { shallowMount } from "@vue/test-utils";
-import Map from "../landing-map/map.vue";
+import Map from "../landingMap/map.vue";
 import sinon from "sinon";
-import worldMap from "../landing-map/world-map.js";
+import worldMap from "../landingMap/world-map.js";
 import { EventBus } from "../common/event-bus";
 import { describe, it, expect, beforeEach, vi } from "vitest";
 import axios from "axios";

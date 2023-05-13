@@ -1,4 +1,4 @@
-import mapHelper from "../landing-map/map-helper";
+import mapHelper from "../landingMap/map-helper";
 
 const countryIndices = [
   {

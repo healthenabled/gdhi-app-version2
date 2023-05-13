@@ -6,7 +6,7 @@ import httpRequests from "../../common/indicator-http-requests";
 import common from "../../common/common";
 import indicatorFilter from "../indicatorFilter/indicator-filter.vue";
 import phaseFilter from "../phaseFilter/phase-filter.vue";
-import autoSearch from "../auto-search/auto-search.vue";
+import autoSearch from "../autoSearch/auto-search.vue";
 import { EVENTS } from "../../constants";
 
 export default Vue.extend({

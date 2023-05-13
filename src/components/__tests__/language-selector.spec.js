@@ -1,5 +1,5 @@
 import { createLocalVue, mount } from "@vue/test-utils";
-import LanguageSelector from "../language-selector/language-selector.vue";
+import LanguageSelector from "../languageSelector/language-selector.vue";
 import { describe, it, expect } from "vitest";
 import { i18n } from "../../plugins/i18n";
 import VueCookies from "vue-cookies";

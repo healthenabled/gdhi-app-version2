@@ -1,5 +1,5 @@
-import worldMap from "../landing-map/world-map.js";
-import eventHandler from "../landing-map/map-event-handler";
+import worldMap from "../landingMap/world-map.js";
+import eventHandler from "../landingMap/map-event-handler";
 import L from "leaflet";
 import sinon from "sinon";
 

@@ -3,14 +3,14 @@ import Router from "vue-router";
 import content from "@/components/container/container.vue";
 import indicatorsInfoComp from "@/components/indicatorsInfo/indicators-info.vue";
 import headerComp from "@/components/header/header.vue";
-import languageSelector from "@/components/language-selector/language-selector.vue";
+import languageSelector from "@/components/languageSelector/languageSelector.vue";
 import footerComp from "@/components/footer/footer.vue";
 import countryProfile from "@/components/countryProfile/country-profile.vue";
-import landingMap from "@/components/landing-map/map.vue";
+import landingMap from "@/components/landingMap/map.vue";
 import methodologyComp from "@/components/methodology/methodology.vue";
 import healthIndicatorQuestionnaire from "@/components/healthIndicatorQuestionnaire/health-indicator-questionnare.vue";
 import countryListComp from "@/components/countryList/country-list.vue";
-import ErrorComp from "@/components/error-handler/404-error.vue";
+import ErrorComp from "@/components/errorHandler/404-error.vue";
 import adminPageComp from "@/components/adminPage/admin-page.vue";
 import RegionalOverview from "@/components/regionalOverview/regional-overview.vue";
 
