@@ -11,6 +11,10 @@ import { viteStaticCopy } from "vite-plugin-static-copy";
 import sri from "rollup-plugin-sri";
 
 const renderChunks = (deps) => {
+  console.log(
+    "import.meta.env.VITE_IS_GOOGLE_ANALYTICS_ENABLED",
+    import.meta.env.VITE_IS_GOOGLE_ANALYTICS_ENABLED
+  );
   let chunks = {};
   chunks["vue"] = [];
   chunks["chart"] = [];
