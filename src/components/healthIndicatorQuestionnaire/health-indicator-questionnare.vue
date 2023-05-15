@@ -105,13 +105,12 @@ export default Vue.extend({
       let config = common.configWithUserLanguageAndNoCacheHeader(
         this.$i18n.locale
       );
-      if (!this.isViewPublish)
-        return axios.get(`/api/countries/${countryUUID}`, config);
-      else
+      if (this.isViewPublish || this.isEditPublish)
         return axios.get(
           `/api/countries/viewPublish/${countryUUID}/${currentYear}`,
           config
         );
+      else return axios.get(`/api/countries/${countryUUID}`, config);
     },
     setUpHealthIndicators(data, isExpanded) {
       data.forEach((category) => {
