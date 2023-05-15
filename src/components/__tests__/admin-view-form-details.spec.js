@@ -149,23 +149,24 @@ describe("AdminViewFormDetails", () => {
       i18n,
     });
     await flushPromises();
-    let openUrl = vi.fn();
-    component.vm.openUrl = openUrl;
-    openUrl.mockReturnValueOnce(
+    let openHealthIndicatorQuestionnaire = vi.fn();
+    component.vm.openHealthIndicatorQuestionnaire =
+      openHealthIndicatorQuestionnaire;
+    openHealthIndicatorQuestionnaire.mockReturnValueOnce(
       location.origin + "/admin/health_indicator_questionnaire/some-uuid/review"
     );
 
     component.vm.actionHandler("Review", "some-uuid");
-    expect(openUrl.mock.calls.length).to.equal(1);
-    openUrl.mockReturnValueOnce(
+    expect(openHealthIndicatorQuestionnaire.mock.calls.length).to.equal(1);
+    openHealthIndicatorQuestionnaire.mockReturnValueOnce(
       location.origin + "/admin/health_indicator_questionnaire/some-uuid/review"
     );
 
     component.vm.actionHandler("View Live Data", "some-uuid");
-    expect(openUrl.mock.calls.length).to.equal(2);
+    expect(openHealthIndicatorQuestionnaire.mock.calls.length).to.equal(2);
 
     component.vm.actionHandler("Other Text", "some-uuid");
-    expect(openUrl.mock.calls.length).to.equal(2);
+    expect(openHealthIndicatorQuestionnaire.mock.calls.length).to.equal(2);
   });
 
   it("should call openUrl when editHandler is invoked", async () => {

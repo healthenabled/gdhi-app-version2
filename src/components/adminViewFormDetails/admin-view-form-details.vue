@@ -52,21 +52,23 @@ export default Vue.extend({
         });
     },
     editHandler(countryUUID) {
-      this.openUrl(
-        this.url + countryUUID + "/editPublished/" + this.currentYear
-      );
+      this.openHealthIndicatorQuestionnaire(countryUUID, "/editPublished/");
     },
     actionHandler(action, countryUUID) {
       if (action === "Review") {
-        this.openUrl(this.url + countryUUID + "/review/" + this.currentYear);
+        this.openHealthIndicatorQuestionnaire(countryUUID, "/review/");
       } else if (action === "View Live Data") {
-        this.openUrl(
-          this.url + countryUUID + "/viewPublished/" + this.currentYear
-        );
+        this.openHealthIndicatorQuestionnaire(countryUUID, "/viewPublished/");
       }
     },
-    openUrl(url) {
-      window.open(url);
+    openHealthIndicatorQuestionnaire(countryUUID, route) {
+      window.open(
+        location.origin +
+          "/admin/health_indicator_questionnaire/" +
+          countryUUID +
+          route +
+          this.currentYear
+      );
     },
     wrapperOnTableRows(rows) {
       rows.forEach(function (row) {
