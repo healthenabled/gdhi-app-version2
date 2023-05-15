@@ -184,15 +184,16 @@ describe("AdminViewFormDetails", () => {
       i18n,
     });
     await flushPromises();
-    let openUrl = vi.fn();
-    component.vm.openUrl = openUrl;
-    openUrl.mockReturnValueOnce(
+    let openHealthIndicatorQuestionnaire = vi.fn();
+    component.vm.openHealthIndicatorQuestionnaire =
+      openHealthIndicatorQuestionnaire;
+    openHealthIndicatorQuestionnaire.mockReturnValueOnce(
       location.origin +
         "/admin/health_indicator_questionnaire/some-uuid/editPublished"
     );
 
     component.vm.editHandler("some-uuid");
-    expect(openUrl.mock.calls.length).to.equal(1);
+    expect(openHealthIndicatorQuestionnaire.mock.calls.length).to.equal(1);
   });
 
   it("should populate the table rows when getTabData is called ", async () => {
@@ -219,12 +220,12 @@ describe("AdminViewFormDetails", () => {
     expect(component.vm.noRecordsMessage).to.equal("");
     component.vm.getTabData(component.vm.tabs[1]);
     expect(component.vm.tableRows).to.deep.equal(responseData.REVIEW_PENDING);
-    expect(component.vm.editLiveData).toBe(false);
+    expect(component.vm.shouldEditLiveData).toBe(false);
     expect(component.vm.noRecordsMessage).to.equal("");
     component.vm.getTabData(component.vm.tabs[2]);
     expect(component.vm.tableRows).to.deep.equal(responseData.PUBLISHED);
     expect(component.vm.noRecordsMessage).to.equal("");
-    expect(component.vm.editLiveData).toBe(true);
+    expect(component.vm.shouldEditLiveData).toBe(true);
   });
 
   it("should return empty tablerows when the value is undefined", async () => {

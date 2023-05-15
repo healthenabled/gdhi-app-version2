@@ -15,7 +15,7 @@ export default Vue.extend({
       tableRows: [],
       allData: {},
       action: "",
-      editLiveData: false,
+      shouldEditLiveData: false,
       noRecordsMessage: "",
       url: location.origin + "/admin/health_indicator_questionnaire/",
       error: "",
@@ -100,7 +100,7 @@ export default Vue.extend({
             this.tableRows = [...this.tableRows, ...this.allData.DRAFT];
           this.wrapperOnTableRows(this.tableRows);
           this.action = "View Data";
-          this.editLiveData = false;
+          this.shouldEditLiveData = false;
           break;
         case this.tabs[1]:
           this.tableColumns = [
@@ -109,7 +109,7 @@ export default Vue.extend({
             { propName: "contactEmail", displayName: "Country Contact Email" },
           ];
           this.action = "Review";
-          this.editLiveData = false;
+          this.shouldEditLiveData = false;
           this.tableRows = [];
           if (this.allData.REVIEW_PENDING !== undefined) {
             this.tableRows = this.allData.REVIEW_PENDING;
@@ -122,7 +122,7 @@ export default Vue.extend({
             { propName: "contactEmail", displayName: "Country Contact Email" },
           ];
           this.action = "View Live Data";
-          this.editLiveData = true;
+          this.shouldEditLiveData = true;
           this.tableRows = [];
           if (this.allData.PUBLISHED !== undefined) {
             this.tableRows = this.allData.PUBLISHED;
@@ -161,7 +161,7 @@ export default Vue.extend({
           :rows="tableRows"
           :action="action"
           :actionHandler="actionHandler"
-          :editLiveData="editLiveData"
+          :shouldEditLiveData="shouldEditLiveData"
           :editHandler="editHandler"
         ></AdminTable>
       </div>

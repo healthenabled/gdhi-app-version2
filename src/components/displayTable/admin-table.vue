@@ -1,6 +1,5 @@
 <script>
 import Vue from "vue";
-import { boolean } from "yup";
 
 export default Vue.extend({
   props: {
@@ -28,7 +27,7 @@ export default Vue.extend({
         return () => {};
       },
     },
-    editLiveData: {
+    shouldEditLiveData: {
       type: Boolean,
       default() {
         return false;
@@ -84,7 +83,7 @@ export default Vue.extend({
             </button>
           </td>
           <td v-else>{{ row.url }}</td>
-          <td v-if="editLiveData">
+          <td v-if="shouldEditLiveData">
             <button
               class="btn btn-primary"
               @click="editHandler(row.countryUUID)"
