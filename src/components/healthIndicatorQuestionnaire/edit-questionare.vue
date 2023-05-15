@@ -1058,7 +1058,7 @@ export default Vue.extend({
           "healthIndicatorQuestionnaire.republishConfirmation",
           { country: this.countrySummary.countryName }
         ),
-        callBackMethod: this.republish(),
+        callBackMethod: this.republish,
         callBackArgs: [],
       });
     },
