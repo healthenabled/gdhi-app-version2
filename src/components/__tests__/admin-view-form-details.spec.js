@@ -168,6 +168,32 @@ describe("AdminViewFormDetails", () => {
     expect(openUrl.mock.calls.length).to.equal(2);
   });
 
+  it("should call openUrl when editHandler is invoked", async () => {
+    axiosGetSpy.mockResolvedValue({ data: responseData });
+
+    component = mount(adminViewFormDetails, {
+      data: () => ({
+        tabs: [
+          { id: 0, name: "Awaiting Submission" },
+          { id: 1, name: "Review Pending" },
+          { id: 2, name: "Live Data" },
+        ],
+      }),
+      router,
+      i18n,
+    });
+    await flushPromises();
+    let openUrl = vi.fn();
+    component.vm.openUrl = openUrl;
+    openUrl.mockReturnValueOnce(
+      location.origin +
+        "/admin/health_indicator_questionnaire/some-uuid/editPublished"
+    );
+
+    component.vm.editHandler("some-uuid");
+    expect(openUrl.mock.calls.length).to.equal(1);
+  });
+
   it("should populate the table rows when getTabData is called ", async () => {
     axiosGetSpy.mockResolvedValue({ data: responseData });
 
@@ -192,10 +218,12 @@ describe("AdminViewFormDetails", () => {
     expect(component.vm.noRecordsMessage).to.equal("");
     component.vm.getTabData(component.vm.tabs[1]);
     expect(component.vm.tableRows).to.deep.equal(responseData.REVIEW_PENDING);
+    expect(component.vm.editLiveData).toBe(false);
     expect(component.vm.noRecordsMessage).to.equal("");
     component.vm.getTabData(component.vm.tabs[2]);
     expect(component.vm.tableRows).to.deep.equal(responseData.PUBLISHED);
     expect(component.vm.noRecordsMessage).to.equal("");
+    expect(component.vm.editLiveData).toBe(true);
   });
 
   it("should return empty tablerows when the value is undefined", async () => {
