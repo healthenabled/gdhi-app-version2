@@ -27,6 +27,7 @@ describe("Admin Table", () => {
   const action = "View Data";
   const noRecordsMessage = "No Records Found";
   const actionHandler = vi.fn();
+  const editHandler = vi.fn();
 
   it("should set the default values if the props are not set", () => {
     wrapper = mount(AdminTable);
@@ -57,6 +58,38 @@ describe("Admin Table", () => {
     expect(wrapper.findAll("#fifthTable td").at(0).text()).to.equal(
       rows[0][columns[0].propName]
     );
+  });
+
+  it("Should render Edit column in the table when edit live data is passed as true", () => {
+    const wrapper = mount(AdminTable, {
+      propsData: {
+        columns: columns,
+        rows: rows,
+        action: "View Live Data",
+        actionHandler: actionHandler,
+        editHandler: editHandler,
+        editLiveData: true,
+      },
+    });
+
+    expect(wrapper.findAll("#fifthTable tr").length).to.equal(rows.length + 1);
+    expect(wrapper.findAll("#fifthTable th").at(3).text()).to.equal("Edit");
+  });
+
+  it("Should not render Edit column in the table when edit live data is passed as false", () => {
+    const wrapper = mount(AdminTable, {
+      propsData: {
+        columns: columns,
+        rows: rows,
+        action: "Review",
+        actionHandler: actionHandler,
+        editHandler: editHandler,
+        editLiveData: false,
+      },
+    });
+
+    expect(wrapper.findAll("#fifthTable tr").length).to.equal(rows.length + 1);
+    expect(wrapper.findAll("#fifthTable th").at(2).text()).to.equal("Action");
   });
 
   it("Should render the Error Message if there are no rows", () => {
