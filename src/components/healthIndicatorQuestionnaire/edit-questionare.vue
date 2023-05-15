@@ -47,7 +47,7 @@
           <span v-if="showEdit"
             ><button
               class="submit-btn btn btn-green"
-              @click="validate('publish')"
+              @click="validate('republish')"
             >
               <i class="fa fa-check" aria-hidden="true"></i
               >{{ $t("healthIndicatorQuestionnaire.republish") }}
@@ -1033,6 +1033,8 @@ export default Vue.extend({
         if (isValid) {
           if (action === "submit") {
             this.checkAndSubmit();
+          } else if (action === "republish") {
+            this.checkAndRepublish();
           } else {
             this.checkAndPublish();
           }
@@ -1050,6 +1052,16 @@ export default Vue.extend({
         callBackArgs: ["submit"],
       });
     },
+    checkAndRepublish() {
+      this.getConfirmationDialog({
+        message: this.$i18n.t(
+          "healthIndicatorQuestionnaire.republishConfirmation",
+          { country: this.countrySummary.countryName }
+        ),
+        callBackMethod: this.republish(),
+        callBackArgs: [],
+      });
+    },
     checkAndPublish() {
       this.getConfirmationDialog({
         message: this.$i18n.t(
@@ -1059,6 +1071,50 @@ export default Vue.extend({
         callBackMethod: this.publish,
         callBackArgs: [],
       });
+    },
+    republish() {
+      common.showLoading();
+      document.body.scrollTop = document.documentElement.scrollTop = 0;
+      let url = "/api/countries/" + "republish";
+      url += "/" + this.$route.params.currentYear;
+      axios
+        .put(
+          url,
+          {
+            countryId: this.countrySummary.countryId,
+            countrySummary: this.countrySummary,
+            healthIndicators: this.getHealthIndicators(),
+          },
+          common.configWithUserLanguageAndNoCacheHeader(this.$i18n.locale)
+        )
+        .then(() => {
+          common.hideLoading();
+          EventBus.$emit(EVENTS.QUESTIONNAIRE_DATA_SAVED);
+          this.notifier({
+            title: "Success",
+            message: this.successMessages["republish"],
+            type: "success",
+          });
+          this.$router.push({ path: `/admin` });
+        })
+        .catch((e) => {
+          common.hideLoading();
+          if (e.response.status === 400) {
+            this.notifier({
+              title: "Error",
+              message: "Invalid Data",
+              type: "error",
+            });
+          } else {
+            this.notifier({
+              title: "Error",
+              message: this.$i18n.t(
+                "healthIndicatorQuestionnaire.notifications.somethingWentWrong"
+              ),
+              type: "error",
+            });
+          }
+        });
     },
     publish() {
       this.saveData("publish");
