@@ -463,6 +463,12 @@
       }
     }
     .header-section {
+      .country-name {
+        .reduced-font {
+          font-size: 19px;
+          line-height: 19px;
+        }
+      }
       .header-section-button-container {
         display: none;
       }
@@ -473,6 +479,9 @@
     .overall-card {
       display: flex;
       flex-direction: column;
+      .country-progress-over-time {
+        margin-right: 30px;
+      }
       .overall-info-container {
         display: flex;
         margin-bottom: 10px;

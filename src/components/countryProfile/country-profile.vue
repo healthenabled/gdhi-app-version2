@@ -105,7 +105,6 @@ export default Vue.extend({
           this.globalData = response.data;
         });
     },
-
     getHealthIndicatorsFor(countryCode) {
       axios
         .get(
@@ -244,8 +243,16 @@ export default Vue.extend({
                 ')',
             }"
           />
-          <div class="country-name-and-date">
+          <div
+            :class="[
+              'country-name-and-date',
+              this.healthIndicatorData.countryName.length > 10
+                ? 'reduced-font'
+                : '',
+            ]"
+          >
             {{ healthIndicatorData.countryName }}
+
             <span
               id="collected-date"
               v-if="healthIndicatorData.updatedDate !== ''"
