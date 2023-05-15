@@ -91,6 +91,8 @@ export const healthIndicatorQuestionnaire = {
     "Seul le score de chaque indicateur sera affiché publiquement sur la plateforme GDHM.",
   publishConfirmation:
     "Está a punto de publicar un formulario de índice de salud digital para {country}. Que no se puede revertir. ¿Quieres continuar?",
+  republishConfirmation:
+    "Está a punto de volver a publicar el formulario de índice de salud digital para {país}. Esto no se puede revertir. ¿Quieres continuar?",
   saveConfirmation:
     "¿Está seguro de que desea enviar los datos de {country}? Verifique que las opciones seleccionadas por usted reflejen la madurez de salud digital del año actual del país",
   rejectConfirmation:
