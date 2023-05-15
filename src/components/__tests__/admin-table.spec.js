@@ -73,4 +73,17 @@ describe("Admin Table", () => {
     expect(wrapper.findAll(".error-info").exists()).to.equal(true);
     expect(wrapper.find(".error-info").text()).to.equal(noRecordsMessage);
   });
+
+  it("Should render admin table", async () => {
+    const wrapper = mount(AdminTable, {
+      propsData: {
+        columns: columns,
+        rows: rows,
+        action: action,
+        actionHandler: actionHandler,
+        noRecordsMessage: noRecordsMessage,
+      },
+    });
+    expect(wrapper.vm.$el).toMatchSnapshot();
+  });
 });

@@ -160,12 +160,15 @@ describe("AdminViewFormDetails", () => {
     openUrl.mockReturnValueOnce(
       location.origin + "/admin/health_indicator_questionnaire/some-uuid/review"
     );
-    component.vm.actionHandler("View Live Data", "some-uuid");
 
+    component.vm.actionHandler("View Live Data", "some-uuid");
     expect(openUrl.mock.calls.length).to.equal(2);
+
+    component.vm.actionHandler("Edit Live Data", "some-uuid");
+    expect(openUrl.mock.calls.length).to.equal(3);
 
     component.vm.actionHandler("Other Text", "some-uuid");
-    expect(openUrl.mock.calls.length).to.equal(2);
+    expect(openUrl.mock.calls.length).to.equal(3);
   });
 
   it("should populate the table rows when getTabData is called ", async () => {

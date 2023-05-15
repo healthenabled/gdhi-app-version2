@@ -15,6 +15,7 @@ describe("EditQuestionaire", () => {
   const router = new VueRouter();
 
   const axiosPostSpy = vi.spyOn(axios, "post");
+  const axiosPutSpy = vi.spyOn(axios, "put");
   const axiosDeleteSpy = vi.spyOn(axios, "delete");
 
   beforeEach(() => {
@@ -291,6 +292,42 @@ describe("EditQuestionaire", () => {
     });
   });
 
+  it("should show republish confirm after validation is done", async () => {
+    component.vm.questionnaire = [
+      {
+        categoryId: 1,
+        categoryName: "some category",
+        showCategory: false,
+      },
+      {
+        categoryId: 2,
+        categoryName: "some other category",
+        showCategory: false,
+      },
+    ];
+
+    let getConfirmationDialog = sinon.spy();
+    component.vm.getConfirmationDialog = getConfirmationDialog;
+    let republishData = sinon.spy();
+    component.vm.republish = republishData;
+
+    sinon
+      .stub(component.vm.$validator, "validateAll")
+      .returns(new Promise((resolve, reject) => resolve(true)));
+    component.vm.validate("republish");
+
+    await flushPromises();
+    expect(component.vm.questionnaire[0].showCategory).to.be.true;
+    expect(component.vm.questionnaire[1].showCategory).to.be.true;
+    sinon.assert.calledWith(getConfirmationDialog, {
+      message:
+        "You are about to republish digital health index form for India. This cannot be reverted. Do you want" +
+        " to continue?",
+      callBackMethod: republishData,
+      callBackArgs: [],
+    });
+  });
+
   it("should show publish confirm after validation is done", async () => {
     component.vm.questionnaire = [
       {
@@ -433,6 +470,72 @@ describe("EditQuestionaire", () => {
       `/api/countries/publish/2023`
     );
     expect(mockPush.mock.calls[0][0].path).to.equal("/admin");
+  });
+
+  it("should call republish api and redirect to admin page", async () => {
+    let notifier = sinon.spy();
+    const mockPush = vi.fn();
+    axiosPutSpy.mockResolvedValue({});
+    component.vm.$notify = notifier;
+    component.vm.$router = { push: mockPush };
+    component.vm.republish();
+
+    await flushPromises();
+
+    expect(axiosPutSpy.mock.calls[0][0]).to.equal(
+      `/api/countries/republish/2023`
+    );
+    expect(mockPush.mock.calls[0][0].path).to.equal("/admin");
+  });
+
+  it("should display notifier when api throws badrequest", async () => {
+    let notifier = sinon.spy();
+    axiosPutSpy.mockRejectedValue({
+      response: {
+        status: 400,
+        data: { message: "problem", status: 400 },
+      },
+    });
+    component.vm.$notify = notifier;
+    component.vm.republish();
+
+    await flushPromises();
+
+    expect(axiosPutSpy.mock.calls[0][0]).to.equal(
+      `/api/countries/republish/2023`
+    );
+    await flushPromises();
+    sinon.assert.calledWith(notifier, {
+      group: "custom-template",
+      title: "Error",
+      text: "Invalid Data",
+      type: "error",
+    });
+  });
+
+  it("should display notifier when api throws something other than 400", async () => {
+    let notifier = sinon.spy();
+    axiosPutSpy.mockRejectedValue({
+      response: {
+        status: 402,
+        data: { message: "problem", status: 402 },
+      },
+    });
+    component.vm.$notify = notifier;
+    component.vm.republish();
+
+    await flushPromises();
+
+    expect(axiosPutSpy.mock.calls[0][0]).to.equal(
+      `/api/countries/republish/2023`
+    );
+    await flushPromises();
+    sinon.assert.calledWith(notifier, {
+      group: "custom-template",
+      title: "Error",
+      text: "Something has gone wrong. Please refresh the Page!",
+      type: "error",
+    });
   });
 
   it("should call delete api and notify with error message on server error", async () => {
