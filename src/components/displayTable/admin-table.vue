@@ -1,12 +1,8 @@
 <script>
 import Vue from "vue";
+import { boolean } from "yup";
 
 export default Vue.extend({
-  data() {
-    return {
-      editLiveData: "Edit Live Data",
-    };
-  },
   props: {
     columns: {
       type: Array,
@@ -27,6 +23,18 @@ export default Vue.extend({
       },
     },
     actionHandler: {
+      type: Function,
+      default() {
+        return () => {};
+      },
+    },
+    editLiveData: {
+      type: Boolean,
+      default() {
+        return false;
+      },
+    },
+    editHandler: {
       type: Function,
       default() {
         return () => {};
@@ -76,12 +84,12 @@ export default Vue.extend({
             </button>
           </td>
           <td v-else>{{ row.url }}</td>
-          <td v-if="action === 'View Live Data'">
+          <td v-if="editLiveData">
             <button
               class="btn btn-primary"
-              @click="actionHandler(editLiveData, row.countryUUID)"
+              @click="editHandler(row.countryUUID)"
             >
-              {{ editLiveData }}
+              Edit Live Data
             </button>
           </td>
         </tr>

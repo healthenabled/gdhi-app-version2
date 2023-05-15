@@ -15,7 +15,9 @@ export default Vue.extend({
       tableRows: [],
       allData: {},
       action: "",
+      editLiveData: false,
       noRecordsMessage: "",
+      url: location.origin + "/admin/health_indicator_questionnaire/",
       error: "",
       tabs: [
         { id: 0, name: "Awaiting Submission" },
@@ -49,30 +51,17 @@ export default Vue.extend({
           this.error = e.response.message;
         });
     },
+    editHandler(countryUUID) {
+      this.openUrl(
+        this.url + countryUUID + "/editPublished/" + this.currentYear
+      );
+    },
     actionHandler(action, countryUUID) {
       if (action === "Review") {
-        this.openUrl(
-          location.origin +
-            "/admin/health_indicator_questionnaire/" +
-            countryUUID +
-            "/review/" +
-            this.currentYear
-        );
+        this.openUrl(this.url + countryUUID + "/review/" + this.currentYear);
       } else if (action === "View Live Data") {
         this.openUrl(
-          location.origin +
-            "/admin/health_indicator_questionnaire/" +
-            countryUUID +
-            "/viewPublished/" +
-            this.currentYear
-        );
-      } else if (action === "Edit Live Data") {
-        this.openUrl(
-          location.origin +
-            "/admin/health_indicator_questionnaire/" +
-            countryUUID +
-            "/editPublished/" +
-            this.currentYear
+          this.url + countryUUID + "/viewPublished/" + this.currentYear
         );
       }
     },
@@ -109,6 +98,7 @@ export default Vue.extend({
             this.tableRows = [...this.tableRows, ...this.allData.DRAFT];
           this.wrapperOnTableRows(this.tableRows);
           this.action = "View Data";
+          this.editLiveData = false;
           break;
         case this.tabs[1]:
           this.tableColumns = [
@@ -117,6 +107,7 @@ export default Vue.extend({
             { propName: "contactEmail", displayName: "Country Contact Email" },
           ];
           this.action = "Review";
+          this.editLiveData = false;
           this.tableRows = [];
           if (this.allData.REVIEW_PENDING !== undefined) {
             this.tableRows = this.allData.REVIEW_PENDING;
@@ -129,6 +120,7 @@ export default Vue.extend({
             { propName: "contactEmail", displayName: "Country Contact Email" },
           ];
           this.action = "View Live Data";
+          this.editLiveData = true;
           this.tableRows = [];
           if (this.allData.PUBLISHED !== undefined) {
             this.tableRows = this.allData.PUBLISHED;
@@ -167,6 +159,8 @@ export default Vue.extend({
           :rows="tableRows"
           :action="action"
           :actionHandler="actionHandler"
+          :editLiveData="editLiveData"
+          :editHandler="editHandler"
         ></AdminTable>
       </div>
     </div>

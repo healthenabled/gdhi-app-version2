@@ -164,11 +164,8 @@ describe("AdminViewFormDetails", () => {
     component.vm.actionHandler("View Live Data", "some-uuid");
     expect(openUrl.mock.calls.length).to.equal(2);
 
-    component.vm.actionHandler("Edit Live Data", "some-uuid");
-    expect(openUrl.mock.calls.length).to.equal(3);
-
     component.vm.actionHandler("Other Text", "some-uuid");
-    expect(openUrl.mock.calls.length).to.equal(3);
+    expect(openUrl.mock.calls.length).to.equal(2);
   });
 
   it("should populate the table rows when getTabData is called ", async () => {
