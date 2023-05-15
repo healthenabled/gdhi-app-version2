@@ -28,6 +28,9 @@ jobs:
     runs-on: ubuntu-latest
     needs: [continuous-integration]
     if: github.ref == 'refs/heads/main'
+    env:
+      VITE_IS_GOOGLE_ANALYTICS_ENABLED: true
+      VITE_GOOGLE_ANALYTICS_ID: G-8W9W5TVK36
     steps:
       - name: Checkout code from Github
         uses: actions/checkout@v3
