@@ -64,7 +64,7 @@ export default Vue.extend({
 
             <span v-else>URL</span>
           </th>
-          <th v-if="action === 'View Live Data'">
+          <th v-if="shouldEditLiveData">
             <span>Edit</span>
           </th>
         </tr>

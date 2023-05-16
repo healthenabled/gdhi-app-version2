@@ -68,7 +68,7 @@ describe("Admin Table", () => {
         action: "View Live Data",
         actionHandler: actionHandler,
         editHandler: editHandler,
-        editLiveData: true,
+        shouldEditLiveData: true,
       },
     });
 
