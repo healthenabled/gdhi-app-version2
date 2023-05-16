@@ -254,7 +254,7 @@ describe("Health Indicator Questionnaire", () => {
         router,
         i18n,
       });
-      wrapper.vm.isViewPublish = true;
+      wrapper.vm.action = "viewPublished";
       wrapper.vm.hasPreviousYearData = false;
       expect(wrapper.vm.hasPreviousYearData).to.equal(false);
       await flushPromises();

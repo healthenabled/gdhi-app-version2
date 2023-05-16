@@ -11,7 +11,7 @@
       :isAdmin="isAdmin"
       :hasPreviousYearData="hasPreviousYearData"
       :updatedDate="updatedDate"
-      :isEditPublish="isEditPublish"
+      :isEditPublish="this.action === 'editPublished'"
     ></edit-questionnaire>
   </div>
 </template>
@@ -61,7 +61,7 @@ export default Vue.extend({
       hasPreviousYearData: false,
       isAdmin: this.$route.path.match("admin") != null,
       updatedDate: "",
-      isViewPublish: false,
+      action: null,
       isEditPublish: false,
       locale: "en",
     };
@@ -69,8 +69,7 @@ export default Vue.extend({
   created() {
     this.showEdit = true;
     common.showLoading();
-    this.isViewPublish = this.$route.path.match("viewPublished") != null;
-    this.isEditPublish = this.$route.path.match("editPublished") != null;
+    this.action = this.$route.path.split("/")[4];
     this.prepareDataForViewForm(
       this.$route.params.countryUUID,
       this.$route.params.currentYear
@@ -105,12 +104,16 @@ export default Vue.extend({
       let config = common.configWithUserLanguageAndNoCacheHeader(
         this.$i18n.locale
       );
-      if (this.isViewPublish || this.isEditPublish)
-        return axios.get(
-          `/api/countries/viewPublish/${countryUUID}/${currentYear}`,
-          config
-        );
-      else return axios.get(`/api/countries/${countryUUID}`, config);
+      switch (this.action) {
+        case "viewPublished":
+        case "editPublished":
+          return axios.get(
+            `/api/countries/viewPublish/${countryUUID}/${currentYear}`,
+            config
+          );
+        default:
+          return axios.get(`/api/countries/${countryUUID}`, config);
+      }
     },
     setUpHealthIndicators(data, isExpanded) {
       data.forEach((category) => {
@@ -167,14 +170,15 @@ export default Vue.extend({
         this.showEdit = false;
       }
       if (
-        (scores.data.status == "PUBLISHED" || this.isViewPublish) &&
+        (scores.data.status === "PUBLISHED" ||
+          this.action === "viewPublished") &&
         !this.hasPreviousYearData
       ) {
         this.showEdit = false;
       }
       if (
-        scores.data.status == "PUBLISHED" &&
-        this.isEditPublish &&
+        scores.data.status === "PUBLISHED" &&
+        this.action === "editPublished" &&
         this.isAdmin
       ) {
         this.showEdit = true;
