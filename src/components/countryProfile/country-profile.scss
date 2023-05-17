@@ -80,7 +80,6 @@
 
   .overall-card {
     display: flex;
-    align-items: center;
     vertical-align: middle;
     .title {
       width: 30vw;
@@ -480,7 +479,7 @@
       display: flex;
       flex-direction: column;
       .country-progress-over-time {
-        margin-right: 30px;
+        justify-content: flex-start;
       }
       .overall-info-container {
         display: flex;
