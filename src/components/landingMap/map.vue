@@ -76,8 +76,15 @@ export default Vue.extend({
         .then((globalHealthIndices) => {
           this.globalHealthIndicators =
             globalHealthIndices.data.countryHealthScores;
-          this.globalHealthIndices =
-            self.mergeColorCodeToHealthIndicators(globalHealthIndices);
+          const globalHealthIndicesWithScores =
+            globalHealthIndices.data.countryHealthScores.filter((country) => {
+              return window.appProperties.getCategoryFilter()
+                ? country.categories[0].phase != -1
+                : country.countryPhase != null;
+            });
+          this.globalHealthIndices = self.mergeColorCodeToHealthIndicators(
+            globalHealthIndicesWithScores
+          );
           worldMap.drawMap(
             self.globalHealthIndices,
             self.onCountrySelection,
@@ -87,11 +94,7 @@ export default Vue.extend({
         });
     },
     mergeColorCodeToHealthIndicators: function (globalHealthIndices) {
-      const globalHealthIndicesWithScores =
-        globalHealthIndices.data.countryHealthScores.filter((country) => {
-          return country.countryPhase != null;
-        });
-      const collection = globalHealthIndicesWithScores;
+      const collection = globalHealthIndices;
       collection.forEach((value) => {
         merge(value, {
           colorCode: helper.getColorCodeFor(value["countryPhase"]),
