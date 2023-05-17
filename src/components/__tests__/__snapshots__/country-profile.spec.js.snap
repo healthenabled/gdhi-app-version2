@@ -113,12 +113,13 @@ exports[`Country Profile  > should populate the data after successfull API call 
           Country Progress Over Time
         </p>
         <div
-          class="progress-accordion-expanded"
+          class="progress-accordion"
         />
       </div>
     </div>
     <div
       class="comparison-graph-panel"
+      style="display: none;"
     >
       <countryprogresslinegraphcontainer-stub
         countryname="India"

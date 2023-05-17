@@ -41,7 +41,7 @@ export default Vue.extend({
       govtApproved: false,
       hasBenchmarkData: true,
       updatedDate: "",
-      showCountryProgressOverTime: true,
+      showCountryProgressOverTime: false,
       locale: "en",
       selectedYear: null,
       globalData: {},
