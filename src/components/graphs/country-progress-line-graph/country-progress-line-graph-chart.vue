@@ -157,7 +157,7 @@ export default Vue.extend({
         position: "bottom",
         labels: {
           boxHeight: 0,
-          padding: 50,
+          padding: 30,
         },
       };
       let pluginAnnotationOptions = {
@@ -290,7 +290,7 @@ export default Vue.extend({
 <style scoped lang="scss">
 @import "../../../assets/stylesheets/components/variables";
 .line-chart-container {
-  height: 65%;
+  height: 75%;
   width: 95%;
 }
 @media (max-width: $mobile-width) {
