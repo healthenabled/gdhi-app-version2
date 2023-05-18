@@ -115,14 +115,20 @@ describe("Map ", () => {
       }
     });
   });
-
   it(" should fetch the fetchGlobalIndices", async () => {
     vi.spyOn(worldMap, "drawMap").mockReturnValue({});
     wrapper = shallowMount(Map, { i18n });
     await flushPromises();
-    expect(wrapper.vm.globalHealthIndicators).to.deep.equal(
+    expect(wrapper.vm.globalHealthIndices).to.deep.equal(
       globalData.countryHealthScores
     );
+    worldMap.drawMap.restore();
+  });
+  it("should check the api call for countries health indicator scores", async () => {
+    vi.spyOn(worldMap, "drawMap").mockReturnValue({});
+    wrapper = shallowMount(Map, { i18n });
+    await flushPromises();
+    expect(axiosGetSpy).toHaveBeenCalled();
     worldMap.drawMap.restore();
   });
 

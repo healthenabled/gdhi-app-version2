@@ -17,7 +17,6 @@ export default Vue.extend({
     return {
       globalHealthIndices: [],
       lastSelectedCountry: "",
-      globalHealthIndicators: [],
       locale: "en",
     };
   },
@@ -74,8 +73,6 @@ export default Vue.extend({
           common.configWithUserLanguageAndNoCacheHeader(this.$i18n.locale)
         )
         .then((globalHealthIndices) => {
-          this.globalHealthIndicators =
-            globalHealthIndices.data.countryHealthScores;
           const globalHealthIndicesWithScores =
             globalHealthIndices.data.countryHealthScores.filter((country) => {
               return window.appProperties.getCategoryFilter()
