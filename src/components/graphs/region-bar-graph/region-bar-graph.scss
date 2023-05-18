@@ -2,12 +2,12 @@
   height: var(--height);
   width: var(--width);
   overflow-x: auto;
+  margin-bottom: 20px;
 }
 .graph > canvas {
   position: absolute;
   left: 0;
   top: 0;
-  background-color: aqua;
   pointer-events: none;
 }
 .graph {

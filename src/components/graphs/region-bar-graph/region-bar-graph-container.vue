@@ -12,6 +12,7 @@ export default Vue.extend({
     return {
       category: window.appProperties.getCategoryFilter() - 1,
       countries: [],
+      regionCountriesData: [],
       defaultYearCountriesScore: new Map(),
       selectedYearCountriesScore: new Map(),
     };
@@ -33,11 +34,15 @@ export default Vue.extend({
     },
   },
   methods: {
-    getCountriesNames(regionCountriesData) {
+    getCountriesNames() {
       this.countries = [];
-      regionCountriesData.map(({ countryName }) => {
-        this.countries.push(countryName);
-      });
+      for (let key of this.defaultYearCountriesScore.keys()) {
+        this.countries.push(key);
+      }
+      for (let key of this.selectedYearCountriesScore.keys()) {
+        this.countries.push(key);
+      }
+      this.countries = [...new Set(this.countries)];
     },
     getDefaultYearCountriesData(regionCountriesData) {
       this.defaultYearCountriesScore = new Map();
@@ -45,10 +50,26 @@ export default Vue.extend({
         let countryName = country.countryName;
         country.countryYearsData.map((countryYearsData) => {
           if (countryYearsData.year === this.defaultYear) {
-            this.defaultYearCountriesScore.set(
-              countryName,
-              countryYearsData.country
-            );
+            if (this.category === -1) {
+              if (
+                countryYearsData.country.countryPhase !== -1 &&
+                countryYearsData.country.countryPhase !== null
+              ) {
+                this.defaultYearCountriesScore.set(
+                  countryName,
+                  countryYearsData.country
+                );
+              }
+            } else {
+              if (
+                countryYearsData.country.categories[this.category].phase !== -1
+              ) {
+                this.defaultYearCountriesScore.set(
+                  countryName,
+                  countryYearsData.country
+                );
+              }
+            }
           }
         });
       });
@@ -59,10 +80,26 @@ export default Vue.extend({
         let countryName = country.countryName;
         country.countryYearsData.map((countryYearsData) => {
           if (countryYearsData.year === this.year) {
-            this.selectedYearCountriesScore.set(
-              countryName,
-              countryYearsData.country
-            );
+            if (this.category === -1) {
+              if (
+                countryYearsData.country.countryPhase !== -1 &&
+                countryYearsData.country.countryPhase !== null
+              ) {
+                this.selectedYearCountriesScore.set(
+                  countryName,
+                  countryYearsData.country
+                );
+              }
+            } else {
+              if (
+                countryYearsData.country.categories[this.category].phase !== -1
+              ) {
+                this.selectedYearCountriesScore.set(
+                  countryName,
+                  countryYearsData.country
+                );
+              }
+            }
           }
         });
       });
@@ -82,14 +119,18 @@ export default Vue.extend({
           },
         })
         .then(({ data: { regionCountriesData } }) => {
-          this.getCountriesNames(regionCountriesData);
-          this.getDefaultYearCountriesData(regionCountriesData);
-          this.getSelectedYearCountriesData(regionCountriesData);
+          this.regionCountriesData = regionCountriesData;
+          this.getDefaultYearCountriesData(this.regionCountriesData);
+          this.getSelectedYearCountriesData(this.regionCountriesData);
+          this.getCountriesNames();
           common.hideLoading();
         });
     },
     categoryChange() {
       this.category = window.appProperties.getCategoryFilter() - 1;
+      this.getDefaultYearCountriesData(this.regionCountriesData);
+      this.getSelectedYearCountriesData(this.regionCountriesData);
+      this.getCountriesNames();
     },
   },
 });
