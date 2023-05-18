@@ -49,7 +49,9 @@ export default Vue.extend({
       selectedRegion: {},
     };
   },
-
+  beforeDestroy() {
+    EventBus.$off(EVENTS.YEAR_FILTERED);
+  },
   mounted() {
     common.showLoading();
     this.getHealthIndicatorsFor(this.$route.params.countryCode);
