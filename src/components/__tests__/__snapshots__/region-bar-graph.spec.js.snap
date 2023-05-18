@@ -8,7 +8,7 @@ exports[`Region Bar Graph Liner > should render Graph when mounted and create a 
   <div
     class="graph-container"
     data-v-6edbe18b=""
-    style="--width: 1500px;"
+    style="--width: 1500px; --height: 550px;"
   >
     <canvas
       data-v-6edbe18b=""

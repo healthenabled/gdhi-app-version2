@@ -1,11 +1,19 @@
 .graph-container {
-  height: 750px;
+  height: var(--height);
   width: var(--width);
+  overflow-x: auto;
+}
+.graph > canvas {
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-color: aqua;
+  pointer-events: none;
 }
 .graph {
-  height: 900px;
+  position: relative;
+  height: auto;
   width: 100%;
-  overflow-x: auto;
   overflow-y: hidden;
 }
 ::-webkit-scrollbar {

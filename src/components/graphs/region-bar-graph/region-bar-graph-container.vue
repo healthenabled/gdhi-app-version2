@@ -120,16 +120,11 @@ export default Vue.extend({
 @import "../../../assets/stylesheets/rtl-support";
 @import "../../../assets/stylesheets/components/variables";
 .container {
-  height: 1000px;
-  margin-top: 20px;
   margin-bottom: 20px;
   border-radius: 0px;
-
   .indicator-filter-container {
     @include padding-left(16px);
-    padding-top: 2px;
     font-weight: bold;
-    margin-bottom: 20px;
   }
 }
 .indicator-filter-container::v-deep .filter-indicator {
@@ -139,8 +134,7 @@ export default Vue.extend({
   @include margin-left(0.5vw);
 
   &-header {
-    margin-top: 20px;
-    padding-bottom: 10px;
+    margin-top: unset;
     font-family: "Interbold";
     font-weight: 900;
     font-size: 17px;

@@ -36,6 +36,7 @@ export default Vue.extend({
       let multiplier = this.labels.length <= 5 ? 10 : 140;
       return {
         "--width": 1500 + this.labels.length * multiplier + "px",
+        "--height": 550 + "px",
       };
     },
     barMetaData() {
