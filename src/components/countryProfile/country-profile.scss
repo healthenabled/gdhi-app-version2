@@ -448,6 +448,17 @@
   display: flex;
 }
 
+@media (max-width: 383px) {
+  .country-detail {
+    .overall-card {
+      .country-progress-over-time {
+        p {
+          font-size: 17px;
+        }
+      }
+    }
+  }
+}
 @media (max-width: $mobile-width) {
   .country-detail {
     .comparison-graph-panel {
