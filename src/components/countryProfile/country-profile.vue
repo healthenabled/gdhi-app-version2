@@ -51,6 +51,7 @@ export default Vue.extend({
   },
   beforeDestroy() {
     EventBus.$off(EVENTS.YEAR_FILTERED);
+    EventBus.$off(EVENTS.REGION_FILTERED);
   },
   mounted() {
     common.showLoading();
