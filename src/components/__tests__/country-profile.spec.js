@@ -7,8 +7,10 @@ import { EventBus } from "../common/event-bus";
 import CountryProfile from "../countryProfile/country-profile.vue";
 import * as pdfHelper from "../pdfHelper/pdf-generate-scorecard.js";
 import { i18n } from "../../plugins/i18n";
+import Sinon from "sinon";
 
 const eventBusOnSpy = vi.spyOn(EventBus, "$on");
+const eventBusOffSpy = vi.spyOn(EventBus, "$off");
 
 describe("Country Profile ", () => {
   let wrapper;
@@ -298,6 +300,12 @@ describe("Country Profile ", () => {
   it("should register event when country page is mounted", async () => {
     expect(eventBusOnSpy.mock.calls[0][0]).to.equal("year:filtered");
     expect(eventBusOnSpy.mock.calls[1][0]).to.equal("region:filtered");
+  });
+
+  it("should off events when country page is destroyed", async () => {
+    wrapper.destroy();
+    expect(eventBusOffSpy.mock.calls[0][0]).to.equal("year:filtered");
+    expect(eventBusOffSpy.mock.calls[1][0]).to.equal("region:filtered");
   });
 
   it("should call generateScorecard with the healthindicator data", async () => {
