@@ -238,7 +238,7 @@ exports[`Country Profile  > should populate the data after successfull API call 
                       <p
                         class="score-benchmark"
                       >
-                        Score
+                         Score 
                       </p>
                       <div
                         class="indicator-score phase4"
@@ -310,7 +310,7 @@ exports[`Country Profile  > should populate the data after successfull API call 
                       <p
                         class="score-benchmark"
                       >
-                        Score
+                         Score 
                       </p>
                       <div
                         class="indicator-score phase4"
@@ -382,7 +382,7 @@ exports[`Country Profile  > should populate the data after successfull API call 
                       <p
                         class="score-benchmark"
                       >
-                        Score
+                         Score 
                       </p>
                       <div
                         class="indicator-score phase4"
