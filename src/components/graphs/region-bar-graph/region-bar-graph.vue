@@ -1,8 +1,11 @@
 <template>
   <div class="graph">
-    <div class="graph-container" :style="cssProps">
-      <canvas id="bar-graph"></canvas>
+    <div class="graph-container2">
+      <div class="graph-container" :style="cssProps">
+        <canvas id="bar-graph"></canvas>
+      </div>
     </div>
+    <canvas id="axis-Test" height="550" width="0"></canvas>
   </div>
 </template>
 <script>
@@ -191,7 +194,55 @@ export default Vue.extend({
             bottom: 0,
           },
         },
-        animation: false,
+        animation: {
+          onComplete: function () {
+            var sourceCanvas = barGraphInstance.canvas;
+            var scale = window.devicePixelRatio;
+            var copyWidth = barGraphInstance.scales["y"].width - 10;
+            var copyHeight =
+              barGraphInstance.scales["y"].height +
+              barGraphInstance.scales["y"].top +
+              10;
+
+            var targetCtx = document
+              .getElementById("axis-Test")
+              .getContext("2d");
+
+            targetCtx.scale(scale, scale);
+            targetCtx.canvas.width = copyWidth * scale;
+            targetCtx.canvas.height = copyHeight * scale;
+
+            targetCtx.canvas.style.width = `${copyWidth}px`;
+            targetCtx.canvas.style.height = `${copyHeight}px`;
+            targetCtx.drawImage(
+              sourceCanvas,
+              0,
+              0,
+              copyWidth * scale,
+              copyHeight * scale,
+              0,
+              0,
+              copyWidth * scale,
+              copyHeight * scale
+            );
+
+            var sourceCtx = sourceCanvas.getContext("2d");
+
+            sourceCtx.clearRect(0, 0, copyWidth * scale, copyHeight * scale);
+          },
+        },
+        onProgress: function () {
+          // if (rectangleSet === true) {
+          var copyWidth = barGraphInstance.scales["y"].width;
+          var copyHeight =
+            barGraphInstance.scales["y"].height +
+            barGraphInstance.scales["y"].top +
+            10;
+
+          var sourceCtx = barGraphInstance.chart.canvas.getContext("2d");
+          sourceCtx.clearRect(0, 0, copyWidth, copyHeight);
+          // }
+        },
         plugins: {
           tooltip: pluginTooltipOptions,
           legend: {
@@ -230,6 +281,7 @@ export default Vue.extend({
         document.getElementById("bar-graph"),
         this.barGraphConfig
       );
+      console.log(barGraphInstance);
     },
     isOverallIndicatorSelected(categoryFilter) {
       if (categoryFilter === -1 || categoryFilter === null) {
