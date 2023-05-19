@@ -37,7 +37,7 @@ export default Vue.extend({
       return {
         "--width": 1500 + this.labels.length * multiplier + "px",
         // "--width": this.labels.length * 250 + "px",
-        "--height": 550 + "px",
+        "--height": 500 + "px",
       };
     },
     barMetaData() {
