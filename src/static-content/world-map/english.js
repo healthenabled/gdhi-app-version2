@@ -24,9 +24,9 @@ export const worldMap = {
       causeOfDeath: "Cause of death, by non-communicable diseases (% of total)",
       mortalityRate: "Mortality rate, under-5 (per 1,000 live births)",
     },
-
     description:
       "The Global Digital Health Monitor (GDHM) is an interactive web-based resource that aims to track, monitor, and\n" +
       "      assess the enabling environment for digital health throughout the world.",
   },
+  searchCountry: "Search Country",
 };

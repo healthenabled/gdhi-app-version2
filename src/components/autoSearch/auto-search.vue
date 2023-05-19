@@ -47,7 +47,7 @@ export default Vue.extend({
 
 <template>
   <div class="search-box" ref="autocomplete">
-    <div class="search-box-header">Search Country</div>
+    <div class="search-box-header">{{ $t("worldMap.searchCountry") }}</div>
     <autocomplete
       id="search-box"
       :source="countries"

@@ -31,4 +31,5 @@ export const worldMap = {
       "O Monitor de saúde digital global (GDHM) ou Índice Global de Saúde Digital é um recurso interativo baseado na web, que " +
       "pretende acompanhar, monitorizar e avaliar um ambiente que seja propício à saúde digital em todo o mundo.",
   },
+  searchCountry: "Pesquisar País",
 };

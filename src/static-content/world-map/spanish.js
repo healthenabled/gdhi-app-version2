@@ -32,4 +32,5 @@ export const worldMap = {
       "El Monitor de salud digital mundial (GDHM en inglés) es un recurso interactivo basado en web que tiene como objetivo " +
       "rastrear, monitorear y evaluar el entorno propicio para la salud digital en todo el mundo.",
   },
+  searchCountry: "Buscar país",
 };

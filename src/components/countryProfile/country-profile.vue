@@ -424,7 +424,9 @@ export default Vue.extend({
                     </div>
                     <div :class="'score-container ' + locale">
                       <div class="score">
-                        <p class="score-benchmark">Score</p>
+                        <p class="score-benchmark">
+                          {{ $t("countryProfile.score") }}
+                        </p>
                         <div
                           :class="
                             'indicator-score' + ' phase' + indicator.score

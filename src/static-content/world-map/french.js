@@ -28,9 +28,9 @@ export const worldMap = {
       mortalityRate:
         "Taux de mortalité des moins de 5 ans (pour 1 000 naissances vivantes)",
     },
-
     description:
       "L’Moniteur de santé numérique mondial (GDHM) est une ressource interactive en ligne qui vise à suivre, surveiller et évaluer " +
       "l'environnement favorable à la santé numérique dans le monde.",
   },
+  searchCountry: "Rechercher un pays",
 };
