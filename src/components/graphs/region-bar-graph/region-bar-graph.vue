@@ -35,8 +35,8 @@ export default Vue.extend({
     cssProps() {
       let multiplier = this.labels.length <= 5 ? 0.5 : 140;
       return {
-        "--width": 1500 + this.labels.length * multiplier + "px",
-        // "--width": this.labels.length * 250 + "px",
+        // "--width": 1500 + this.labels.length * multiplier + "px",
+        "--width": Math.max(this.labels.length * 200, 1500) + "px",
         "--height": 550 + "px",
       };
     },
@@ -93,7 +93,7 @@ export default Vue.extend({
             categoryPercentage: 0.5,
             label: i18n.t("regionalOverview.selectedYear"),
             data: this.selectedYearCountriesData,
-            barThickness: 40,
+            barThickness: 60,
             backgroundColor: "#CED4DA",
           },
           {
@@ -101,7 +101,7 @@ export default Vue.extend({
             categoryPercentage: 0.5,
             label: i18n.t("regionalOverview.defaultYear"),
             data: this.defaultYearCountriesData,
-            barThickness: 40,
+            barThickness: 60,
             backgroundColor: ({ parsed: { y } }) => {
               const phaseToColorMap = {
                 1: "#FCAB9C",
@@ -177,6 +177,19 @@ export default Vue.extend({
             weight: 400,
             size: 16,
             lineHeight: "16.94px",
+          },
+          backdropPadding: {
+            left: 100,
+            right: 100,
+            top: 100,
+            bottom: 100,
+          },
+          callback: function (value) {
+            let label = self.labels[value];
+            if (self.labels.length >= 5) {
+              label = label.length < 7 ? label : label.slice(0, 5) + "...";
+            }
+            return label;
           },
           color: "#0A0A0A",
         },
