@@ -31,7 +31,8 @@ export default {
   name: "yearFilter",
   data() {
     return {
-      direction: "ltr",
+      direction: LayoutDirectionConfig[this.$i18n.locale],
+      locale: "",
     };
   },
   props: {
@@ -47,7 +48,10 @@ export default {
     },
   },
   updated() {
-    this.direction = LayoutDirectionConfig[this.$i18n.locale];
+    if (this.locale !== this.$i18n.locale) {
+      this.locale = this.$i18n.locale;
+      this.direction = LayoutDirectionConfig[this.$i18n.locale];
+    }
   },
   methods: {
     filter(value) {
