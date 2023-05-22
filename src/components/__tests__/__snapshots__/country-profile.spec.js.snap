@@ -201,8 +201,11 @@ exports[`Country Profile  > should populate the data after successfull API call 
                 style="display: none;"
               >
                 <div
-                  class="indicator govt-approved-false"
+                  class="indicator"
                 >
+                  <div
+                    class="govt-approved-false"
+                  />
                   <div
                     class="indicator-details-container"
                   >
@@ -273,8 +276,11 @@ exports[`Country Profile  > should populate the data after successfull API call 
                   </div>
                 </div>
                 <div
-                  class="indicator govt-approved-false"
+                  class="indicator"
                 >
+                  <div
+                    class="govt-approved-false"
+                  />
                   <div
                     class="indicator-details-container"
                   >
@@ -345,8 +351,11 @@ exports[`Country Profile  > should populate the data after successfull API call 
                   </div>
                 </div>
                 <div
-                  class="indicator govt-approved-false"
+                  class="indicator"
                 >
+                  <div
+                    class="govt-approved-false"
+                  />
                   <div
                     class="indicator-details-container"
                   >

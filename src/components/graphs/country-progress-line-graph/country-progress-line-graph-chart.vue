@@ -300,4 +300,10 @@ export default Vue.extend({
     margin-left: -30px;
   }
 }
+@media print {
+  #line-chart {
+    width: 750px !important;
+    height: 500px !important;
+  }
+}
 </style>

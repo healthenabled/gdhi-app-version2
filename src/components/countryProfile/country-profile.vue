@@ -398,14 +398,16 @@ export default Vue.extend({
                 </div>
                 <div
                   class="category-accordion-content"
-                  v-show="category.showCategory"
+                  :style="
+                    category.showCategory ? 'display: flex' : 'display:none'
+                  "
                 >
                   <div
                     v-for="(indicator, index_indicator) in category.indicators"
                     :key="index_indicator"
                     class="indicator"
-                    :class="`govt-approved-` + govtApproved"
                   >
+                    <div :class="`govt-approved-` + govtApproved"></div>
                     <div class="indicator-details-container">
                       <div class="indicator-id">
                         {{ indicator.code }}

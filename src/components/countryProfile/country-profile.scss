@@ -213,18 +213,21 @@
   }
   .category-accordion-content {
     margin-top: 20px;
-    display: flex;
     flex-direction: row;
     justify-content: space-between;
     flex-wrap: wrap;
     .govt-approved-true {
       background-color: $gdhi-purple-shade-1;
+      height: 5px;
+      width: 100%;
     }
     .govt-approved-false {
+      height: 5px;
+      width: 100%;
       background-color: $gdhi-purple-shade-2;
     }
     .indicator {
-      padding-top: 5px;
+      margin-top: 5px;
       margin-bottom: 16px;
       &:last-child {
         border: none;
@@ -404,6 +407,12 @@
 
 //To print the appropriate content
 @media print {
+  .category-accordion-content {
+    display: flex !important;
+    .indicator-details-container {
+      width: 97%;
+    }
+  }
   .country-detail {
     #collected-date {
       display: block;
