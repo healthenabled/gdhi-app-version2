@@ -408,7 +408,7 @@
 //To print the appropriate content
 @media print {
   .category-accordion-content {
-    display: flex !important;
+    display: block !important;
     .indicator-details-container {
       width: 97%;
     }
