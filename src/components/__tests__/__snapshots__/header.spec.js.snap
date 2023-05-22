@@ -1,0 +1,188 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Header  > should render header components 1`] = `
+<div
+  class="header"
+  data-v-a605b683=""
+>
+  <div
+    class="header-width"
+    data-v-a605b683=""
+  >
+    <div
+      class="header-elements"
+      data-v-a605b683=""
+    >
+      <div
+        class="left-aligned-headers"
+        data-v-a605b683=""
+      >
+        <span
+          class="logo-name hd-element"
+          data-v-a605b683=""
+        >
+          <a
+            data-v-a605b683=""
+            href="http://www.digitalhealthmonitor.org"
+            target="_blank"
+          >
+            <img
+              alt="GDHM Logo"
+              data-v-a605b683=""
+              height="45px"
+              src="/static/img/GDHMLogo.svg"
+              width="200px"
+            />
+          </a>
+        </span>
+        <router-link
+          class="hd-element header-link"
+          data-v-a605b683=""
+          to="[object Object]"
+        >
+          <span
+            data-v-a605b683=""
+          >
+            World Map
+          </span>
+        </router-link>
+        <a
+          class="hd-element header-link"
+          data-v-a605b683=""
+        >
+          <div
+            class="dropdown"
+            data-v-a605b683=""
+          >
+            <button
+              class="dropbtn"
+              data-v-a605b683=""
+            >
+               Regions 
+              <span
+                class="dropDown"
+                data-v-a605b683=""
+              />
+            </button>
+            <div
+              class="dropdown-content-hide"
+              data-v-a605b683=""
+            >
+              <a
+                data-v-a605b683=""
+                value="PAHO"
+              >
+                Pan American Region
+              </a>
+              <a
+                data-v-a605b683=""
+                value="AFRO"
+              >
+                African Region
+              </a>
+              <a
+                data-v-a605b683=""
+                value="EURO"
+              >
+                European Region
+              </a>
+              <a
+                data-v-a605b683=""
+                value="WPRO"
+              >
+                Western Pacific Region
+              </a>
+              <a
+                data-v-a605b683=""
+                value="SEARO"
+              >
+                South-East Asian Region
+              </a>
+              <a
+                data-v-a605b683=""
+                value="EMRO"
+              >
+                Eastern Mediterranean Region
+              </a>
+            </div>
+          </div>
+        </a>
+        <router-link
+          class="hd-element header-link"
+          data-v-a605b683=""
+          to="[object Object]"
+        >
+          <span
+            data-v-a605b683=""
+            style="margin: 0px 20px;"
+          >
+            Countries
+          </span>
+        </router-link>
+        <router-link
+          class="hd-element header-link"
+          data-v-a605b683=""
+          to="[object Object]"
+        >
+          <span
+            data-v-a605b683=""
+          >
+            Indicators
+          </span>
+        </router-link>
+        <router-link
+          class="hd-element header-link"
+          data-v-a605b683=""
+          to="[object Object]"
+        >
+          <span
+            data-v-a605b683=""
+          >
+            Methodology
+          </span>
+        </router-link>
+      </div>
+      <div
+        class="header-language-selector"
+        data-v-a605b683=""
+      >
+        <router-view
+          data-v-a605b683=""
+          name="languageSelect"
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    class="sub-header"
+    data-v-a605b683=""
+  >
+    <div
+      class="sub-header-title-and-description"
+      data-v-a605b683=""
+    >
+      <p
+        class="sub-header-title"
+        data-v-a605b683=""
+      >
+         State of Digital Health around the world today 
+      </p>
+      <p
+        class="sub-header-description"
+        data-v-a605b683=""
+      >
+         The Global Digital Health Monitor (GDHM) is an interactive web-based resource that aims to track, monitor, and
+      assess the enabling environment for digital health throughout the world. 
+      </p>
+    </div>
+    <div
+      class="sub-header-map-legend"
+      data-v-a605b683=""
+    >
+      <maplegend-stub
+        data-v-a605b683=""
+      />
+    </div>
+  </div>
+</div>
+`;

@@ -52,6 +52,9 @@ describe("Header ", () => {
     wrapper.vm.$router = { push: mockPush };
     expect(wrapper.findAll(".hd-element").length).to.equal(6);
   });
+  it("should render header components", async () => {
+    expect(wrapper.vm.$el).toMatchSnapshot();
+  });
 
   it("should invoke fetch all the regions api for different language", async () => {
     wrapper.vm.fetchRegions();
