@@ -65,6 +65,7 @@ export default Vue.extend({
       return LayoutDirectionConfig[this.locale] === "ltr" ? "95%" : "5%";
     },
     onClick({ regionId }) {
+      this.onHover = false;
       if (!this.$route.path.includes(regionId)) {
         this.$router.push({
           path: `/regional_overview/${regionId}`,
@@ -105,7 +106,9 @@ export default Vue.extend({
                   :class="onHover ? 'dropDown-expanded' : 'dropDown'"
                 ></span>
               </button>
-              <div class="dropdown-content">
+              <div
+                :class="onHover ? 'dropdown-content' : 'dropdown-content-hide'"
+              >
                 <a
                   v-for="region in regions"
                   :key="region.regionId"
