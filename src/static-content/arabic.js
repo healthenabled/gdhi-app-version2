@@ -37,9 +37,11 @@ export const ar = {
     contactEmail: "الاتصال: info@digitalhealthmonitor.org",
   },
   scoreCardPDF: {
+    average: "متوسط",
     title: "{country} - بطاقة نتائج الصحة الرقمية الوطنية",
     benchMarkPhaseValue: "المرحلة {benchmarkPhase} بلدان",
-    benchmarkAgainstBenchmarkValue: "المعيار ضد {benchMarkPhaseValue}",
+    benchmarkAgainstGlobal: "المعيار مقابل المتوسط ​​العالمي",
+    benchmarkAgainstRegion: "المعيار مقابل المتوسط ​​الإقليمي",
     noteForBenchmark:
       "يستخدم المؤشر الرئيسي في كل فئة لحساب المتوسط العام للبلد. يمكن قياس كل بلد مقابل المتوسط العالمي أو البلدان ضمن مرحلة محددة.",
     spiderGraphTitle: "نظرة عامة على المرحلة",

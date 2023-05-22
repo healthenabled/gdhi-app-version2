@@ -38,9 +38,11 @@ export const fr = {
     contactEmail: "Contact: info@digitalhealthmonitor.org",
   },
   scoreCardPDF: {
+    average: "Moyenne",
     title: "{country} - Tableau de Bord National de la Santé Numérique ",
     benchMarkPhaseValue: "Phase {benchmarkPhase} pays",
-    benchmarkAgainstBenchmarkValue: "RÉFÉRENCE Against {benchMarkPhaseValue}",
+    benchmarkAgainstGlobal: "Référence par rapport à la moyenne mondiale",
+    benchmarkAgainstRegion: "Référence par rapport à la moyenne régionale",
     noteForBenchmark:
       "L'indicateur principal de chaque catégorie est utilisé pour calculer la moyenne nationale globale. Chaque pays peut " +
       "être comparé à la moyenne mondiale ou à des pays dans une phase donnée.",

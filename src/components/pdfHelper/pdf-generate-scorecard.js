@@ -243,20 +243,38 @@ export async function generateScorecard({
       page.moveTo(MIN_X, page.getHeight() - 30);
     }
     page.moveDown(20);
-    page.drawText(
-      i18n.t("scoreCardPDF.benchmarkAgainstBenchmarkValue", {
-        benchMarkPhaseValue: benchMarkPhaseValue,
-      }),
-      {
-        size: 14,
-        color: hexToRgb("#000"),
-        font: helveticaBoldFont,
-        x: MIN_X,
-        y: page.getY(),
-        maxWidth: 500,
-        lineHeight: 14,
-      }
-    );
+    if (selectedRegion.regionId == null || selectedRegion.regionId == "") {
+      page.drawText(
+        i18n.t("scoreCardPDF.benchmarkAgainstGlobal", {
+          benchMarkPhaseValue: benchMarkPhaseValue,
+        }),
+        {
+          size: 14,
+          color: hexToRgb("#000"),
+          font: helveticaBoldFont,
+          x: MIN_X,
+          y: page.getY(),
+          maxWidth: 500,
+          lineHeight: 14,
+        }
+      );
+    } else {
+      page.drawText(
+        i18n.t("scoreCardPDF.benchmarkAgainstRegion", {
+          benchMarkPhaseValue: benchMarkPhaseValue,
+        }),
+        {
+          size: 14,
+          color: hexToRgb("#000"),
+          font: helveticaBoldFont,
+          x: MIN_X,
+          y: page.getY(),
+          maxWidth: 500,
+          lineHeight: 14,
+        }
+      );
+    }
+
     if (page.getY() <= 30) {
       page = pdfDoc.addPage();
       page.moveTo(MIN_X, page.getHeight() - 30);
@@ -512,14 +530,17 @@ export async function generateScorecard({
             }
           );
         } else {
-          page.drawText(selectedRegion.regionName, {
-            size: 10,
-            font: helveticaFont,
-            x: MAX_WIDTH + 5,
-            y: page.getY() + 51,
-            lineHeight: 10,
-            maxWidth: page.getWidth() - MAX_WIDTH - 30,
-          });
+          page.drawText(
+            selectedRegion.regionName + " " + i18n.t("scoreCardPDF.average"),
+            {
+              size: 10,
+              font: helveticaFont,
+              x: MAX_WIDTH + 5,
+              y: page.getY() + 51,
+              lineHeight: 10,
+              maxWidth: page.getWidth() - MAX_WIDTH - 30,
+            }
+          );
         }
       }
       // to reset doc.y position in PDFKit, As the doc.y position is updated as soon as we add text

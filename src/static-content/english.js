@@ -37,9 +37,11 @@ export const en = {
     contactEmail: "Contact: info@digitalhealthmonitor.org",
   },
   scoreCardPDF: {
+    average: "Average",
     title: "{country} - National Digital Health Scorecard",
     benchMarkPhaseValue: "Phase {benchmarkPhase} Countries",
-    benchmarkAgainstBenchmarkValue: "Benchmark Against {benchMarkPhaseValue}",
+    benchmarkAgainstGlobal: "Benchmark Against Global Average",
+    benchmarkAgainstRegion: "Benchmark Against Regional Average",
     noteForBenchmark:
       "The main indicator in each category is used to calculate overall country average. Each country can be benchmarked " +
       "against global average or countries within a selected phase.",

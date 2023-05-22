@@ -38,9 +38,11 @@ export const pt = {
     contactEmail: "Contato: info@digitalhealthmonitor.org",
   },
   scoreCardPDF: {
+    average: "Média",
     title: "{country} - Quadro de Pontuação Nacional de Saúde Digital",
     benchMarkPhaseValue: "Fase {benchmarkPhase} Países",
-    benchmarkAgainstBenchmarkValue: "Referência contra {benchMarkPhaseValue}",
+    benchmarkAgainstGlobal: "Referência Contra a Média Global",
+    benchmarkAgainstRegion: "Referência Contra a Média Regional",
     noteForBenchmark:
       "O indicador principal em cada categoria é utilizado para calcular a média global do país. Cada país pode ser " +
       "comparado com a média global ou com países dentro de uma fase selecionada.",
