@@ -428,6 +428,10 @@
       margin-bottom: 0;
       display: block;
     }
+
+    .overall-card:nth-child(4) {
+      display: none;
+    }
   }
   .box-shadow {
     -webkit-box-shadow: unset;
@@ -439,19 +443,8 @@
       width: unset;
     }
   }
-
   .accordion.expanded:after {
     content: "";
-  }
-
-  .year-select-container {
-    .sub-header-country-profile {
-      display: none;
-    }
-
-    .select-year-desc {
-      display: none;
-    }
   }
 }
 
