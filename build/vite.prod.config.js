@@ -11,6 +11,7 @@ import { viteStaticCopy } from "vite-plugin-static-copy";
 import sri from "rollup-plugin-sri";
 
 const renderChunks = (deps) => {
+  console.log("ENV variables", process.env);
   let chunks = {};
   chunks["vue"] = [];
   chunks["chart"] = [];
