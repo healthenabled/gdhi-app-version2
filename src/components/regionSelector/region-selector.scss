@@ -24,6 +24,7 @@
   @include padding-right(20px);
   border: $table-border;
   border-color: $black;
+  text-overflow: ellipsis;
   -webkit-appearance: none;
   appearance: none;
   -moz-appearance: none;
