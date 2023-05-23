@@ -211,7 +211,8 @@ export default Vue.extend({
         });
     },
     countryDataSheetUrl() {
-      return `/api/export_country_data/${this.$route.params.countryCode}?user_language=${this.$i18n.locale}`;
+      const yearParam = this.selectedYear ? `&year=${this.selectedYear}` : "";
+      return `/api/export_country_data/${this.$route.params.countryCode}?user_language=${this.$i18n.locale}${yearParam}`;
     },
     getLocaleBenchmarkValue(indicatorId) {
       const value =
