@@ -39,3 +39,10 @@ select::-ms-expand {
     display: none;
   }
 }
+@media print {
+  .filter-indicator {
+    width: 40%;
+    height: 40px;
+    display: block;
+  }
+}

@@ -43,3 +43,9 @@ select::-ms-expand {
     }
   }
 }
+
+@media print {
+  .year-indicator {
+    display: none;
+  }
+}

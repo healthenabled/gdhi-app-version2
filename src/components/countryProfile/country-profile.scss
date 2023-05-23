@@ -443,6 +443,16 @@
   .accordion.expanded:after {
     content: "";
   }
+
+  .year-select-container {
+    .sub-header-country-profile {
+      display: none;
+    }
+
+    .select-year-desc {
+      display: none;
+    }
+  }
 }
 
 .region-section {

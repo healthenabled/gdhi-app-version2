@@ -111,4 +111,13 @@ export default Vue.extend({
     padding-top: 2px;
   }
 }
+
+@media print {
+  .container {
+    .indicator-filter-container {
+      height: 20%;
+      display: block;
+    }
+  }
+}
 </style>
