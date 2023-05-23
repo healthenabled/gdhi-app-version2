@@ -442,7 +442,10 @@ export default Vue.extend({
                       <div class="separator" />
 
                       <div class="score">
-                        <div v-if="benchmarkData[indicator.id.toString()]">
+                        <div
+                          v-if="benchmarkData[indicator.id.toString()]"
+                          class="score-benchmark-and-average"
+                        >
                           <p class="score-benchmark">
                             {{ $t("countryProfile.benchmark.text") }}
                           </p>

@@ -270,7 +270,7 @@
         flex-shrink: 0;
         text-align: center;
         width: 100%;
-        height: 60px;
+        min-height: 60px;
         display: flex;
         //background-color: $fine-gray;
         // Added to maintain contrast with fine gray which is the background color for NA indicators
@@ -282,6 +282,14 @@
 
           justify-content: center;
           align-items: center;
+          .score-benchmark-and-average {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-self: center;
+            width: 60%;
+          }
+
           .score-benchmark {
             font-family: "InterBold", sans-serif;
             font-size: 16px;

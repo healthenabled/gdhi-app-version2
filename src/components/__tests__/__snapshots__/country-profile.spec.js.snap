@@ -255,7 +255,9 @@ exports[`Country Profile  > should populate the data after successfull API call 
                     <div
                       class="score"
                     >
-                      <div>
+                      <div
+                        class="score-benchmark-and-average"
+                      >
                         <p
                           class="score-benchmark"
                         >
@@ -330,7 +332,9 @@ exports[`Country Profile  > should populate the data after successfull API call 
                     <div
                       class="score"
                     >
-                      <div>
+                      <div
+                        class="score-benchmark-and-average"
+                      >
                         <p
                           class="score-benchmark"
                         >
@@ -405,7 +409,9 @@ exports[`Country Profile  > should populate the data after successfull API call 
                     <div
                       class="score"
                     >
-                      <div>
+                      <div
+                        class="score-benchmark-and-average"
+                      >
                         <p
                           class="score-benchmark"
                         >
