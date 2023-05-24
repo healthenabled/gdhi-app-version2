@@ -462,6 +462,7 @@ input[type="date"] {
 
 .accordion {
   position: relative;
+  cursor: pointer;
 
   &:after {
     position: absolute;

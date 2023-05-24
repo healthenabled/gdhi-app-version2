@@ -91,17 +91,15 @@ export default Vue.extend({
             ></a>
             <div class="indicator-details">
               <div
+                @click="onCategoryExpand(category)"
                 v-bind:class="
                   category.showCategory ? 'accordion expanded' : 'accordion'
                 "
               >
-                <div
-                  class="align-No sub-header"
-                  @click="onCategoryExpand(category)"
-                >
+                <div class="align-No sub-header">
                   {{ category.categoryName }}
                 </div>
-                <div class="accordion-content">
+                <div class="accordion-content" @click.stop="() => {}">
                   <div v-for="indicator in category.indicators">
                     <div class="box indicator">
                       <div class="indicator-info text-center">
