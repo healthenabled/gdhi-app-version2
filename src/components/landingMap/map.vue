@@ -94,7 +94,9 @@ export default Vue.extend({
       const collection = globalHealthIndices;
       collection.forEach((value) => {
         merge(value, {
-          colorCode: helper.getColorCodeFor(value["countryPhase"]),
+          colorCode: window.appProperties.getCategoryFilter()
+            ? helper.getColorCodeFor(value.categories[0].phase)
+            : helper.getColorCodeFor(value["countryPhase"]),
         });
       });
       return collection;
