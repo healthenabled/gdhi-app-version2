@@ -7,9 +7,11 @@ import { describe, it, expect, beforeEach, vi } from "vitest";
 import axios from "axios";
 import { i18n } from "../../plugins/i18n";
 import flushPromises from "flush-promises";
+import lodash from "lodash";
 
 const axiosGetSpy = vi.spyOn(axios, "get");
 const eventBusSpy = vi.spyOn(EventBus, "$emit");
+const mergeSpy = vi.spyOn(lodash, "merge");
 
 describe("Map ", () => {
   let wrapper;
@@ -106,7 +108,47 @@ describe("Map ", () => {
       },
     ],
   };
+  let response = {
+    countryId: "IND",
+    countryName: "India",
+    countryAlpha2Code: "IN",
+    categories: [
+      {
+        id: 1,
+        name: "Leadership and Governance",
+        overallScore: 1.5,
+        phase: 2,
+        indicators: [
+          {
+            id: 1,
+            code: "1",
+            name: "Digital health prioritized at the national level through dedicated bodies / mechanisms for governance",
+            indicatorDescription:
+              "Does the country have a separate department / agency / national working group for digital health?",
+            score: 1,
+            supportingText: "markr@thoughtworks.com",
+            scoreDescription:
+              "No coordinating body exists and/or nascent governance structure for digital health is constituted on a case-by-case basis.",
+          },
+          {
+            id: 2,
+            code: "2",
+            name: "Digital Health prioritized at the national level through planning",
+            indicatorDescription:
+              "Is digital health included and budgeted for in national health or relevant national strategies and/or plan(s)?",
+            score: 2,
+            supportingText: "markr@thoughtworks.com",
+            scoreDescription:
+              "There is some discussion of inclusion of digital health in national health or other relevant national strategies or plans. Proposed language for inclusion of digital health in national health or relevant national strategies and/or plans has been made and is under review.",
+          },
+        ],
+      },
+    ],
+    countryPhase: 3,
+    updatedDate: "May 2018",
+  };
   beforeEach(() => {
+    mergeSpy.mockReset();
     axiosGetSpy.mockImplementation(async (url) => {
       if (url.includes("countries_health_indicator_scores")) {
         return new Promise((resolve) => {
@@ -129,6 +171,8 @@ describe("Map ", () => {
     wrapper = shallowMount(Map, { i18n });
     await flushPromises();
     expect(axiosGetSpy).toHaveBeenCalled();
+    expect(mergeSpy.mock.calls[0][0]).to.deep.equal(response);
+    expect(mergeSpy.mock.calls[0][1]).to.deep.equal({ colorCode: "#FFE180" });
     worldMap.drawMap.restore();
   });
 
