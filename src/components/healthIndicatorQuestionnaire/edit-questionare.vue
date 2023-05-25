@@ -658,7 +658,9 @@
         <div class="box" data-header="No.">
           <div
             v-bind:class="
-              category.showCategory ? 'accordion expanded' : 'accordion'
+              category.showCategory
+                ? 'accordion-indicator expanded'
+                : 'accordion-indicator'
             "
           >
             <div class="sub-header" @click="onCategoryExpand(category)">

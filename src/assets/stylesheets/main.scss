@@ -460,7 +460,8 @@ input[type="date"] {
   padding-top: 10px;
 }
 
-.accordion {
+.accordion,
+.accordion-indicator {
   position: relative;
   cursor: pointer;
 
@@ -489,6 +490,15 @@ input[type="date"] {
     margin: -20px;
     padding: 20px;
     cursor: pointer;
+  }
+}
+.accordion-indicator {
+  &:after {
+    position: absolute;
+    @include right(0px);
+    content: "\f078";
+    font-family: "FontAwesome";
+    top: 19px;
   }
 }
 
