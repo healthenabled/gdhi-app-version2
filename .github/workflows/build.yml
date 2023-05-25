@@ -29,8 +29,8 @@ jobs:
     needs: [continuous-integration]
     if: github.ref == 'refs/heads/main'
     env:
-      VITE_IS_GOOGLE_ANALYTICS_ENABLED: ${{vars.VITE_IS_GOOGLE_ANALYTICS_ENABLED}}
-      VITE_GOOGLE_ANALYTICS_ID: ${{vars.VITE_GOOGLE_ANALYTICS_ID}}
+      VITE_IS_GOOGLE_ANALYTICS_ENABLED: ${{ vars.VITE_IS_GOOGLE_ANALYTICS_ENABLED }}
+      VITE_GOOGLE_ANALYTICS_ID: ${{ vars.VITE_GOOGLE_ANALYTICS_ID }}
     steps:
       - name: Checkout code from Github
         uses: actions/checkout@v3
