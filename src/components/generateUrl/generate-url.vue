@@ -25,14 +25,12 @@
       </div>
     </div>
     <div>
-      <div>
-        <input v-model="generatedURL" type="text" id="url-box" readonly />
-      </div>
+      <input v-model="generatedURL" type="text" id="url-box" readonly />
+    </div>
+    <div style="min-height: 30px">
       <div class="float-right">
         <button class="btn btn-secondary" @click="copyUrl()">Copy url</button>
       </div>
-    </div>
-    <div>
       <div id="info-box" v-if="warningMessage.length">
         <i class="fa fa-lg fa-exclamation-triangle" />{{ warningMessage }}
       </div>
