@@ -158,6 +158,9 @@ export default Vue.extend({
         labels: {
           boxHeight: 0,
           padding: 30,
+          font: {
+            size: 16,
+          },
         },
       };
       let pluginAnnotationOptions = {

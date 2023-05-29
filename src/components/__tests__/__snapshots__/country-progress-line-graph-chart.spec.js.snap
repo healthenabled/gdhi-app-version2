@@ -100,6 +100,9 @@ exports[`Country Progress Line Chart > should render Graph when mounted and crea
       "legend": {
         "labels": {
           "boxHeight": 0,
+          "font": {
+            "size": 16,
+          },
           "padding": 30,
         },
         "position": "bottom",
