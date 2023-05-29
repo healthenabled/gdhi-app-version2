@@ -229,11 +229,10 @@ export default Vue.extend({
 @import "../../../assets/stylesheets/components/variables";
 .canvas-container {
   height: 60vh;
-  width: 110%;
 }
 canvas {
   margin-top: -8vh;
-  @include margin-left(10px);
+  @include margin-left(20px);
 }
 @media (max-width: $mobile-width) {
   .canvas-container {
