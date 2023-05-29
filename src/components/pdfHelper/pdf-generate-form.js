@@ -75,7 +75,7 @@ export async function generateFormPDF(
     }
   };
 
-  const drawTextWithPaginationForResourceLinks = (payloadText, options) => {
+  const drawTextWithPaginationForLengthyPayloads = (payloadText, options) => {
     const lines = breakTextIntoLines(
       payloadText,
       options.size,
@@ -156,12 +156,13 @@ export async function generateFormPDF(
     lineHeight: 12,
     maxWidth: MAX_WIDTH,
   });
-  drawTextWithPagination(countrySummary.dataFeederEmail, {
+  drawTextWithPaginationForLengthyPayloads(countrySummary.dataFeederEmail, {
     font: helveticaFont,
     size: 12,
     lineHeight: 12,
     maxWidth: MAX_WIDTH,
   });
+  page.moveDown(10);
   const govtApproved = i18n.t(
     "healthIndicatorQuestionnaire.contactForm.govtApprovedMessage"
   );
@@ -217,12 +218,13 @@ export async function generateFormPDF(
       lineHeight: 12,
       maxWidth: MAX_WIDTH,
     });
-    drawTextWithPagination(countrySummary.dataApproverEmail, {
+    drawTextWithPaginationForLengthyPayloads(countrySummary.dataApproverEmail, {
       font: helveticaFont,
       size: 12,
       lineHeight: 12,
       maxWidth: MAX_WIDTH,
     });
+    page.moveDown(10);
   }
   const contactName = i18n.t(
     "healthIndicatorQuestionnaire.contactForm.nameOfTheCountryContact"
@@ -263,12 +265,13 @@ export async function generateFormPDF(
     lineHeight: 12,
     maxWidth: MAX_WIDTH,
   });
-  drawTextWithPagination(countrySummary.contactEmail, {
+  drawTextWithPaginationForLengthyPayloads(countrySummary.contactEmail, {
     font: helveticaFont,
     size: 12,
     lineHeight: 12,
     maxWidth: MAX_WIDTH,
   });
+  page.moveDown(10);
   const contactOrganization = i18n.t(
     "healthIndicatorQuestionnaire.contactForm.organisationOfTheCountryContact"
   );
@@ -326,12 +329,15 @@ export async function generateFormPDF(
     });
   handlePagination();
   for (let i = 0; i < countrySummary.resources.length; i++) {
-    drawTextWithPaginationForResourceLinks(countrySummary.resources[i] || "-", {
-      size: 12,
-      lineHeight: 12,
-      font: helveticaFont,
-      maxWidth: MAX_WIDTH,
-    });
+    drawTextWithPaginationForLengthyPayloads(
+      countrySummary.resources[i] || "-",
+      {
+        size: 12,
+        lineHeight: 12,
+        font: helveticaFont,
+        maxWidth: MAX_WIDTH,
+      }
+    );
     page.moveDown(20);
   }
   page = pdfDoc.addPage();
