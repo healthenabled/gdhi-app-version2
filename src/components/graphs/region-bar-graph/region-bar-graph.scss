@@ -1,3 +1,4 @@
+@import "../../../assets/stylesheets/components/variables";
 .graph-container {
   height: var(--height);
   width: var(--width);
@@ -27,4 +28,11 @@
 ::-webkit-scrollbar-thumb:horizontal {
   border-radius: 10px;
   background: #ccc;
+}
+.error {
+  text-transform: capitalize;
+  color: $negative;
+  margin-top: 50px;
+  text-align: center;
+  font-size: 20px;
 }

@@ -1,7 +1,12 @@
 <template>
-  <div class="graph">
-    <div class="graph-container" :style="cssProps">
-      <canvas id="bar-graph"></canvas>
+  <div>
+    <div v-if="defaultYearData.size || selectedYearData.size" class="graph">
+      <div class="graph-container" :style="cssProps">
+        <canvas id="bar-graph"></canvas>
+      </div>
+    </div>
+    <div v-else class="error">
+      {{ $t("worldMap.indicatorPanel.noDigitalIndicatorAvailable") }}
     </div>
   </div>
 </template>
@@ -225,11 +230,13 @@ export default Vue.extend({
   },
   methods: {
     drawBarGraph() {
-      barGraphInstance?.destroy();
-      barGraphInstance = new Chart(
-        document.getElementById("bar-graph"),
-        this.barGraphConfig
-      );
+      if (this.defaultYearData.size || this.selectedYearData.size) {
+        barGraphInstance?.destroy();
+        barGraphInstance = new Chart(
+          document.getElementById("bar-graph"),
+          this.barGraphConfig
+        );
+      }
     },
     isOverallIndicatorSelected(categoryFilter) {
       if (categoryFilter === -1 || categoryFilter === null) {

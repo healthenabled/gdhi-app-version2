@@ -2,18 +2,22 @@
 
 exports[`Region Bar Graph Liner > should render Graph when mounted and create a new Chart instance 1`] = `
 <div
-  class="graph"
   data-v-6edbe18b=""
 >
   <div
-    class="graph-container"
+    class="graph"
     data-v-6edbe18b=""
-    style="--width: 1500px; --height: 500px;"
   >
-    <canvas
+    <div
+      class="graph-container"
       data-v-6edbe18b=""
-      id="bar-graph"
-    />
+      style="--width: 1500px; --height: 500px;"
+    >
+      <canvas
+        data-v-6edbe18b=""
+        id="bar-graph"
+      />
+    </div>
   </div>
 </div>
 `;

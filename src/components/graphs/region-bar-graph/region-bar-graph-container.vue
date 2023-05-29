@@ -12,7 +12,7 @@ export default Vue.extend({
     return {
       category: window.appProperties.getCategoryFilter() - 1,
       countries: [],
-      regionCountriesData: [],
+      regionCountriesData: null,
       defaultYearCountriesScore: new Map(),
       selectedYearCountriesScore: new Map(),
     };
@@ -145,7 +145,7 @@ export default Vue.extend({
       />
     </div>
     <RegionBarGraph
-      v-if="defaultYearCountriesScore.size || selectedYearCountriesScore.size"
+      v-if="regionCountriesData != null"
       :labels="countries"
       :defaultYearData="defaultYearCountriesScore"
       :selectedYearData="selectedYearCountriesScore"
