@@ -74,28 +74,27 @@ export async function generateFormPDF(
       page.moveDown(30 + heightOfOneLine * numberOfLinesInTheSecondPart);
     }
   };
+
+  const drawTextWithPaginationForResourceLinks = (payloadText, options) => {
+    const lines = breakTextIntoLines(
+      payloadText,
+      options.size,
+      options.font,
+      options.maxWidth
+    );
+    const numberOfLinesToWrite = lines.length;
+    for (let i = 0; i < numberOfLinesToWrite; i++) {
+      page.drawText(lines[i], options);
+      page.moveDown(15);
+    }
+    handlePagination();
+  };
+
   const handlePagination = () => {
     if (page.getY() <= MIN_X) {
       page = pdfDoc.addPage();
       page.moveTo(MIN_X, page.getHeight() - 60);
     }
-  };
-  const moveDownAndPopulateData = (i18nText, summaryData) => {
-    handlePagination();
-    page.moveDown(1);
-    page.drawText(i18n.t(i18nText), {
-      font: helveticaBoldFont,
-      size: 12,
-      lineHeight: 12,
-      maxWidth: MAX_WIDTH,
-    });
-    page.moveDown(20);
-    page.drawText(summaryData || "-", {
-      font: helveticaFont,
-      size: 12,
-      lineHeight: 12,
-      maxWidth: MAX_WIDTH,
-    });
   };
 
   let page = pdfDoc.addPage();
@@ -118,64 +117,173 @@ export async function generateFormPDF(
     lineHeight: 16,
     maxWidth: MAX_WIDTH,
   });
-  moveDownAndPopulateData(
-    "healthIndicatorQuestionnaire.contactForm.nameOfPersonEnteringData",
-    countrySummary.dataFeederName
+  const nameOfPersonEnteringData = i18n.t(
+    "healthIndicatorQuestionnaire.contactForm.nameOfPersonEnteringData"
   );
-  page.moveDown(20);
-  moveDownAndPopulateData(
-    "healthIndicatorQuestionnaire.contactForm.roleOfThePersonEnteringData",
-    countrySummary.dataFeederRole
+  drawTextWithPagination(nameOfPersonEnteringData, {
+    font: helveticaBoldFont,
+    size: 12,
+    lineHeight: 12,
+    maxWidth: MAX_WIDTH,
+  });
+  drawTextWithPagination(countrySummary.dataFeederName, {
+    font: helveticaFont,
+    size: 12,
+    lineHeight: 12,
+    maxWidth: MAX_WIDTH,
+  });
+  const roleOfPersonEnteringData = i18n.t(
+    "healthIndicatorQuestionnaire.contactForm.roleOfThePersonEnteringData"
   );
-  page.moveDown(20);
-  moveDownAndPopulateData(
-    "healthIndicatorQuestionnaire.contactForm.emailOfThePersonEnteringData",
-    countrySummary.dataFeederEmail
+  drawTextWithPagination(roleOfPersonEnteringData, {
+    font: helveticaBoldFont,
+    size: 12,
+    lineHeight: 12,
+    maxWidth: MAX_WIDTH,
+  });
+  drawTextWithPagination(countrySummary.dataFeederRole, {
+    font: helveticaFont,
+    size: 12,
+    lineHeight: 12,
+    maxWidth: MAX_WIDTH,
+  });
+  const emailOfPersonEnteringData = i18n.t(
+    "healthIndicatorQuestionnaire.contactForm.emailOfThePersonEnteringData"
   );
-  page.moveDown(20);
-  moveDownAndPopulateData(
-    "healthIndicatorQuestionnaire.contactForm.govtApprovedMessage",
-    String(countrySummary.govtApproved)
+  drawTextWithPagination(emailOfPersonEnteringData, {
+    font: helveticaBoldFont,
+    size: 12,
+    lineHeight: 12,
+    maxWidth: MAX_WIDTH,
+  });
+  drawTextWithPagination(countrySummary.dataFeederEmail, {
+    font: helveticaFont,
+    size: 12,
+    lineHeight: 12,
+    maxWidth: MAX_WIDTH,
+  });
+  const govtApproved = i18n.t(
+    "healthIndicatorQuestionnaire.contactForm.govtApprovedMessage"
   );
-  page.moveDown(20);
+  drawTextWithPagination(govtApproved, {
+    font: helveticaBoldFont,
+    size: 12,
+    lineHeight: 12,
+    maxWidth: MAX_WIDTH,
+  });
+  drawTextWithPagination(String(countrySummary.govtApproved), {
+    font: helveticaFont,
+    size: 12,
+    lineHeight: 12,
+    maxWidth: MAX_WIDTH,
+  });
   if (countrySummary.govtApproved) {
-    moveDownAndPopulateData(
-      "healthIndicatorQuestionnaire.contactForm.nameOfTheApprover",
-      countrySummary.dataApproverName
+    const nameOfTheApprover = i18n.t(
+      "healthIndicatorQuestionnaire.contactForm.nameOfTheApprover"
     );
-    page.moveDown(20);
-    moveDownAndPopulateData(
-      "healthIndicatorQuestionnaire.contactForm.roleOfTheApprover",
-      countrySummary.dataApproverRole
+    drawTextWithPagination(nameOfTheApprover, {
+      font: helveticaBoldFont,
+      size: 12,
+      lineHeight: 12,
+      maxWidth: MAX_WIDTH,
+    });
+    drawTextWithPagination(String(countrySummary.dataApproverName), {
+      font: helveticaFont,
+      size: 12,
+      lineHeight: 12,
+      maxWidth: MAX_WIDTH,
+    });
+    const roleOfTheApprover = i18n.t(
+      "healthIndicatorQuestionnaire.contactForm.roleOfTheApprover"
     );
-    page.moveDown(20);
-    moveDownAndPopulateData(
-      "healthIndicatorQuestionnaire.contactForm.emailOfTheApprover",
-      countrySummary.dataApproverEmail
+    drawTextWithPagination(roleOfTheApprover, {
+      font: helveticaBoldFont,
+      size: 12,
+      lineHeight: 12,
+      maxWidth: MAX_WIDTH,
+    });
+    drawTextWithPagination(countrySummary.dataApproverRole, {
+      font: helveticaFont,
+      size: 12,
+      lineHeight: 12,
+      maxWidth: MAX_WIDTH,
+    });
+    const emailOfTheApprover = i18n.t(
+      "healthIndicatorQuestionnaire.contactForm.emailOfTheApprover"
     );
-    page.moveDown(20);
+    drawTextWithPagination(emailOfTheApprover, {
+      font: helveticaBoldFont,
+      size: 12,
+      lineHeight: 12,
+      maxWidth: MAX_WIDTH,
+    });
+    drawTextWithPagination(countrySummary.dataApproverEmail, {
+      font: helveticaFont,
+      size: 12,
+      lineHeight: 12,
+      maxWidth: MAX_WIDTH,
+    });
   }
-  moveDownAndPopulateData(
-    "healthIndicatorQuestionnaire.contactForm.nameOfTheCountryContact",
-    countrySummary.contactName
+  const contactName = i18n.t(
+    "healthIndicatorQuestionnaire.contactForm.nameOfTheCountryContact"
   );
-  page.moveDown(20);
-  moveDownAndPopulateData(
-    "healthIndicatorQuestionnaire.contactForm.roleOfTheCountryContact",
-    countrySummary.contactDesignation
+  drawTextWithPagination(contactName, {
+    font: helveticaBoldFont,
+    size: 12,
+    lineHeight: 12,
+    maxWidth: MAX_WIDTH,
+  });
+  drawTextWithPagination(countrySummary.contactName, {
+    font: helveticaFont,
+    size: 12,
+    lineHeight: 12,
+    maxWidth: MAX_WIDTH,
+  });
+  const contactDesignation = i18n.t(
+    "healthIndicatorQuestionnaire.contactForm.roleOfTheCountryContact"
   );
-  page.moveDown(20);
-  moveDownAndPopulateData(
-    "healthIndicatorQuestionnaire.contactForm.emailOfTheCountryContact",
-    countrySummary.contactEmail
+  drawTextWithPagination(contactDesignation, {
+    font: helveticaBoldFont,
+    size: 12,
+    lineHeight: 12,
+    maxWidth: MAX_WIDTH,
+  });
+  drawTextWithPagination(countrySummary.contactDesignation, {
+    font: helveticaFont,
+    size: 12,
+    lineHeight: 12,
+    maxWidth: MAX_WIDTH,
+  });
+  const contactEmail = i18n.t(
+    "healthIndicatorQuestionnaire.contactForm.emailOfTheCountryContact"
   );
-  page.moveDown(20);
-  moveDownAndPopulateData(
-    "healthIndicatorQuestionnaire.contactForm.organisationOfTheCountryContact",
-    countrySummary.contactOrganization
+  drawTextWithPagination(contactEmail, {
+    font: helveticaBoldFont,
+    size: 12,
+    lineHeight: 12,
+    maxWidth: MAX_WIDTH,
+  });
+  drawTextWithPagination(countrySummary.contactEmail, {
+    font: helveticaFont,
+    size: 12,
+    lineHeight: 12,
+    maxWidth: MAX_WIDTH,
+  });
+  const contactOrganization = i18n.t(
+    "healthIndicatorQuestionnaire.contactForm.organisationOfTheCountryContact"
   );
-
-  page.moveDown(20);
+  drawTextWithPagination(contactOrganization, {
+    font: helveticaBoldFont,
+    size: 12,
+    lineHeight: 12,
+    maxWidth: MAX_WIDTH,
+  });
+  drawTextWithPagination(countrySummary.contactOrganization, {
+    font: helveticaFont,
+    size: 12,
+    lineHeight: 12,
+    maxWidth: MAX_WIDTH,
+  });
   drawTextWithPagination(
     i18n.t("healthIndicatorQuestionnaire.contactForm.countrySummary"),
     { font: helveticaBoldFont, size: 12, lineHeight: 12, maxWidth: MAX_WIDTH }
@@ -218,12 +326,13 @@ export async function generateFormPDF(
     });
   handlePagination();
   for (let i = 0; i < countrySummary.resources.length; i++) {
-    drawTextWithPagination(countrySummary.resources[i] || "-", {
+    drawTextWithPaginationForResourceLinks(countrySummary.resources[i] || "-", {
       size: 12,
       lineHeight: 12,
       font: helveticaFont,
       maxWidth: MAX_WIDTH,
     });
+    page.moveDown(20);
   }
   page = pdfDoc.addPage();
   page.moveTo(MIN_X, page.getHeight() - 80);
