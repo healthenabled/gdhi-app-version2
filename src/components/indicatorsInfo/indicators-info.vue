@@ -100,7 +100,10 @@ export default Vue.extend({
                   {{ category.categoryName }}
                 </div>
                 <div class="accordion-content" @click.stop="() => {}">
-                  <div v-for="indicator in category.indicators">
+                  <div
+                    v-for="indicator in category.indicators"
+                    style="cursor: default"
+                  >
                     <div class="box indicator">
                       <div class="indicator-info text-center">
                         <span class="indicator-id"
