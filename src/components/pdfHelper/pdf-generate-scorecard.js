@@ -439,11 +439,11 @@ export async function generateScorecard({
       });
 
       if (
-        page.getY() <= 120 ||
+        page.getY() <= 180 ||
         page.getY() + Math.floor(indicator.scoreDescription.length / 83) <= 160
       ) {
         page = pdfDoc.addPage();
-        page.moveTo(MIN_X, page.getHeight() - 30);
+        page.moveTo(MIN_X, page.getHeight() - 60);
       }
 
       // Write score description into the Doc
@@ -460,9 +460,9 @@ export async function generateScorecard({
         lineHeight: 12,
       });
 
-      if (page.getY() <= 80) {
+      if (page.getY() <= 120) {
         page = pdfDoc.addPage();
-        page.moveTo(MIN_X, page.getHeight() - 30);
+        page.moveTo(MIN_X, page.getHeight() - 60);
       }
 
       page.moveDown(
@@ -496,11 +496,6 @@ export async function generateScorecard({
         color: hexToRgb("#FFF"),
         lineHeight: 14,
       });
-
-      if (page.getY() <= 80) {
-        page = pdfDoc.addPage();
-        page.moveTo(MIN_X, page.getHeight() - 30);
-      }
 
       if (benchmarkData[indicator.id]) {
         page.moveDown(20);
