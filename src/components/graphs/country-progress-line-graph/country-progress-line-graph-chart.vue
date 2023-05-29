@@ -204,6 +204,9 @@ export default Vue.extend({
             ];
             return labels[value];
           },
+          font: {
+            size: 16,
+          },
           color: "black",
         },
       };
@@ -227,6 +230,7 @@ export default Vue.extend({
           stepSize: 1,
           min: 1,
           font: {
+            size: 16,
             weight: "bold",
           },
           color: "black",

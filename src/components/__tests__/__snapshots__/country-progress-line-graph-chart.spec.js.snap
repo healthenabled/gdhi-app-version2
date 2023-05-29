@@ -133,6 +133,7 @@ exports[`Country Progress Line Chart > should render Graph when mounted and crea
           "beginAtZero": true,
           "color": "black",
           "font": {
+            "size": 16,
             "weight": "bold",
           },
           "min": 1,
@@ -161,6 +162,9 @@ exports[`Country Progress Line Chart > should render Graph when mounted and crea
           "beginAtZero": false,
           "callback": [Function],
           "color": "black",
+          "font": {
+            "size": 16,
+          },
           "stepSize": 1,
         },
       },
