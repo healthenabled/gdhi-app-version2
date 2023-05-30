@@ -234,7 +234,6 @@ export default Vue.extend({
           min: 1,
           font: {
             size: 16,
-            weight: "bold",
           },
           color: "black",
         },
