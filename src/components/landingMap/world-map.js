@@ -48,13 +48,13 @@ export default {
     }).setView([yAxis, xAxis], 0.5);
 
     this.map.setMinZoom(2);
-    // L.control
-    //   .attribution({
-    //     position: "bottomleft",
-    //     prefix:
-    //       'Made with Natural Earth.<a href="https://github.com/datameet/maps/blob/master/Country/india-composite.geojson">India boundaries</a> by <a href="http://datameet.org/">DataMeet India community</a>',
-    //   })
-    //   .addTo(this.map);
+    L.control
+      .attribution({
+        position: "bottomleft",
+        prefix:
+          'Made with Natural Earth.<a href="https://github.com/datameet/maps/blob/master/Country/india-composite.geojson">India boundaries</a> by <a href="http://datameet.org/">DataMeet India community</a>',
+      })
+      .addTo(this.map);
 
     L.control
       .zoom({
