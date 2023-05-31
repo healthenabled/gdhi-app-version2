@@ -2,7 +2,7 @@ name: CI-CD Pipeline
 
 on:
   push:
-    branches: ["main"]
+    branches: ["main", "test_pipeline"]
   pull_request:
     branches: ["main"]
 
@@ -27,7 +27,7 @@ jobs:
   upload-artifact-to-s3:
     runs-on: ubuntu-latest
     needs: [continuous-integration]
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/test_pipeline'
     environment: QA
     env:
       VITE_IS_GOOGLE_ANALYTICS_ENABLED: ${{ vars.VITE_IS_GOOGLE_ANALYTICS_ENABLED }}
