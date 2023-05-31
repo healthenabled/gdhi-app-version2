@@ -176,6 +176,7 @@ export default Vue.extend({
   margin-left: 30px;
   margin-bottom: 10px;
   color: $gdhi-orange-shade1;
+  margin-top: 8px;
 }
 .indicator-filter-container::v-deep .filter-indicator {
   height: 100%;
