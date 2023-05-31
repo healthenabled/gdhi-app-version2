@@ -154,6 +154,10 @@ export default Vue.extend({
     <div v-else class="spinner">
       <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
     </div>
+    <div class="govtApproved">
+      *Note: The data presented in these graphs represents information that has
+      been approved by the government.
+    </div>
   </div>
 </template>
 
@@ -167,6 +171,11 @@ export default Vue.extend({
     @include padding-left(16px);
     font-weight: bold;
   }
+}
+.govtApproved {
+  margin-left: 30px;
+  margin-bottom: 10px;
+  color: $gdhi-orange-shade1;
 }
 .indicator-filter-container::v-deep .filter-indicator {
   height: 100%;

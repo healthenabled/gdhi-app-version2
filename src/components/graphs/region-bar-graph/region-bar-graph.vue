@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="min-height: 100px">
     <div v-if="defaultYearData.size || selectedYearData.size" class="graph">
       <div class="graph-container" :style="cssProps">
         <canvas id="bar-graph"></canvas>

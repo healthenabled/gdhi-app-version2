@@ -3,6 +3,7 @@
 exports[`Region Bar Graph Liner > should render Graph when mounted and create a new Chart instance 1`] = `
 <div
   data-v-6edbe18b=""
+  style="min-height: 100px;"
 >
   <div
     class="graph"
