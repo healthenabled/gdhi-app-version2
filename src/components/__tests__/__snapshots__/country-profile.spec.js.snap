@@ -179,10 +179,10 @@ exports[`Country Profile  > should populate the data after successfull API call 
                   <div
                     class="indicator-panel-container-category-name-and-icon sub-header-country-profile"
                   >
-                    <img
+                    <categoryimage-stub
+                      categoryid="1"
+                      class="category-image"
                       height="30"
-                      loading="lazy"
-                      src="/static/indicator-icons/1.svg"
                       width="30"
                     />
                     <p>
