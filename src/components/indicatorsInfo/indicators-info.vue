@@ -76,7 +76,8 @@ export default Vue.extend({
       <a
         class="text-center"
         :href="'#' + category.categoryName.toString().replace(' ', '_')"
-        v-for="category in categoricalIndicators"
+        v-for="(category, index) in categoricalIndicators"
+        :key="index"
       >
         <span>{{ category.categoryName }}</span>
       </a>
@@ -84,7 +85,7 @@ export default Vue.extend({
     <div class="indicators-info-content">
       <div class="indicators-info-content-categories">
         <div class="indicators">
-          <div v-for="category in categoricalIndicators">
+          <div v-for="(category, index) in categoricalIndicators" :key="index">
             <a
               class="internal_anchor"
               :name="category.categoryName.toString().replace(' ', '_')"
@@ -101,7 +102,8 @@ export default Vue.extend({
                 </div>
                 <div class="accordion-content" @click.stop="() => {}">
                   <div
-                    v-for="indicator in category.indicators"
+                    v-for="(indicator, index) in category.indicators"
+                    :key="index"
                     style="cursor: default"
                   >
                     <div class="box indicator">
@@ -120,7 +122,8 @@ export default Vue.extend({
                       <div
                         v-if="score.score !== -1"
                         class="score"
-                        v-for="score in indicator.scores"
+                        v-for="(score, index) in indicator.scores"
+                        :key="index"
                       >
                         <span :class="'phase' + score.score">{{
                           score.score

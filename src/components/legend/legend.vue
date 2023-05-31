@@ -18,7 +18,8 @@ export default Vue.extend({
     <li class="legend-desc">{{ $t("mixed.phase") }}</li>
     <li
       class="l-box"
-      v-for="value in object.scoreToColor"
+      v-for="(value, index) in object.scoreToColor"
+      :key="index"
       :id="'phase' + value.score"
       :title="value.description"
     >

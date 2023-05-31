@@ -20,6 +20,7 @@ export default Vue.extend({
       locale: "en",
     };
   },
+  name: "LandingMap",
   created() {
     this.fetchGlobalIndices();
   },
