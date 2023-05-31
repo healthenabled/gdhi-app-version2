@@ -1,5 +1,4 @@
 name: CI-CD Pipeline
-
 on:
   push:
     branches: ["main"]
@@ -55,22 +54,23 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Fetch Application Version from AWS parameter store
-        run: APPLICATION_VERSION=`aws ssm get-parameters --name "qaBuildNumberForApp" --query Parameters[0].Value`;APPLICATION_VERSION=`echo $APPLICATION_VERSION | tr -d '"'`;
+        run: echo "APPLICATION_VERSION=`aws ssm get-parameters --name 'qaBuildNumberForApp' --query Parameters[0].Value`" >> $GITHUB_ENV;
 
-      - name: Echo Paramstore value
-        run: echo `aws ssm get-parameters --name "qaBuildNumberForApp" --query Parameters[0].Value`
+      - name: Remove quotes from string
+        run: APPLICATION_VERSION=`echo ${{ env.APPLICATION_VERSION }} | tr -d '"'` >> $GITHUB_ENV;
 
-      - name: echo
-        run: echo `$APPLICATION_VERSION | tr -d '"'`
+      - name: Print build number
+        run: echo "${{ env.APPLICATION_VERSION }}"
 
       - name: Upload Artifact to s3
         run: aws s3 cp dist s3://${{ secrets.AWS_S3_BUCKET_NAME }}/${{ secrets.AWS_S3_FOLDER }}/${{secrets.APPLICATION_NAME}}$APPLICATION_VERSION --recursive
 
-      - name: Update Application Version Number
-        run: APPLICATION_VERSION=`expr $APPLICATION_VERSION + 1`;aws ssm put-parameter --name "qaBuildNumberForApp" --value $APPLICATION_VERSION --overwrite;
+      - name: Increment Application Version Number
+        run: echo "APPLICATION_VERSION=`expr ${{ env.APPLICATION_VERSION }} + 1`" >> $GITHUB_ENV;
 
-      - name: Print build number
-        run: echo `expr $APPLICATION_VERSION + 1`
+      - name: Update Application Version Number in AWS Parameter Store
+        run: aws ssm put-parameter --name "qaBuildNumberForApp" --value ${{ env.APPLICATION_VERSION }} --overwrite;
+
 
   deploy-to-qa:
     runs-on: ubuntu-latest
