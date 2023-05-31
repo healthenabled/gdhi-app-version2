@@ -20,7 +20,6 @@ export default Vue.extend({
   components: {
     developmentIndicators,
     countrySummary,
-    Notifications,
     PhaseOverviewSpiderGraph,
     CountryProfileYearSelector,
     CountryProgressLineGraphContainer,

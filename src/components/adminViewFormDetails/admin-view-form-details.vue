@@ -143,7 +143,8 @@ export default Vue.extend({
     <div class="tabs">
       <ul class="tablist">
         <li
-          v-for="tab in tabs"
+          v-for="(tab, index) in tabs"
+          v-bind:key="index"
           v-on:click="updateSelected(tab)"
           :class="{ current: selectedTab == tab.id }"
         >
@@ -152,7 +153,8 @@ export default Vue.extend({
       </ul>
       <div
         class="tab-content"
-        v-for="tab in tabs"
+        v-for="(tab, index) in tabs"
+        v-bind:key="index"
         v-show="selectedTab == tab.id"
       >
         <AdminTable

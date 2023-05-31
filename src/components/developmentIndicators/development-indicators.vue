@@ -30,7 +30,8 @@ export default Vue.extend({
 <template>
   <div class="development-indicators">
     <div
-      v-for="indicatorCategory in developmentIndicators"
+      v-for="(indicatorCategory, index) in developmentIndicators"
+      v-bind:key="index"
       class="box category"
     >
       <div class="header-bold no-margin-top">
@@ -42,7 +43,11 @@ export default Vue.extend({
           )
         }}
       </div>
-      <div v-for="indicators in indicatorCategory" class="row">
+      <div
+        v-for="(indicators, index) in indicatorCategory"
+        v-bind:key="index"
+        class="row"
+      >
         <div
           v-for="(indicator, key) in indicators"
           class="indicator"

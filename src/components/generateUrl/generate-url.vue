@@ -51,7 +51,7 @@ Vue.use(Notifications);
 
 export default Vue.extend({
   name: "GenerateUrl",
-  components: { Autocomplete, Notifications },
+  components: { Autocomplete },
   mounted() {
     this.loadCountries();
     common.hideLoading();
