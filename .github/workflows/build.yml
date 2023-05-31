@@ -60,36 +60,23 @@ jobs:
       - name: echo
         run: echo "${{ env.APPLICATION_VERSION }}"
 
-      # - name: Fetch Application Version from AWS parameter store
-      #   run: echo ${{env.APPLICATION_VERSION}}
-      #   env:
-      #     APPLICATION_VERSION: aws ssm get-parameters --name "qaBuildNumberForApp" --query Parameters[0].Value
+      - name: Remove quotes from string
+        run: APPLICATION_VERSION=`echo ${{ env.APPLICATION_VERSION }} | tr -d '"'` >> $GITHUB_ENV;
 
-      # - name: echo
-      #   run: echo ${{env.APPLICATION_VERSION}}
-
-      # - name: Fetch Application Version from AWS parameter store
-      #   run: APPLICATION_VERSION=`aws ssm get-parameters --name "qaBuildNumberForApp" --query Parameters[0].Value | tr -d '"'`;
-      #   env:
-      #     APPLICATION_VERSION: APPLICATION_VERSION
-
-      # - name: echo
-      #   run: echo $APPLICATION_VERSION
-
-      # - name: Remove quotes from string
-      #   run: APPLICATION_VERSION=`echo $APPLICATION_VERSION | tr -d '"'`;
-
-      # - name: echo
-      #   run: echo $APPLICATION_VERSION
+      - name: echo
+        run: echo "${{ env.APPLICATION_VERSION }}"
 
       # - name: Upload Artifact to s3
       #   run: aws s3 cp dist s3://${{ secrets.AWS_S3_BUCKET_NAME }}/${{ secrets.AWS_S3_FOLDER }}/${{secrets.APPLICATION_NAME}}$APPLICATION_VERSION --recursive
 
-      # - name: Update Application Version Number
-      #   run: APPLICATION_VERSION=`expr $APPLICATION_VERSION + 1`;aws ssm put-parameter --name "qaBuildNumberForApp" --value $APPLICATION_VERSION --overwrite;
+      - name: Increment Application Version Number
+        run: APPLICATION_VERSION=`expr ${{ env.APPLICATION_VERSION }} + 1` >> $GITHUB_ENV;
 
-      # - name: echo
-      #   run: echo $APPLICATION_VERSION
+      - name: echo
+        run: echo "${{ env.APPLICATION_VERSION }}"
+
+      - name: Update Application Version Number in AWS Parameter Store
+        run: aws ssm put-parameter --name "qaBuildNumberForApp" --value ${{ env.APPLICATION_VERSION }} --overwrite;
 
   deploy-to-qa:
     runs-on: ubuntu-latest
