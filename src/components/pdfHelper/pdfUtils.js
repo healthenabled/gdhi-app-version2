@@ -82,21 +82,23 @@ export const roundedRectData = function (w, h, tlr, trr, brr, blr) {
 export const breakTextIntoLines = (text, size, font, maxWidth) => {
   const lines = [];
   let textIdx = 0;
-  while (textIdx < text.length) {
-    let line = "";
+  if (text != null) {
     while (textIdx < text.length) {
-      if (text.charAt(textIdx) === "\n") {
-        lines.push(line);
+      let line = "";
+      while (textIdx < text.length) {
+        if (text.charAt(textIdx) === "\n") {
+          lines.push(line);
+          textIdx += 1;
+          line = "";
+          continue;
+        }
+        const newLine = line + text.charAt(textIdx);
+        if (font.widthOfTextAtSize(newLine, size) > maxWidth) break;
+        line = newLine;
         textIdx += 1;
-        line = "";
-        continue;
       }
-      const newLine = line + text.charAt(textIdx);
-      if (font.widthOfTextAtSize(newLine, size) > maxWidth) break;
-      line = newLine;
-      textIdx += 1;
+      lines.push(line);
     }
-    lines.push(line);
   }
   return lines;
 };

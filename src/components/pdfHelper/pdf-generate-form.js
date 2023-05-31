@@ -31,6 +31,7 @@ export async function generateFormPDF(
       options.font,
       options.maxWidth
     ).length;
+    payloadText = payloadText == null ? "-" : payloadText;
     if (numberOfLinesToWrite < numberOfLinesThatCanFit) {
       //lines fit in one page
       page.drawText(payloadText, options);
@@ -83,6 +84,10 @@ export async function generateFormPDF(
       options.maxWidth
     );
     const numberOfLinesToWrite = lines.length;
+    if (numberOfLinesToWrite === 0) {
+      page.drawText("-", options);
+      page.moveDown(15);
+    }
     for (let i = 0; i < numberOfLinesToWrite; i++) {
       page.drawText(lines[i], options);
       page.moveDown(15);
@@ -188,7 +193,7 @@ export async function generateFormPDF(
       lineHeight: 12,
       maxWidth: MAX_WIDTH,
     });
-    drawTextWithPagination(String(countrySummary.dataApproverName), {
+    drawTextWithPagination(countrySummary.dataApproverName, {
       font: helveticaFont,
       size: 12,
       lineHeight: 12,
