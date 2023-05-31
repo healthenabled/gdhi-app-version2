@@ -55,7 +55,7 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Fetch Application Version from AWS parameter store
-        run: export APPLICATION_VERSION=aws ssm get-parameters --name "qaBuildNumberForApp" --query Parameters[0].Value
+        run: APPLICATION_VERSION=`aws ssm get-parameters --name "qaBuildNumberForApp" --query Parameters[0].Value`
 
       - name: Upload Artifact to s3
         run: aws s3 cp dist s3://${{ secrets.AWS_S3_BUCKET_NAME }}/${{ secrets.AWS_S3_FOLDER }}/${{secrets.APPLICATION_NAME}}$APPLICATION_VERSION --recursive
