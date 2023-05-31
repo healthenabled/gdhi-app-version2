@@ -1,11 +1,9 @@
 import { shallowMount, createLocalVue } from "@vue/test-utils";
 import VueRouter from "vue-router";
 import IndicatorPanel from "../indicatorPanel/indicator-panel.vue";
-import sinon from "sinon";
 import Obj from "../../common/indicator-http-requests.js";
 import { i18n } from "../../plugins/i18n";
-import { en, es } from "../../static-content/index";
-import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
+import { describe, it, expect, beforeEach, vi } from "vitest";
 import axios from "axios";
 import flushPromises from "flush-promises";
 
@@ -16,11 +14,6 @@ describe("Indicator Panel", () => {
   const localVue = createLocalVue();
   localVue.use(VueRouter);
   const router = new VueRouter();
-
-  const messages = {
-    en,
-    es,
-  };
 
   let overallScoreData = {
     overAllScore: 3,

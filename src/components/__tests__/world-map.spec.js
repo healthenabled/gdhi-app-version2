@@ -1,5 +1,6 @@
 import worldMap from "../landingMap/world-map.js";
 import eventHandler from "../landingMap/map-event-handler";
+import { describe, it, expect, beforeEach, afterEach } from "vitest";
 import L from "leaflet";
 import sinon from "sinon";
 
@@ -79,7 +80,7 @@ describe("World Map", () => {
     layer = L.geoJSON(geoData);
     mockLayer = sinon.mock(layer);
 
-    callback = function a(arg1) {
+    callback = function a() {
       console.log();
     };
     callBackSpy = sinon.spy(callback);
@@ -119,7 +120,7 @@ describe("World Map", () => {
         NAME_LONG: "Afghanistan",
       },
     };
-    let mockFn = sinon.stub(eventHandler, "resetLayer").callsFake(() => {});
+    sinon.stub(eventHandler, "resetLayer").callsFake(() => {});
     worldMap.handleClick(layer, "AFG", layer, countryIndices, callBackSpy);
     expect(window.location.href).to.equal("/country_profile/AFG");
     eventHandler.resetLayer.restore();
@@ -137,7 +138,7 @@ describe("World Map", () => {
         NAME_LONG: "Afghanistan",
       },
     };
-    let mockFn = sinon.stub(eventHandler, "resetLayer").callsFake(() => {});
+    sinon.stub(eventHandler, "resetLayer").callsFake(() => {});
     worldMap.handleClick(layer, "AFG", layer, [], callBackSpy);
     expect(window.location.href).to.equal("");
     eventHandler.resetLayer.restore();
@@ -178,7 +179,7 @@ describe("World Map", () => {
   });
 
   it("should reset the lastClickedCountry when reset is called", () => {
-    let mockFn = sinon.stub(eventHandler, "resetLayer").callsFake(() => {});
+    sinon.stub(eventHandler, "resetLayer").callsFake(() => {});
     worldMap.resetMap(callBackSpy);
     sinon.assert.calledOnce(callBackSpy);
 

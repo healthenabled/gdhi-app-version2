@@ -1,5 +1,5 @@
 import RegionalOverview from "../../components/regionalOverview/regional-overview.vue";
-import { describe, it, expect, vi } from "vitest";
+import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import VueRouter from "vue-router";
 import { EventBus } from "../common/event-bus";
 import { createLocalVue, shallowMount } from "@vue/test-utils";

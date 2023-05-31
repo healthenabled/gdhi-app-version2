@@ -1,4 +1,5 @@
 import mapHelper from "../landingMap/map-helper";
+import { describe, it, expect } from "vitest";
 
 const countryIndices = [
   {

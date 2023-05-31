@@ -313,7 +313,7 @@ describe("EditQuestionaire", () => {
 
     sinon
       .stub(component.vm.$validator, "validateAll")
-      .returns(new Promise((resolve, reject) => resolve(true)));
+      .returns(new Promise((resolve) => resolve(true)));
     component.vm.validate("republish");
 
     await flushPromises();
@@ -349,7 +349,7 @@ describe("EditQuestionaire", () => {
 
     sinon
       .stub(component.vm.$validator, "validateAll")
-      .returns(new Promise((resolve, reject) => resolve(true)));
+      .returns(new Promise((resolve) => resolve(true)));
     component.vm.validate("publish");
 
     await flushPromises();

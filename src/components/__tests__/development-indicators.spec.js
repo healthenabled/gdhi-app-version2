@@ -1,5 +1,5 @@
 import { mount, createLocalVue } from "@vue/test-utils";
-import { describe, beforeEach, it, expect, afterEach, vi } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import VueRouter from "vue-router";
 import DevelopmentIndicators from "../developmentIndicators/development-indicators.vue";
 import Obj from "../../common/indicator-http-requests.js";

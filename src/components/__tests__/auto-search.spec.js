@@ -1,5 +1,5 @@
 import { mount } from "@vue/test-utils";
-import { describe, beforeEach, it, expect, afterEach, vi } from "vitest";
+import { describe, beforeEach, it, expect, vi } from "vitest";
 import AutoSearch from "../autoSearch/auto-search.vue";
 import Autocomplete from "vuejs-auto-complete";
 import sortBy from "lodash/sortBy";

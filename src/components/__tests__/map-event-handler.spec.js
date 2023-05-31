@@ -1,4 +1,5 @@
 import eventHandler from "../landingMap/map-event-handler.js";
+import { describe, it, expect, beforeEach, afterEach } from "vitest";
 import L from "leaflet";
 import sinon from "sinon";
 

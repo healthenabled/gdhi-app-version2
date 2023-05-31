@@ -7,7 +7,6 @@ import { EventBus } from "../common/event-bus";
 import CountryProfile from "../countryProfile/country-profile.vue";
 import * as pdfHelper from "../pdfHelper/pdf-generate-scorecard.js";
 import { i18n } from "../../plugins/i18n";
-import Sinon from "sinon";
 
 const eventBusOnSpy = vi.spyOn(EventBus, "$on");
 const eventBusOffSpy = vi.spyOn(EventBus, "$off");

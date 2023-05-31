@@ -1,4 +1,5 @@
 import { ar, en, es, fr, pt } from "../../static-content";
+import { describe, it, expect } from "vitest";
 
 describe("static content", () => {
   it("static content structure of English should match to French", () => {
@@ -34,14 +35,12 @@ function compareKeys(obj1, obj2) {
   const keys1 = Object.keys(obj1);
   const keys2 = Object.keys(obj2);
   if (keys1.length !== keys2.length) {
-    console.error("length of obj1 not equal to obj2", keys1, keys2);
     return false;
   }
   return keys1.every((value) => {
-    if (obj2.hasOwnProperty(value)) {
+    if (Object.prototype.hasOwnProperty.call(obj2, value)) {
       return true;
     } else {
-      console.error(`no matching key found obj2. key: ${value}`);
       return false;
     }
   });

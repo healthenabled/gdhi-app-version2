@@ -15,7 +15,6 @@ const mergeSpy = vi.spyOn(lodash, "merge");
 
 describe("Map ", () => {
   let wrapper;
-  let mockWorldMap;
   let setPhaseFilterMock = sinon.spy();
   window.appProperties = {
     getCategoryFilter: () => {
