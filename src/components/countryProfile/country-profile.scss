@@ -121,7 +121,7 @@
       display: flex;
       align-items: center;
       width: 20vw;
-      img {
+      .category-image {
         @include margin-right(30px);
       }
       p {

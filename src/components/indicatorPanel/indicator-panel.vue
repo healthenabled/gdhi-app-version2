@@ -8,6 +8,7 @@ import indicatorFilter from "../indicatorFilter/indicator-filter.vue";
 import phaseFilter from "../phaseFilter/phase-filter.vue";
 import autoSearch from "../autoSearch/auto-search.vue";
 import { EVENTS } from "../../constants";
+import CategoryImage from "../categoryImages/categoryImage.vue";
 
 export default Vue.extend({
   name: "IndicatorPanel",
@@ -15,6 +16,7 @@ export default Vue.extend({
     indicatorFilter,
     phaseFilter,
     autoSearch,
+    CategoryImage,
   },
   data() {
     return {
@@ -231,10 +233,7 @@ export default Vue.extend({
           <span
             class="indicator-panel-container-category-section-name-phase-and-icon"
           >
-            <img
-              :src="`/static/indicator-icons/${category.id}.svg`"
-              loading="lazy"
-            />
+            <CategoryImage :categoryId="category.id"> </CategoryImage>
             <div
               class="indicator-panel-container-category-section-name-and-phase"
             >
@@ -331,10 +330,7 @@ export default Vue.extend({
           <span
             class="indicator-panel-container-category-section-name-phase-and-icon"
           >
-            <img
-              :src="`/static/indicator-icons/${category.id}.svg`"
-              loading="lazy"
-            />
+            <CategoryImage :categoryId="category.id"> </CategoryImage>
             <div
               class="indicator-panel-container-category-section-name-and-phase"
             >

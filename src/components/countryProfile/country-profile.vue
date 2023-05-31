@@ -13,6 +13,7 @@ import { EventBus } from "../common/event-bus";
 import { EVENTS } from "../../constants";
 import PhaseOverviewSpiderGraph from "../graphs/phase-overview-spider-graph/phase-overview-spider-graph.vue";
 import RegionSelector from "../regionSelector/region-selector.vue";
+import CategoryImage from "../categoryImages/categoryImage.vue";
 
 Vue.use(Notifications);
 
@@ -24,6 +25,7 @@ export default Vue.extend({
     CountryProfileYearSelector,
     CountryProgressLineGraphContainer,
     RegionSelector,
+    CategoryImage,
   },
   data() {
     return {
@@ -377,12 +379,13 @@ export default Vue.extend({
                     <div
                       class="indicator-panel-container-category-name-and-icon sub-header-country-profile"
                     >
-                      <img
-                        :src="`/static/indicator-icons/${category.id}.svg`"
-                        width="30"
-                        height="30"
-                        loading="lazy"
-                      />
+                      <CategoryImage
+                        :categoryId="category.id"
+                        :width="30"
+                        :height="30"
+                        class="category-image"
+                      >
+                      </CategoryImage>
                       <p>{{ category.name }}</p>
                     </div>
                     <div
