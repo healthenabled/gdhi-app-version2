@@ -41,11 +41,11 @@ jobs:
         with:
           node-version: 16
 
-      - name: Install dependencies of GDHI-app
-        run: yarn install
+      # - name: Install dependencies of GDHI-app
+      #   run: yarn install
 
-      - name: Build GDHI-app
-        run: yarn build
+      # - name: Build GDHI-app
+      #   run: yarn build
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
@@ -58,16 +58,19 @@ jobs:
         run: APPLICATION_VERSION=`aws ssm get-parameters --name "qaBuildNumberForApp" --query Parameters[0].Value`;APPLICATION_VERSION=`echo $APPLICATION_VERSION | tr -d '"'`;
 
       - name: Print build number
-        run: echo $APPLICATION_VERSION
+        run: echo `aws ssm get-parameters --name "qaBuildNumberForApp" --query Parameters[0].Value`
 
-      - name: Upload Artifact to s3
-        run: aws s3 cp dist s3://${{ secrets.AWS_S3_BUCKET_NAME }}/${{ secrets.AWS_S3_FOLDER }}/${{secrets.APPLICATION_NAME}}$APPLICATION_VERSION --recursive
+      - name: echo
+        run: echo `$APPLICATION_VERSION | tr -d '"'`
+
+      # - name: Upload Artifact to s3
+      #   run: aws s3 cp dist s3://${{ secrets.AWS_S3_BUCKET_NAME }}/${{ secrets.AWS_S3_FOLDER }}/${{secrets.APPLICATION_NAME}}$APPLICATION_VERSION --recursive
 
       - name: Update Application Version Number
         run: APPLICATION_VERSION=`expr $APPLICATION_VERSION + 1`; aws ssm put-parameter --name "qaBuildNumberForApp" --value $APPLICATION_VERSION --overwrite;
 
       - name: Print build number
-        run: echo $APPLICATION_VERSION
+        run: echo `expr $APPLICATION_VERSION + 1`
 
   deploy-to-qa:
     runs-on: ubuntu-latest
