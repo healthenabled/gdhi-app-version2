@@ -31,7 +31,7 @@ jobs:
     env:
       VITE_IS_GOOGLE_ANALYTICS_ENABLED: ${{ vars.VITE_IS_GOOGLE_ANALYTICS_ENABLED }}
       VITE_GOOGLE_ANALYTICS_ID: ${{ vars.VITE_GOOGLE_ANALYTICS_ID }}
-      APPLICATION_VERSION: ""
+
     steps:
       - name: Checkout code from Github
         uses: actions/checkout@v3
@@ -55,25 +55,18 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Fetch Application Version from AWS parameter store
-        run: echo ${{env.APPLICATION_VERSION}}
-        env:
-          APPLICATION_VERSION: aws ssm get-parameters --name "qaBuildNumberForApp" --query Parameters[0].Value
-
-      - name: Fetch Application Version from AWS parameter store
-        run: APPLICATION_VERSION=`aws ssm get-parameters --name "qaBuildNumberForApp" --query Parameters[0].Value`;
-        env:
-          APPLICATION_VERSION: APPLICATION_VERSION
+        run: echo "APPLICATION_VERSION=`aws ssm get-parameters --name 'qaBuildNumberForApp' --query Parameters[0].Value`" >> $GITHUB_ENV;
 
       - name: echo
-        run: echo $APPLICATION_VERSION
+        run: echo "${{ env.APPLICATION_VERSION }}"
 
-      - name: Fetch Application Version from AWS parameter store
-        run: echo ${{env.APPLICATION_VERSION}}
-        env:
-          APPLICATION_VERSION: aws ssm get-parameters --name "qaBuildNumberForApp" --query Parameters[0].Value
+      # - name: Fetch Application Version from AWS parameter store
+      #   run: echo ${{env.APPLICATION_VERSION}}
+      #   env:
+      #     APPLICATION_VERSION: aws ssm get-parameters --name "qaBuildNumberForApp" --query Parameters[0].Value
 
-      - name: echo
-        run: echo ${{env.APPLICATION_VERSION}}
+      # - name: echo
+      #   run: echo ${{env.APPLICATION_VERSION}}
 
       # - name: Fetch Application Version from AWS parameter store
       #   run: APPLICATION_VERSION=`aws ssm get-parameters --name "qaBuildNumberForApp" --query Parameters[0].Value | tr -d '"'`;
