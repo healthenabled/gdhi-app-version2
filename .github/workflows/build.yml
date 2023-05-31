@@ -54,15 +54,14 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: Upload Artifact to s3
-        run: aws s3 cp dist s3://${{ secrets.AWS_S3_BUCKET_NAME }}/${{ secrets.AWS_S3_FOLDER }}/${{secrets.APPLICATION_NAME}}${{secrets.APPLICATION_VERSION}} --recursive
+      - name: Fetch Application Version from AWS parameter store
+        run: export APPLICATION_VERSION=aws ssm get-parameters --name "qaBuildNumberForApp" --query "Parameters[0].Value
 
-      - name: Update the version number
-        uses: gliech/create-github-secret-action@v1
-        with:
-          name: APPLICATION_VERSION
-          value: $((${{ secrets.APPLICATION_VERSION }} + 1))
-          pa_token: ${{ secrets.PA_TOKEN }}
+      - name: Upload Artifact to s3
+        run: aws s3 cp dist s3://${{ secrets.AWS_S3_BUCKET_NAME }}/${{ secrets.AWS_S3_FOLDER }}/${{secrets.APPLICATION_NAME}}$APPLICATION_VERSION --recursive
+
+      - name: Update Application Version Number
+        run: APPLICATION_VERSION=`expr $APPLICATION_VERSION + 1` | aws ssm put-parameter --name "qaBuildNumberForApp" --value $APPLICATION_VERSION --overwrite
 
       - name: Print build number
         run: echo ${{ secrets.APPLICATION_VERSION }}
