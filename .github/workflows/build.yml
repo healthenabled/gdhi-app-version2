@@ -1,7 +1,7 @@
 name: CI-CD Pipeline
 on:
   push:
-    branches: ["main", "test_pipeline"]
+    branches: ["main"]
   pull_request:
     branches: ["main"]
 
@@ -26,12 +26,11 @@ jobs:
   upload-artifact-to-s3:
     runs-on: ubuntu-latest
     needs: [continuous-integration]
-    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/test_pipeline'
+    if: github.ref == 'refs/heads/main'
     environment: QA
     env:
       VITE_IS_GOOGLE_ANALYTICS_ENABLED: ${{ vars.VITE_IS_GOOGLE_ANALYTICS_ENABLED }}
       VITE_GOOGLE_ANALYTICS_ID: ${{ vars.VITE_GOOGLE_ANALYTICS_ID }}
-
     steps:
       - name: Checkout code from Github
         uses: actions/checkout@v3
@@ -57,14 +56,8 @@ jobs:
       - name: Fetch Application Version from AWS parameter store
         run: echo "APPLICATION_VERSION=`aws ssm get-parameters --name 'qaBuildNumberForApp' --query Parameters[0].Value`" >> $GITHUB_ENV;
 
-      - name: echo
-        run: echo "${{ env.APPLICATION_VERSION }}"
-
       - name: Remove quotes from string
         run: APPLICATION_VERSION=`echo ${{ env.APPLICATION_VERSION }} | tr -d '"'` >> $GITHUB_ENV;
-
-      - name: echo
-        run: echo "${{ env.APPLICATION_VERSION }}"
 
       - name: Upload Artifact to s3
         run: aws s3 cp dist s3://${{ secrets.AWS_S3_BUCKET_NAME }}/${{ secrets.AWS_S3_FOLDER }}/${{secrets.APPLICATION_NAME}}$APPLICATION_VERSION --recursive
@@ -72,16 +65,13 @@ jobs:
       - name: Increment Application Version Number
         run: echo "APPLICATION_VERSION=`expr ${{ env.APPLICATION_VERSION }} + 1`" >> $GITHUB_ENV;
 
-      - name: echo
-        run: echo "${{ env.APPLICATION_VERSION }}"
-
       - name: Update Application Version Number in AWS Parameter Store
         run: aws ssm put-parameter --name "qaBuildNumberForApp" --value ${{ env.APPLICATION_VERSION }} --overwrite;
 
   deploy-to-qa:
     runs-on: ubuntu-latest
     needs: [upload-artifact-to-s3]
-    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/test_pipeline'
+    if: github.ref == 'refs/heads/main'
     steps:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
