@@ -1,3 +1,4 @@
+/* eslint-disable vue/no-mutating-props*/
 <template>
   <div class="health-indicator-questionnaire content-centered">
     <div

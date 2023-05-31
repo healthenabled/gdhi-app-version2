@@ -11,7 +11,7 @@ export default Vue.extend({
   components: {
     MapLegend,
   },
-  name: "Header",
+  name: "ApplicationHeader",
 
   data() {
     return {
