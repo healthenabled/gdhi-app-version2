@@ -114,7 +114,7 @@
 import common from "../../common/common";
 
 export default {
-  name: "Methodology",
+  name: "MethodologyDisplay",
   mounted() {
     common.hideLoading();
   },

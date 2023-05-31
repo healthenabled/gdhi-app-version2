@@ -385,10 +385,7 @@ export async function generateFormPDF(
           healthIndicators[indicator.indicatorId].score === score.score
             ? hexToRgb("#666")
             : hexToRgb("#FFF");
-        const fontName =
-          healthIndicators[indicator.indicatorId].score === score.score
-            ? helveticaBoldFont
-            : helveticaFont;
+
         handlePagination();
         page.drawCircle({
           x: 76,
@@ -417,8 +414,6 @@ export async function generateFormPDF(
           font: helveticaBoldFont,
         }
       );
-      let data = healthIndicators[indicator.indicatorId].supportingText;
-      data = data.replace("\n", " ");
       drawTextWithPagination(
         healthIndicators[indicator.indicatorId].supportingText || "-",
         {
