@@ -187,7 +187,18 @@ export default Vue.extend({
           <span
             class="indicator-panel-container-category-section-name-phase-and-icon"
           >
-            <img src="/static/indicator-icons/overAll.svg" loading="lazy" />
+            <svg
+              width="17"
+              height="17"
+              viewBox="0 0 17 17"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M8.0575 13.1875H8.9425V8.9425H13.1875V8.0575H8.9425V3.8125H8.0575V8.0575H3.8125V8.9425H8.0575V13.1875ZM0.16687 16.8331V0.16687H16.8331V16.8331H0.16687Z"
+                fill="#0A0A0A"
+              />
+            </svg>
             <div
               class="indicator-panel-container-category-section-name-and-phase"
             >
@@ -266,7 +277,19 @@ export default Vue.extend({
           <span
             class="indicator-panel-container-category-section-name-phase-and-icon"
           >
-            <img src="/static/indicator-icons/overAll.svg" loading="lazy" />
+            <svg
+              width="17"
+              height="17"
+              viewBox="0 0 17 17"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M8.0575 13.1875H8.9425V8.9425H13.1875V8.0575H8.9425V3.8125H8.0575V8.0575H3.8125V8.9425H8.0575V13.1875ZM0.16687 16.8331V0.16687H16.8331V16.8331H0.16687Z"
+                fill="#0A0A0A"
+              />
+            </svg>
+
             <div
               class="indicator-panel-container-category-section-name-and-phase"
             >
