@@ -70,7 +70,7 @@ jobs:
       #   run: aws s3 cp dist s3://${{ secrets.AWS_S3_BUCKET_NAME }}/${{ secrets.AWS_S3_FOLDER }}/${{secrets.APPLICATION_NAME}}$APPLICATION_VERSION --recursive
 
       - name: Increment Application Version Number
-        run: APPLICATION_VERSION=`expr ${{ env.APPLICATION_VERSION }} + 1` >> $GITHUB_ENV;
+        run: echo "APPLICATION_VERSION=`expr ${{ env.APPLICATION_VERSION }} + 1`" >> $GITHUB_ENV;
 
       - name: echo
         run: echo "${{ env.APPLICATION_VERSION }}"
