@@ -155,8 +155,7 @@ export default Vue.extend({
       <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
     </div>
     <div class="govtApproved">
-      *Note: The data presented in these graphs represents information that has
-      been approved by the government.
+      {{ $t("regionalOverview.note") }}
     </div>
   </div>
 </template>
