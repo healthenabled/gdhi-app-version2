@@ -59,6 +59,9 @@ jobs:
       - name: Remove quotes from string
         run: APPLICATION_VERSION=`echo ${{ env.APPLICATION_VERSION }} | tr -d '"'` >> $GITHUB_ENV;
 
+      - name: Print build number
+        run: echo "${{ env.APPLICATION_VERSION }}"
+
       - name: Upload Artifact to s3
         run: aws s3 cp dist s3://${{ secrets.AWS_S3_BUCKET_NAME }}/${{ secrets.AWS_S3_FOLDER }}/${{secrets.APPLICATION_NAME}}$APPLICATION_VERSION --recursive
 
@@ -67,6 +70,7 @@ jobs:
 
       - name: Update Application Version Number in AWS Parameter Store
         run: aws ssm put-parameter --name "qaBuildNumberForApp" --value ${{ env.APPLICATION_VERSION }} --overwrite;
+
 
   deploy-to-qa:
     runs-on: ubuntu-latest
