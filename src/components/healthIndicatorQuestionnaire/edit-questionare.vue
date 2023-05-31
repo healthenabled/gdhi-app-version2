@@ -522,7 +522,11 @@
       </div>
       <div class="box resources">
         <div class="pdf-resource">
-          <p v-for="resource in countrySummary.resources" class="">
+          <p
+            v-for="(resource, index) in countrySummary.resources"
+            v-bind:key="index"
+            class=""
+          >
             {{ resource }}
           </p>
         </div>
@@ -655,7 +659,11 @@
           class="fa fa-eye health-indicator-questionnaire-contact-info-publish"
         ></span>
       </div>
-      <div v-for="category in questionnaire" class="">
+      <div
+        v-for="(category, index) in questionnaire"
+        v-bind:key="index"
+        class=""
+      >
         <div class="box" data-header="No.">
           <div
             v-bind:class="
@@ -670,7 +678,8 @@
             <div class="accordion-content">
               <div class="" data-header="Indicators">
                 <div
-                  v-for="indicator in category.indicators"
+                  v-for="(indicator, index) in category.indicators"
+                  v-bind:key="index"
                   :class="
                     errors.has(
                       'indicator_' + indicator.indicatorId + '_rationale'
@@ -689,7 +698,11 @@
                   >
                     {{ indicator.indicatorDefinition }}
                   </div>
-                  <div v-for="score in indicator.scores" class="scores">
+                  <div
+                    v-for="(score, index) in indicator.scores"
+                    v-bind:key="index"
+                    class="scores"
+                  >
                     <label class="radio-container">
                       <span
                         :class="score.score ? 'score-content' : ''"

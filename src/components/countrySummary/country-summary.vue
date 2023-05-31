@@ -71,7 +71,8 @@ export default Vue.extend({
     </div>
     <ul class="country-text" v-show="countrySummaries?.resources?.length">
       <li
-        v-for="resource in countrySummaries.resources"
+        v-for="(resource, index) in countrySummaries.resources"
+        v-bind:key="index"
         class="country-resource-link"
       >
         <a

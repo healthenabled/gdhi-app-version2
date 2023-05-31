@@ -83,7 +83,8 @@ export default Vue.extend({
       </div>
       <ul class="countries-list-details">
         <li
-          v-for="country in countryList"
+          v-for="(country, index) in countryList"
+          v-bind:key="index"
           class="countries-list-details-country"
         >
           <span :class="'country-score phase' + country.overallPhase">{{
