@@ -140,6 +140,7 @@ export default Vue.extend({
   <div class="box overall-card container content-width">
     <div class="indicator-filter-container">
       <indicatorFilter
+        v-if="regionCountriesData != null && regionCountriesData.length != 0"
         @categoryFiltered="categoryChange"
         title="countryProfile.countryProgressLineChart.indicatorGroupingDescription"
       />

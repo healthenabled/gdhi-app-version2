@@ -9,10 +9,7 @@ exports[`Region Bar Graph Container > should render region bar graph container 1
     class="indicator-filter-container"
     data-v-f3f39466=""
   >
-    <indicatorfilter-stub
-      data-v-f3f39466=""
-      title="countryProfile.countryProgressLineChart.indicatorGroupingDescription"
-    />
+    <!---->
   </div>
   <div
     class="spinner"
