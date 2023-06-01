@@ -27,7 +27,7 @@ export const methodology = {
     "        These country partners submit their country’s data through an annual GDHM survey,\n" +
     "        and select the appropriate phase for each indicator as well as rationale and evidence to support these phases.\n" +
     "        The GDHM team verifies the collected data before publishing it. Broader Health Data from the",
-  paragraph3Link: "World Bank Development Indicators 2016",
+  paragraph3Link: "World Bank Development Indicators 2019",
   paragraph3End: "has been included to contextualize digital health maturity.",
 
   title3: "Calculating Averages and Benchmarking",

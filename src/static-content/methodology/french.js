@@ -28,7 +28,7 @@ export const methodology = {
     "les données de leur pays dans le cadre d'une enquête annuelle de le GDHM et choisissent le niveau appropriée pour chaque indicateur " +
     "ainsi que la justification et les preuves à l'appui des niveaux choisis. L'équipe de le GDHM vérifie les données recueillies avant " +
     "de les publier. Des données plus larges sur la santé provenant des ",
-  paragraph3Link: "Indicateurs de développement de la Banque mondiale 2016",
+  paragraph3Link: "Indicateurs de développement de la Banque mondiale 2019",
   paragraph3End:
     " ont été incluses pour contextualiser la maturité de la santé numérique.",
 

@@ -26,7 +26,7 @@ export const methodology = {
     "de saúde digital nos seus respectivos países para reunir dados para cada país. Estes parceiros nacionais submetem os dados do seu país " +
     "através de um inquérito anual GDHM e selecionam a fase apropriada para cada indicador, bem como a fundamentação e evidência para apoiar " +
     "estas fases. A equipe GDHM verifica os dados reunidos antes de os publicar. Os dados mais amplos de saúde do ",
-  paragraph3Link: "Indicadores de Desenvolvimento do Banco Mundial 2016",
+  paragraph3Link: "Indicadores de Desenvolvimento do Banco Mundial 2019",
   paragraph3End:
     "foram incluídos para contextualizar a maturidade em saúde digital.",
 

@@ -27,7 +27,7 @@ export const methodology = {
     "de su país a través de una encuesta anual de GDHM, y seleccionan la fase apropiada para cada indicador, así como la justificación y la " +
     "evidencia para apoyar estas fases. El equipo de GDHM verifica los datos recogidos antes de publicarlos. Se han incluido datos de salud " +
     "más amplios de los",
-  paragraph3Link: "Indicadores de Desarrollo del Banco Mundial 2016",
+  paragraph3Link: "Indicadores de Desarrollo del Banco Mundial 2019",
   paragraph3End: "para contextualizar la madurez en salud digital.",
 
   title3: "Cálculo de promedios y análisis comparativo",
