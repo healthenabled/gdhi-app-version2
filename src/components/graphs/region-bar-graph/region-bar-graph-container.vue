@@ -42,7 +42,7 @@ export default Vue.extend({
       for (let key of this.selectedYearCountriesScore.keys()) {
         this.countries.push(key);
       }
-      this.countries = [...new Set(this.countries)];
+      this.countries = [...new Set(this.countries)].sort();
     },
     getDefaultYearCountriesData(regionCountriesData) {
       this.defaultYearCountriesScore = new Map();

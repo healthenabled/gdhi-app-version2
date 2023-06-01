@@ -141,7 +141,7 @@ describe("Region Bar Graph Container", () => {
       },
     ],
   };
-  const countries = ["Nigeria", "Malawi"];
+  const countries = ["Malawi", "Nigeria"];
   const defaultYearCountriesScore = new Map();
   defaultYearCountriesScore.set("Nigeria", {
     categories: [
