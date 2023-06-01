@@ -231,11 +231,13 @@ export default Vue.extend({
   methods: {
     drawBarGraph() {
       if (this.defaultYearData.size || this.selectedYearData.size) {
-        barGraphInstance?.destroy();
-        barGraphInstance = new Chart(
-          document.getElementById("bar-graph"),
-          this.barGraphConfig
-        );
+        setTimeout(() => {
+          barGraphInstance?.destroy();
+          barGraphInstance = new Chart(
+            document.getElementById("bar-graph"),
+            this.barGraphConfig
+          );
+        }, 100);
       }
     },
     isOverallIndicatorSelected(categoryFilter) {

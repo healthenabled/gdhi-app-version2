@@ -1,5 +1,5 @@
 import { mount } from "@vue/test-utils";
-import { describe, beforeEach, it, expect, vi } from "vitest";
+import { describe, beforeEach, it, expect, vi, vitest } from "vitest";
 import RegionBarGraph from "../graphs/region-bar-graph/region-bar-graph.vue";
 import Chart from "chart.js/auto";
 import { i18n } from "../../plugins/i18n";
@@ -118,6 +118,7 @@ describe("Region Bar Graph Liner", () => {
     countryPhase: 4,
   });
   beforeEach(() => {
+    vitest.useFakeTimers();
     wrapper = mount(RegionBarGraph, {
       propsData: {
         selectedYearData: selectedYearCountriesScore,
@@ -129,6 +130,7 @@ describe("Region Bar Graph Liner", () => {
     });
   });
   it("should render Graph when mounted and create a new Chart instance", () => {
+    vitest.advanceTimersByTime(100);
     expect(wrapper.vm.$el).toMatchSnapshot();
     expect(Chart.mock.calls.length).toEqual(1);
     expect(Chart.mock.calls[0][1]).toMatchSnapshot();
