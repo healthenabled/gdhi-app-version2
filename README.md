@@ -12,6 +12,8 @@ It uses `Yarn@2` as a package manager and `github actions` for CI/CD.
 3. **[Dev Dependencies](#dev-dependencies)**
 4. **[Running the app locally](#running-the-app-locally)**
 5. **[Building the app for production](#building-the-app-for-production)**
+6. **[Unit testing](#unit-testing)**
+7. **[Linting](#linting)**
 
 ## Pre-requisites
 
@@ -105,6 +107,7 @@ Some dev dependencies of the project inlude:
 - [eslint](https://eslint.org/) for linting.
 - [prettier](https://prettier.io/) for formatting.
 - [vitest](vitest.dev/) for unit testing
+- [vue-test-utils](v1.test-utils.vuejs.org/) for Vue component testing
 
 For running locally, we want to keep the Enabled flag as False
 
@@ -133,4 +136,22 @@ For running locally, we want to keep the Enabled flag as False
 - We have a [chunking logic](https://github.com/healthenabled/gdhi-app-version2/blob/main/build/vite.prod.config.js#L13-L27) in `vite.prod.config.js` which creates and splits vendor chunks.
 - We need to copy the map vectors artifact. This is a `json` file that [needs to be copied explicitly](https://github.com/healthenabled/gdhi-app-version2/blob/main/build/vite.prod.config.js#L56-L63). 
 - An [SRI plugin](https://github.com/healthenabled/gdhi-app-version2/blob/main/build/vite.prod.config.js#L66-L73) runs in the `post` pipeline of `Vite` to add `SRI` values for all assets. 
-  
+
+## Unit testing
+- We use `Vitest` and `vue-test-utils` for unit testing:
+  ```sh
+  yarn test
+  ```
+- We also use `c8` to capture coverage:
+  ```sh
+  yarn test:coverage
+  ```
+- Leverage `Vitest  UI` using:
+  ```sh
+  yarn test:ui
+  ``` 
+## Linting
+- We use `eslint` with `vite recommendations` :
+  ```sh
+  yarn lint
+  ```
