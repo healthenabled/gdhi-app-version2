@@ -9,6 +9,7 @@ It uses `Yarn@2` as a package manager and `github actions` for CI/CD.
 
 1. **[Pre-requisites](#pre-requisites)**
 2. **[Build Dependencies](#build-dependencies)**
+3. **[Dev Dependencies](#dev-dependencies)**
 
 ## Pre-requisites
 
@@ -83,6 +84,7 @@ It uses `Yarn@2` as a package manager and `github actions` for CI/CD.
   We are using `yarn` version 3.X in our project.
 
 ## Build Dependencies:
+Some build dependencies of the project inlude:
 - [Vue2](https://v2.vuejs.org/) as FE framework of choice.
 - [axios](https://github.com/axios/axios/) for API calls.
 - [chartjs](https://www.chartjs.org/) chart utils.
@@ -93,6 +95,13 @@ It uses `Yarn@2` as a package manager and `github actions` for CI/CD.
   `VITE_IS_GOOGLE_ANALYTICS_ENABLED=true or false`
   `VITE_GOOGLE_ANALYTICS_ID={google analytics gid}`
 
+## Dev Dependencies:
+Some dev dependencies of the project inlude:
+- [Vite](vitejs.dev/) as FE Bundler of choice.
+- [husky](https://typicode.github.io/husky/#/) for pre-push checks.
+- [eslint](https://eslint.org/) for linting.
+- [prettier](https://prettier.io/) for formatting.
+- [vitest](vitest.dev/) for unit testing
 
 For running locally, we want to keep the Enabled flag as False
 
