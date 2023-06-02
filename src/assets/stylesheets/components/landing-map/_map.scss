@@ -37,6 +37,7 @@ div#reset-btn {
   margin-top: 0;
   &.leaflet-control-attribution {
     @include margin-left(0);
+    top: 20px;
   }
 }
 
