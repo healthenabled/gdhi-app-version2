@@ -10,6 +10,7 @@ It uses `Yarn@2` as a package manager and `github actions` for CI/CD.
 1. **[Pre-requisites](#pre-requisites)**
 2. **[Build Dependencies](#build-dependencies)**
 3. **[Dev Dependencies](#dev-dependencies)**
+4. **[Running the app locally](#running-the-app-locally)**
 
 ## Pre-requisites
 
@@ -105,32 +106,14 @@ Some dev dependencies of the project inlude:
 
 For running locally, we want to keep the Enabled flag as False
 
-### Then use the below to install the deps
-
-```sh
-yarn install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-yarn dev
-```
-
-### Compile and Minify for Production
-
-```sh
-yarn build
-```
-
-### Run Unit Tests with [Vitest](https://vitest.dev/)
-
-```sh
-yarn test
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-yarn lint
-```
+## Running the app locally:
+- To run the app locally install dependencies first:
+  ```sh
+  yarn install
+  ```
+- Once installed, run:
+  ```sh
+  yarn dev
+  ```
+  The above command will run the `Vite` dev server locally. This relies on the backend running on port 8888
+- To change the configurations update the same in `vite.dev.config.js`
