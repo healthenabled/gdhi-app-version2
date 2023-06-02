@@ -11,6 +11,7 @@ It uses `Yarn@2` as a package manager and `github actions` for CI/CD.
 2. **[Build Dependencies](#build-dependencies)**
 3. **[Dev Dependencies](#dev-dependencies)**
 4. **[Running the app locally](#running-the-app-locally)**
+5. **[Building the app for production](#building-the-app-for-production)**
 
 ## Pre-requisites
 
@@ -95,6 +96,7 @@ Some build dependencies of the project inlude:
 - [vue-gtag](https://github.com/MatteoGabriele/vue-gtag/tree/1.0) for Google analytics integration. This depends on the following env variables:<br/> 
   `VITE_IS_GOOGLE_ANALYTICS_ENABLED=true or false`
   `VITE_GOOGLE_ANALYTICS_ID={google analytics gid}`
+- [Font-Awesome](https://fontawesome.com) as CSS style artifact for icons.
 
 ## Dev Dependencies:
 Some dev dependencies of the project inlude:
@@ -117,3 +119,18 @@ For running locally, we want to keep the Enabled flag as False
   ```
   The above command will run the `Vite` dev server locally. This relies on the backend running on port 8888
 - To change the configurations update the same in `vite.dev.config.js`
+  
+## Building the app for production:
+- To build the app for production run:
+  ```sh
+  yarn build
+  ```
+- To preview the built artifacts run:
+  ```sh
+  yarn preview
+  ```
+  The above will point to a backend server running locally. Change the `vite.prod.config.js` to a local running `api` server to preview the built artifact successfully.
+- We have a [chunking logic](https://github.com/healthenabled/gdhi-app-version2/blob/main/build/vite.prod.config.js#L13-L27) in `vite.prod.config.js` which creates and splits vendor chunks.
+- We need to copy the map vectors artifact. This is a `json` file that [needs to be copied explicitly](https://github.com/healthenabled/gdhi-app-version2/blob/main/build/vite.prod.config.js#L56-L63). 
+- An [SRI plugin](https://github.com/healthenabled/gdhi-app-version2/blob/main/build/vite.prod.config.js#L66-L73) runs in the `post` pipeline of `Vite` to add `SRI` values for all assets. 
+  
