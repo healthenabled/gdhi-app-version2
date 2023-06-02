@@ -122,53 +122,53 @@ For running locally, we want to keep the Enabled flag as False
 
 ## Troubleshooting:
 
--While trying to run the app on your local, here are some of the problems you might be facing:
+- While trying to run the app on your local, here are some of the problems you might be facing:
 
-### nvm - not found
+1.  ### nvm - not found
 
-1.  In your terminal, run the nvm installer.
-    For `v0.391` the command looks like below. Please check `nvm` documentation for the latest version:
+- In your terminal, run the nvm installer.
+  For `v0.391` the command looks like below. Please check `nvm` documentation for the latest version:
 
-    ```sh
-    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-    ```
+  ```sh
+  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+  ```
 
-    #### or
+  #### or
 
-    ```sh
-      wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-    ```
+  ```sh
+    wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+  ```
 
-    You can use `curl` or `wget` depending on the command available on your device.
-    These commands will clone the nvm repository to a `~/.nvm` directory on your device.
+  You can use `curl` or `wget` depending on the command available on your device.
+  These commands will clone the nvm repository to a `~/.nvm` directory on your device.
 
-2.  Update your profile configuration:<br/>
-    The installation process from step 1 should also automatically add the `nvm` configuration to your profile.
-    If it doesn't automatically add `nvm` configuration, you can add it yourself to your profile file:
+- Update your profile configuration:<br/>
+  The installation process from step 1 should also automatically add the `nvm` configuration to your profile.
+  If it doesn't automatically add `nvm` configuration, you can add it yourself to your profile file:
 
-    ```sh
-       export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")" [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-    ```
+  ```sh
+     export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")" [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+  ```
 
-    This command above loads nvm for use.
+  This command above loads nvm for use.
 
-3.  Reload the shell configuration
-    With your profile configuration updated, now you will reload the configuration for your terminal to use:
+- Reload the shell configuration
+  With your profile configuration updated, now you will reload the configuration for your terminal to use:
 
-    ```sh
-      source ~/.bashrc`
-    ```
+  ```sh
+    source ~/.bashrc`
+  ```
 
-    With this command executed, nvm is ready for you to use. You can confirm that nvm is installed correctly by running:
+  With this command executed, nvm is ready for you to use. You can confirm that nvm is installed correctly by running:
 
-    ```sh
-      nvm -v
-    ```
+  ```sh
+    nvm -v
+  ```
 
-    This should show the version of `nvm` installed.
+  This should show the version of `nvm` installed.
 
-4.  Use the specified node version in the repository
+- Use the specified node version in the repository
 
-    ```sh
-      nvm use
-    ```
+  ```sh
+    nvm use
+  ```
