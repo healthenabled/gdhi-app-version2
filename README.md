@@ -7,7 +7,8 @@ It uses `Yarn@2` as a package manager and `github actions` for CI/CD.
 
 ## Table of Contents
 
-**1. [Pre-requisites](#pre-requisites)**
+1. **[Pre-requisites](#pre-requisites)**
+2. **[Build Dependencies](#build-dependencies)**
 
 ## Pre-requisites
 
@@ -57,6 +58,12 @@ It uses `Yarn@2` as a package manager and `github actions` for CI/CD.
 
       This should show the version of `nvm` installed.
 
+  4.  Use the specified node version in the repository
+
+      ```sh
+        nvm use
+      ```
+
 - ### Install `yarn`
 
   #### Install via `npm`
@@ -73,28 +80,21 @@ It uses `Yarn@2` as a package manager and `github actions` for CI/CD.
   ```sh
   yarn  --version
   ```
+  We are using `yarn` version 3.X in our project.
 
-## Customize configuration
+## Build Dependencies:
+- [Vue2](https://v2.vuejs.org/) as FE framework of choice.
+- [axios](https://github.com/axios/axios/) for API calls.
+- [chartjs](https://www.chartjs.org/) chart utils.
+- [leaflet](https://leafletjs.com/reference.html) for displaying Maps.
+- [papaparse](https://www.papaparse.com/docs) and [yup](https://github.com/jquense/yup) for csv pasrsing and validations.
+- [pdf-lib](https://github.com/Hopding/pdf-lib) for Browser pdf genration.
+- [vue-gtag](https://github.com/MatteoGabriele/vue-gtag/tree/1.0) for Google analytics integration. This depends on the following env variables:<br/> 
+  `VITE_IS_GOOGLE_ANALYTICS_ENABLED=true or false`
+  `VITE_GOOGLE_ANALYTICS_ID={google analytics gid}`
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-### Install and setup nvm using [the link](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-The project uses Node v16 and YarnV2 as package manager.
-
-Environment variables:
-
-`VITE_IS_GOOGLE_ANALYTICS_ENABLED=true or false`
-
-`VITE_GOOGLE_ANALYTICS_ID={google analytics gid}`
 
 For running locally, we want to keep the Enabled flag as False
-
-```sh
-nvm use
-```
 
 ### Then use the below to install the deps
 
