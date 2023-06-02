@@ -2,58 +2,60 @@
 
 [![GDHI-Frontend](https://github.com/healthenabled/gdhi-app-version2/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/healthenabled/gdhi-app-version2/actions/workflows/build.yml)
 
-The App is build using Vue2, Vite and Vitest. It uses Yarn as a package manager and github actions for CI/CD.
+The App is build using `Vue2`, `Vite` and `Vitest`.
+It uses `Yarn@2` as a package manager and `github actions` for CI/CD.
+
+## Table of Contents
+
+**1. [Pre-requisites](#pre-requisites)**
 
 ## Pre-requisites
 
-1. ### Install nvm
+- ### Install nvm
 
-   Nvm allows you to quickly install and use different versions of node via the
-   command line.
+  `nvm` allows you to quickly install and use different versions of `node` via the
+  command line.
 
-- `brew install nvm`
-  or if you face any issues,
+  1.  In your terminal, run the nvm installer.
+      For `v0.391` the command looks like below. Please check `nvm` documentation for the latest version:
 
-  1. Run the nvm installer
-     In your terminal, run the nvm installer. For v0.391 the command looks like below. Please check nvm documentation for the latest version
+      - `curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash`
+        #### or
+      - `wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash`
+        <br/>You can use `curl` or `wget` depending on the command available on your device.
+        These commands will clone the nvm repository to a ~/.nvm directory on your device.
 
-  - `curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash`
-    #### or
-  - `wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash`
-    You can use curl or bash depending on the command available on your device.
-    These commands will clone the nvm repository to a ~/.nvm directory on your device.
+  2.  Update your profile configuration
+      The installation process from step 1 should also automatically add the nvm configuration to your profile.
+      If it doesn't automatically add `nvm` configuration, you can add it yourself to your profile file:
 
-  2. Update your profile configuration
-     The installation process from step 1 should also automatically add the nvm configuration to your profile. If you're using zsh, that would be ~/.zshrc. If you're using bash, that would be ~/.bash_profile...or some other profile.
-     If it doesn't automatically add nvm configuration, you can add it yourself to your profile file:
+      - `export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")" [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"`
+        This command above loads nvm for use.
 
-  - `export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")" [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"`
-    This command above loads nvm for use.
+  3.  Reload the shell configuration
+      With your profile configuration updated, now you will reload the configuration for your terminal to use:
 
-  3. Reload the shell configuration
-     With your profile configuration updated, now you will reload the configuration for your terminal to use:
+      - `source ~/.bashrc`
+        With this command executed, nvm is ready for you to use. You can confirm that nvm is installed correctly by running:
+      - `nvm -v`
+        This should show the version of nvm installed.
 
-  - `source ~/.bashrc`
-    With this command executed, nvm is ready for you to use. You can confirm that nvm is installed correctly by running:
-  - `nvm -v`
-    This should show the version of nvm installed.
+- ### Install `yarn`
 
-2. ### Install yarn
+  #### Install via `npm`
 
-   Before you start using Yarn, you'll first need to install it on your system. There are many different ways to install Yarn, but a single one is recommended and cross-platform:
+  It is recommended to install `yarn` through the `npm` package manager, which comes bundled with `Node`.
+  Once you have npm installed you can run the following both to install and upgrade `Yarn`:
 
-   #### Install via npm
+  ```sh
+  npm install --global yarn
+  ```
 
-   It is recommended to install Yarn through the npm package manager, which comes bundled with Node.js when you install it on your system.
-   Once you have npm installed you can run the following both to install and upgrade Yarn:
+  <br/> To verify the installation:
 
-- `npm install --global yarn`
-  To verify the installation,
-- `yarn  -- version`
-
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+  ```sh
+  yarn  --version
+  ```
 
 ## Customize configuration
 
