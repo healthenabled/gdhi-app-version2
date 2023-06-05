@@ -147,6 +147,33 @@ For running locally, we want to keep the Enabled flag as False
 - `scss` support comes in-built in `Vite` so [no additional configurations](https://vitejs.dev/guide/features.html#css-pre-processors) needed for the same.
 - We have a [start-server script](https://github.com/healthenabled/gdhi-app-version2/blob/main/scripts/start_server.sh) that starts the `httpd` server instance on depoyment.
 
+## Deployment
+- We have 3 `environments` of Deployment:
+  - [QA](https://github.com/healthenabled/gdhi-app-version2/deployments/activity_log?environment=QA)
+  - [Showcase](https://github.com/healthenabled/gdhi-app-version2/deployments/activity_log?environment=SHOWCASE) 
+  - [Production](https://github.com/healthenabled/gdhi-app-version2/deployments/activity_log?environment=PROD)
+- We use `github actions` to configure our CI. The code for the same cane be found in [`.github/workflows`](https://github.com/healthenabled/gdhi-app-version2/tree/main/.github/workflows) directory. 
+- Below is a sequence diagram for CI/CD of the application:
+```mermaid
+  sequenceDiagram;
+      participant local
+      participant CI
+      participant AWS
+      participant QA
+      participant ShowCase
+      participant Production
+      local-->>local: Pre-push hooks
+      local->>CI: Code push
+      CI-->>CI: Install deps
+      CI-->>CI: Unit tests
+      CI-->>CI: Build the app and get buildNumber
+      CI->>AWS: Upload build contents
+      AWS->>QA: Start httpd server for QA deployment
+      QA-->>QA: Automation tests on QA
+      QA->>ShowCase: Set a buildNumber and trigger deployment(manual)
+      ShowCase->>Production: Promote from Showcase to Production(manual)
+```
+
 ## Troubleshooting:
 
 While trying to run the app on your local, here are some of the problems you might be facing:
