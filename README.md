@@ -130,6 +130,22 @@ For running locally, we want to keep the Enabled flag as False
 - We also have **Regions** which are composed of Countries
 - We rely on backend as our source of truth and use the UI for only minor data changes before rendering it on the UI
 
+## Application Structure
+- The App follows a normal `Vue` structure with [`Components`](https://github.com/healthenabled/gdhi-app-version2/tree/main/src/components) containing most of View logic.
+- The [`__tests__`](https://github.com/healthenabled/gdhi-app-version2/tree/main/src/components/__tests__) directory contains `Vitest` based unit tests and some interaction tests.
+- We use Front-end generated `pdf` logic powered by `pdf-lib`. The meat of this code is in [`pdfhelper`](https://github.com/healthenabled/gdhi-app-version2/tree/main/src/components/pdfHelper) directory.
+- We have created a [util for chunking and paginating](https://github.com/healthenabled/gdhi-app-version2/blob/main/src/components/pdfHelper/pdfUtils.js#L82-L104) for PDF generation.
+- We also use `chartJs`, `papaparse` and `yup` for Charts, CSV parsing and validations respectively.
+- We use `Vue-router` for [defining our paths and common components](https://github.com/healthenabled/gdhi-app-version2/blob/main/src/router/index.js).
+- We don't use a state management library.We are using event bubbling in most cases with `window.appPropeties` to share state across components.
+- We are also using `i10n` - some of these translations are found [here](https://github.com/healthenabled/gdhi-app-version2/tree/main/src/static-content), while for others we rely on the backend.
+- We don't have API end points configured on the UI side, rather the BE app is assumed to be running on the same instance as the UI app. More of it in deployment section below
+- We are using `scss` for our CSS pre-processing.
+- Most of our CSS files are in the [stylesheets](https://github.com/healthenabled/gdhi-app-version2/tree/main/src/assets/stylesheets) directory from v1.
+- We are also using `mixin` based logic for [RTL](https://github.com/healthenabled/gdhi-app-version2/blob/main/src/assets/stylesheets/_rtl-support.scss) language support.
+- `scss` support comes in-built in `Vite` so [no additional configurations](https://vitejs.dev/guide/features.html#css-pre-processors) needed for the same.
+- We have a [start-server script](https://github.com/healthenabled/gdhi-app-version2/blob/main/scripts/start_server.sh) that starts the `httpd` server instance on depoyment.
+
 ## Troubleshooting:
 
 While trying to run the app on your local, here are some of the problems you might be facing:
