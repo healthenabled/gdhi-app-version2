@@ -159,7 +159,7 @@ For running locally, we want to keep the Enabled flag as False
   sequenceDiagram;
       participant local
       participant CI
-      participant AWS
+      participant AWS/S3
       participant QA
       participant ShowCase
       participant Production
@@ -168,8 +168,8 @@ For running locally, we want to keep the Enabled flag as False
       CI-->>CI: Install deps
       CI-->>CI: Unit tests
       CI-->>CI: Build the app and get buildNumber
-      CI->>AWS: Upload build contents
-      AWS->>QA: Start httpd server for QA deployment
+      CI->>AWS/S3: Upload build contents
+      AWS/S3->>QA: Codedeploy QA
       QA-->>QA: Automation tests on QA
       QA->>ShowCase: Set a buildNumber and trigger deployment(manual)
       ShowCase->>Production: Promote from Showcase to Production(manual)
