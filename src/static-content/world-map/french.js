@@ -33,4 +33,8 @@ export const worldMap = {
       "l'environnement favorable à la santé numérique dans le monde.",
   },
   searchCountry: "Rechercher un pays",
+  note: "Fabriqué avec de la terre naturelle.",
+  note1: "Frontières de l'Inde",
+  note2: "par",
+  note3: "Communauté DataMeet Inde",
 };

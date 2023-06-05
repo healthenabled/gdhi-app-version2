@@ -52,7 +52,14 @@ export default {
       .attribution({
         position: "bottomleft",
         prefix:
-          'Made with Natural Earth.<a href="https://github.com/datameet/maps/blob/master/Country/india-composite.geojson">India boundaries</a> by <a href="http://datameet.org/">DataMeet India community</a>',
+          i18n.t("worldMap.note") +
+          "<a href='https://github.com/datameet/maps/blob/master/Country/india-composite.geojson'>" +
+          i18n.t("worldMap.note1") +
+          "</a> " +
+          i18n.t("worldMap.note2") +
+          " <a href='http://datameet.org/'>" +
+          i18n.t("worldMap.note3") +
+          "</a>",
       })
       .addTo(this.map);
 

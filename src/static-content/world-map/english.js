@@ -29,4 +29,8 @@ export const worldMap = {
       "      assess the enabling environment for digital health throughout the world.",
   },
   searchCountry: "Search Country",
+  note: "Made with Natural Earth.",
+  note1: "India boundaries",
+  note2: "by",
+  note3: "DataMeet India community",
 };

@@ -45,11 +45,17 @@ export default Vue.extend({
       this.fetchGlobalIndices();
     });
   },
-  updated() {
-    if (this.locale !== this.$i18n.locale) {
-      this.fetchGlobalIndices();
-      this.locale = this.$i18n.locale;
-    }
+  watch: {
+    "$i18n.locale": function () {
+      if (this.locale !== this.$i18n.locale) {
+        worldMap.drawMap(
+          this.globalHealthIndices,
+          this.onCountrySelection,
+          this.$i18n
+        );
+        this.locale = this.$i18n.locale;
+      }
+    },
   },
   beforeDestroy() {
     EventBus.$off("Map:Searched", this.onSearchTriggered);

@@ -33,4 +33,8 @@ export const worldMap = {
       "rastrear, monitorear y evaluar el entorno propicio para la salud digital en todo el mundo.",
   },
   searchCountry: "Buscar país",
+  note: "Hecho con Tierra Natural.",
+  note1: "fronteras indias",
+  note2: "por",
+  note3: "Comunidad DataMeet India",
 };
