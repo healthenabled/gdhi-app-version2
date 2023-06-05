@@ -14,7 +14,8 @@ It uses `Yarn@2` as a package manager and `github actions` for CI/CD.
 5. **[Building the app for production](#building-the-app-for-production)**
 6. **[Unit testing](#unit-testing)**
 7. **[Linting](#linting)**
-8. **[Troubleshooting](#troubleshooting)**
+8. **[Project Overview](#project-overview)**
+9. **[Troubleshooting](#troubleshooting)**
 
 ## Pre-requisites
 
@@ -31,6 +32,7 @@ It uses `Yarn@2` as a package manager and `github actions` for CI/CD.
   Once you have npm installed you can run the following both to install and upgrade `Yarn`:
 
   ```sh
+  nvm use
   npm install --global yarn
   ```
 
@@ -54,6 +56,7 @@ Some build dependencies of the project inlude:
 - [pdf-lib](https://github.com/Hopding/pdf-lib) for Browser pdf genration.
 - [vue-gtag](https://github.com/MatteoGabriele/vue-gtag/tree/1.0) for Google analytics integration. This depends on the following env variables:<br/>
   `VITE_IS_GOOGLE_ANALYTICS_ENABLED=true or false`
+  
   `VITE_GOOGLE_ANALYTICS_ID={google analytics gid}`
 - [Font-Awesome](https://fontawesome.com) as CSS style artifact for icons.
 
@@ -120,11 +123,19 @@ For running locally, we want to keep the Enabled flag as False
   yarn lint
   ```
 
+## Project overview
+- This is the `Vue2` UI repo for [GDHM](index.digitalhealthindex.org/). 
+- The project provides a platform to upload digital health metrices of various Countries globally and a way to visualize them. 
+- We have **yearwise** segregation of data to allow comparisons across years.
+- We also have **Regions** which are composed of Countries
+- We rely on backend as our source of truth and use the UI for only minor data changes before rendering it on the UI
+
 ## Troubleshooting:
 
-- While trying to run the app on your local, here are some of the problems you might be facing:
+While trying to run the app on your local, here are some of the problems you might be facing:
 
-1.  ### nvm - not found
+1.  Check that the `node` version is used via `nvm` or to use the same version as `.nvmrc1 file.
+2.  ### nvm - not found
 
 - In your terminal, run the nvm installer.
   For `v0.391` the command looks like below. Please check `nvm` documentation for the latest version:
