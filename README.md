@@ -16,7 +16,8 @@ It uses `Yarn@2` as a package manager and `github actions` for CI/CD.
 7. **[Linting](#linting)**
 8. **[Project Overview](#project-overview)**
 8. **[Application Structure](#application-structure)**
-9. **[Troubleshooting](#troubleshooting)**
+9. **[Deployment](#deployment)**
+10. **[Troubleshooting](#troubleshooting)**
 
 ## Pre-requisites
 
@@ -152,7 +153,7 @@ For running locally, we want to keep the Enabled flag as False
   - [QA](https://github.com/healthenabled/gdhi-app-version2/deployments/activity_log?environment=QA)
   - [Showcase](https://github.com/healthenabled/gdhi-app-version2/deployments/activity_log?environment=SHOWCASE) 
   - [Production](https://github.com/healthenabled/gdhi-app-version2/deployments/activity_log?environment=PROD)
-- We use `github actions` to configure our CI. The code for the same cane be found in [`.github/workflows`](https://github.com/healthenabled/gdhi-app-version2/tree/main/.github/workflows) directory. 
+- We use `github actions` to configure our CI. The code for the same can be found in [`.github/workflows`](https://github.com/healthenabled/gdhi-app-version2/tree/main/.github/workflows) directory. 
 - Below is a sequence diagram for CI/CD of the application:
 ```mermaid
   sequenceDiagram;
@@ -173,7 +174,8 @@ For running locally, we want to keep the Enabled flag as False
       QA->>ShowCase: Set a buildNumber and trigger deployment(manual)
       ShowCase->>Production: Promote from Showcase to Production(manual)
 ```
-
+- We use an `httpd` server on `AWS` to start up as a reverse-proxy which serves the Web assets from `asset` directory.
+- It also routes any requests with `api` to the backend application running on the same instance as a `jar` file.
 ## Troubleshooting:
 
 While trying to run the app on your local, here are some of the problems you might be facing:
