@@ -126,7 +126,7 @@ For running locally, we want to keep the Enabled flag as False
   ```
 
 ## Project overview
-- This is the `Vue2` UI repo for [GDHM](index.digitalhealthindex.org/). 
+- This is the `Vue2` UI repo for [GDHM](https://monitor.digitalhealthmonitor.org/). 
 - The project provides a platform to upload digital health metrices of various Countries globally and a way to visualize them. 
 - We have **yearwise** segregation of data to allow comparisons across years.
 - We also have **Regions** which are composed of Countries
