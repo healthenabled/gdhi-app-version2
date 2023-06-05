@@ -15,6 +15,7 @@ It uses `Yarn@2` as a package manager and `github actions` for CI/CD.
 6. **[Unit testing](#unit-testing)**
 7. **[Linting](#linting)**
 8. **[Project Overview](#project-overview)**
+8. **[Application Structure](#application-structure)**
 9. **[Troubleshooting](#troubleshooting)**
 
 ## Pre-requisites
