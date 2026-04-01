@@ -170,7 +170,7 @@
     position: absolute;
     right: 0;
     bottom: 78px;
-    width: min(420px, calc(100vw - 32px));
+    width: min(540px, calc(100vw - 32px));
     height: min(82vh, 880px);
     display: flex;
     flex-direction: column;
@@ -913,7 +913,7 @@
     bottom: 14px;
 
     &__panel {
-      width: min(92vw, 420px);
+      width: min(94vw, 520px);
       height: min(88vh, 820px);
       bottom: 76px;
     }
