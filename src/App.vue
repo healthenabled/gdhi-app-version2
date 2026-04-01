@@ -42,17 +42,20 @@
       <div class="error">{{ $t("mixed.loading") }}</div>
     </div>
     <layout />
+    <data-assistant />
   </div>
 </template>
 
 <script>
 import Layout from "./components/layout/layout.vue";
+import DataAssistant from "./components/dataAssistant/data-assistant.vue";
 import { LayoutDirectionConfig } from "./plugins/i18n";
 
 export default {
   name: "App",
   components: {
     Layout,
+    DataAssistant,
   },
   data() {
     return {

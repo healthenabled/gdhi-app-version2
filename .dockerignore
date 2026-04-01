@@ -1,0 +1,10 @@
+.git
+.github
+.husky
+.vscode
+coverage
+dist
+node_modules
+stats.html
+*.log
+.DS_Store
