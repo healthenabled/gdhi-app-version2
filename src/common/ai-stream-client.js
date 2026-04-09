@@ -1,4 +1,4 @@
-const AI_STREAM_ENDPOINT = "/api/ai/stream";
+const AI_STREAM_ENDPOINT = "/ai/stream";
 
 function applyResponseId(responseId, onResponseId) {
   if (typeof responseId === "string" && responseId.trim()) {
