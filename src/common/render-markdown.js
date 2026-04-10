@@ -2,7 +2,7 @@ import DOMPurify from "dompurify";
 import katex from "katex";
 import { marked } from "marked";
 
-marked.setOptions({
+marked.use({
   breaks: true,
   gfm: true,
 });
