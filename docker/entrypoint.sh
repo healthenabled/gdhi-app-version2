@@ -21,6 +21,7 @@ server {
   }
 
   location /api/ai/ {
+    rewrite ^/api/?(.*)$ /\$1 break;
     proxy_pass ${BACKEND_UPSTREAM};
     proxy_http_version 1.1;
     proxy_buffering off;

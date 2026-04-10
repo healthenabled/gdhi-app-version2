@@ -1,4 +1,4 @@
-const AI_STREAM_ENDPOINT = "/ai/stream";
+const AI_STREAM_ENDPOINT = "/api/ai/stream";
 
 function applyResponseId(responseId, onResponseId) {
   if (typeof responseId === "string" && responseId.trim()) {
@@ -171,6 +171,7 @@ async function getResponseError(response) {
 export async function streamAiResponse({
   query,
   responseId,
+  userLanguage = "en",
   signal,
   onChunk = () => {},
   onResponseId = () => {},
@@ -184,10 +185,12 @@ export async function streamAiResponse({
     headers: {
       Accept: "text/event-stream",
       "Content-Type": "application/json",
+      user_language: userLanguage,
     },
     body: JSON.stringify({
       query,
       responseId,
+      user_language: userLanguage,
     }),
     signal,
   });
