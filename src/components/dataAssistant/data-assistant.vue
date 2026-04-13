@@ -390,19 +390,29 @@ export default Vue.extend({
       }
 
       const question = this.lastFailedQuestion;
+      const existingMessage = [...this.messages].reverse().find(
+        (m) => m.role === "assistant" && m.errorText
+      );
       this.streamError = "";
       this.lastFailedQuestion = "";
       this.clearCopiedMessageStatus();
       this.clearConversationActionStatus();
-      await this.startAssistantStream(question);
+      await this.startAssistantStream(question, existingMessage);
     },
-    async startAssistantStream(question) {
+    async startAssistantStream(question, existingMessage = null) {
       this.abortActiveRequest();
 
-      const assistantMessage = this.buildMessage("assistant");
+      const assistantMessage = existingMessage || this.buildMessage("assistant");
+      assistantMessage.text = "";
+      assistantMessage.errorText = "";
       assistantMessage.isThinking = true;
       assistantMessage.thinkingText = this.currentCopy.thinking;
-      this.messages.push(assistantMessage);
+      assistantMessage.isStreaming = false;
+
+      if (!existingMessage) {
+        this.messages.push(assistantMessage);
+      }
+
       this.scrollToBottom();
 
       const controller =
