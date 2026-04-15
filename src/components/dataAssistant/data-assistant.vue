@@ -423,6 +423,7 @@ export default Vue.extend({
         await streamAiResponse({
           query: question,
           responseId: this.ensureResponseId(),
+          userLanguage: this.currentLocale,
           signal: controller ? controller.signal : undefined,
           onResponseId: (nextResponseId) => {
             if (nextResponseId) {
@@ -490,8 +491,8 @@ export default Vue.extend({
   },
   watch: {
     currentLocale(newValue, oldValue) {
-      if (newValue !== oldValue && this.messages.length === 1) {
-        this.messages[0].text = this.currentCopy.welcome;
+      if (newValue !== oldValue) {
+        this.resetMessages();
       }
     },
   },
