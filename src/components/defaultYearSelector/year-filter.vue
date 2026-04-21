@@ -11,7 +11,7 @@
     >
       <option
         v-for="(year, index) in years"
-        :key="index + $route?.params?.regionId"
+        :key="`${index}-${routeRegionId}-${year}`"
         :value="year"
         :selected="year === selectedYear"
       >
@@ -37,7 +37,10 @@ export default {
   },
   props: {
     years: Array,
-    selectedYear: String,
+    selectedYear: {
+      type: [String, Number],
+      default: null,
+    },
     shouldRespectTranslation: {
       type: Boolean,
       default: false,
@@ -45,6 +48,13 @@ export default {
     shouldChangeWidth: {
       type: Boolean,
       default: false,
+    },
+  },
+  computed: {
+    routeRegionId() {
+      return this.$route && this.$route.params
+        ? this.$route.params.regionId
+        : "";
     },
   },
   updated() {
