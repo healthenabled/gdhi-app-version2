@@ -18,6 +18,7 @@ export default Vue.extend({
       globalHealthIndices: [],
       lastSelectedCountry: "",
       locale: "en",
+      selectedYear: "",
     };
   },
   name: "LandingMap",
@@ -44,6 +45,10 @@ export default Vue.extend({
     EventBus.$on(EVENTS.PHASE_FILTERED, () => {
       this.fetchGlobalIndices();
     });
+    EventBus.$on(EVENTS.YEAR_FILTERED, (year) => {
+      this.selectedYear = year;
+      this.fetchGlobalIndices();
+    });
   },
   watch: {
     "$i18n.locale": function () {
@@ -60,6 +65,8 @@ export default Vue.extend({
   beforeDestroy() {
     EventBus.$off("Map:Searched", this.onSearchTriggered);
     EventBus.$off(EVENTS.INDICATOR_FILTERED);
+    EventBus.$off(EVENTS.PHASE_FILTERED);
+    EventBus.$off(EVENTS.YEAR_FILTERED);
   },
   methods: {
     resetFilters() {
@@ -73,7 +80,8 @@ export default Vue.extend({
         "/api/countries_health_indicator_scores?categoryId=" +
         windowProperties.getCategoryFilter() +
         "&phase=" +
-        windowProperties.getPhaseFilter();
+        windowProperties.getPhaseFilter() +
+        (this.selectedYear ? "&year=" + this.selectedYear : "");
       return axios
         .get(
           url,

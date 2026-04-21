@@ -30,6 +30,33 @@
   background-size: 15px;
 }
 
+.year-filter-new-badge {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 6px;
+  background-color: $gdhi-orange-shade1;
+  color: $white;
+  font-size: 9px;
+  font-weight: 700;
+  border-radius: 4px;
+  text-transform: uppercase;
+  vertical-align: middle;
+  letter-spacing: 0.3px;
+}
+
+.year-filter-latest-option {
+  color: $score4;
+  font-weight: 700;
+}
+
+.year-indicator-select--latest {
+  color: $score5;
+}
+
+.year-filter-year-option {
+  color: $cool-gray;
+}
+
 /* IE11 hide native button */
 select::-ms-expand {
   display: none;
