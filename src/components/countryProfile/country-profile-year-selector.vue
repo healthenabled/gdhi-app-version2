@@ -19,20 +19,28 @@ export default Vue.extend({
   },
 
   mounted() {
-    this.fetchPublishedYearsForACountry(this.countryCode);
+    if (this.countryCode) {
+      this.fetchPublishedYearsForACountry(this.countryCode);
+    }
   },
 
   methods: {
-    fetchPublishedYearsForACountry(countryCode) {
-      axios
-        .get(`/api/countries/${countryCode}/published_years`)
-        .then((response) => {
-          this.years = response.data;
-          if (this.years.length && this.selectedYear === null) {
-            this.selectedYear = this.years[0];
-          }
-        });
+    async fetchPublishedYearsForACountry(countryCode) {
+      try {
+        const response = await axios.get(`/api/countries/${countryCode}/published_years`);
+        
+        const data = Array.isArray(response.data) ? response.data : [];
+        this.years = data;
+
+        if (this.years.length > 0 && this.selectedYear === null) {
+          this.selectedYear = this.years[0];
+        }
+      } catch (error) {
+        console.error("Error fetching published years:", error);
+        this.years = [];
+      }
     },
+
     yearChanged(selectedYear) {
       this.selectedYear = selectedYear;
     },
