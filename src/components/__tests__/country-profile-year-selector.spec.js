@@ -9,6 +9,7 @@ import axios from "axios";
 
 describe("Country Profile Year Selector ", () => {
   let wrapper;
+  let router;
   const setDefaultYearSpy = vi.fn();
   const getDefaultYearSpy = vi.fn();
   const axiosGetSpy = vi.spyOn(axios, "get");
@@ -20,12 +21,17 @@ describe("Country Profile Year Selector ", () => {
 
   const localVue = createLocalVue();
   localVue.use(VueRouter);
-  const router = new VueRouter();
 
   beforeEach(async () => {
-    axiosGetSpy.mockResolvedValueOnce({
-      data: { years: ["Version 1", "2022", "2023"], defaultYear: "2022" },
+    router = new VueRouter({
+      routes: [
+        {
+          path: "/country_profile/:countryCode",
+          component: CountryProfileYearSelector,
+        },
+      ],
     });
+    router.push("/country_profile/SDN");
     axiosGetSpy.mockResolvedValueOnce({
       data: ["2023", "2021", "Version1"],
     });
@@ -60,5 +66,16 @@ describe("Country Profile Year Selector ", () => {
   it("should return the published years of a country when api call is made", async () => {
     let data = ["2023", "2021", "Version1"];
     expect(wrapper.vm.years).to.deep.equal(data);
+  });
+
+  it("should show the latest country-specific published year on initial load", async () => {
+    expect(axiosGetSpy).toHaveBeenCalledTimes(1);
+    expect(axiosGetSpy.mock.calls[0][0]).to.equal(
+      "/api/countries/SDN/published_years"
+    );
+    expect(wrapper.vm.selectedYear).to.equal("2023");
+    expect(wrapper.find(".year-indicator-select option").text()).to.equal(
+      "2023"
+    );
   });
 });

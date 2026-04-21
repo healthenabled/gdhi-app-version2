@@ -8,14 +8,13 @@ export default Vue.extend({
   components: { yearFilter },
   data() {
     return {
-      defaultYear: window.appProperties.getDefaultYear(),
+      selectedYear: null,
       years: [],
       countryCode: "",
     };
   },
 
   created() {
-    this.fetchDefaultYear();
     this.countryCode = this.$route.params.countryCode;
   },
 
@@ -24,20 +23,18 @@ export default Vue.extend({
   },
 
   methods: {
-    fetchDefaultYear: function () {
-      axios.get("/api/bff/distinct_year").then(({ data }) => {
-        this.defaultYear = data.defaultYear;
-        window.appProperties.setDefaultYear({
-          defaultYear: data.defaultYear,
-        });
-      });
-    },
     fetchPublishedYearsForACountry(countryCode) {
       axios
         .get(`/api/countries/${countryCode}/published_years`)
         .then((response) => {
           this.years = response.data;
+          if (this.years.length && this.selectedYear === null) {
+            this.selectedYear = this.years[0];
+          }
         });
+    },
+    yearChanged(selectedYear) {
+      this.selectedYear = selectedYear;
     },
   },
 });
@@ -55,10 +52,11 @@ export default Vue.extend({
     </div>
     <div class="year-indicator year-indicator-select">
       <yearFilter
-        :selectedYear="defaultYear"
+        :selectedYear="selectedYear"
         :years="years"
         :shouldRespectTranslation="true"
         :shouldChangeWidth="true"
+        @yearChanged="yearChanged"
       />
     </div>
   </div>
