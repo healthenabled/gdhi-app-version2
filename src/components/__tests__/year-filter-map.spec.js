@@ -19,14 +19,8 @@ describe("year-filter-map", () => {
     await flushPromises();
   });
 
-  it("should fetch years, rename Version1 to Pre-2021 and filter out other non-numeric values", () => {
-    expect(wrapper.vm.years).to.deep.equal([
-      { label: "2026", value: "2026" },
-      { label: "2025", value: "2025" },
-      { label: "2024", value: "2024" },
-      { label: "2023", value: "2023" },
-      { label: "Pre-2021", value: "Version1" },
-    ]);
+  it("should fetch years and include Version1 while filtering other non-numeric values", () => {
+    expect(wrapper.vm.years).to.deep.equal(["2026", "2025", "2024", "2023", "Version1"]);
   });
 
   it("should default yearValue to empty string", () => {

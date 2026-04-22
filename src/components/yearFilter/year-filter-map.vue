@@ -40,9 +40,7 @@ export default Vue.extend({
 
     fetchYears: function () {
       axios.get("/api/bff/distinct_year").then(({ data }) => {
-        this.years = data.years.map((year) =>
-          year === "Version1" ? { label: "Pre-2021", value: "Version1" } : { label: year, value: year }
-        ).filter((year) => /^\d{4}$/.test(year.value) || year.value === "Version1");
+        this.years = data.years.filter((year) => /^\d{4}$/.test(year) || year === "Version1");
       });
     },
 
@@ -67,8 +65,8 @@ export default Vue.extend({
       :style="`background-position-x: ${getBackgroundPositionX()}`"
     >
       <option value="" class="year-filter-latest-option">{{ $t("mixed.latestAvailableData") }}</option>
-      <option v-for="year in years" :key="year.value" :value="year.value" class="year-filter-year-option">
-        {{ year.label }}
+      <option v-for="year in years" :key="year" :value="year" class="year-filter-year-option">
+        {{ year }}
       </option>
     </select>
   </div>
