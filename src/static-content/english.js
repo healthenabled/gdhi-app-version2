@@ -32,6 +32,10 @@ export const en = {
     serverErrorTitle: "Server Error",
     loading: "Loading",
     selectYear: "Select year for which date is to be displayed on the Homepage",
+    year: "Year",
+    latestData: "Latest data",
+    latestAvailableData: "Latest available data",
+    new: "NEW",
   },
   footer: {
     contactEmail: "Contact: info@digitalhealthmonitor.org",

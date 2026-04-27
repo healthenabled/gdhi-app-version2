@@ -6,6 +6,7 @@ import httpRequests from "../../common/indicator-http-requests";
 import common from "../../common/common";
 import indicatorFilter from "../indicatorFilter/indicator-filter.vue";
 import phaseFilter from "../phaseFilter/phase-filter.vue";
+import yearFilterMap from "../yearFilter/year-filter-map.vue";
 import autoSearch from "../autoSearch/auto-search.vue";
 import { EVENTS } from "../../constants";
 import CategoryImage from "../categoryImages/categoryImage.vue";
@@ -15,6 +16,7 @@ export default Vue.extend({
   components: {
     indicatorFilter,
     phaseFilter,
+    yearFilterMap,
     autoSearch,
     CategoryImage,
   },
@@ -173,6 +175,7 @@ export default Vue.extend({
       <auto-search />
       <indicatorFilter class="indicator-panel-filter-container-select" />
       <phaseFilter class="indicator-panel-filter-container-select" />
+      <yearFilterMap class="indicator-panel-filter-container-select" />
     </div>
     <div class="indicator-panel-container" v-if="!showCountryDetail">
       <div
