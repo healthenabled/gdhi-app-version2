@@ -33,6 +33,7 @@ export const ar = {
     loading: "جارٍ تحميل",
     selectYear: "حدد السنة التي سيتم عرض التاريخ فيها على الصفحة الرئيسية",
     year: "السنة",
+    latestData: "أحدث البيانات",
     latestAvailableData: "أحدث البيانات المتاحة",
     new: "جديد",
   },
