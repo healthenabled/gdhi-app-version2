@@ -126,7 +126,7 @@ describe("Data Assistant", () => {
     expect(launcher.classes()).to.contain("gdhm-assistant__launcher--invite");
     expect(
       firstWrapper.find('[data-testid="chat-launcher-invite"]').text()
-    ).to.contain("Want to know more? Ask the GDHM AI Assistant!");
+    ).to.contain(firstWrapper.vm.currentCopy.launcherPrompt);
     expect(
       firstWrapper.find('[data-testid="chat-launcher-invite-close"]').exists()
     ).to.equal(true);
@@ -153,7 +153,7 @@ describe("Data Assistant", () => {
     ).to.contain("gdhm-assistant__launcher--invite");
     expect(
       secondWrapper.find('[data-testid="chat-launcher-invite"]').text()
-    ).to.contain("Want to know more? Ask the GDHM AI Assistant!");
+    ).to.contain(secondWrapper.vm.currentCopy.launcherPrompt);
     secondWrapper.destroy();
   });
 
@@ -187,7 +187,7 @@ describe("Data Assistant", () => {
 
     expect(
       secondWrapper.find('[data-testid="chat-launcher-invite"]').text()
-    ).to.contain("Want to know more? Ask the GDHM AI Assistant!");
+    ).to.contain(secondWrapper.vm.currentCopy.launcherPrompt);
     secondWrapper.destroy();
   });
 
@@ -434,11 +434,15 @@ describe("Data Assistant", () => {
       '[data-testid="chat-download-conversation"]'
     );
 
-    expect(copyButton.attributes("title")).to.equal("Copy message");
-    expect(downloadButton.attributes("title")).to.equal(
-      "Download conversation"
+    expect(copyButton.attributes("title")).to.equal(
+      wrapper.vm.currentCopy.copyMessageAction
     );
-    expect(downloadButton.text()).to.contain("Download chat");
+    expect(downloadButton.attributes("title")).to.equal(
+      wrapper.vm.currentCopy.downloadConversationAction
+    );
+    expect(downloadButton.text()).to.contain(
+      wrapper.vm.currentCopy.downloadConversationLabel
+    );
 
     await copyButton.trigger("click");
     await flushPromises();
