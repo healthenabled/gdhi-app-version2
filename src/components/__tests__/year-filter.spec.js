@@ -1,5 +1,5 @@
 import { shallowMount } from "@vue/test-utils";
-import { describe, it, expect, beforeEach, vi } from "vitest";
+import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import yearFilter from "../defaultYearSelector/year-filter.vue";
 import { EventBus } from "../common/event-bus";
 import { i18n } from "../../plugins/i18n";
@@ -18,16 +18,20 @@ describe("year-filter", () => {
     });
   });
 
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
   it("should render Years and default Year passed to it", async () => {
     expect(wrapper.vm.$el).toMatchSnapshot();
   });
 
   it("should render Emit Event when a value is filtered", async () => {
-    vi.spyOn(EventBus, "$emit");
+    const emitSpy = vi.spyOn(EventBus, "$emit");
     const SelectElement = wrapper.find(".year-indicator-select");
     SelectElement.value = "2022";
     SelectElement.trigger("change");
-    expect(EventBus.$emit.mock.calls[0][0]).to.equal("year:filtered");
-    expect(EventBus.$emit.mock.calls[0][1]).to.equal("2022");
+    expect(emitSpy.mock.calls[0][0]).to.equal("year:filtered");
+    expect(emitSpy.mock.calls[0][1]).to.equal("2022");
   });
 });

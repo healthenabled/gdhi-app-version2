@@ -8,36 +8,41 @@ export default Vue.extend({
   components: { yearFilter },
   data() {
     return {
-      defaultYear: window.appProperties.getDefaultYear(),
+      selectedYear: null,
       years: [],
       countryCode: "",
     };
   },
 
   created() {
-    this.fetchDefaultYear();
     this.countryCode = this.$route.params.countryCode;
   },
 
   mounted() {
-    this.fetchPublishedYearsForACountry(this.countryCode);
+    if (this.countryCode) {
+      this.fetchPublishedYearsForACountry(this.countryCode);
+    }
   },
 
   methods: {
-    fetchDefaultYear: function () {
-      axios.get("/api/bff/distinct_year").then(({ data }) => {
-        this.defaultYear = data.defaultYear;
-        window.appProperties.setDefaultYear({
-          defaultYear: data.defaultYear,
-        });
-      });
+    async fetchPublishedYearsForACountry(countryCode) {
+      try {
+        const response = await axios.get(`/api/countries/${countryCode}/published_years`);
+        
+        const data = Array.isArray(response.data) ? response.data : [];
+        this.years = data;
+
+        if (this.years.length > 0 && this.selectedYear === null) {
+          this.selectedYear = this.years[0];
+        }
+      } catch (error) {
+        console.error("Error fetching published years:", error);
+        this.years = [];
+      }
     },
-    fetchPublishedYearsForACountry(countryCode) {
-      axios
-        .get(`/api/countries/${countryCode}/published_years`)
-        .then((response) => {
-          this.years = response.data;
-        });
+
+    yearChanged(selectedYear) {
+      this.selectedYear = selectedYear;
     },
   },
 });
@@ -55,10 +60,11 @@ export default Vue.extend({
     </div>
     <div class="year-indicator year-indicator-select">
       <yearFilter
-        :selectedYear="defaultYear"
+        :selectedYear="selectedYear"
         :years="years"
         :shouldRespectTranslation="true"
         :shouldChangeWidth="true"
+        @yearChanged="yearChanged"
       />
     </div>
   </div>

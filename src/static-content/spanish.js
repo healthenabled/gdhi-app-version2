@@ -33,6 +33,10 @@ export const es = {
     loading: "Cargando",
     selectYear:
       "Seleccione el año para el que se mostrará la fecha en la página de inicio",
+    year: "Año",
+    latestData: "Últimos datos",
+    latestAvailableData: "Últimos datos disponibles",
+    new: "NUEVO",
   },
   footer: {
     contactEmail: "Contacto: info@digitalhealthmonitor.org",

@@ -33,6 +33,10 @@ export const fr = {
     loading: "Chargement",
     selectYear:
       "Sélectionnez l'année pour laquelle la date doit être affichée sur la page d'accueil",
+    year: "Année",
+    latestData: "Dernières données",
+    latestAvailableData: "Dernières données disponibles",
+    new: "NOUVEAU",
   },
   footer: {
     contactEmail: "Contact: info@digitalhealthmonitor.org",

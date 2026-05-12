@@ -32,6 +32,10 @@ export const ar = {
     serverErrorTitle: "خطأ في خادم الكمبيوتر",
     loading: "جارٍ تحميل",
     selectYear: "حدد السنة التي سيتم عرض التاريخ فيها على الصفحة الرئيسية",
+    year: "السنة",
+    latestData: "أحدث البيانات",
+    latestAvailableData: "أحدث البيانات المتاحة",
+    new: "جديد",
   },
   footer: {
     contactEmail: "الاتصال: info@digitalhealthmonitor.org",
