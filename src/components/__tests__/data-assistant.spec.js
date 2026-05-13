@@ -6,30 +6,71 @@ import DataAssistant from "../dataAssistant/data-assistant.vue";
 
 const encoder = new TextEncoder();
 
-function createStreamResponse(chunks, headers = {}) {
-  const stream = new ReadableStream({
-    start(controller) {
-      chunks.forEach(({ delay, value, close }) => {
-        setTimeout(() => {
-          if (value) {
-            controller.enqueue(encoder.encode(value));
-          }
+function createHeaders(headers = {}) {
+  const normalizedHeaders = Object.entries(headers).reduce(
+    (normalized, [key, value]) => ({
+      ...normalized,
+      [key.toLowerCase()]: value,
+    }),
+    {},
+  );
 
-          if (close) {
-            controller.close();
-          }
-        }, delay);
-      });
+  return {
+    get(name) {
+      return normalizedHeaders[String(name).toLowerCase()] || null;
     },
+  };
+}
+
+function createStreamResponse(chunks, headers = {}) {
+  const readerChunks = chunks.flatMap(({ delay, value, close }) => {
+    const entries = [];
+
+    if (value) {
+      entries.push({ delay, value: encoder.encode(value), done: false });
+    }
+
+    if (close) {
+      entries.push({ delay, done: true });
+    }
+
+    return entries;
   });
 
-  return new Response(stream, {
+  return {
+    ok: true,
     status: 200,
-    headers: {
+    headers: createHeaders({
       "content-type": "text/event-stream",
       ...headers,
+    }),
+    body: {
+      getReader() {
+        let index = 0;
+
+        return {
+          read() {
+            const nextChunk = readerChunks[index];
+            index += 1;
+
+            if (!nextChunk) {
+              return Promise.resolve({ done: true });
+            }
+
+            return new Promise((resolve) => {
+              setTimeout(() => {
+                resolve({
+                  done: nextChunk.done,
+                  value: nextChunk.value,
+                });
+              }, nextChunk.delay);
+            });
+          },
+        };
+      },
     },
-  });
+    text: async () => chunks.map(({ value }) => value || "").join(""),
+  };
 }
 
 describe("Data Assistant", () => {
@@ -61,7 +102,7 @@ describe("Data Assistant", () => {
         getItem: vi.fn((key) =>
           Object.prototype.hasOwnProperty.call(storageState, key)
             ? storageState[key]
-            : null
+            : null,
         ),
         setItem: vi.fn((key, value) => {
           storageState[key] = String(value);
@@ -125,18 +166,18 @@ describe("Data Assistant", () => {
     expect(launcher.text()).to.contain("Ask GDHM");
     expect(launcher.classes()).to.contain("gdhm-assistant__launcher--invite");
     expect(
-      firstWrapper.find('[data-testid="chat-launcher-invite"]').text()
+      firstWrapper.find('[data-testid="chat-launcher-invite"]').text(),
     ).to.contain(firstWrapper.vm.currentCopy.launcherPrompt);
     expect(
-      firstWrapper.find('[data-testid="chat-launcher-invite-close"]').exists()
+      firstWrapper.find('[data-testid="chat-launcher-invite-close"]').exists(),
     ).to.equal(true);
 
     await launcher.trigger("click");
     expect(
-      firstWrapper.find('[data-testid="chat-launcher-invite"]').exists()
+      firstWrapper.find('[data-testid="chat-launcher-invite"]').exists(),
     ).to.equal(false);
     expect(firstWrapper.text()).to.contain(
-      "Hello! I can answer questions about digital health maturity across 100+ countries, including trends, regional comparisons, and indicator breakdowns. What would you like to explore?"
+      "Hello! I can answer questions about digital health maturity across 100+ countries, including trends, regional comparisons, and indicator breakdowns. What would you like to explore?",
     );
 
     firstWrapper.destroy();
@@ -149,10 +190,10 @@ describe("Data Assistant", () => {
     await secondWrapper.vm.$nextTick();
 
     expect(
-      secondWrapper.find('[data-testid="chat-launcher"]').classes()
+      secondWrapper.find('[data-testid="chat-launcher"]').classes(),
     ).to.contain("gdhm-assistant__launcher--invite");
     expect(
-      secondWrapper.find('[data-testid="chat-launcher-invite"]').text()
+      secondWrapper.find('[data-testid="chat-launcher-invite"]').text(),
     ).to.contain(secondWrapper.vm.currentCopy.launcherPrompt);
     secondWrapper.destroy();
   });
@@ -170,10 +211,10 @@ describe("Data Assistant", () => {
       .trigger("click");
 
     expect(
-      firstWrapper.find('[data-testid="chat-launcher-invite"]').exists()
+      firstWrapper.find('[data-testid="chat-launcher-invite"]').exists(),
     ).to.equal(false);
     expect(firstWrapper.find('[data-testid="chat-panel"]').exists()).to.equal(
-      false
+      false,
     );
 
     firstWrapper.destroy();
@@ -186,7 +227,7 @@ describe("Data Assistant", () => {
     await secondWrapper.vm.$nextTick();
 
     expect(
-      secondWrapper.find('[data-testid="chat-launcher-invite"]').text()
+      secondWrapper.find('[data-testid="chat-launcher-invite"]').text(),
     ).to.contain(secondWrapper.vm.currentCopy.launcherPrompt);
     secondWrapper.destroy();
   });
@@ -205,8 +246,8 @@ describe("Data Assistant", () => {
             close: true,
           },
         ],
-        { "x-response-id": "country-dashboard-001" }
-      )
+        { "x-response-id": "country-dashboard-001" },
+      ),
     );
 
     window.fetch.mockResolvedValueOnce(
@@ -220,7 +261,7 @@ describe("Data Assistant", () => {
           delay: 10,
           close: true,
         },
-      ])
+      ]),
     );
 
     const wrapper = mount(DataAssistant, {
@@ -244,7 +285,7 @@ describe("Data Assistant", () => {
     expect((wrapper.text().match(/\bYou\b/g) || []).length).to.equal(1);
 
     expect(wrapper.find('[data-testid="chat-thinking"]').exists()).to.equal(
-      true
+      true,
     );
     expect(wrapper.text()).to.contain("Thinking...");
 
@@ -255,17 +296,17 @@ describe("Data Assistant", () => {
     expect(wrapper.text()).to.contain("Hello! I am the GDHM AI Assistant.");
     expect(wrapper.find('[data-testid="chat-retry"]').exists()).to.equal(false);
     expect(wrapper.text()).not.to.contain(
-      "Which countries improved the most in the latest year?"
+      "Which countries improved the most in the latest year?",
     );
     expect(wrapper.text()).to.contain(
-      "Hello! I can answer questions about digital health maturity across 100+ countries, including trends, regional comparisons, and indicator breakdowns. What would you like to explore?"
+      "Hello! I can answer questions about digital health maturity across 100+ countries, including trends, regional comparisons, and indicator breakdowns. What would you like to explore?",
     );
     expect(wrapper.text()).to.contain("AI can make mistakes.");
 
     const firstPayload = JSON.parse(window.fetch.mock.calls[0][1].body);
     expect(window.fetch.mock.calls[0][0]).to.equal(AI_STREAM_ENDPOINT);
     expect(firstPayload.query).to.equal(
-      "What phase is Kenya in and which categories are lowest?"
+      "What phase is Kenya in and which categories are lowest?",
     );
     expect(firstPayload.responseId).to.be.a("string");
 
@@ -281,15 +322,15 @@ describe("Data Assistant", () => {
     const secondPayload = JSON.parse(window.fetch.mock.calls[1][1].body);
     expect(secondPayload.responseId).to.equal("country-dashboard-001");
     expect(wrapper.vm.messages[wrapper.vm.messages.length - 1].text).to.contain(
-      "\n### Leadership and Governance\n- **Indicator 1"
+      "\n### Leadership and Governance\n- **Indicator 1",
     );
     expect(wrapper.text()).to.contain(
-      "Certainly! Here are some indicators from the GDHM framework:"
+      "Certainly! Here are some indicators from the GDHM framework:",
     );
     expect(wrapper.text()).not.to.contain("**");
     expect(wrapper.html()).to.contain("<h3>Leadership and Governance</h3>");
     expect(wrapper.html()).to.contain(
-      "<li><strong>Indicator 1 — Dedicated digital health governance body</strong></li>"
+      "<li><strong>Indicator 1 — Dedicated digital health governance body</strong></li>",
     );
   });
 
@@ -297,7 +338,7 @@ describe("Data Assistant", () => {
     window.fetch.mockResolvedValueOnce({
       ok: false,
       status: 503,
-      headers: new Headers({
+      headers: createHeaders({
         "content-type": "text/plain",
       }),
       text: async () => "Service unavailable",
@@ -313,7 +354,7 @@ describe("Data Assistant", () => {
           delay: 10,
           close: true,
         },
-      ])
+      ]),
     );
 
     const wrapper = mount(DataAssistant, {
@@ -332,10 +373,10 @@ describe("Data Assistant", () => {
 
     expect(wrapper.find('[data-testid="chat-retry"]').exists()).to.equal(true);
     expect(wrapper.text()).to.contain(
-      "The connection was interrupted before the answer finished."
+      "The connection was interrupted before the answer finished.",
     );
     expect(wrapper.text()).to.contain(
-      "The answer stream stopped before completion."
+      "The answer stream stopped before completion.",
     );
 
     const firstPayload = JSON.parse(window.fetch.mock.calls[0][1].body);
@@ -348,7 +389,7 @@ describe("Data Assistant", () => {
     const secondPayload = JSON.parse(window.fetch.mock.calls[1][1].body);
     expect(secondPayload.responseId).to.equal(firstPayload.responseId);
     expect(wrapper.text()).to.contain(
-      "The service recovered and completed the answer."
+      "The service recovered and completed the answer.",
     );
     expect(wrapper.find('[data-testid="chat-retry"]').exists()).to.equal(false);
   });
@@ -404,7 +445,7 @@ describe("Data Assistant", () => {
           delay: 10,
           close: true,
         },
-      ])
+      ]),
     );
 
     const wrapper = mount(DataAssistant, {
@@ -425,23 +466,23 @@ describe("Data Assistant", () => {
 
     const responseMessage = wrapper.vm.messages[wrapper.vm.messages.length - 1];
     expect(responseMessage.text).to.equal(
-      "Here is a short answer with sources."
+      "Here is a short answer with sources.",
     );
     const copyButton = wrapper.find(
-      `[data-testid="chat-copy-message-${responseMessage.id}"]`
+      `[data-testid="chat-copy-message-${responseMessage.id}"]`,
     );
     const downloadButton = wrapper.find(
-      '[data-testid="chat-download-conversation"]'
+      '[data-testid="chat-download-conversation"]',
     );
 
     expect(copyButton.attributes("title")).to.equal(
-      wrapper.vm.currentCopy.copyMessageAction
+      wrapper.vm.currentCopy.copyMessageAction,
     );
     expect(downloadButton.attributes("title")).to.equal(
-      wrapper.vm.currentCopy.downloadConversationAction
+      wrapper.vm.currentCopy.downloadConversationAction,
     );
     expect(downloadButton.text()).to.contain(
-      wrapper.vm.currentCopy.downloadConversationLabel
+      wrapper.vm.currentCopy.downloadConversationLabel,
     );
 
     await copyButton.trigger("click");
@@ -453,26 +494,26 @@ describe("Data Assistant", () => {
     expect(
       wrapper
         .find(`[data-testid="chat-copy-status-${responseMessage.id}"]`)
-        .text()
+        .text(),
     ).to.contain("Copied");
     expect(
-      wrapper.find('[data-testid="chat-conversation-status"]').exists()
+      wrapper.find('[data-testid="chat-conversation-status"]').exists(),
     ).to.equal(false);
 
     await downloadButton.trigger("click");
     await wrapper.vm.$nextTick();
 
     expect(confirmMock).toHaveBeenCalledWith(
-      "Download the entire conversation?"
+      "Download the entire conversation?",
     );
     expect(clickSpy).toHaveBeenCalledTimes(1);
     expect(lastAnchor.download).to.match(
-      /^gdhm-assistant-conversation-\d{4}-\d{2}-\d{2}\.txt$/
+      /^gdhm-assistant-conversation-\d{4}-\d{2}-\d{2}\.txt$/,
     );
     expect(lastAnchor.href).to.equal("blob:mock-response");
     expect(URL.revokeObjectURL).toHaveBeenCalledWith("blob:mock-response");
     expect(
-      wrapper.find('[data-testid="chat-conversation-status"]').text()
+      wrapper.find('[data-testid="chat-conversation-status"]').text(),
     ).to.contain("Conversation download started.");
 
     createElementSpy.mockRestore();
