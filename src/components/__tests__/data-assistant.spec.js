@@ -6,30 +6,71 @@ import DataAssistant from "../dataAssistant/data-assistant.vue";
 
 const encoder = new TextEncoder();
 
-function createStreamResponse(chunks, headers = {}) {
-  const stream = new ReadableStream({
-    start(controller) {
-      chunks.forEach(({ delay, value, close }) => {
-        setTimeout(() => {
-          if (value) {
-            controller.enqueue(encoder.encode(value));
-          }
+function createHeaders(headers = {}) {
+  const normalizedHeaders = Object.entries(headers).reduce(
+    (normalized, [key, value]) => ({
+      ...normalized,
+      [key.toLowerCase()]: value,
+    }),
+    {},
+  );
 
-          if (close) {
-            controller.close();
-          }
-        }, delay);
-      });
+  return {
+    get(name) {
+      return normalizedHeaders[String(name).toLowerCase()] || null;
     },
+  };
+}
+
+function createStreamResponse(chunks, headers = {}) {
+  const readerChunks = chunks.flatMap(({ delay, value, close }) => {
+    const entries = [];
+
+    if (value) {
+      entries.push({ delay, value: encoder.encode(value), done: false });
+    }
+
+    if (close) {
+      entries.push({ delay, done: true });
+    }
+
+    return entries;
   });
 
-  return new Response(stream, {
+  return {
+    ok: true,
     status: 200,
-    headers: {
+    headers: createHeaders({
       "content-type": "text/event-stream",
       ...headers,
+    }),
+    body: {
+      getReader() {
+        let index = 0;
+
+        return {
+          read() {
+            const nextChunk = readerChunks[index];
+            index += 1;
+
+            if (!nextChunk) {
+              return Promise.resolve({ done: true });
+            }
+
+            return new Promise((resolve) => {
+              setTimeout(() => {
+                resolve({
+                  done: nextChunk.done,
+                  value: nextChunk.value,
+                });
+              }, nextChunk.delay);
+            });
+          },
+        };
+      },
     },
-  });
+    text: async () => chunks.map(({ value }) => value || "").join(""),
+  };
 }
 
 describe("Data Assistant", () => {
@@ -297,7 +338,7 @@ describe("Data Assistant", () => {
     window.fetch.mockResolvedValueOnce({
       ok: false,
       status: 503,
-      headers: new Headers({
+      headers: createHeaders({
         "content-type": "text/plain",
       }),
       text: async () => "Service unavailable",
